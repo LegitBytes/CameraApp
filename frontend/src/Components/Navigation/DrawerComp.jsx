@@ -1,16 +1,24 @@
 import React from "react";
 //Material ui core
-import {
-  Drawer,
-  Typography,
-  IconButton,
-} from "@material-ui/core";
+import { Drawer, Typography, IconButton, TextField } from "@material-ui/core";
 //Material ui icons
-import { MenuOpen } from "@material-ui/icons";
+import { Menu } from "@material-ui/icons";
 //React-router-dom
 import { withRouter } from "react-router-dom";
 import clsx from "clsx";
-import TreeView from "../TreeView/TreeView"
+import TreeView from "../TreeView/TreeView";
+import Logo from "../../Assets/Logo.png";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles"
+
+const getMuiTheme = () => createMuiTheme({
+  overrides: {
+    MuiInputBase:{
+      root:{
+        background: "#fff"
+      }
+    }
+  }
+})
 
 const DrawerComp = (props) => {
   const {
@@ -22,8 +30,12 @@ const DrawerComp = (props) => {
     isMobile,
   } = props;
 
+  const theme = getMuiTheme()
+
+
+
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <Drawer
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -39,24 +51,29 @@ const DrawerComp = (props) => {
         elevation={0}
       >
         <div className={classes.drawerHeader}>
-          {open && (
-            <Typography
-              variant="h4"
-              noWrap
-              color="primary"
-              className={classes.brandStylesII}
-              align="left"
-            >
-              Smart Alert
-            </Typography>
-          )}
-          <IconButton onClick={handleDrawerClose}>
-            <MenuOpen color="primary" />
-          </IconButton>
+          <div className={classes.alignItemsCenter}>
+            <img
+              src={Logo}
+              alt="Logo"
+              style={{ width: 40, height: 40, marginRight: -17 }}
+            />
+            {open && (
+              <span
+                variant="h4"
+                noWrap
+                color="primary"
+                className={classes.brandStylesII}
+                align="left"
+              >
+                Smart Alert
+              </span>
+            )}
+          </div>
         </div>
-            <TreeView />
+          <TextField variant="outlined" placeholder="Filter for Customer / Site / Camera" size="small" className={classes.filterStyles}/>
+        <TreeView />
       </Drawer>
-    </div>
+    </ThemeProvider>
   );
 };
 

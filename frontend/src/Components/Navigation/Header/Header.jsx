@@ -4,14 +4,13 @@ import { AppBar, Toolbar, Typography, IconButton } from "@material-ui/core";
 //Material ui icons
 import { Menu as MenuIcon } from "@material-ui/icons";
 //Shared components
-import DesktopView from "./DesktopView"; 
-import MobileView from "./MobileView/MobileView"
+import DesktopView from "./DesktopView";
+import MobileView from "./MobileView/MobileView";
+import Logo from "../../../Assets/Logo.png";
+
 
 const Header = (props) => {
-  const { classes, open, handleDrawerOpen, isMobile } = props;
-
-
-
+  const { classes, open, handleDrawerOpen, handleDrawerClose, isMobile } = props;
 
   return (
     <AppBar
@@ -30,21 +29,39 @@ const Header = (props) => {
           edge="start"
           className={clsx(classes.menuButton, open && classes.hide)}
         >
-          <MenuIcon color="primary" />
+          <MenuIcon style={{ width: 35, height: 35, color: "#707070" }} />
         </IconButton>
 
         {!open && (
-          <Typography
-            variant="h4"
-            noWrap
-            color="primary"
-            className={clsx(classes.brandStylesI, isMobile && classes.dNone)}
-          >
-            Smart Alert
-          </Typography>
+          <div className={classes.brandDiv}>
+            <img
+              src={Logo}
+              alt="Logo"
+              style={{ width: 40, height: 40, marginRight: 5 }}
+            />
+            <span className={classes.brandStylesI} align="left">
+              Smart Alert
+            </span>
+          </div>
         )}
+
+        {
+          open && <IconButton
+          color="inherit"
+          onClick={handleDrawerClose}
+          edge="start"
+          // className={classes.menuButtonII}
+        >
+          <MenuIcon style={{ width: 35, height: 35, color: "#707070" }} />
+        </IconButton>
+        }
+
         <div className={classes.spacing} />
-        {!isMobile ? <DesktopView classes={classes} /> : <MobileView classes={classes}/>}
+        {!isMobile ? (
+          <DesktopView classes={classes} />
+        ) : (
+          <MobileView classes={classes} />
+        )}
       </Toolbar>
     </AppBar>
   );

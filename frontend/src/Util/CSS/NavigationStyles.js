@@ -28,7 +28,10 @@ export const useNavigationStyles = (open) => {
       }),
     },
     menuButton: {
-      marginRight: 36,
+      marginRight: 5,
+    },
+    menuButtonII: {
+      marginLeft: 250,
     },
     hide: {
       display: "none",
@@ -67,14 +70,14 @@ export const useNavigationStyles = (open) => {
       alignItems: "center",
       padding: theme.spacing(0, 1),
       ...theme.mixins.toolbar,
-      justifyContent: "space-between",
+      justifyContent: "center",
       background: dark ? "#334259" : "#334259",
       border: "#707070",
     },
     content: {
       flexGrow: 1,
       padding: theme.spacing(3),
-      backgroundColor: "#EDEDED" ,
+      backgroundColor: "#EDEDED",
       minHeight: "768px",
       height: "100%",
     },
@@ -87,13 +90,13 @@ export const useNavigationStyles = (open) => {
     },
     brandStylesI: {
       fontWeight: "bold",
-      fontSize: 23
+      fontSize: 23,
+      color: "#fff",
     },
     brandStylesII: {
-      fontWeight: "bold",
       marginLeft: "20px",
       color: "#fff",
-      fontSize: 23
+      fontSize: 18,
     },
     active: {
       color: "#09C491",
@@ -111,9 +114,9 @@ export const useNavigationStyles = (open) => {
       marginLeft: "20px",
     },
     accountIconStyles: {
-      color: "#09C491",
-      width: "35px",
-      height: "35px",
+      color: "#707070",
+      width: 43,
+      height: 43,
     },
     dNone: {
       display: "none",
@@ -122,6 +125,19 @@ export const useNavigationStyles = (open) => {
       marginLeft: 10,
       marginTop: 60,
     },
+    alignItemsCenter: {
+      display: "flex",
+      alignItems: "center",
+    },
+    brandDiv: {
+      display: "flex",
+      alignItems: "center",
+      background: "#28344B",
+      padding: 14,
+    },
+    filterStyles: {
+      margin: "0 5% 20px 5%"
+    }
   }));
 
   const classes = useStyles();

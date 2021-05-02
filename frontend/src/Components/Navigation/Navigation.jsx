@@ -7,7 +7,7 @@ import DrawerComp from "./DrawerComp";
 //utils
 import { useNavigationStyles } from "../../Util/CSS/NavigationStyles";
 import { useTheme } from "@material-ui/core/styles";
-
+ 
 const Navigation = (props) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -34,6 +34,7 @@ const Navigation = (props) => {
         classes={classes}
         open={open}
         handleDrawerOpen={handleDrawerOpen}
+        handleDrawerClose={handleDrawerClose}
         isMobile={isMobile}
       />
       <DrawerComp

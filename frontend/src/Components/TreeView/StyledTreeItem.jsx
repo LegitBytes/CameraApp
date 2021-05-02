@@ -6,16 +6,16 @@ import { Typography } from "@material-ui/core"
 const useTreeItemStyles = makeStyles(theme => ({
     content: {
       flexDirection: "row-reverse",
+      color: "#fff"
     },
     labelRoot: {
       display: "flex",
       alignItems: "center",
-      padding: theme.spacing(0.5, 0)
+      padding: theme.spacing(0.5, 0),
     },
     labelText: { 
       fontWeight: "inherit",
       flexGrow: 1,
-      color: "#fff"
     }
   }));
   
@@ -27,7 +27,7 @@ const useTreeItemStyles = makeStyles(theme => ({
       <TreeItem
         label={
           <div className={classes.labelRoot}>
-            <Typography variant="body2" className={classes.labelText}>
+            <Typography variant="body1" className={classes.labelText}>
               {labelText}
             </Typography>
           </div>

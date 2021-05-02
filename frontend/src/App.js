@@ -1,18 +1,20 @@
-import React, { useContext } from "react";
+// import React, { useContext } from "react";
+import React from "react";
 import Navigation from "./Components/Navigation/Navigation";
 
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { ThemeContext } from "./Context/Theme";
+// import { ThemeContext } from "./Context/Theme";
 
 const App = () => {
-  const { dark } = useContext(ThemeContext);
+  // const { dark } = useContext(ThemeContext);
 
   const theme = createMuiTheme({
     palette: {
-      type: dark ? "dark" : "light",
-      primary: {
-        main: dark ? "#c0cdd8" : "#445B6E",
-      },
+      // type: dark ? "dark" : "light",
+      type:"light",
+      // primary: {
+      //   main: dark ? "#c0cdd8" : "#445B6E",
+      // },
     },
     breakpoints: {
       values: {
