@@ -18,13 +18,11 @@ const Navigation = (props) => {
     setOpen(openVal);
   }, [isMobile]);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  const handleDrawerChange = () => {
+    setOpen(!open);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  
 
   return (
     <div className={classes.root}>
@@ -33,14 +31,12 @@ const Navigation = (props) => {
       <Header
         classes={classes}
         open={open}
-        handleDrawerOpen={handleDrawerOpen}
-        handleDrawerClose={handleDrawerClose}
+        handleDrawerChange={handleDrawerChange}
         isMobile={isMobile}
       />
       <DrawerComp
         classes={classes}
         open={open}
-        handleDrawerClose={handleDrawerClose}
         isMobile={isMobile}
       />
 

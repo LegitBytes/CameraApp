@@ -10,7 +10,7 @@ import Logo from "../../../Assets/Logo.png";
 
 
 const Header = (props) => {
-  const { classes, open, handleDrawerOpen, handleDrawerClose, isMobile } = props;
+  const { classes, open, handleDrawerChange, isMobile } = props;
 
   return (
     <AppBar
@@ -25,9 +25,9 @@ const Header = (props) => {
         <IconButton
           color="inherit"
           aria-label="open drawer"
-          onClick={handleDrawerOpen}
+          onClick={handleDrawerChange}
           edge="start"
-          className={clsx(classes.menuButton, open && classes.hide)}
+          className={classes.menuButton}
         >
           <MenuIcon style={{ width: 35, height: 35, color: "#707070" }} />
         </IconButton>
@@ -45,7 +45,7 @@ const Header = (props) => {
           </div>
         )}
 
-        {
+        {/* {
           open && <IconButton
           color="inherit"
           onClick={handleDrawerClose}
@@ -54,7 +54,7 @@ const Header = (props) => {
         >
           <MenuIcon style={{ width: 35, height: 35, color: "#707070" }} />
         </IconButton>
-        }
+        } */}
 
         <div className={classes.spacing} />
         {!isMobile ? (
