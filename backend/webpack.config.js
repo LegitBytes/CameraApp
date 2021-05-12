@@ -7,13 +7,13 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const glob = require('glob');
 const _ = require('lodash');
 
-const migrationFiles = glob.sync('./api_database/migrations/*');
+const migrationFiles = glob.sync('./database/migrations/*');
 const migrationEntries = migrationFiles.reduce((acc, migrationFile) => {
   const entryName = migrationFile.substring(
       migrationFile.lastIndexOf('/') + 1,
       migrationFile.lastIndexOf('.'),
   );
-  acc['data_review_api/src/functions/migrate/migrations/' + entryName] = migrationFile;
+  acc['./functions/migrate/migrations/' + entryName] = migrationFile;
   return acc;
 }, {});
 
@@ -71,7 +71,7 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        {from: 'api_database/config/rds-combined-ca-bundle.pem', to: 'data_review_api/src/functions/rds-combined-ca-bundle.pem'},
+        {from: './database/config/rds-combined-ca-bundle.pem', to: './functions/rds-combined-ca-bundle.pem'},
       ]}),
   ],
   stats: 'minimal',
