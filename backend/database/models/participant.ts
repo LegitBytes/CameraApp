@@ -24,10 +24,10 @@ export const participant = (sequelize: Sequelize) => {
         */
         static associate(models: typeof db) {
           // define associations here
-          participant.hasMany(models.gateway, {foreignKey: 'participant_id'});
+          // participant.hasMany(models.gateway, {foreignKey: 'participant_id'});
           // participant.hasMany(models.participant_condition, {foreignKey: 'participant_id'});
           participant.belongsToMany(models.condition, {through: 'participant_condition', foreignKey: 'participant_id'});
-          participant.hasMany(models.participant_review, {foreignKey: 'participant_id'});
+          // participant.hasMany(models.participant_review, {foreignKey: 'participant_id'});
         }
   };
   participant.init({

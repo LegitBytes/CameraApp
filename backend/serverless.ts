@@ -1,9 +1,9 @@
 import type {AWS} from '@serverless/typescript';
 
 import getParticipantMetadata from '@functions/getParticipantMetadata';
-import getParticipants from '@functions/getParticipants';
-import putParticipantReview from '@functions/putParticipantReview';
-import migrate from '@functions/migrate';
+// import getParticipants from '@functions/getParticipants';
+// import putParticipantReview from '@functions/putParticipantReview';
+// import migrate from '@functions/migrate';
 
 const serverlessConfiguration: AWS = {
   service: 'nathan-api',
@@ -23,12 +23,15 @@ const serverlessConfiguration: AWS = {
       },
     },
   },
-  package: {
-    patterns: [
-      '../api_database/*',
-    ],
-  },
-  plugins: ['serverless-webpack'],
+  // package: {
+  //   patterns: [
+  //     '../api_database/*',
+  //   ],
+  // },
+  plugins: [
+    'serverless-offline',
+    'serverless-webpack'
+  ],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
@@ -48,9 +51,12 @@ const serverlessConfiguration: AWS = {
   // import the function via paths
   functions: {
     getParticipantMetadata,
-    getParticipants,
-    putParticipantReview,
-    migrate,
+    // getParticipants,
+    // putParticipantReview,
+    // migrate,
+
+
+    
   },
   resources: {
     Resources: {
