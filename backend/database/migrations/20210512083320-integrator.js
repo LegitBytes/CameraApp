@@ -10,6 +10,9 @@ module.exports = {
         primaryKey: true,
         defaultValue : Sequelize.UUIDV4,
       },
+      name :{
+        type : Sequelize.STRING
+      },
 
       email : {
           type : Sequelize.STRING,
@@ -22,6 +25,10 @@ module.exports = {
           validate : {
               len : [10, 10]
           }
+      },
+      isDisabled : {
+        type : Sequelize.BOOLEAN,
+        default : false
       },
       createdAt: {
         type: Sequelize.DATE,

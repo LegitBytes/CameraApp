@@ -1,9 +1,6 @@
 import type {AWS} from '@serverless/typescript';
 
-import getParticipantMetadata from '@functions/getParticipantMetadata';
-// import getParticipants from '@functions/getParticipants';
-// import putParticipantReview from '@functions/putParticipantReview';
-// import migrate from '@functions/migrate';
+import {addIntegrator, updateIntegrator, getAllIntegrator, getSingleIntegrator, deleteIntegrator}  from '@functions/integratorCrud'
 
 const serverlessConfiguration: AWS = {
   service: 'nathan-api',
@@ -50,13 +47,11 @@ const serverlessConfiguration: AWS = {
   },
   // import the function via paths
   functions: {
-    getParticipantMetadata,
-    // getParticipants,
-    // putParticipantReview,
-    // migrate,
-
-
-    
+    addIntegrator,
+    updateIntegrator,
+    getAllIntegrator,
+    getSingleIntegrator,
+    deleteIntegrator
   },
   resources: {
     Resources: {

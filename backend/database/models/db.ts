@@ -1,9 +1,7 @@
 /* eslint-disable camelcase */
 import {Sequelize} from 'sequelize';
-import {dbconfig} from '../config/config';
+import dbconfig from '../config/config';
 import * as AWS from 'aws-sdk';
-import {participant} from './participant';
-import {condition} from './condition';
 import {camera} from './camera'
 import {customer_camera} from './customer_camera';
 import {customer_location} from './customer_location';
@@ -20,10 +18,11 @@ import {integrator} from './integrator';
 // import {participant_adt} from './participant_adt';
 // import {participant_condition} from './participant_condition';
 
-const env = process.env.NODE_ENV || 'local';
+// const env = process.env.NODE_ENV || 'local';
+const env = 'local';
 const config = dbconfig[env];
 let password: string;
-
+console.log("env is", env)
 if (env != 'local') {
   const signer = new AWS.RDS.Signer();
   password = signer.getAuthToken({
@@ -37,14 +36,24 @@ if (env != 'local') {
 }
 
 const sequelize = new Sequelize(
-    config.database, config.username, password, config,
+    // config.database, config.username, password, {
+     'cameraApp_development', 'postgres', 'awab2027' , {
+      host: config.host,
+      dialect : 'postgres'
+    },
 );
 
+(async ()=>{
+  try {
+    console.log("inside functions")
+      await sequelize.authenticate();
+      console.log("connection established ")
+  } catch(e){
+      console.log("unable to connect")
+  }
+})(); 
+
 const db = {
- /* to be deleted */
-  participant: participant(sequelize),
-  condition: condition(sequelize),
-  /* to be deleted*/
 
   camera : camera(sequelize),
   customer_camera : customer_camera(sequelize),

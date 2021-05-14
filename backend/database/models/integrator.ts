@@ -30,12 +30,20 @@ export const integrator = (sequelize: Sequelize) => {
             validate : {
                 len : [10, 10]
             }
+        },
+        name  :{
+            type : DataTypes.STRING
+        },
+        isDisabled : {
+            type : DataTypes.BOOLEAN,
+            defaultValue : false
         }
 
     }, {
         timestamps: true,
         sequelize,
         modelName: 'integrator',
+        freezeTableName : true
     });
     return integrator
 };

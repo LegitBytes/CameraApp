@@ -2,7 +2,7 @@ import style from './logger';
 import * as fs from 'fs';
 import * as path from 'path';
 
-export const dbconfig = {
+export default {
   'local': {
     'username': process.env.DB_USERNAME,
     'password': process.env.DB_PASSWORD,
