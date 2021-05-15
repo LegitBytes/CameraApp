@@ -5,8 +5,6 @@ import {middyfy} from '@libs/lambda';
 
 import db from '@models/db';
 
-
-
 const addIntegrator: ValidatedEventAPIGatewayProxyEvent<typeof addIntegratorSchema> = async (event : any)=>{
     try {
         let user = await db.integrator.create({
@@ -41,43 +39,51 @@ interface update {
 }
 const updateintegrator = async (event)=>{
 
-    let toUpdate : update= {};
-    if(event.body.name){
-        toUpdate.name = event.body.name
-    }
-    if(event.body.phone){
-        toUpdate.phone = event.body.phone
-    }
-    if(event.body.email){
-        toUpdate.email = event.body.email
-    }
-    if(event.body.isDisabled){
-        toUpdate.isDisabled = event.body.isDisabled
-    }
+    try {
+        let toUpdate : update= {};
+        if(event.body.name){
+            toUpdate.name = event.body.name
+        }
+        if(event.body.phone){
+            toUpdate.phone = event.body.phone
+        }
+        if(event.body.email){
+            toUpdate.email = event.body.email
+        }
+        if(event.body.isDisabled){
+            toUpdate.isDisabled = event.body.isDisabled
+        }
 
-    if(!event.pathParameters || !event.pathParameters.integratorId){
+        if(!event.pathParameters || !event.pathParameters.integratorId){
+            return formatJSONResponse({
+                success : false,
+                message : "Provide Integrator Id"
+            })
+        }
+
+        let integratorId : string = event.pathParameters.integratorId
+        console.log(integratorId)
+        console.log("toUpdate", toUpdate)
+        let user = await db.integrator.update( toUpdate,
+        {
+            where : {
+                integratorId : integratorId
+            }
+        })
+
+        return formatJSONResponse({
+            success : true,
+            body : {
+                user
+            }
+        })
+    }catch(e){
         return formatJSONResponse({
             success : false,
-            message : "Provide Integrator Id"
+            e : e
         })
     }
-
-    let integratorId : string = event.pathParameters.integratorId
-    console.log(integratorId)
-    console.log("toUpdate", toUpdate)
-    let user = await db.integrator.update( toUpdate,
-    {
-        where : {
-            integratorId : integratorId
-        }
-    })
-
-    return formatJSONResponse({
-        success : true,
-        body : {
-            user
-        }
-    })
+    
 }
 
 const fetchIntegrator = async (event)=>{

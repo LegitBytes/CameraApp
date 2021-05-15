@@ -36,8 +36,7 @@ if (env != 'local') {
 }
 
 const sequelize = new Sequelize(
-    // config.database, config.username, password, {
-     'cameraApp_development', 'postgres', 'awab2027' , {
+    config.database, config.username, password, {
       host: config.host,
       dialect : 'postgres'
     },
