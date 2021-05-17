@@ -41,7 +41,7 @@ const updateuser = async (event)=>{
 
     try {
       
-        const toUpdate = {...event.body}
+        const toUpdate : update = {...event.body}
       
         if(!event.pathParameters || !event.pathParameters.userId){
             return formatJSONResponse({
@@ -50,7 +50,7 @@ const updateuser = async (event)=>{
             })
         }
 
-        const userId : string = event.pathParameters.integratorId;
+        const userId : string = event.pathParameters.userId;
 
         console.log("toUpdate", toUpdate)
         const user = await db.user.update( toUpdate,
@@ -67,6 +67,7 @@ const updateuser = async (event)=>{
             }
         })
     }catch(e){
+        console.error(e)
         return formatJSONResponse({
             success : false,
             e : e
@@ -129,7 +130,7 @@ const delete_user  = async (event)=>{
                 }
             })
         }
-        let userId = event.pathParameters.integratorId;
+        let userId = event.pathParameters.userId;
 
         await db.user.destroy({
             where : {
@@ -139,11 +140,12 @@ const delete_user  = async (event)=>{
         return formatJSONResponse({
             success : true,
             body : {
-                message : 'Integrator is deleted'
+                message : 'User is deleted'
             }
         })
 
     } catch(e){
+        console.error(e);
         return formatJSONResponse({
             success : false,
             e : e

@@ -53,7 +53,7 @@ export const getSingleuser = {
         {
             http:{
                 method: 'get',
-                path: 'integrator/getSingleUser/{integratorId}/{userId}',
+                path: 'integrator/getSingleUser/{userId}',
             }
         }
     ]
@@ -65,7 +65,7 @@ export const deleteuser = {
         {
             http:{
                 method: 'delete',
-                path: 'integrator/deleteuser/{integratorId}/{userId}',
+                path: 'integrator/deleteuser/{userId}',
             }
         }
     ]
