@@ -15,19 +15,6 @@ import schema from "./schema";
 const addNewGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event: any
 ) => {
-  if (!event.body) {
-    return formatJSONResponseStatusBadRequest({
-      message: "Please provide Group details.",
-    });
-  } else if (!event.body.groupName) {
-    return formatJSONResponseStatusBadRequest({
-      message: "Please provide Group Name.",
-    });
-  } else if (!event.body) {
-    return formatJSONResponseStatusBadRequest({
-      message: "Please provide Group status.",
-    });
-  }
   const group: GroupRequest = { ...event.body };
   try {
     const savedGroup = await db.group.create({ group });
@@ -81,18 +68,6 @@ const updateGroup = async (event) => {
   if (!event.pathParameters || !event.pathParameters.groupId) {
     return formatJSONResponseStatusBadRequest({
       message: "Please provide Group ID.",
-    });
-  } else if (!event.body) {
-    return formatJSONResponseStatusBadRequest({
-      message: "Please provide Group details.",
-    });
-  } else if (!event.body.groupName) {
-    return formatJSONResponseStatusBadRequest({
-      message: "Please provide Group Name.",
-    });
-  } else if (!event.body) {
-    return formatJSONResponseStatusBadRequest({
-      message: "Please provide Group status.",
     });
   }
   const group: GroupRequest = { ...event.body };
