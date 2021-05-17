@@ -1,5 +1,8 @@
 import {
-  formatJSONResponse,
+  formatJSONResponseStatusCreated,
+  formatJSONResponseStatusOk,
+  formatJSONResponseStatusBadRequest,
+  formatJSONResponseStatusError,
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
 import { middyfy } from "@libs/lambda";
@@ -8,25 +11,45 @@ import GroupRequest from "./payload/request/GroupRequest";
 import { GroupResponse } from "./payload/response/GroupResponse";
 import schema from "./schema";
 
+// Add a new Group
 const addNewGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event: any
 ) => {
+  if (!event.body) {
+    return formatJSONResponseStatusBadRequest({
+      message: "Please provide Group details.",
+    });
+  } else if (!event.body.groupName) {
+    return formatJSONResponseStatusBadRequest({
+      message: "Please provide Group Name.",
+    });
+  } else if (!event.body) {
+    return formatJSONResponseStatusBadRequest({
+      message: "Please provide Group status.",
+    });
+  }
   const group: GroupRequest = { ...event.body };
   try {
     const savedGroup = await db.group.create({ group });
-    return formatJSONResponse({
+    return formatJSONResponseStatusCreated({
       message: "Group saved successfully...",
       savedGroup,
     });
   } catch (err) {
     console.error(err);
-    return formatJSONResponse({
+    return formatJSONResponseStatusError({
       message: "Some Error occured can't add the group " + err,
     });
   }
 };
 
+// Find Group by ID.
 const findGroupById = async (event) => {
+  if (!event.pathParameters || !event.pathParameters.groupId) {
+    return formatJSONResponseStatusBadRequest({
+      message: "Please provide Group ID.",
+    });
+  }
   const groupId = event.pathParameters.groupId;
   try {
     const group: GroupResponse = await db.group.findOne({
@@ -34,37 +57,53 @@ const findGroupById = async (event) => {
         groupId,
       },
     });
-    return formatJSONResponse({
+    return formatJSONResponseStatusOk({
       group,
     });
   } catch (err) {
     console.error(err);
-    return formatJSONResponse({
+    return formatJSONResponseStatusError({
       message: "Some Error occured can't find the group " + err,
     });
   }
 };
 
+// Find All group details
 const findAllGroups = async () => {
-  console.log("Find all Groups");
-
   const groups: GroupResponse[] = await db.group.findAll({});
-  return formatJSONResponse({
+  return formatJSONResponseStatusOk({
     groups,
   });
 };
 
+// Update Group
 const updateGroup = async (event) => {
+  if (!event.pathParameters || !event.pathParameters.groupId) {
+    return formatJSONResponseStatusBadRequest({
+      message: "Please provide Group ID.",
+    });
+  } else if (!event.body) {
+    return formatJSONResponseStatusBadRequest({
+      message: "Please provide Group details.",
+    });
+  } else if (!event.body.groupName) {
+    return formatJSONResponseStatusBadRequest({
+      message: "Please provide Group Name.",
+    });
+  } else if (!event.body) {
+    return formatJSONResponseStatusBadRequest({
+      message: "Please provide Group status.",
+    });
+  }
   const group: GroupRequest = { ...event.body };
   const groupId = event.pathParameters.groupId;
-
   try {
     const updatedGroup = await db.group.update(group, {
       where: {
         groupId,
       },
     });
-    return formatJSONResponse({
+    return formatJSONResponseStatusOk({
       success: true,
       body: {
         message: "Group updated successfully...",
@@ -72,13 +111,19 @@ const updateGroup = async (event) => {
       },
     });
   } catch (err) {
-    return formatJSONResponse({
+    return formatJSONResponseStatusError({
       message: "Some Error occured can't update the group..." + err,
     });
   }
 };
 
+// Remove the group.
 const removeGroup = async (event) => {
+  if (!event.pathParameters || !event.pathParameters.groupId) {
+    return formatJSONResponseStatusBadRequest({
+      message: "Please provide Group ID.",
+    });
+  }
   const groupId = event.pathParameters.groupId;
   try {
     await db.group.destroy({
@@ -86,14 +131,14 @@ const removeGroup = async (event) => {
         groupId,
       },
     });
-    return formatJSONResponse({
+    return formatJSONResponseStatusOk({
       success: true,
       body: {
         message: "Group deleted successfully...",
       },
     });
   } catch (err) {
-    return formatJSONResponse({
+    return formatJSONResponseStatusError({
       message: "Some Error occured can't delete the group..." + err,
     });
   }
