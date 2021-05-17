@@ -17,7 +17,7 @@ const addNewGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 ) => {
   const group: GroupRequest = { ...event.body };
   try {
-    const savedGroup = await db.group.create({ group });
+    const savedGroup = await db.group.create(group);
     return formatJSONResponseStatusCreated({
       message: "Group saved successfully...",
       savedGroup,
