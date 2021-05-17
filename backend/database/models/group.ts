@@ -12,8 +12,8 @@ export const group = (sequelize: Sequelize) => {
 
     static associate(models: typeof db) {
       models.group.hasMany(models.user, { foreignKey: "groupId" });
-      models.user.belongsTo(models.group);
-      models.group.belongsTo(models.integrator);
+      models.user.belongsTo(models.group, {foreignKey : 'groupId'});
+      models.group.belongsTo(models.integrator, {foreignKey : 'integratorId'});
     }
   }
   group.init(

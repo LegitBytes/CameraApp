@@ -7,7 +7,7 @@ export const adUserSchema = {
         email : {
             type : "string"
         },
-        organisationId : {
+        groupId : {
             type :"string"
         },
         integratorId : {
@@ -15,7 +15,7 @@ export const adUserSchema = {
         }
 
     },
-    required : ['name', 'email', 'organisationId', 'integratorId']
+    required : ['name', 'email', 'groupId', 'integratorId']
 }
 
 export const updateUserSchema = {
@@ -30,7 +30,7 @@ export const updateUserSchema = {
         isDisabled : {
             type : 'boolean'
         },
-        organisationId : {
+        groupId : {
             type : 'string'
         },
 

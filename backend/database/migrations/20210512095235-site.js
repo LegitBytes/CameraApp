@@ -20,11 +20,11 @@ module.exports = {
             type : Sequelize.STRING,
             allowNull : false
         },
-        organisationId : {
+        groupId : {
             type: Sequelize.UUID,
             references: {
-              model: 'organisation',
-              key: 'organisationId',
+              model: 'groups',
+              key: 'groupId',
             },
         },
         integratorId : {

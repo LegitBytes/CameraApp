@@ -10,13 +10,7 @@ import {customer} from './customer';
 import{organisation} from './organisation';
 import {site} from './site';
 import {integrator} from './integrator';
-
-// import {gateway} from './gateway';
-// import {device} from './device';
-// import {participant_review} from './participant_review';
-// import {cough_file} from './cough_file';
-// import {participant_adt} from './participant_adt';
-// import {participant_condition} from './participant_condition';
+import { group } from './group';
 
 // const env = process.env.NODE_ENV || 'local';
 const env = 'local';
@@ -63,6 +57,7 @@ const db = {
   organisation : organisation(sequelize),
   site : site(sequelize),
   integrator : integrator(sequelize),
+  group : group(sequelize),
   sequelize
 }
 Object.keys(db).forEach((modelName) => {

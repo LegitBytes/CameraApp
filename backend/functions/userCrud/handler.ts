@@ -1,5 +1,5 @@
-import {adUserSchema} from './schema';
-import type {ValidatedEventAPIGatewayProxyEvent} from '@libs/apiGateway';
+// import {adUserSchema} from './schema';
+// import type {ValidatedEventAPIGatewayProxyEvent} from '@libs/apiGateway';
 import {formatJSONResponse } from '@libs/apiGateway';
 import {middyfy} from '@libs/lambda';
 
@@ -11,7 +11,7 @@ const addUser = async (event : any)=>{
         let user = await db.user.create({
             name : event.body.name,
             email : event.body.email,
-            organisationId : event.body.organisationId,
+            groupId : event.body.groupId,
             integratorId : event.body.integratorId
         })
 
@@ -19,7 +19,7 @@ const addUser = async (event : any)=>{
             body : {
                 data : event.body,
                 message :"Data save successfully",
-                // user
+                user
             }
         })
 
@@ -34,28 +34,15 @@ interface update {
     name ?: string,
     email ?: string,
     isDisabled ?: boolean,
-    organisationId ?: string,
+    groupId ?: string,
     integratorId ?: string
 }
 const updateuser = async (event)=>{
 
     try {
-        let toUpdate : update= {};
-        if(event.body.name){
-            toUpdate.name = event.body.name
-        }
-        if(event.body.organisationId){
-            toUpdate.organisationId = event.body.phone
-        }
-        if(event.body.integratorId){
-            toUpdate.organisationId = event.body.integratorId
-        }
-        if(event.body.email){
-            toUpdate.email = event.body.email
-        }
-        if(event.body.isDisabled){
-            toUpdate.isDisabled = event.body.isDisabled
-        }
+      
+        const toUpdate = {...event.body}
+      
         if(!event.pathParameters || !event.pathParameters.userId){
             return formatJSONResponse({
                 success : false,
@@ -63,10 +50,10 @@ const updateuser = async (event)=>{
             })
         }
 
-        let userId : string = event.pathParameters.integratorId;
+        const userId : string = event.pathParameters.integratorId;
 
         console.log("toUpdate", toUpdate)
-        let user = await db.user.update( toUpdate,
+        const user = await db.user.update( toUpdate,
         {
             where : {
                 userId : userId

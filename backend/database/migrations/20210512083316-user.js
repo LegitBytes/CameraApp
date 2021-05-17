@@ -10,12 +10,12 @@ module.exports = {
           allowNull: false,
           primaryKey: true,
         },
-        organisationId :{
+        groupId :{
             type : Sequelize.UUID,
             allowNull: false,
             references : {
-              model : 'organisation',
-              key : 'organisationId'
+              model : 'groups',
+              key : 'groupId'
             }
         },
         integratorId : {

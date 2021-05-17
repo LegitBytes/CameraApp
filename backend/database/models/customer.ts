@@ -3,7 +3,6 @@ import db from './db';
 
 export const customer = (sequelize: Sequelize) => {
     class customer extends Model{
-        public location_id!: number;
 
         static associate(models: typeof db) {
             customer.hasMany(models.site, {foreignKey : 'customerId'});

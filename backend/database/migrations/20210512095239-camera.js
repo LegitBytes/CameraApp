@@ -12,12 +12,12 @@ module.exports = {
       cameraAliases :{
           type : Sequelize.STRING
       },
-      organisationId :{
+      groupId :{
           type : Sequelize.UUID,
           allowNull: false,
           references : {
-            model : 'organisation',
-            key : 'organisationId'
+            model : 'groups',
+            key : 'groupId'
           }
       },
       siteId :{

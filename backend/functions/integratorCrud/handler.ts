@@ -15,7 +15,6 @@ const addIntegrator: ValidatedEventAPIGatewayProxyEvent<typeof addIntegratorSche
 
 
         return formatJSONResponse({
-            "type" : typeof addIntegratorSchema,
             body : {
                 data : event.body,
                 message :"Data save successfully",

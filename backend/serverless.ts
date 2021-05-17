@@ -1,10 +1,8 @@
 import type { AWS } from "@serverless/typescript";
 
-<<<<<<< HEAD
 import {addIntegrator, updateIntegrator, getAllIntegrator, getSingleIntegrator, deleteIntegrator}  from '@functions/integratorCrud'
 
 import {addUser, updateUser,getAllUsers, getSingleuser,deleteuser} from '@functions/userCrud'
-=======
 import {
   addNewGroup,
   findGroupById,
@@ -12,7 +10,6 @@ import {
   updateGroup,
   removeGroup,
 } from "@functions/group";
->>>>>>> a77f7b667afe1c5bd23889e147b3ebfe359e1d1c
 
 const serverlessConfiguration: AWS = {
   service: "nathan-api",
@@ -27,7 +24,6 @@ const serverlessConfiguration: AWS = {
       },
     },
   },
-<<<<<<< HEAD
   // package: {
   //   patterns: [
   //     '../api_database/*',
@@ -37,12 +33,9 @@ const serverlessConfiguration: AWS = {
     'serverless-offline',
     'serverless-webpack'
   ],
-=======
   package: {
     patterns: ["../api_database/*"],
   },
-  plugins: ["serverless-webpack", "serverless-offline"],
->>>>>>> a77f7b667afe1c5bd23889e147b3ebfe359e1d1c
   provider: {
     name: "aws",
     runtime: "nodejs14.x",
@@ -61,7 +54,6 @@ const serverlessConfiguration: AWS = {
   },
   // import the function via paths
   functions: {
-<<<<<<< HEAD
     addIntegrator,
     updateIntegrator,
     getAllIntegrator,
@@ -71,14 +63,12 @@ const serverlessConfiguration: AWS = {
     updateUser,
     getAllUsers, 
     getSingleuser,
-    deleteuser
-=======
+    deleteuser,
     addNewGroup,
     findGroupById,
     findAllGroups,
     updateGroup,
     removeGroup,
->>>>>>> a77f7b667afe1c5bd23889e147b3ebfe359e1d1c
   },
   resources: {
     Resources: {},
