@@ -14,7 +14,8 @@ export const organisation = (sequelize: Sequelize) => {
             // define associations here
 
             // this will add organisationId in customerTable
-            organisation.hasMany(models.customer, {foreignKey : 'organisationId'})
+            organisation.hasMany(models.customer, {foreignKey : 'organisationId'});
+            organisation.belongsTo(models.integrator, {foreignKey: 'integratorId' })
         }
     };
     organisation.init({
@@ -35,6 +36,9 @@ export const organisation = (sequelize: Sequelize) => {
         },
         smtpPassword : {
             type : DataTypes.STRING,
+        },
+        integratorId : {
+            type : DataTypes.UUID
         }
     }, {
         timestamps: true,

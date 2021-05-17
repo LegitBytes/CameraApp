@@ -2,14 +2,14 @@
 
 module.exports = {
   up : async (queryInterface, Sequelize)=>{
-    await queryInterface.createTable('location', 
+    await queryInterface.createTable('customer', 
       {
-        locationId: {
+        customerId: {
           type: Sequelize.UUID,
           allowNull: false,
           primaryKey: true,
         },
-        locationAlias : {
+        customerAlias : {
             type : Sequelize.STRING,
             allowNull : false
         },
@@ -41,7 +41,7 @@ module.exports = {
 
   down : async(queryInterface, Sequelize)=>{
 
-    await queryInterface.dropTable('location');
+    await queryInterface.dropTable('customer');
   
   }
   

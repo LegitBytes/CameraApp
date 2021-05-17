@@ -8,8 +8,8 @@ export const site = (sequelize: Sequelize) => {
         static associate(models: typeof db) {
 
             site.hasMany(models.camera, {foreignKey : 'siteId'});
-            site.belongsTo(models.location, {foreignKey : 'locationId'});
-            site.belongsToMany(models.customer, {through : 'customer_site'});
+            site.belongsTo(models.customer, {foreignKey : 'customerId'});
+            site.belongsToMany(models.user, {through : 'user_site'});
             site.belongsTo(models.integrator, {foreignKey : 'integratorId'})
         }
     };
@@ -21,7 +21,7 @@ export const site = (sequelize: Sequelize) => {
             primaryKey: true,
             defaultValue : DataTypes.UUIDV4
         },
-        locationId: {
+        customerId: {
             type: DataTypes.UUID
         },
         siteAlias : {

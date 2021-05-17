@@ -9,11 +9,11 @@ module.exports = {
           allowNull: false,
           primaryKey: true,
         },
-        locationId: {
+        customerId: {
             type: Sequelize.UUID,
             references: {
-              model: 'location',
-              key: 'locationId',
+              model: 'customer',
+              key: 'customerId',
             },
         },
         siteAlias : {

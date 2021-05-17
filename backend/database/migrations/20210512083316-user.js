@@ -3,14 +3,13 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     
-    await queryInterface.createTable('customer', 
+    await queryInterface.createTable('user', 
       {
-        customerId: {
-          type: Sequelize.INTEGER,
+        userId: {
+          type: Sequelize.UUID,
           allowNull: false,
           primaryKey: true,
         },
-
         organisationId :{
             type : Sequelize.UUID,
             allowNull: false,
@@ -18,6 +17,22 @@ module.exports = {
               model : 'organisation',
               key : 'organisationId'
             }
+        },
+        integratorId : {
+          type : Sequelize.UUID,
+          references : {
+            model : 'integrator',
+            key : 'integratorId'
+          }
+        },
+        name : {
+          type : Sequelize.STRING
+        },
+        email : {
+          type : Sequelize.STRING
+        },
+        isDisabled :{
+          type : Sequelize.BOOLEAN
         },
         createdAt: {
           type: Sequelize.DATE,
@@ -33,7 +48,7 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     
-    await queryInterface.dropTable('customer');
+    await queryInterface.dropTable('user');
      
   }
 };

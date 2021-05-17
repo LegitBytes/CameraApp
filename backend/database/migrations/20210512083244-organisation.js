@@ -15,6 +15,13 @@ module.exports =  {
           type: Sequelize.STRING,
           allowNull: false
         },
+        integratorId : {
+          type : Sequelize.STRING,
+          reference :{
+            model : 'integrator',
+            key : 'integratorId'
+          }
+        },
         smtpUserName: {
           type: Sequelize.STRING,
           unique: true,

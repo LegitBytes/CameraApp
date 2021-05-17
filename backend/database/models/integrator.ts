@@ -5,9 +5,11 @@ export const integrator = (sequelize: Sequelize) => {
     class integrator extends Model{
 
         static associate(models: typeof db) {
-            integrator.hasMany(models.location, {foreignKey : 'integratorId'});
+            integrator.hasMany(models.customer, {foreignKey : 'integratorId'});
             integrator.hasMany(models.site, {foreignKey : 'integratorId'});
             integrator.hasMany(models.camera, {foreignKey : 'integratorId'});
+            integrator.hasMany(models.organisation, {foreignKey : 'integratorId'});
+            integrator.hasMany(models.customer, {foreignKey : 'integratorId'});
         }
     };
     integrator.init({

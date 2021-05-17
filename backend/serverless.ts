@@ -2,6 +2,8 @@ import type {AWS} from '@serverless/typescript';
 
 import {addIntegrator, updateIntegrator, getAllIntegrator, getSingleIntegrator, deleteIntegrator}  from '@functions/integratorCrud'
 
+import {addUser, updateUser,getAllUsers, getSingleuser,deleteuser} from '@functions/userCrud'
+
 const serverlessConfiguration: AWS = {
   service: 'nathan-api',
   frameworkVersion: '2',
@@ -51,7 +53,12 @@ const serverlessConfiguration: AWS = {
     updateIntegrator,
     getAllIntegrator,
     getSingleIntegrator,
-    deleteIntegrator
+    deleteIntegrator,
+    addUser, 
+    updateUser,
+    getAllUsers, 
+    getSingleuser,
+    deleteuser
   },
   resources: {
     Resources: {

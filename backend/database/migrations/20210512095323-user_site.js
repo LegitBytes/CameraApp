@@ -2,12 +2,19 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
+     await queryInterface.createTable('user_site', 
+     {
+       isDisabled  :{
+         type : Sequelize.BOOLEAN,
+       },
+       userId : {
+         type : Sequelize.UUID
+       },
+       siteId : {
+         type : Sequelize.UUID
+       }
+     });
+     
   },
 
   down: async (queryInterface, Sequelize) => {

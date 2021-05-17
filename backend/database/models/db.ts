@@ -3,10 +3,10 @@ import {Sequelize} from 'sequelize';
 import dbconfig from '../config/config';
 import * as AWS from 'aws-sdk';
 import {camera} from './camera'
-import {customer_camera} from './customer_camera';
-import {customer_location} from './customer_location';
+import {customer_camera} from './user-camera';
+import {customer_location} from './user_customer';
+import {user} from './user';
 import {customer} from './customer';
-import {location} from './location';
 import{organisation} from './organisation';
 import {site} from './site';
 import {integrator} from './integrator';
@@ -36,7 +36,8 @@ if (env != 'local') {
 }
 
 const sequelize = new Sequelize(
-    config.database, config.username, password, {
+    // config.database, config.username, password, {
+     'cameraApp_development', 'postgres', 'awab2027' , {
       host: config.host,
       dialect : 'postgres'
     },
@@ -57,8 +58,8 @@ const db = {
   camera : camera(sequelize),
   customer_camera : customer_camera(sequelize),
   customer_location : customer_location(sequelize),
+  user : user(sequelize),
   customer : customer(sequelize),
-  location : location(sequelize),
   organisation : organisation(sequelize),
   site : site(sequelize),
   integrator : integrator(sequelize),
