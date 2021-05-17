@@ -1,6 +1,6 @@
-import style from './logger';
-import * as fs from 'fs';
-import * as path from 'path';
+import style from "./logger";
+import * as fs from "fs";
+import * as path from "path";
 
 export default {
   'local': {
@@ -12,36 +12,36 @@ export default {
     'dialectOptions': {},
     'logging': (msg: string) => style(msg),
   },
-  'dev': {
-    'username': process.env.DB_USERNAME,
-    'database': process.env.DB_NAME,
-    'host': process.env.DB_HOST,
-    'region': process.env.AWS_REGION,
-    'dialect': 'postgres',
-    'dialectOptions': {
-      'ssl': {
-        'rejectUnauthorized': true,
-        'ca': fs.readFileSync(
-            path.join(__dirname, '../rds-combined-ca-bundle.pem'),
+  dev: {
+    username: process.env.DB_USERNAME,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    region: process.env.AWS_REGION,
+    dialect: "postgres",
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: true,
+        ca: fs.readFileSync(
+          path.join(__dirname, "../rds-combined-ca-bundle.pem")
         ),
       },
     },
-    'logging': (msg: string) => style(msg),
+    logging: (msg: string) => style(msg),
   },
-  'prod': {
-    'username': process.env.DB_USERNAME,
-    'database': process.env.DB_NAME,
-    'host': process.env.DB_HOST,
-    'region': process.env.AWS_REGION,
-    'dialect': 'postgres',
-    'dialectOptions': {
-      'ssl': {
-        'rejectUnauthorized': true,
-        'ca': fs.readFileSync(
-            path.join(__dirname, '../rds-combined-ca-bundle.pem'),
+  prod: {
+    username: process.env.DB_USERNAME,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    region: process.env.AWS_REGION,
+    dialect: "postgres",
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: true,
+        ca: fs.readFileSync(
+          path.join(__dirname, "../rds-combined-ca-bundle.pem")
         ),
       },
     },
-    'logging': (msg: string) => style(msg),
+    logging: (msg: string) => style(msg),
   },
 };
