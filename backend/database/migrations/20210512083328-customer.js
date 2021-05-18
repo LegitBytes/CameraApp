@@ -9,7 +9,7 @@ module.exports = {
           allowNull: false,
           primaryKey: true,
         },
-        customerAlias : {
+        customerName : {
             type : Sequelize.STRING,
             allowNull : false
         },

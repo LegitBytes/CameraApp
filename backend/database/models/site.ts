@@ -28,7 +28,7 @@ export const site = (sequelize: Sequelize) => {
             type : DataTypes.STRING,
             allowNull : false
         },
-        organisationId : {
+        groupId : {
             type: DataTypes.UUID
         },
         integratorId : {

@@ -27,7 +27,7 @@ export const camera = (sequelize: Sequelize) => {
         cameraAliases :{
             type : DataTypes.STRING
         },
-        organisationId :{
+        groupId :{
             type : DataTypes.UUID,
             allowNull: false,
         },

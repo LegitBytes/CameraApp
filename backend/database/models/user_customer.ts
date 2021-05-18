@@ -1,8 +1,8 @@
 import { Model, Sequelize } from 'sequelize';
 import db from './db';
 
-export const customer_location = (sequelize: Sequelize) => {
-    class customer_location extends Model{
+export const user_customer= (sequelize: Sequelize) => {
+    class user_customer extends Model{
         public customer_location_id!: number;
 
         /**
@@ -14,11 +14,13 @@ export const customer_location = (sequelize: Sequelize) => {
             
         }
     };
-    customer_location.init({
+    user_customer.init({
+
     }, {
         timestamps: true,
         sequelize,
-        modelName: 'customer_location',
+        modelName: 'user_customer',
+        freezeTableName : true
     });
-    return customer_location
+    return user_customer
 };

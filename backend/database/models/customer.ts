@@ -4,10 +4,18 @@ import db from './db';
 export const customer = (sequelize: Sequelize) => {
     class customer extends Model{
 
+        public customerId : string;
+        public customerName : string;
+        public groupId : string;
+        public integratorId : string;
+        public createdAt : string;
+        public updatedAt : string;
+
         static associate(models: typeof db) {
-            customer.hasMany(models.site, {foreignKey : 'customerId'});
-            customer.belongsToMany(models.user, {as : 'users', through : 'user_customer'});
+            customer.hasMany(models.site, {foreignKey : 'customerId', as : 'sites'});
+            customer.belongsToMany(models.user, {through : 'user_customer'});
             customer.belongsTo(models.integrator, {foreignKey : 'integratorId'});
+            customer.belongsTo(models.group, {foreignKey : 'groupId', as : 'group'})
         }
     };
     customer.init({
@@ -18,11 +26,11 @@ export const customer = (sequelize: Sequelize) => {
             primaryKey: true,
             defaultValue : DataTypes.UUIDV4,
         },
-        customerAlias : {
+        customerName : {
             type : DataTypes.STRING,
             allowNull : false
         },
-        organisationId : {
+        groupId : {
             type: DataTypes.UUID
         },
         integratorId : {
@@ -33,6 +41,7 @@ export const customer = (sequelize: Sequelize) => {
         timestamps: true,
         sequelize,
         modelName: 'customer',
+        freezeTableName : true
     }
         );
     return customer

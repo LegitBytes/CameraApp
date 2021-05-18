@@ -8,7 +8,7 @@ export const integrator = (sequelize: Sequelize) => {
             integrator.hasMany(models.customer, {foreignKey : 'integratorId'});
             integrator.hasMany(models.site, {foreignKey : 'integratorId'});
             integrator.hasMany(models.camera, {foreignKey : 'integratorId'});
-            integrator.hasMany(models.organisation, {foreignKey : 'integratorId'});
+            integrator.hasMany(models.group, {foreignKey : 'integratorId'});
             integrator.hasMany(models.customer, {foreignKey : 'integratorId'});
         }
     };

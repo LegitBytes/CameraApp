@@ -4,10 +4,9 @@ import dbconfig from '../config/config';
 import * as AWS from 'aws-sdk';
 import {camera} from './camera'
 import {customer_camera} from './user-camera';
-import {customer_location} from './user_customer';
+import {user_customer} from './user_customer';
 import {user} from './user';
 import {customer} from './customer';
-import{organisation} from './organisation';
 import {site} from './site';
 import {integrator} from './integrator';
 import { group } from './group';
@@ -51,10 +50,10 @@ const db = {
 
   camera : camera(sequelize),
   customer_camera : customer_camera(sequelize),
-  customer_location : customer_location(sequelize),
+  
   user : user(sequelize),
   customer : customer(sequelize),
-  organisation : organisation(sequelize),
+  user_customer : user_customer(sequelize),
   site : site(sequelize),
   integrator : integrator(sequelize),
   group : group(sequelize),
