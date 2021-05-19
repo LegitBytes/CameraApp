@@ -129,7 +129,6 @@ const fetchAllIntegrator = async (event)=>{
 const delete_integrator  = async (event)=>{
 
     try {
-
         if(!event.pathParameters || !event.pathParameters.integratorId){
             return formatJSONResponse({
                 success : false,
@@ -156,7 +155,6 @@ const delete_integrator  = async (event)=>{
             e : e
         })
     }
-    
 }
 
 export const newIntegrator = middyfy(addIntegrator);

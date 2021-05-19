@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-     await queryInterface.createTable('user_site', 
+     await queryInterface.createTable('user_sites', 
      {
        isDisabled  :{
          type : Sequelize.BOOLEAN,
@@ -18,11 +18,8 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
+    
+    await queryInterface.dropTable('user_sites');
+     
   }
 };

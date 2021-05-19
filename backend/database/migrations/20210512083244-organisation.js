@@ -4,7 +4,7 @@ module.exports =  {
  
   up : async(queryInterface, Sequelize)=>{
 
-    await queryInterface.createTable('organisation',
+    await queryInterface.createTable('organisations',
       {
         organisationId: {
           type: Sequelize.UUID,
@@ -18,7 +18,7 @@ module.exports =  {
         integratorId : {
           type : Sequelize.STRING,
           reference :{
-            model : 'integrator',
+            model : 'integrators',
             key : 'integratorId'
           }
         },
@@ -41,7 +41,7 @@ module.exports =  {
 
   down : async(queryInterface, Sequelize)=>{
 
-    await queryInterface.dropTable('organisation');
+    await queryInterface.dropTable('organisations');
   
   }
   

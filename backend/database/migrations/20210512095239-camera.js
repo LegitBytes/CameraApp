@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     
-    await queryInterface.createTable('camera', {
+    await queryInterface.createTable('cameras', {
       cameraId: {
         type : Sequelize.UUID,
         allowNull: false,
@@ -24,7 +24,7 @@ module.exports = {
           type : Sequelize.UUID,
           allowNull: false,
           references : {
-            model : 'site',
+            model : 'sites',
             key : 'siteId'
           }
       },
@@ -32,7 +32,7 @@ module.exports = {
           type : Sequelize.UUID,
           allowNull: false,
           references : {
-            model : 'integrator',
+            model : 'integrators',
             key : 'integratorId'
           }
       },
@@ -56,6 +56,6 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
 
-    await queryInterface.dropTable('camera');
+    await queryInterface.dropTable('cameras');
   }
 };

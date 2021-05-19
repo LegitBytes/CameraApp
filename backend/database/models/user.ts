@@ -45,8 +45,7 @@ export const user = (sequelize: Sequelize) => {
     {
         timestamps: true,
         sequelize,
-        modelName: 'user',
-        freezeTableName : true
+        modelName: 'user'
     });
     return User
 };

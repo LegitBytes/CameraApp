@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     
-    await queryInterface.createTable('user', 
+    await queryInterface.createTable('users', 
       {
         userId: {
           type: Sequelize.UUID,
@@ -21,7 +21,7 @@ module.exports = {
         integratorId : {
           type : Sequelize.UUID,
           references : {
-            model : 'integrator',
+            model : 'integrators',
             key : 'integratorId'
           }
         },
@@ -48,7 +48,7 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     
-    await queryInterface.dropTable('user');
+    await queryInterface.dropTable('users');
      
   }
 };

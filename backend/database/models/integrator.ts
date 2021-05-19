@@ -44,8 +44,7 @@ export const integrator = (sequelize: Sequelize) => {
     }, {
         timestamps: true,
         sequelize,
-        modelName: 'integrator',
-        freezeTableName : true
+        modelName: 'integrator'
     });
     return integrator
 };

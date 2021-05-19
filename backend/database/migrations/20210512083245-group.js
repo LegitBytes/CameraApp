@@ -19,7 +19,7 @@ module.exports = {
       integratorId: {
         type: Sequelize.UUID,
         references: {
-          model: "integrator",
+          model: "integrators",
           key: "integratorId",
         },
       },

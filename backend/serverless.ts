@@ -3,8 +3,8 @@ import type { AWS } from "@serverless/typescript";
 import {addIntegrator, updateIntegrator, getAllIntegrator, getSingleIntegrator, deleteIntegrator}  from '@functions/integratorCrud'
 
 import {addUser, updateUser,getAllUsers, getSingleuser,deleteuser} from '@functions/userCrud';
-import {addCustomer, updateCustomer, getAllCustomer, getCustomerById,deleteCustomer} from '@functions/customerCrud'
-
+import {addCustomer, updateCustomer, getAllCustomer, getCustomerById,deleteCustomer} from '@functions/customerCrud/index'
+import {addNewSite, updateSite, getAllSite, getSiteById, deleteSite} from '@functions/siteCrud'
 import {
   addNewGroup,
   findGroupById,
@@ -71,7 +71,8 @@ const serverlessConfiguration: AWS = {
     findAllGroups,
     updateGroup,
     removeGroup,
-    addCustomer, updateCustomer, getAllCustomer, getCustomerById,deleteCustomer
+    addCustomer, updateCustomer, getAllCustomer, getCustomerById,deleteCustomer,
+    addNewSite,  updateSite, getAllSite, getSiteById, deleteSite
   },
   resources: {
     Resources: {},

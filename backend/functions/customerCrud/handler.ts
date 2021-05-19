@@ -5,7 +5,6 @@ import {
     formatJSONResponseStatusOk,
     ValidatedEventAPIGatewayProxyEvent
 } from '@libs/apiGateway';
-
 import db from '@models/db';
 import {CustomerData, CustomerDataUpdate} from './payload/response'
 import Models from '@models/db';
@@ -15,7 +14,9 @@ import {customerSchema} from './schema';
 
 const addNewCustomer : ValidatedEventAPIGatewayProxyEvent<typeof customerSchema>= async(event : any)=>{
     try{  
-        event.body = JSON.parse(event.body);
+        
+        event.body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
+    
         console.log("event in customer", event.body);
         let saveData = await Models.customer.create({
             ...event.body
@@ -80,7 +81,7 @@ const findAllCustomer = async (event)=>{
     }
 }
 
-const editGroup = async(event)=>{
+const editCustomer = async(event)=>{
     try{
 
         event.body = JSON.parse(event.body)
@@ -142,7 +143,7 @@ const removeCustomer = async (event)=>{
 export const addCustomer = addNewCustomer;
 export const getCustomerById = findCustomeById;
 export const getAllCustomer = findAllCustomer;
-export const updateCustomer = editGroup;
+export const updateCustomer = editCustomer;
 export const deleteCustomer = removeCustomer;
 
 

@@ -30,7 +30,9 @@ const addNewGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   }
 };
 
-// Find Group by ID.
+
+
+
 const findGroupById = async (event) => {
   if (!event.pathParameters || !event.pathParameters.groupId) {
     return formatJSONResponseStatusBadRequest({

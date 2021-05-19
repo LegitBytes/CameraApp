@@ -24,7 +24,7 @@ export const site = (sequelize: Sequelize) => {
         customerId: {
             type: DataTypes.UUID
         },
-        siteAlias : {
+        siteName : {
             type : DataTypes.STRING,
             allowNull : false
         },
@@ -37,7 +37,7 @@ export const site = (sequelize: Sequelize) => {
     }, {
         timestamps: true,
         sequelize,
-        modelName: 'site',
+        modelName: 'site'
     });
     return site
 };
