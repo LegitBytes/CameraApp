@@ -1,8 +1,8 @@
 {
   "local": {
     "username": "postgres",
-    "password": "awab2027",
-    "database": "cameraApp_development",
+    "password": "root",
+    "database": "camera_app",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },

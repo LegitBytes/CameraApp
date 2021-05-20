@@ -1,10 +1,34 @@
 import type { AWS } from "@serverless/typescript";
 
-import {addIntegrator, updateIntegrator, getAllIntegrator, getSingleIntegrator, deleteIntegrator}  from '@functions/integratorCrud'
+import {
+  addIntegrator,
+  updateIntegrator,
+  getAllIntegrator,
+  getSingleIntegrator,
+  deleteIntegrator,
+} from "@functions/integratorCrud";
 
-import {addUser, updateUser,getAllUsers, getSingleuser,deleteuser} from '@functions/userCrud';
-import {addCustomer, updateCustomer, getAllCustomer, getCustomerById,deleteCustomer} from '@functions/customerCrud/index'
-import {addNewSite, updateSite, getAllSite, getSiteById, deleteSite} from '@functions/siteCrud'
+import {
+  addUser,
+  updateUser,
+  getAllUsers,
+  getSingleuser,
+  deleteuser,
+} from "@functions/userCrud";
+import {
+  addCustomer,
+  updateCustomer,
+  getAllCustomer,
+  getCustomerById,
+  deleteCustomer,
+} from "@functions/customerCrud/index";
+import {
+  addNewSite,
+  updateSite,
+  getAllSite,
+  getSiteById,
+  deleteSite,
+} from "@functions/siteCrud";
 import {
   addNewGroup,
   findGroupById,
@@ -12,6 +36,13 @@ import {
   updateGroup,
   removeGroup,
 } from "@functions/group";
+import {
+  addNewCamera,
+  findCameraById,
+  findAllCameras,
+  updateCamera,
+  removeCamera,
+} from "@functions/camera";
 
 const serverlessConfiguration: AWS = {
   service: "nathan-api",
@@ -31,10 +62,7 @@ const serverlessConfiguration: AWS = {
   //     '../api_database/*',
   //   ],
   // },
-  plugins: [
-    'serverless-offline',
-    'serverless-webpack'
-  ],
+  plugins: ["serverless-offline", "serverless-webpack"],
   package: {
     patterns: ["../api_database/*"],
   },
@@ -61,9 +89,9 @@ const serverlessConfiguration: AWS = {
     getAllIntegrator,
     getSingleIntegrator,
     deleteIntegrator,
-    addUser, 
+    addUser,
     updateUser,
-    getAllUsers, 
+    getAllUsers,
     getSingleuser,
     deleteuser,
     addNewGroup,
@@ -71,8 +99,21 @@ const serverlessConfiguration: AWS = {
     findAllGroups,
     updateGroup,
     removeGroup,
-    addCustomer, updateCustomer, getAllCustomer, getCustomerById,deleteCustomer,
-    addNewSite,  updateSite, getAllSite, getSiteById, deleteSite
+    addCustomer,
+    updateCustomer,
+    getAllCustomer,
+    getCustomerById,
+    deleteCustomer,
+    addNewSite,
+    updateSite,
+    getAllSite,
+    getSiteById,
+    deleteSite,
+    addNewCamera,
+    findCameraById,
+    findAllCameras,
+    updateCamera,
+    removeCamera,
   },
   resources: {
     Resources: {},
