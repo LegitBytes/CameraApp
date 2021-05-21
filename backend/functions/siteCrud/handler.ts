@@ -10,6 +10,7 @@ import {
 
 import  Models from '@models/db';
 import { updateSiteSchema} from './payload/request'
+import constants from  '@constants/constants'
 
 const  newNddSite : ValidatedEventAPIGatewayProxyEvent<typeof siteSchema>= async(event : any)=>{
     try{
@@ -17,14 +18,15 @@ const  newNddSite : ValidatedEventAPIGatewayProxyEvent<typeof siteSchema>= async
         let site = await Models.site.create({...event.body})
 
         return formatJSONResponseStatusCreated({
-            message : "Site added successfully",
+            message : constants.DATASAVE,
             site
         })
     } catch(e){
         console.error(e);
         return formatJSONResponseStatusError({
             success : false,
-            message : "Error occured " + e
+            message : constants.SERVERERROR,
+            e
         })
     }
 }
@@ -51,7 +53,7 @@ const editSite = async (event : any)=>{
 
         return formatJSONResponseStatusOk({
             success : true,
-            message : "site updated successfully",
+            message : constants.DATAUPDATED,
             siteData
         })
 
@@ -59,7 +61,8 @@ const editSite = async (event : any)=>{
         console.error(e);
         return formatJSONResponseStatusError({
             success : false,
-            message : "Error occured " + e
+            message : constants.SERVERERROR,
+            e
         })
     }
 }
@@ -84,7 +87,7 @@ const singleSite = async (event : any)=>{
 
         return formatJSONResponseStatusOk({
             success : true,
-            message : "Data fetch successfully",
+            message : constants.DATAFETCH,
             siteData
         })
 
@@ -92,7 +95,8 @@ const singleSite = async (event : any)=>{
         console.error(e);
         return formatJSONResponseStatusError({
             success : false,
-            message : "Error occured " + e
+            message : constants.SERVERERROR,
+            e
         })
     }
 }
@@ -103,7 +107,7 @@ const fetchAllSites = async (event)=>{
         const siteData = await Models.site.findAll();
         return formatJSONResponseStatusOk({
             success : true,
-            message : "Data fetch successfully",
+            message : constants.DATAFETCH,
             siteData
         })
 
@@ -111,7 +115,8 @@ const fetchAllSites = async (event)=>{
         console.error(e);
         return formatJSONResponseStatusError({
             success : false,
-            message : "Error occured " + e
+            message : constants.SERVERERROR,
+            e
         })
     }
 }
@@ -132,14 +137,15 @@ const removeSite = async (event)=>{
         })
         return formatJSONResponseStatusOk({
             success : true,
-            message : "Deleted successfully",
+            message : constants.DATADELETED,
             siteDelete
         })
     }catch(e){
         console.error(e);
         return formatJSONResponseStatusError({
             success : false,
-            message : "Error occured " + e
+            message : constants.SERVERERROR,
+            e
         })
     }
 }

@@ -1,10 +1,9 @@
 // import {adUserSchema} from './schema';
 // import type {ValidatedEventAPIGatewayProxyEvent} from '@libs/apiGateway';
-import {formatJSONResponse } from '@libs/apiGateway';
+import {formatJSONResponse, formatJSONResponseStatusError, formatJSONResponseStatusOk } from '@libs/apiGateway';
 import {middyfy} from '@libs/lambda';
-
+import Constants from '@constants/constants';
 import db from '@models/db';
-
 const addUser = async (event : any)=>{
     try {
         console.log("inside add user")
@@ -62,6 +61,7 @@ const updateuser = async (event)=>{
 
         return formatJSONResponse({
             success : true,
+            message : Constants.DATAUPDATED,
             body : {
                 user
             }
@@ -70,6 +70,7 @@ const updateuser = async (event)=>{
         console.error(e)
         return formatJSONResponse({
             success : false,
+            message : Constants.SERVERERROR,
             e : e
         })
     }
@@ -88,7 +89,7 @@ const fetchSingleUser = async (event)=>{
         }
         let userId = event.pathParameters.userId;
         
-        let user = await db.user.findOne({
+        let user  = await db.user.findOne({
             where : {
                 userId : userId
             }
@@ -96,6 +97,7 @@ const fetchSingleUser = async (event)=>{
     
         return formatJSONResponse({
             success : true,
+            message : Constants.DATAFETCH,
             body : {
                 user
             }
@@ -112,6 +114,7 @@ const fetchAllUsers = async (event)=>{
 
     return formatJSONResponse({
         success : true,
+        message : Constants.DATAFETCH,
         body : {
             users
         }
@@ -140,7 +143,73 @@ const delete_user  = async (event)=>{
         return formatJSONResponse({
             success : true,
             body : {
-                message : 'User is deleted'
+                message : Constants.DATADELETED
+            }
+        })
+
+    } catch(e){
+        console.error(e);
+        return formatJSONResponse({
+            success : false,
+            message : Constants.SERVERERROR,
+            e : e
+        })
+    }
+}
+
+const userCustomer = async (event)=>{
+    try {
+
+        if(!event.pathParameters || !event.pathParameters.userId){
+            return formatJSONResponse({
+                success : false,
+                body : {
+                    message : "provide userId in params"
+                }
+            })
+        }
+        const userId = event.pathParameters.userId;
+        const users = await db.user.findOne({ 
+            where : {
+                userId
+            },
+            include : {model : db.customer}
+        })
+
+        return formatJSONResponseStatusOk({
+            success : true,
+            message : Constants.DATAFETCH,
+            data : users
+        })
+
+    } catch(e){
+        console.error(e);
+        return formatJSONResponseStatusError({
+            success : false,
+            message  : Constants.SERVERERROE
+        })
+    }
+}
+
+const updateUserWithCustomer  = async (event)=>{
+
+    try {
+        console.log(event.body)
+        const {userId, customerId} = event.body;
+
+        let user = await db.user.findByPk(userId)
+        let customer = await db.customer.findByPk(customerId)
+        // await user.addCustomer(customerId);
+        await user.setCustomer(customerId)
+        let count = await user.countCustomer();
+
+        return formatJSONResponse({
+            success : true,
+            body : {
+                message : Constants.DATAUPDATED,
+                // user,
+                // customer
+                count
             }
         })
 
@@ -153,8 +222,11 @@ const delete_user  = async (event)=>{
     }
 }
 
+
 export const newUser = middyfy(addUser);
 export const updateUser = middyfy(updateuser);
 export const deleteUser = middyfy(delete_user);
 export const getSingleUser = middyfy(fetchSingleUser);
 export const getAllUsers = middyfy(fetchAllUsers);
+export const userWithCustomer = middyfy(userCustomer);
+export const customerToUser = middyfy(updateUserWithCustomer)

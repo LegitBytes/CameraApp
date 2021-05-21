@@ -1,5 +1,6 @@
 import {handlerPath} from '@libs/handlerResolver';
 import {adUserSchema,updateUserSchema} from './schema'
+
 // import {addIntegratorSchema} from '../integratorCrud/schema';
 export const addUser = {
     handler : `${handlerPath(__dirname)}/handler.newUser`,
@@ -66,6 +67,42 @@ export const deleteuser = {
             http:{
                 method: 'delete',
                 path: 'integrator/deleteuser/{userId}',
+            }
+        }
+    ]
+}
+
+export const userWithCustomer = {
+    handler : `${handlerPath(__dirname)}/handler.userWithCustomer`,
+    events : [
+        {
+            http : {
+                method : 'get',
+                path : 'user/getUserWithCustomer'
+            }
+        }
+    ]
+}
+
+export const assignCustomerToUser = {
+    handler : `${handlerPath(__dirname)}/handler.assignCustomerToUser`,
+    events : [
+        {
+            http : {
+                method : 'post',
+                path : 'user/assignCustomerToUser/{{userId}}'
+            }
+        }
+    ]
+}
+
+export const customerToUser = {
+    handler : `${handlerPath(__dirname)}/handler.customerToUser`,
+    events : [
+        {
+            http:{
+                method: 'post',
+                path: 'integrator/customerToUser',
             }
         }
     ]

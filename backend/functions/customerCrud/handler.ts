@@ -8,7 +8,7 @@ import {
 import db from '@models/db';
 import {CustomerData, CustomerDataUpdate} from './payload/response'
 import Models from '@models/db';
-
+import constants from  '@constants/constants'
 // import {addCustomerSchema} from './payload/request';
 import {customerSchema} from './schema';
 
@@ -23,7 +23,7 @@ const addNewCustomer : ValidatedEventAPIGatewayProxyEvent<typeof customerSchema>
         });
 
         return formatJSONResponseStatusCreated({
-            message : 'Customer is created',
+            message : constants.DATASAVE,
             saveData
         })
 
@@ -51,14 +51,15 @@ const findCustomeById = async (event)=>{
             }
         })
         return formatJSONResponseStatusOk({
-            message : "Data fetch successfullt",
+            message : constants.DATAFETCH,
             customerData
         })
 
     } catch(e){
         console.error(e);
         return formatJSONResponseStatusError({
-            message : "Error occured" + e
+            message : constants.SERVERERROE,
+            e
         })
     }
 }
@@ -69,14 +70,15 @@ const findAllCustomer = async (event)=>{
         const customerData : CustomerData[]= await db.customer.findAll({});
         
         return formatJSONResponseStatusOk({
-            message : "Data fetched successfully",
+            message :constants.DATAFETCH,
             customerData
         })
 
     }catch(e){
         console.error(e);
         formatJSONResponseStatusError({
-            message : "Error occured" + e
+            message : constants.SERVERERROE,
+             e
         })
     }
 }
@@ -102,13 +104,14 @@ const editCustomer = async(event)=>{
                 }
             })
         return formatJSONResponseStatusOk({
-            message : "Customer updated successfully",
+            message : constants.DATAUPDATED,
             customerUpdate
         })
     }catch(e){
         console.error(e);
         return formatJSONResponseStatusError({
-            message : "Error occured" + e
+            message : constants.SERVERERROE,
+            e
         })
     }
 }
@@ -129,13 +132,14 @@ const removeCustomer = async (event)=>{
             }
         })
         return formatJSONResponseStatusOk({
-            message : "Customer is deleted",
+            message : constants.DATADELETED,
             data
         })
     }catch(e){
         console.error(e);
         return formatJSONResponseStatusError({
-            message : "Error occured" + e
+            message : constants.SERVERERROE,
+            e
         })
     }
 }

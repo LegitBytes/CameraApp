@@ -13,7 +13,7 @@ export const customer = (sequelize: Sequelize) => {
 
         static associate(models: typeof db) {
             customer.hasMany(models.site, {foreignKey : 'customerId', as : 'sites'});
-            customer.belongsToMany(models.user, {through : 'user_customer'});
+            customer.belongsToMany(models.user, {through : models.user_customer, as : 'users', foreignKey : 'customerId'});
             customer.belongsTo(models.integrator, {foreignKey : 'integratorId'});
             customer.belongsTo(models.group, {foreignKey : 'groupId', as : 'group'})
         }

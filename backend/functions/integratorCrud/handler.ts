@@ -2,7 +2,7 @@ import {addIntegratorSchema, updateIntegratorSchema} from './schema';
 import type {ValidatedEventAPIGatewayProxyEvent} from '@libs/apiGateway';
 import {formatJSONResponse } from '@libs/apiGateway';
 import {middyfy} from '@libs/lambda';
-
+import constants from  '@constants/constants'
 import db from '@models/db';
 
 const addIntegrator: ValidatedEventAPIGatewayProxyEvent<typeof addIntegratorSchema> = async (event : any)=>{
@@ -17,7 +17,7 @@ const addIntegrator: ValidatedEventAPIGatewayProxyEvent<typeof addIntegratorSche
         return formatJSONResponse({
             body : {
                 data : event.body,
-                message :"Data save successfully",
+                message : constants.DATASAVE,
                 user
             }
             
@@ -25,7 +25,7 @@ const addIntegrator: ValidatedEventAPIGatewayProxyEvent<typeof addIntegratorSche
 
     } catch(e){
         console.error(e)
-        return formatJSONResponse({message : "error occured", e})
+        return formatJSONResponse({message : constants.SERVERERROE, e})
     }
     
 }
@@ -72,6 +72,7 @@ const updateintegrator = async (event)=>{
 
         return formatJSONResponse({
             success : true,
+            message : constants.DATAUPDATED,
             body : {
                 user
             }
@@ -79,6 +80,7 @@ const updateintegrator = async (event)=>{
     }catch(e){
         return formatJSONResponse({
             success : false,
+            message : constants.SERVERERROE,
             e : e
         })
     }
@@ -104,13 +106,14 @@ const fetchIntegrator = async (event)=>{
     
         return formatJSONResponse({
             success : true,
+            message : constants.DATAFETCH,
             body : {
                 integrator
             }
         })
     } catch(e){
         console.error(e)
-        return formatJSONResponse({message : "error occured", e})
+        return formatJSONResponse({message : constants.SERVERERROR, e})
     }
     
 }
@@ -119,7 +122,8 @@ const fetchAllIntegrator = async (event)=>{
     let integrators = await db.integrator.findAll({});
 
     return formatJSONResponse({
-        "type" : typeof updateIntegratorSchema,
+        message : constants.DATAFETCH,
+        success : true,
         body : {
             integrators
         }
@@ -145,7 +149,7 @@ const delete_integrator  = async (event)=>{
         return formatJSONResponse({
             success : true,
             body : {
-                message : 'Integrator is deleted'
+                message : constants.DATADELETED
             }
         })
 

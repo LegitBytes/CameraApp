@@ -6,6 +6,7 @@
       "@dbconfig/*": ["database/config/*"],
       "@functions/*": ["./functions/*"],
       "@libs/*": ["./libs/*"],
+      "@constants/*" :["./constants/*"]
     }
   }
 }

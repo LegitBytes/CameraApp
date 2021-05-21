@@ -17,7 +17,7 @@ export const user_customer= (sequelize: Sequelize) => {
     user_customer.init({
 
     }, {
-        timestamps: true,
+        timestamps: false,
         sequelize,
         modelName: 'user_customer'
     });

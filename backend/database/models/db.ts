@@ -1,5 +1,7 @@
 /* eslint-disable camelcase */
-import {Sequelize} from 'sequelize';
+import {
+  Sequelize,
+} from 'sequelize';
 import dbconfig from '../config/config';
 import * as AWS from 'aws-sdk';
 import {camera} from './camera'

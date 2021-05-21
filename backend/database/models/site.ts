@@ -28,6 +28,9 @@ export const site = (sequelize: Sequelize) => {
             type : DataTypes.STRING,
             allowNull : false
         },
+        changedName : {
+            type : DataTypes.STRING
+        },
         groupId : {
             type: DataTypes.UUID
         },
@@ -37,7 +40,7 @@ export const site = (sequelize: Sequelize) => {
     }, {
         timestamps: true,
         sequelize,
-        modelName: 'site'
+        modelName: 'site',
     });
     return site
 };
