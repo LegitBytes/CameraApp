@@ -1,4 +1,7 @@
-import { Model, Sequelize, DataTypes } from 'sequelize';
+import { Model, Sequelize, DataTypes, 
+    HasManyAddAssociationMixin,
+    HasManyCountAssociationsMixin,
+    HasManyCreateAssociationMixin} from 'sequelize';
 import db from './db';
 
 export const customer = (sequelize: Sequelize) => {
@@ -11,6 +14,10 @@ export const customer = (sequelize: Sequelize) => {
         public createdAt : string;
         public updatedAt : string;
 
+        public countUser !: HasManyCountAssociationsMixin;
+        public setUser !: HasManyCreateAssociationMixin<Object | String>
+        public addUser !: HasManyAddAssociationMixin< Object , String | string[]>
+       
         static associate(models: typeof db) {
             customer.hasMany(models.site, {foreignKey : 'customerId', as : 'sites'});
             customer.belongsToMany(models.user, {through : models.user_customer, as : 'users', foreignKey : 'customerId'});

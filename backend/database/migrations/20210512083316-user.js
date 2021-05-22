@@ -28,6 +28,10 @@ module.exports = {
         name : {
           type : Sequelize.STRING
         },
+        secondName : {
+          type : Sequelize.STRING,
+          allowNull : true
+        },
         email : {
           type : Sequelize.STRING
         },

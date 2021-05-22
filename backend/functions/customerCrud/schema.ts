@@ -10,6 +10,12 @@ export const customerSchema = {
         integratorId : {
             type : 'string'
         },
+        userId : {
+            type : 'array'
+        },
+        siteId : {
+            type : 'array'
+        }
     },
     additionalProperties : false,
     required : ['customerName', 'groupId', 'integratorId']

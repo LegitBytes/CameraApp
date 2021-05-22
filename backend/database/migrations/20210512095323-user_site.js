@@ -12,7 +12,15 @@ module.exports = {
        },
        siteId : {
          type : Sequelize.UUID
-       }
+       },
+       createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
      });
      
   },

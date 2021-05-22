@@ -17,8 +17,20 @@ module.exports = {
           model : 'customers',
           key : 'customerId'
         }
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      isDisabled : {
+        type : Sequelize.BOOLEAN,
+        default : false
       }
-     });
+    });
   },
 
   down: async (queryInterface, Sequelize) => {

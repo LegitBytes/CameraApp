@@ -13,6 +13,10 @@ module.exports = {
             type : Sequelize.STRING,
             allowNull : false
         },
+        secondName : {
+          type : Sequelize.STRING,
+          allowNull : true
+        },
         groupId : {
             type: Sequelize.UUID,
             references: {

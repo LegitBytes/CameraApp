@@ -4,6 +4,7 @@ import {formatJSONResponse, formatJSONResponseStatusError, formatJSONResponseSta
 import {middyfy} from '@libs/lambda';
 import Constants from '@constants/constants';
 import db from '@models/db';
+
 const addUser = async (event : any)=>{
     try {
         console.log("inside add user")
@@ -13,15 +14,27 @@ const addUser = async (event : any)=>{
             groupId : event.body.groupId,
             integratorId : event.body.integratorId
         })
-
-        return formatJSONResponse({
+      
+        await Promise.all([
+            user.addCustomer(event.body.customerId),
+            user.addSite(event.body.siteId),
+            user.addCamera(event.body.cameraId)
+        ]).then(result=>{
+            console.log("inside result", result)
+        }).catch(e=>{
+            console.error(e)
+            return formatJSONResponseStatusError({
+                message : Constants.SERVERERROR,
+                e
+            })
+        })
+        
+        return formatJSONResponseStatusOk({
             body : {
-                data : event.body,
                 message :"Data save successfully",
                 user
             }
         })
-
     } catch(e){
         console.error(e)
         return formatJSONResponse({message : "error occured", e})
@@ -92,7 +105,30 @@ const fetchSingleUser = async (event)=>{
         let user  = await db.user.findOne({
             where : {
                 userId : userId
-            }
+            },
+            include : [
+                {
+                    model : db.customer, 
+                    as : 'customers', 
+                    through : {
+                        attributes : []
+                    }
+                },
+                {
+                    model : db.site, 
+                    as : 'sites',
+                    through : {
+                        attributes : []
+                    }
+                },
+                {
+                    model : db.camera, 
+                    as : 'cameras',
+                    through : {
+                        attributes : []
+                    }
+                }
+            ]
         });
     
         return formatJSONResponse({
@@ -110,7 +146,31 @@ const fetchSingleUser = async (event)=>{
 
 const fetchAllUsers = async (event)=>{
 
-    let users = await db.user.findAll({});
+    let users = await db.user.findAll({
+        include : [
+            {
+                model : db.customer, 
+                as : 'customers', 
+                through : {
+                    attributes : []
+                }
+            },
+            {
+                model : db.site, 
+                as : 'sites',
+                through : {
+                    attributes : []
+                }
+            },
+            {
+                model : db.camera, 
+                as : 'cameras',
+                through : {
+                    attributes : []
+                }
+            }
+        ]
+    });
 
     return formatJSONResponse({
         success : true,
@@ -198,7 +258,7 @@ const updateUserWithCustomer  = async (event)=>{
         const {userId, customerId} = event.body;
 
         let user = await db.user.findByPk(userId)
-        let customer = await db.customer.findByPk(customerId)
+        // let customer = await db.customer.findByPk(customerId)
         // await user.addCustomer(customerId);
         await user.setCustomer(customerId)
         let count = await user.countCustomer();
@@ -222,6 +282,39 @@ const updateUserWithCustomer  = async (event)=>{
     }
 }
 
+const assignSiteTo_User = async (event)=>{
+    try {
+
+        if(!event.pathParameters || !event.pathParameters.userId){
+            return formatJSONResponse({
+                success : false,
+                body : {
+                    message : "provide userId in params"
+                }
+            })
+        }
+
+        const siteId = event.body.siteId;
+
+        const userId = event.pathParameters.userId;
+        const user = await db.user.findByPk(userId);
+
+        await user.setSite(siteId);
+
+        return formatJSONResponseStatusOk({
+            success : true,
+            message : Constants.DATAFETCH
+        })
+
+    } catch(e){
+        console.error(e);
+        return  formatJSONResponseStatusError({
+            success : false,
+            message : Constants.SERVERERROR,
+            e
+        })
+    }
+}
 
 export const newUser = middyfy(addUser);
 export const updateUser = middyfy(updateuser);
@@ -230,3 +323,4 @@ export const getSingleUser = middyfy(fetchSingleUser);
 export const getAllUsers = middyfy(fetchAllUsers);
 export const userWithCustomer = middyfy(userCustomer);
 export const customerToUser = middyfy(updateUserWithCustomer)
+export const assignSiteToUser = middyfy(assignSiteTo_User)

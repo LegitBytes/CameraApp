@@ -2,31 +2,37 @@
 import { Model, Sequelize, DataTypes ,
     // HasManyGetAssociationsMixin,
     HasManyAddAssociationMixin,
-    // Association,
     HasManyCountAssociationsMixin,
     HasManyCreateAssociationMixin
 } from 'sequelize';
-import db from './db';
-// import {customerInterface} from './interfaces';
 
-import {customer} from './customer'
-
+import { String } from 'aws-sdk/clients/cloudsearch';
+import db from '@models/db'
 
 export const user = (sequelize: Sequelize) => {
     class User extends Model{
         
         public countCustomer !: HasManyCountAssociationsMixin;
-        public addCustomer !: HasManyAddAssociationMixin<typeof customer, 'string'>
-        public setCustomer !: HasManyCreateAssociationMixin<typeof customer>
+        public setCustomer !: HasManyCreateAssociationMixin<Object | String>
+        public addCustomer !: HasManyAddAssociationMixin< Object , String | string[]>
+        
+        public countSite !: HasManyCountAssociationsMixin;
+        public setSite !: HasManyCreateAssociationMixin<Object | String>
+        public addSite !: HasManyAddAssociationMixin< Object , String | string[]>
+
+        public countCamera !: HasManyCountAssociationsMixin;
+        public setCamera !: HasManyCreateAssociationMixin<Object | String>
+        public addCamera !: HasManyAddAssociationMixin< Object , String | string[]>
+
 
         static associate(models: typeof db) {
-            console.log("association in users")
-            
-            User.belongsToMany(models.camera, {as : 'cameras', through : models.customer_camera, foreignKey:'userId'});
+
+            User.belongsToMany(models.camera, {as : 'cameras', through : models.user_camera, foreignKey:'userId'});
             User.belongsTo(models.group, {foreignKey : 'groupId'});
-            User.belongsToMany(models.customer, {through : models.user_customer, as : 'customer', foreignKey : 'userId'})
-            User.belongsToMany(models.site, {as : 'sites', through : 'user_site', foreignKey: 'userId'})
-            User.belongsTo(models.integrator, {foreignKey : 'integratorId'})
+            User.belongsToMany(models.customer, {through : models.user_customer, as : 'customers', foreignKey : 'userId'});
+            User.belongsToMany(models.site, {as : 'sites', through : models.user_site, foreignKey: 'userId'});
+            User.belongsTo(models.integrator, {foreignKey : 'integratorId'});
+
         }
     };
     User.init({

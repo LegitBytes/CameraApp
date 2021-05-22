@@ -12,6 +12,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      secondName : {
+        type : Sequelize.STRING,
+        allowNull : true
+      },
       isDisabled: {
         type: Sequelize.BOOLEAN,
         defaultValue: false,

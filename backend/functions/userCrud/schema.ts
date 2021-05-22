@@ -12,7 +12,7 @@ export const adUserSchema = {
         },
         integratorId : {
             type : "string"
-        }
+        },
 
     },
     required : ['name', 'email', 'groupId', 'integratorId']

@@ -4,7 +4,7 @@ import {addIntegrator, updateIntegrator, getAllIntegrator, getSingleIntegrator, 
 
 import {addUser, updateUser,getAllUsers, getSingleuser,deleteuser, customerToUser} from '@functions/userCrud';
 import {addCustomer, updateCustomer, getAllCustomer, getCustomerById,deleteCustomer} from '@functions/customerCrud/index'
-// import {addNewSite, updateSite, getAllSite, getSiteById, deleteSite} from '@functions/siteCrud'
+import {addNewSite, updateSite, getAllSite, getSiteById, deleteSite} from '@functions/siteCrud'
 import {
   addNewGroup,
   findGroupById,
@@ -65,7 +65,7 @@ const serverlessConfiguration: AWS = {
     customerToUser,
     addNewGroup,findGroupById,findAllGroups,updateGroup,removeGroup,
     addCustomer, updateCustomer, getAllCustomer, getCustomerById,deleteCustomer,
-    // addNewSite,  updateSite, getAllSite, getSiteById, deleteSite
+    addNewSite,  updateSite, getAllSite, getSiteById, deleteSite
   },
   resources: {
     Resources: {},

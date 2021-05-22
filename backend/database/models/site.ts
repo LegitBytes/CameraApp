@@ -1,15 +1,24 @@
-import { Model, Sequelize, DataTypes } from 'sequelize';
+import { Model, Sequelize, DataTypes,
+    // HasManyGetAssociationsMixin,
+    HasManyAddAssociationMixin,
+    HasManyCountAssociationsMixin,
+    HasManyCreateAssociationMixin
+} from 'sequelize';
 import db from './db';
 
 export const site = (sequelize: Sequelize) => {
     class site extends Model{
         
+        public countUser !: HasManyCountAssociationsMixin;
+        public setUser !: HasManyCreateAssociationMixin<Object | String>
+        public addUser !: HasManyAddAssociationMixin< Object , String | string[]>
         
+    
         static associate(models: typeof db) {
 
             site.hasMany(models.camera, {foreignKey : 'siteId'});
             site.belongsTo(models.customer, {foreignKey : 'customerId'});
-            site.belongsToMany(models.user, {through : 'user_site'});
+            site.belongsToMany(models.user, {through : models.user_site, as : 'users', foreignKey : 'siteId'});
             site.belongsTo(models.integrator, {foreignKey : 'integratorId'})
         }
     };
@@ -28,11 +37,11 @@ export const site = (sequelize: Sequelize) => {
             type : DataTypes.STRING,
             allowNull : false
         },
-        changedName : {
-            type : DataTypes.STRING
-        },
+        // changedName : {
+        //     type : DataTypes.STRING
+        // },
         groupId : {
-            type: DataTypes.UUID
+            type: DataTypes.UUID,
         },
         integratorId : {
             type : DataTypes.UUID

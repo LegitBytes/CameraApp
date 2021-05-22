@@ -7,7 +7,21 @@ module.exports = {
       isDisables : {
         type : Sequelize.BOOLEAN,
         defaultValue : false
-      }
+      },
+      userId : {
+        type : Sequelize.UUID
+      },
+      cameraId : {
+        type : Sequelize.UUID
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
     });
      
   },

@@ -11,12 +11,12 @@ export const user_site = (sequelize: Sequelize) => {
     };
     user_site.init({
 
-        userId : {
-            type : DataTypes.UUID
-        },
-        siteId : {
-            type : DataTypes.UUID
-        },
+        // userId : {
+        //     type : DataTypes.UUID
+        // },
+        // siteId : {
+        //     type : DataTypes.UUID
+        // },
         isDisabled : {
             type : DataTypes.BOOLEAN,
             defaultValue : false

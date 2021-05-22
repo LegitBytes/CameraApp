@@ -16,15 +16,22 @@ const addNewCustomer : ValidatedEventAPIGatewayProxyEvent<typeof customerSchema>
     try{  
         
         event.body = typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
-    
+        
         console.log("event in customer", event.body);
-        let saveData = await Models.customer.create({
-            ...event.body
+        let newCustomer = await Models.customer.create({
+            customerName : event.body.customerName,
+            groupId : event.body.groupId,
+            integratorId : event.body.integratorId
         });
 
+        await Promise.all([
+            newCustomer.addUser(event.body.userId)
+        ]);
+
         return formatJSONResponseStatusCreated({
+            success : true,
             message : constants.DATASAVE,
-            saveData
+            newCustomer
         })
 
     }catch(e){
@@ -48,7 +55,20 @@ const findCustomeById = async (event)=>{
         const  customerData : CustomerData = await db.customer.findOne({
             where : {
                 customerId
-            }
+            },
+            include : [
+                {
+                    model : db.user, 
+                    as : 'users', 
+                    through : {
+                        attributes : []
+                    }
+                },
+                {
+                    model : db.site, 
+                    as : 'sites', 
+                },
+            ]
         })
         return formatJSONResponseStatusOk({
             message : constants.DATAFETCH,
@@ -67,7 +87,21 @@ const findCustomeById = async (event)=>{
 const findAllCustomer = async (event)=>{
     try{
 
-        const customerData : CustomerData[]= await db.customer.findAll({});
+        const customerData = await db.customer.findAll({
+            include : [
+                {
+                    model : db.user, 
+                    as : 'users', 
+                    through : {
+                        attributes : []
+                    }
+                },
+                {
+                    model : db.site, 
+                    as : 'sites', 
+                },
+            ]
+        });
         
         return formatJSONResponseStatusOk({
             message :constants.DATAFETCH,

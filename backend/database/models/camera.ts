@@ -11,7 +11,7 @@ export const camera = (sequelize: Sequelize) => {
         * The `models/index` file will call this method automatically.
         */
         static associate(models: typeof db) {
-            camera.belongsToMany(models.customer, {through : models.customer_camera});
+            camera.belongsToMany(models.user, {through : models.user_camera, foreignKey : 'cameraId', as : 'users'});
             camera.belongsTo(models.site, {foreignKey : 'siteId'});
             camera.belongsTo(models.integrator, {foreignKey : 'integratorId'});
         }

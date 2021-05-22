@@ -5,8 +5,9 @@ import {
 import dbconfig from '../config/config';
 import * as AWS from 'aws-sdk';
 import {camera} from './camera'
-import {customer_camera} from './user-camera';
+import {user_camera} from './user-camera';
 import {user_customer} from './user_customer';
+import { user_site } from './user_site';
 import {user} from './user';
 import {customer} from './customer';
 import {site} from './site';
@@ -49,17 +50,15 @@ const sequelize = new Sequelize(
 })(); 
 
 const db = {
-
+  user_site : user_site(sequelize),
+  user_camera : user_camera(sequelize),
   camera : camera(sequelize),
-  customer_camera : customer_camera(sequelize),
-  
   user : user(sequelize),
+  site : site(sequelize),
   customer : customer(sequelize),
   user_customer : user_customer(sequelize),
-  site : site(sequelize),
   integrator : integrator(sequelize),
   group : group(sequelize),
-  sequelize
 }
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {

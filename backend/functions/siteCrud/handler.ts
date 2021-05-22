@@ -11,11 +11,14 @@ import {
 import  Models from '@models/db';
 import { updateSiteSchema} from './payload/request'
 import constants from  '@constants/constants'
+import db from '@models/db';
 
 const  newNddSite : ValidatedEventAPIGatewayProxyEvent<typeof siteSchema>= async(event : any)=>{
     try{
 
         let site = await Models.site.create({...event.body})
+
+        await site.addUser(event.body.userId);
 
         return formatJSONResponseStatusCreated({
             message : constants.DATASAVE,
@@ -80,9 +83,23 @@ const singleSite = async (event : any)=>{
         const siteId = event.pathParameters.siteId;
         const siteData = await Models.site.findOne({
             where : {siteId},
-            // include : [
-            //    {model : Models.customer}
-            // ]
+            include : [
+                {
+                    model : db.customer,
+                    as : 'customer'
+                },
+                {
+                    model : db.camera,
+                    as : 'cameras'
+                },
+                {
+                    model : db.user,
+                    as : 'users',
+                    through : {
+                        attributes : []
+                    }
+                },
+            ]
         });
 
         return formatJSONResponseStatusOk({
@@ -104,7 +121,25 @@ const singleSite = async (event : any)=>{
 const fetchAllSites = async (event)=>{
     try {
 
-        const siteData = await Models.site.findAll();
+        const siteData = await Models.site.findAll({
+            include : [
+                {
+                    model : db.customer,
+                    as : 'customer'
+                },
+                {
+                    model : db.camera,
+                    as : 'cameras'
+                },
+                {
+                    model : db.user,
+                    as : 'users',
+                    through : {
+                        attributes : []
+                    }
+                },
+            ]
+        });
         return formatJSONResponseStatusOk({
             success : true,
             message : constants.DATAFETCH,

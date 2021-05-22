@@ -12,6 +12,10 @@ module.exports = {
       cameraAliases :{
           type : Sequelize.STRING
       },
+      secondName : {
+        type : Sequelize.STRING,
+        allowNull : true
+      },
       groupId :{
           type : Sequelize.UUID,
           allowNull: false,

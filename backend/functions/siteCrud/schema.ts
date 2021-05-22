@@ -12,6 +12,9 @@ export  const siteSchema = {
         },
         integratorId : {
             type : 'string'
+        },
+        userId : {
+            type : 'array'
         }
     },
     required : ['customerId', 'siteName', 'groupId', 'integratorId']
