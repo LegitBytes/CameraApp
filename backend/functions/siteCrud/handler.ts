@@ -87,7 +87,7 @@ const singleSite = async (event : any)=>{
             include : [
                 {
                     model : db.customer,
-                    as : 'customer'
+                    as : 'customers'
                 },
                 {
                     model : db.camera,
