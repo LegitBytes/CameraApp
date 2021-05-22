@@ -12,6 +12,7 @@ import  Models from '@models/db';
 import { updateSiteSchema} from './payload/request'
 import constants from  '@constants/constants'
 import db from '@models/db';
+import {Sequelize} from 'sequelize';
 
 const  newNddSite : ValidatedEventAPIGatewayProxyEvent<typeof siteSchema>= async(event : any)=>{
     try{
@@ -122,23 +123,34 @@ const fetchAllSites = async (event)=>{
     try {
 
         const siteData = await Models.site.findAll({
+            attributes : {
+                include : [
+                    [Sequelize.fn('COUNT', Sequelize.col('customers.customerId')), 'customerCount'],
+                    [Sequelize.fn('COUNT', Sequelize.col('cameras.cameraId')), 'cameraCount'],
+                    [Sequelize.fn('COUNT', Sequelize.col('users.userId')), 'userCount'],
+                ]
+            },
             include : [
                 {
                     model : db.customer,
-                    as : 'customer'
+                    as : 'customers',
+                    attributes : []
                 },
                 {
                     model : db.camera,
-                    as : 'cameras'
+                    as : 'cameras',
+                    attributes : []
                 },
                 {
                     model : db.user,
                     as : 'users',
+                    attributes : [],
                     through : {
                         attributes : []
                     }
                 },
-            ]
+            ],
+            group : ['customers.customerId', 'cameras.cameraId', 'users.userId','site.siteId']
         });
         return formatJSONResponseStatusOk({
             success : true,

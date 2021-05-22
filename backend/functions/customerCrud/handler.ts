@@ -11,6 +11,7 @@ import Models from '@models/db';
 import constants from  '@constants/constants'
 // import {addCustomerSchema} from './payload/request';
 import {customerSchema} from './schema';
+import { Sequelize } from 'sequelize';
 
 const addNewCustomer : ValidatedEventAPIGatewayProxyEvent<typeof customerSchema>= async(event : any)=>{
     try{  
@@ -86,12 +87,19 @@ const findCustomeById = async (event)=>{
 
 const findAllCustomer = async (event)=>{
     try{
-
+        console.log("all customers")
         const customerData = await db.customer.findAll({
+            attributes : {
+                include : [
+                    [Sequelize.fn('COUNT', Sequelize.col('users.userId')), 'userCount'],
+                     [Sequelize.fn('COUNT', Sequelize.col('sites.siteId')), 'siteCount'],
+                ]
+            },
             include : [
                 {
                     model : db.user, 
                     as : 'users', 
+                    attributes : [],
                     through : {
                         attributes : []
                     }
@@ -99,8 +107,10 @@ const findAllCustomer = async (event)=>{
                 {
                     model : db.site, 
                     as : 'sites', 
+                    attributes : [],
                 },
-            ]
+            ],
+            group : ['customer.customerId', 'users.userId', 'sites.siteId']
         });
         
         return formatJSONResponseStatusOk({

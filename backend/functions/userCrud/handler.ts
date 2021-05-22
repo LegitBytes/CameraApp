@@ -4,6 +4,7 @@ import {formatJSONResponse, formatJSONResponseStatusError, formatJSONResponseSta
 import {middyfy} from '@libs/lambda';
 import Constants from '@constants/constants';
 import db from '@models/db';
+import { Sequelize} from 'sequelize';
 
 const addUser = async (event : any)=>{
     try {
@@ -145,12 +146,20 @@ const fetchSingleUser = async (event)=>{
 }
 
 const fetchAllUsers = async (event)=>{
-
+    console.log("fetch all users")
     let users = await db.user.findAll({
+        attributes : {
+            include : [
+                [Sequelize.fn('COUNT', Sequelize.col("customers.customerId")), "customerCount"],
+                [Sequelize.fn('COUNT', Sequelize.col('sites.siteId')), 'siteCount'],
+                [Sequelize.fn('COUNT', Sequelize.col('cameras.cameraId')), 'cameraCount']
+            ]
+        },
         include : [
             {
                 model : db.customer, 
                 as : 'customers', 
+                attributes : [],
                 through : {
                     attributes : []
                 }
@@ -158,6 +167,7 @@ const fetchAllUsers = async (event)=>{
             {
                 model : db.site, 
                 as : 'sites',
+                attributes : [],
                 through : {
                     attributes : []
                 }
@@ -165,11 +175,13 @@ const fetchAllUsers = async (event)=>{
             {
                 model : db.camera, 
                 as : 'cameras',
+                attributes : [],
                 through : {
                     attributes : []
                 }
             }
-        ]
+        ],
+        group : ['user.userId', 'sites.siteId', 'cameras.cameraId']
     });
 
     return formatJSONResponse({

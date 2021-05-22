@@ -16,8 +16,8 @@ export const site = (sequelize: Sequelize) => {
     
         static associate(models: typeof db) {
 
-            site.hasMany(models.camera, {foreignKey : 'siteId'});
-            site.belongsTo(models.customer, {foreignKey : 'customerId'});
+            site.hasMany(models.camera, {foreignKey : 'siteId', as : 'cameras'});
+            site.belongsTo(models.customer, {foreignKey : 'customerId', as : 'customers'});
             site.belongsToMany(models.user, {through : models.user_site, as : 'users', foreignKey : 'siteId'});
             site.belongsTo(models.integrator, {foreignKey : 'integratorId'})
         }
