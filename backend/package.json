@@ -14,11 +14,9 @@
   "dependencies": {
     "@middy/core": "^1.5.2",
     "@middy/http-json-body-parser": "^1.5.2",
+    "@prisma/client": "^2.24.0",
     "@types/uuid": "^8.3.0",
     "aws-sdk": "^2.902.0",
-    "pg": "^8.6.0",
-    "pg-hstore": "^2.3.3",
-    "sequelize": "^6.6.2",
     "source-map-support": "^0.5.19",
     "umzug": "^2.3.0",
     "uuid": "^8.3.2"
@@ -37,6 +35,7 @@
     "glob": "^7.1.6",
     "json-schema-to-ts": "^1.5.0",
     "lodash": "^4.17.21",
+    "prisma": "^2.24.0",
     "serverless": "^2.23.0",
     "serverless-offline": "^7.0.0",
     "serverless-webpack": "^5.3.5",

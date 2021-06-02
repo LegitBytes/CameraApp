@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model cameras {
+  camera_id      String         @id @db.Uuid @default(uuid())
+  camera_name    String?        @db.VarChar(255)
+  change_name    String?        @db.VarChar(255)  
+  camera_ip      String?        @db.VarChar(255)
+  total_request  Int?           @db.Integer
+  smtp_user_name String?        @db.VarChar(255)
+  smtp_password  String?        @db.VarChar(255)
+  group_id       String?         @db.Uuid
+  site_id        String?         @db.Uuid
+  integrator_id  String?         @db.Uuid
+  email          String?        @db.VarChar(255)
+  is_disabled    Boolean?       @db.Boolean     @default(false)
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
+  groups         groups?         @relation(fields: [group_id], references: [group_id])
+  integrators    integrators?    @relation(fields: [integrator_id], references: [integrator_id])
+  sites          sites?          @relation(fields: [site_id], references: [site_id])
+  users         users[]
+}
+
+model customers {
+  customer_id    String           @id @db.Uuid @default(uuid())
+  customer_name  String?           @db.VarChar(255)
+  change_name    String?          @db.VarChar(255)  
+  group_id       String?          @db.Uuid
+  integrator_id  String?          @db.Uuid
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @updatedAt @map("updated_at")
+  groups         groups?          @relation(fields: [group_id], references: [group_id])
+  integrators    integrators?     @relation(fields: [integrator_id], references: [integrator_id])
+  sites          sites[]
+  users         users[]
+}
+
+model groups {
+  group_id      String       @id @db.Uuid @default(uuid())
+  group_name    String?       @db.VarChar(255)
+  change_name   String?      @db.VarChar(255)  
+  is_disabled   Boolean?     @default(false)
+  integrator_id String?      @db.Uuid
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+  integrators   integrators? @relation(fields: [integrator_id], references: [integrator_id])
+  cameras       cameras[]
+  customers     customers[]
+  sites         sites[]
+  users         users[]
+}
+
+model integrators {
+  integrator_id String      @id @db.Uuid @default(uuid())
+  name          String?     @db.VarChar(255)
+  email         String?     @db.VarChar(255)
+  phone         BigInt?     @db.BigInt
+  is_disabled   Boolean?    @db.Boolean     @default(false)
+  createdAt     DateTime    @default(now()) @map("created_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+  cameras       cameras[]
+  customers     customers[]
+  groups        groups[]
+  sites         sites[]
+  users         users[]
+}
+
+model sites {
+  site_id       String       @id @db.Uuid @default(uuid())
+  customer_id   String?      @db.Uuid
+  site_name     String?       @db.VarChar(255)
+  change_name   String?      @db.VarChar(255)  
+  group_id      String?      @db.Uuid
+  integrator_id String?      @db.Uuid
+  createdAt     DateTime     @default(now()) @map("created_at")
+  updatedAt     DateTime     @updatedAt @map("updated_at")
+  customers     customers?   @relation(fields: [customer_id], references: [customer_id])
+  groups        groups?      @relation(fields: [group_id], references: [group_id])
+  integrators   integrators? @relation(fields: [integrator_id], references: [integrator_id])
+  cameras       cameras[]
+  users         users[]
+}
+
+model users {
+  user_id        String           @id @db.Uuid @default(uuid())
+  group_id       String?           @db.Uuid
+  integrator_id  String?          @db.Uuid
+  user_name      String?          @db.VarChar(255) 
+  change_name    String?          @db.VarChar(255)  
+  user_email     String?          @db.VarChar(255) 
+  is_disabled    Boolean?         @db.Boolean @default(false)
+  createdAt      DateTime         @default(now()) @map("created_at")
+  updatedAt      DateTime         @updatedAt @map("updated_at")
+  groups         groups?           @relation(fields: [group_id], references: [group_id])
+  integrators    integrators?     @relation(fields: [integrator_id], references: [integrator_id])
+  cameras       cameras[]
+  customers     customers[]
+  sites         sites[]
+}

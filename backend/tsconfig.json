@@ -9,9 +9,15 @@
     "sourceMap": true,
     "target": "ES2020",
     "outDir": "lib",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "skipLibCheck": true
   },
-  "include": ["database/models/*", "database/config/*", "functions/**/*", "serverless.ts"],
+  "include": [
+    "database/models/*",
+    "database/config/*",
+    "functions/**/*",
+    "serverless.ts"
+  ],
   "exclude": [
     "node_modules/**/*",
     ".serverless/**/*",
