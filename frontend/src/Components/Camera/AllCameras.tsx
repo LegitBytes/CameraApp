@@ -6,7 +6,6 @@ import { TransitionLeft, TransitionProps } from "../../Shared/Slides";
 import ButtonComp from "../../Shared/Buttons";
 import { columns } from "./Util/Columns";
 import CopyAble from "../../Shared/CopyAble";
-import StatusChip from "../../Shared/StatusChip";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
 import { handleSwitchChange } from "../../Utilities/Helpers/handleSwitchChange";
 
@@ -43,13 +42,19 @@ const AllCameras: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
 
-  const [data, setData] = useState<Camera[]>([]);
+  const [activedata, setActiveData] = useState<Camera[]>([]);
+  const [inactivedata, setInctiveData] = useState<Camera[]>([]);
 
   const getCameraData = useCallback(async (): Promise<void> => {
     setLoading(true);
     try {
       const response: AxiosResponse<Camera[]> = await axios.get(url);
-      setData(response.data);
+      let activeArr = response.data.filter((item) => item.status === "active");
+      let inactiveArr = response.data.filter(
+        (item) => item.status === "inactive"
+      );
+      setActiveData(activeArr);
+      setInctiveData(inactiveArr);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -60,11 +65,12 @@ const AllCameras: React.FC = () => {
   useEffect(() => {
     getCameraData();
     return () => {
-      setData([]);
+      setActiveData([]);
+      setInctiveData([]);
     };
   }, [getCameraData]);
 
-  const formatData = (data: args): retVal => {
+  const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
       name: item.name,
       ip_address: item.ip_address,
@@ -79,28 +85,29 @@ const AllCameras: React.FC = () => {
       total_requests: item.total_requests,
       group_name: item.group_name,
       number_of_users: item.number_of_users,
-      status: (
-        <StatusChip
-          status={item.status}
-          handleChange={() =>
-            handleSwitchChange(
-              String(item.id),
-              item,
-              setLoading,
-              url,
-              getCameraData,
-              handleOpen
-            )
-          }
-        />
-      ),
       actions: (
         <>
-          <ButtonComp type="dark" size="small" variant="contained">
-            Modify
-          </ButtonComp>
-          <ButtonComp type="danger" size="small" variant="contained">
-            Delete
+          {isActive && (
+            <ButtonComp type="dark" size="small" variant="contained">
+              Modify
+            </ButtonComp>
+          )}
+          <ButtonComp
+            type={!isActive ? "success" : "danger"}
+            size="small"
+            variant="contained"
+            onClick={() =>
+              handleSwitchChange(
+                String(item.id),
+                item,
+                setLoading,
+                url,
+                getCameraData,
+                handleOpen
+              )
+            }
+          >
+            {isActive ? "Delete" : "Recover"}
           </ButtonComp>
         </>
       ),
@@ -108,7 +115,11 @@ const AllCameras: React.FC = () => {
   };
 
   const onRowsDelete = (rows: rows): false => {
-    console.log(rows);
+    handleOpen(
+      "left",
+      "bottom",
+      "This action is prohibited as per business needs!"
+    );
     return false;
   };
 
@@ -116,7 +127,8 @@ const AllCameras: React.FC = () => {
     <Functionalities
       alertDetails={alertDetails}
       columns={columns}
-      data={data}
+      activeData={activedata}
+      inactiveData={inactivedata}
       formatData={formatData}
       handleClose={handleClose}
       loading={loading}

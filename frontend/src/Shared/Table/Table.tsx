@@ -5,13 +5,15 @@ import {
   Columns,
   FormattedCamera,
   FormattedCustomer,
+  FormattedGroup,
   FormattedSite,
+  FormattedUser,
   rows,
 } from "../../Components/Interfaces";
 import { getMuiTheme } from "./MuiOverrides";
 
-interface TableProps {
-  data: FormattedCamera[] | FormattedSite[] | FormattedCustomer[];
+export interface TableProps {
+  data: FormattedCamera[] | FormattedSite[] | FormattedCustomer[] | FormattedUser[] | FormattedGroup[];
   columns: Columns[];
   title: string;
   onRowsDelete: (rows: rows) => void | false;

@@ -3,7 +3,6 @@ import { Customer, rows } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
 import { TransitionLeft, TransitionProps } from "../../Shared/Slides";
-import StatusChip from "../../Shared/StatusChip";
 import ButtonComp from "../../Shared/Buttons";
 import { columns } from "./Util/Columns";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
@@ -42,13 +41,21 @@ const AllCustomers: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
 
-  const [data, setData] = useState<Customer[]>([]);
+  const [acticveData, setActiveData] = useState<Customer[]>([]);
+  const [inacticveData, setInactiveData] = useState<Customer[]>([]);
 
   const getCustomerData = useCallback(async (): Promise<void> => {
     setLoading(true);
     try {
       const response: AxiosResponse<Customer[]> = await axios.get(url);
-      setData(response.data);
+      const activeArr = response.data.filter(
+        (item) => item.status === "active"
+      );
+      const inactiveArr = response.data.filter(
+        (item) => item.status === "inactive"
+      );
+      setActiveData(activeArr);
+      setInactiveData(inactiveArr);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -59,39 +66,41 @@ const AllCustomers: React.FC = () => {
   useEffect(() => {
     getCustomerData();
     return () => {
-      setData([]);
+      setActiveData([]);
+      setInactiveData([]);
     };
   }, [getCustomerData]);
 
-  const formatData = (data: args): retVal => {
+  const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
       name: item.name,
       group_name: item.group_name,
       number_of_users: item.number_of_users,
       number_of_sites: item.number_of_sites,
       number_of_cameras: item.number_of_cameras,
-      status: (
-        <StatusChip
-          status={item.status}
-          handleChange={() =>
-            handleSwitchChange(
-              String(item.id),
-              item,
-              setLoading,
-              url,
-              getCustomerData,
-              handleOpen
-            )
-          }
-        />
-      ),
       actions: (
         <>
-          <ButtonComp type="dark" size="small" variant="contained">
-            Modify
-          </ButtonComp>
-          <ButtonComp type="danger" size="small" variant="contained">
-            Delete
+          {isActive && (
+            <ButtonComp type="dark" size="small" variant="contained">
+              Modify
+            </ButtonComp>
+          )}
+          <ButtonComp
+            type={!isActive ? "success" : "danger"}
+            size="small"
+            variant="contained"
+            onClick={() =>
+              handleSwitchChange(
+                String(item.id),
+                item,
+                setLoading,
+                url,
+                getCustomerData,
+                handleOpen
+              )
+            }
+          >
+            {isActive ? "Delete" : "Recover"}
           </ButtonComp>
         </>
       ),
@@ -99,7 +108,11 @@ const AllCustomers: React.FC = () => {
   };
 
   const onRowsDelete = (rows: rows): false => {
-    console.log(rows);
+    handleOpen(
+      "left",
+      "bottom",
+      "This action is prohibited as per business needs!"
+    );
     return false;
   };
 
@@ -107,7 +120,8 @@ const AllCustomers: React.FC = () => {
     <Functionalities
       alertDetails={alertDetails}
       columns={columns}
-      data={data}
+      activeData={acticveData}
+      inactiveData={inacticveData}
       formatData={formatData}
       handleClose={handleClose}
       loading={loading}

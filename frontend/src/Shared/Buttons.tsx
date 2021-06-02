@@ -4,15 +4,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 
 interface ButtonsProps {
-  type: "dark" | "danger" | "primary";
+  type: "dark" | "danger" | "primary" | "success";
   size?: "large" | "medium" | "small";
   onClick?: () => void;
   href?: string;
-  variant: "contained" | "outlined" | "text"
-  margin?: number | undefined
+  variant: "contained" | "outlined" | "text";
+  margin?: number | undefined;
+  fullWidth?: boolean
 }
 
-const useButtonStyles = (margin: number | undefined): ClassNameMap<"dark" | "danger" | "primary"> => {
+const useButtonStyles = (
+  margin: number | undefined
+): ClassNameMap<"dark" | "danger" | "primary" | "success"> => {
   const useStyles = makeStyles<Theme>((theme: Theme) => ({
     dark: {
       background: "#676767",
@@ -29,17 +32,36 @@ const useButtonStyles = (margin: number | undefined): ClassNameMap<"dark" | "dan
       color: "#fff",
       margin: margin ? margin : 5,
     },
+    success: {
+      background: "#29a329",
+      color: "#fff",
+      margin: margin ? margin : 5,
+    },
   }));
   const classes = useStyles();
   return classes;
 };
 
-const Buttons: React.FC<ButtonsProps> = ({ type, size, children, onClick, variant, margin }) => {
-  const classes: ClassNameMap<"dark" | "danger" | "primary"> =
+const Buttons: React.FC<ButtonsProps> = ({
+  type,
+  size,
+  children,
+  onClick,
+  variant,
+  margin,
+  fullWidth
+}) => {
+  const classes: ClassNameMap<"dark" | "danger" | "primary" | "success"> =
     useButtonStyles(margin);
 
   return (
-    <Button variant={variant} className={classes[type]} size={size} onClick={onClick}>
+    <Button
+      variant={variant}
+      className={classes[type]}
+      size={size}
+      onClick={onClick}
+      fullWidth={fullWidth}
+    >
       {children}
     </Button>
   );

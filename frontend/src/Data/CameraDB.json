@@ -11,7 +11,7 @@
       "total_requests": 20,
       "group_name": "Group A",
       "number_of_users": 15,
-      "status": "active"
+      "status": "inactive"
     },
     {
       "id": 2,
@@ -24,7 +24,7 @@
       "total_requests": 20,
       "group_name": "Group B",
       "number_of_users": 15,
-      "status": "active"
+      "status": "inactive"
     },
     {
       "id": 3,

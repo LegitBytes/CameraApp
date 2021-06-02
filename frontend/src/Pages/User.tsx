@@ -1,16 +1,10 @@
 import React from "react";
 import { RouteComponentProps } from "react-router-dom";
+import AllUsers from "../Components/User/AllUsers";
 interface UserProps extends RouteComponentProps {}
 
 const User: React.FC<UserProps> = () => {
-  return (
-    <div>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur
-      quidem obcaecati dicta ut, error eligendi iste ipsa voluptas praesentium,
-      blanditiis veritatis explicabo dolor consequuntur maiores tempora esse
-      sint voluptates odio.
-    </div>
-  );
+  return <AllUsers />;
 };
 
 export default User;

@@ -1,0 +1,40 @@
+{
+  "group-db": [
+    {
+      "id": 1,
+      "name": "Group A",
+      "number_of_users": 10,
+      "number_of_locations": 10,
+      "number_of_sites": 10,
+      "number_of_cameras": 20,
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "name": "Group B",
+      "number_of_users": 11,
+      "number_of_locations": 13,
+      "number_of_sites": 10,
+      "number_of_cameras": 20,
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "name": "Group C",
+      "number_of_users": 12,
+      "number_of_locations": 13,
+      "number_of_sites": 10,
+      "number_of_cameras": 20,
+      "status": "active"
+    },
+    {
+      "id": 4,
+      "name": "Group D",
+      "number_of_users": 13,
+      "number_of_locations": 13,
+      "number_of_sites": 10,
+      "number_of_cameras": 20,
+      "status": "active"
+    }
+  ]
+}

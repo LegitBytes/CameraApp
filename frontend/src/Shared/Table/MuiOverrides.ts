@@ -6,7 +6,7 @@ export const getMuiTheme = () =>
       MUIDataTable: {
         root: {},
         paper: {
-          //   boxShadow: "none",
+            boxShadow: "none",
           //   backgroundColor: "#dce0e0e0",
           //   boxShadow: "none",
           backgroundColor: "#fff",

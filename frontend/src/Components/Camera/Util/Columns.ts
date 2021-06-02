@@ -73,14 +73,14 @@ export const columns: Columns[] = [
         sort: true,
       },
     },
-    {
-      name: "status",
-      label: "Status",
-      options: {
-        filter: false,
-        sort: false,
-      },
-    },
+    // {
+    //   name: "status",
+    //   label: "Status",
+    //   options: {
+    //     filter: false,
+    //     sort: false,
+    //   },
+    // },
     {
       name: "actions",
       label: "Actions",

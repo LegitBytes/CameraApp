@@ -1,38 +1,38 @@
 {
-  "site-db": [
+  "user-db": [
     {
       "id": 1,
-      "name": "Site A",
+      "email": "xyz@example.com",
       "group_name": "Group A",
-      "number_of_users": 10,
       "number_of_customers": 10,
+      "number_of_sites": 10,
       "number_of_cameras": 20,
-      "status": "inactive"
+      "status": "active"
     },
     {
       "id": 2,
-      "name": "Site B",
+      "email": "def@example.com",
       "group_name": "Group B",
-      "number_of_users": 11,
-      "number_of_customers": 10,
+      "number_of_customers": 11,
+      "number_of_sites": 10,
       "number_of_cameras": 20,
       "status": "inactive"
     },
     {
       "id": 3,
-      "name": "Site C",
+      "email": "abc@example.com",
       "group_name": "Group C",
-      "number_of_users": 12,
-      "number_of_customers": 10,
+      "number_of_customers": 12,
+      "number_of_sites": 10,
       "number_of_cameras": 20,
       "status": "active"
     },
     {
       "id": 4,
-      "name": "Site D",
+      "email": "mno@example.com",
       "group_name": "Group D",
-      "number_of_users": 13,
-      "number_of_customers": 10,
+      "number_of_customers": 13,
+      "number_of_sites": 10,
       "number_of_cameras": 20,
       "status": "active"
     }

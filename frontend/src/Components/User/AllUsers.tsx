@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Site, rows } from "../Interfaces";
+import { rows, User } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
 import { TransitionLeft, TransitionProps } from "../../Shared/Slides";
@@ -8,7 +8,7 @@ import { columns } from "./Util/Columns";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
 import { handleSwitchChange } from "../../Utilities/Helpers/handleSwitchChange";
 
-const AllSites: React.FC = () => {
+const AllUsers: React.FC = () => {
   const [alertDetails, setAlertDetails] = useState<Alert>({
     open: false,
     horizontal: "center",
@@ -20,7 +20,7 @@ const AllSites: React.FC = () => {
     React.useState<React.ComponentType<TransitionProps> | undefined>(undefined);
 
   const handleOpen = (
-    horizontal: "left" | "right" | "center",
+    horizontal: "left" | "center" | "right",
     vertical: "top" | "bottom",
     message: string
   ) => {
@@ -37,17 +37,17 @@ const AllSites: React.FC = () => {
     setAlertDetails({ ...alertDetails, open: false });
   };
 
-  const url = "http://localhost:4001/site-db";
+  const url = "http://localhost:4004/user-db";
 
   const [loading, setLoading] = useState<boolean>(true);
 
-  const [activeData, setActiveData] = useState<Site[]>([]);
-  const [inactiveData, setInactiveData] = useState<Site[]>([]);
+  const [acticveData, setActiveData] = useState<User[]>([]);
+  const [inacticveData, setInactiveData] = useState<User[]>([]);
 
-  const getSiteData = useCallback(async (): Promise<void> => {
+  const getUserData = useCallback(async (): Promise<void> => {
     setLoading(true);
     try {
-      const response: AxiosResponse<Site[]> = await axios.get(url);
+      const response: AxiosResponse<User[]> = await axios.get(url);
       const activeArr = response.data.filter(
         (item) => item.status === "active"
       );
@@ -64,19 +64,19 @@ const AllSites: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    getSiteData();
+    getUserData();
     return () => {
       setActiveData([]);
       setInactiveData([]);
     };
-  }, [getSiteData]);
+  }, [getUserData]);
 
   const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
-      name: item.name,
+      email: item.email,
       group_name: item.group_name,
-      number_of_users: item.number_of_users,
       number_of_customers: item.number_of_customers,
+      number_of_sites: item.number_of_sites,
       number_of_cameras: item.number_of_cameras,
       actions: (
         <>
@@ -95,7 +95,7 @@ const AllSites: React.FC = () => {
                 item,
                 setLoading,
                 url,
-                getSiteData,
+                getUserData,
                 handleOpen
               )
             }
@@ -120,16 +120,16 @@ const AllSites: React.FC = () => {
     <Functionalities
       alertDetails={alertDetails}
       columns={columns}
-      activeData={activeData}
-      inactiveData={inactiveData}
+      activeData={acticveData}
+      inactiveData={inacticveData}
       formatData={formatData}
       handleClose={handleClose}
       loading={loading}
       onRowsDelete={onRowsDelete}
       transition={transition}
-      title="Sites"
+      title="Users"
     />
   );
 };
 
-export default AllSites;
+export default AllUsers;

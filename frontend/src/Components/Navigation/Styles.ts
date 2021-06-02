@@ -44,10 +44,9 @@ export const useNavigationStyles = (): ClassNameMap<
       color: "#0079FE",
     },
     containerStyles: {
-      background: "#dce0e0e0",
-      minHeight: 722,
       height: "100%",
       width: "100%",
+      minHeight: "100%",
       // padding: 20
       paddingBottom: 20,
     },

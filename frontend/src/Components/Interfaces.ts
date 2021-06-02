@@ -34,6 +34,26 @@ export interface Customer {
   status: status;
 }
 
+export interface User {
+  id: number;
+  email: string;
+  group_name: string;
+  number_of_customers: number;
+  number_of_sites: number;
+  number_of_cameras: number;
+  status: status;
+}
+
+export interface Group {
+  id: number;
+  name: string;
+  number_of_users: number;
+  number_of_locations: number;
+  number_of_sites: number;
+  number_of_cameras: number;
+  status: status;
+}
+
 export interface FormattedCamera {
   name: string;
   ip_address: string;
@@ -44,7 +64,6 @@ export interface FormattedCamera {
   total_requests: number;
   group_name: number;
   number_of_users: number;
-  status: JSX.Element;
   actions: JSX.Element;
 }
 
@@ -54,7 +73,6 @@ export interface FormattedSite {
   number_of_users: number;
   number_of_customers: number;
   number_of_cameras: number;
-  status: JSX.Element;
   actions: JSX.Element;
 }
 
@@ -64,7 +82,24 @@ export interface FormattedCustomer {
   number_of_users: number;
   number_of_sites: number;
   number_of_cameras: number;
-  status: JSX.Element;
+  actions: JSX.Element;
+}
+
+export interface FormattedUser {
+  email: string;
+  group_name: string;
+  number_of_customers: number;
+  number_of_sites: number;
+  number_of_cameras: number;
+  actions: JSX.Element;
+}
+
+export interface FormattedGroup {
+  name: string;
+  number_of_users: number;
+  number_of_locations: number;
+  number_of_sites: number;
+  number_of_cameras: number;
   actions: JSX.Element;
 }
 

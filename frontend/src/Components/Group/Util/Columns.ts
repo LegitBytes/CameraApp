@@ -10,16 +10,16 @@ export const columns: Columns[] = [
     },
   },
   {
-    name: "group_name",
-    label: "Group",
+    name: "number_of_users",
+    label: "Users",
     options: {
       filter: true,
       sort: true,
     },
   },
   {
-    name: "number_of_users",
-    label: "Users",
+    name: "number_of_locations",
+    label: "Locations",
     options: {
       filter: true,
       sort: true,

@@ -14,38 +14,71 @@ import {
   rows,
   FormattedSite,
   FormattedCustomer,
+  User,
+  FormattedUser,
+  FormattedGroup,
+  Group,
 } from "../Interfaces";
 import { TransitionProps } from "../../Shared/Slides";
+import SimpleTabs from "../../Shared/SimpleTabs";
 
-export type args = Camera[] | Site[] | Customer[];
-export type retVal = FormattedCamera[] | FormattedSite[] | FormattedCustomer[];
+export type args = Camera[] | Site[] | Customer[] | User[] | Group[];
+export type retVal =
+  | FormattedCamera[]
+  | FormattedSite[]
+  | FormattedCustomer[]
+  | FormattedUser[]
+  | FormattedGroup[];
 
 interface FunctionalitiesProps {
   loading: boolean;
   alertDetails: Alert;
   columns: Columns[];
-  data: args;
-  formatData: (data: args) => retVal;
+  activeData: args;
+  inactiveData: args;
+  formatData: (data: args, isActive: boolean) => retVal;
   onRowsDelete: (rows: rows) => false;
   handleClose: () => void;
   transition: React.ComponentType<TransitionProps> | undefined;
-  title: string
+  title: string;
 }
 
 const Functionalities: React.FC<FunctionalitiesProps> = ({
   loading,
   alertDetails,
   columns,
-  data,
+  activeData,
+  inactiveData,
   formatData,
   onRowsDelete,
   transition,
   handleClose,
-  title
+  title,
 }) => {
   return (
     <>
       <Grid container direction="row" justify="flex-end">
+        <Grid item xs={false} sm={6} md={8} />
+        {/* <Grid item xs={6} sm={3} md={2} style={{ marginTop: 80 }}>
+          <ButtonComp
+            type="primary"
+            variant="contained"
+            margin={0}
+            size="large"
+          >
+            Download CSV
+          </ButtonComp>
+        </Grid>
+        <Grid item xs={6} sm={3} md={2} style={{ marginTop: 80 }}>
+          <ButtonComp
+            type="primary"
+            variant="contained"
+            margin={0}
+            size="large"
+          >
+            Add new Camera
+          </ButtonComp>
+        </Grid> */}
         <div style={{ marginTop: 80 }}>
           <ButtonComp
             type="primary"
@@ -61,7 +94,7 @@ const Functionalities: React.FC<FunctionalitiesProps> = ({
             margin={10}
             size="large"
           >
-            Add new Camera
+            Add new {title.substr(0, title.length - 1)}
           </ButtonComp>
         </div>
       </Grid>
@@ -69,11 +102,23 @@ const Functionalities: React.FC<FunctionalitiesProps> = ({
         <LoadingScreen />
       ) : (
         <div style={{ margin: 20, height: "100%" }}>
-          <Table
-            data={formatData(data)}
-            columns={columns}
-            title={title}
-            onRowsDelete={onRowsDelete}
+          <SimpleTabs
+            activeRecords={
+              <Table
+                data={formatData(activeData, true)}
+                columns={columns}
+                title={"Active " + title}
+                onRowsDelete={onRowsDelete}
+              />
+            }
+            inactiveRecords={
+              <Table
+                data={formatData(inactiveData, false)}
+                columns={columns}
+                title={"Inactive " + title}
+                onRowsDelete={onRowsDelete}
+              />
+            }
           />
         </div>
       )}
