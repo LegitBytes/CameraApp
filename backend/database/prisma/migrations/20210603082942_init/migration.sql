@@ -60,7 +60,6 @@ CREATE TABLE "integrators" (
 -- CreateTable
 CREATE TABLE "sites" (
     "site_id" UUID NOT NULL,
-    "customer_id" UUID,
     "site_name" VARCHAR(255),
     "change_name" VARCHAR(255),
     "group_id" UUID,
@@ -93,6 +92,12 @@ CREATE TABLE "_camerasTousers" (
 );
 
 -- CreateTable
+CREATE TABLE "_customersTosites" (
+    "A" UUID NOT NULL,
+    "B" UUID NOT NULL
+);
+
+-- CreateTable
 CREATE TABLE "_customersTousers" (
     "A" UUID NOT NULL,
     "B" UUID NOT NULL
@@ -109,6 +114,12 @@ CREATE UNIQUE INDEX "_camerasTousers_AB_unique" ON "_camerasTousers"("A", "B");
 
 -- CreateIndex
 CREATE INDEX "_camerasTousers_B_index" ON "_camerasTousers"("B");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_customersTosites_AB_unique" ON "_customersTosites"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_customersTosites_B_index" ON "_customersTosites"("B");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_customersTousers_AB_unique" ON "_customersTousers"("A", "B");
@@ -141,9 +152,6 @@ ALTER TABLE "customers" ADD FOREIGN KEY ("integrator_id") REFERENCES "integrator
 ALTER TABLE "groups" ADD FOREIGN KEY ("integrator_id") REFERENCES "integrators"("integrator_id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "sites" ADD FOREIGN KEY ("customer_id") REFERENCES "customers"("customer_id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "sites" ADD FOREIGN KEY ("group_id") REFERENCES "groups"("group_id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -160,6 +168,12 @@ ALTER TABLE "_camerasTousers" ADD FOREIGN KEY ("A") REFERENCES "cameras"("camera
 
 -- AddForeignKey
 ALTER TABLE "_camerasTousers" ADD FOREIGN KEY ("B") REFERENCES "users"("user_id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_customersTosites" ADD FOREIGN KEY ("A") REFERENCES "customers"("customer_id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_customersTosites" ADD FOREIGN KEY ("B") REFERENCES "sites"("site_id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_customersTousers" ADD FOREIGN KEY ("A") REFERENCES "customers"("customer_id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -7,6 +7,9 @@ export default {
     group_id: {
       type: "string",
     },
+    integrator_id: {
+      type: "string",
+    },
     user_ids: {
       type: "array",
     },
@@ -20,5 +23,12 @@ export default {
       type: "boolean",
     },
   },
-  required: ["site_name", "group_id", "user_ids", "customer_ids", "camera_ids"],
+  required: [
+    "site_name",
+    "group_id",
+    "integrator_id",
+    "user_ids",
+    "customer_ids",
+    "camera_ids",
+  ],
 } as const;

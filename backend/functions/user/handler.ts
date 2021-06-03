@@ -26,6 +26,21 @@ const addNewUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       integrator_id,
     } = event.body;
 
+    if (!site_ids) {
+      return formatJSONResponseStatusBadRequest({
+        message: constants.SITE_ID_NOT_PROVIDED_ERROR,
+      });
+    }
+    if (!customer_ids) {
+      return formatJSONResponseStatusBadRequest({
+        message: constants.CUSTOMER_ID_NOT_PROVIDED_ERROR,
+      });
+    }
+    if (!camera_ids) {
+      return formatJSONResponseStatusBadRequest({
+        message: constants.CAMERA_ID_NOT_PROVIDED_ERROR,
+      });
+    }
     const sites = site_ids.map(
       async (site_id: string) =>
         await prisma.sites.findUnique({ where: { site_id } })
@@ -93,11 +108,44 @@ const findUserById = async (event) => {
       where: {
         user_id,
       },
+      select: {
+        user_id: true,
+        user_email: true,
+        is_disabled: true,
+        createdAt: true,
+        updatedAt: true,
+        groups: true,
+        integrators: true,
+        cameras: true,
+        customers: true,
+        sites: true,
+      },
     });
-    // const number_of_users =
+
+    const camera_count_query = await prisma.$queryRaw(`SELECT c.camera_id
+      FROM  "_camerasTousers" cu
+      JOIN  cameras c ON cu."A" = c.camera_id
+      JOIN  users u ON cu."B" = u.user_id
+      WHERE u.user_id::text = '${user_id}'
+      GROUP BY c.camera_id;`);
+
+    // const camera_count = await prisma.users;
+
+    const customer_count = await (
+      await prisma.users.findMany({ select: { customers: true } })
+    ).length;
+    const site_count = await (
+      await prisma.users.findMany({ select: { sites: true } })
+    ).length;
+
+    const camera_count = camera_count_query.length;
+
     return formatJSONResponseStatusOk({
       user: {
         ...user,
+        camera_count,
+        customer_count,
+        site_count,
       },
     });
   } catch (error) {
@@ -111,9 +159,44 @@ const findUserById = async (event) => {
 
 // Find All user details
 const findAllUsers = async () => {
-  const users = await prisma.users.findMany();
+  const users = await prisma.users.findMany({
+    select: {
+      user_id: true,
+      user_email: true,
+      is_disabled: true,
+      createdAt: true,
+      updatedAt: true,
+      groups: true,
+      integrators: true,
+      cameras: true,
+      customers: true,
+      sites: true,
+    },
+  });
+
+  const updated_users = await Promise.all(
+    users.map(async (user) => {
+      const camera_count = await (
+        await prisma.users.findMany({ select: { cameras: true } })
+      ).length;
+      const customer_count = await (
+        await prisma.users.findMany({ select: { customers: true } })
+      ).length;
+      const site_count = await (
+        await prisma.users.findMany({ select: { sites: true } })
+      ).length;
+
+      return {
+        ...user,
+        camera_count,
+        customer_count,
+        site_count,
+      };
+    })
+  );
+
   return formatJSONResponseStatusOk({
-    users,
+    users: updated_users,
   });
 };
 

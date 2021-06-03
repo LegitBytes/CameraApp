@@ -61,7 +61,7 @@ model integrators {
   integrator_id String      @id @db.Uuid @default(uuid())
   name          String?     @db.VarChar(255)
   email         String?     @db.VarChar(255)
-  phone         BigInt?     @db.BigInt
+  phone         String?     @db.VarChar(13)
   is_disabled   Boolean?    @db.Boolean     @default(false)
   createdAt     DateTime    @default(now()) @map("created_at")
   updatedAt     DateTime    @updatedAt @map("updated_at")
@@ -73,18 +73,17 @@ model integrators {
 }
 
 model sites {
-  site_id       String       @id @db.Uuid @default(uuid())
-  customer_id   String?      @db.Uuid
+  site_id       String       @id @db.Uuid @default(uuid())  
   site_name     String?       @db.VarChar(255)
   change_name   String?      @db.VarChar(255)  
   group_id      String?      @db.Uuid
   integrator_id String?      @db.Uuid
   createdAt     DateTime     @default(now()) @map("created_at")
   updatedAt     DateTime     @updatedAt @map("updated_at")
-  customers     customers?   @relation(fields: [customer_id], references: [customer_id])
   groups        groups?      @relation(fields: [group_id], references: [group_id])
   integrators   integrators? @relation(fields: [integrator_id], references: [integrator_id])
   cameras       cameras[]
+  customers     customers[]
   users         users[]
 }
 

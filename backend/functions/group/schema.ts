@@ -11,5 +11,5 @@ export default {
       type: "boolean",
     },
   },
-  required: ["group_name"],
+  required: ["group_name", "integrator_id"],
 } as const;

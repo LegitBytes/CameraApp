@@ -8,7 +8,7 @@ export default {
       type: "string",
     },
     phone: {
-      type: "number",
+      type: "string",
     },
     is_disabled: {
       type: "boolean",

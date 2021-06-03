@@ -46,9 +46,41 @@ const findIntegratorById = async (event) => {
       where: {
         integrator_id,
       },
+      select: {
+        integrator_id: true,
+        name: true,
+        email: true,
+        phone: true,
+        is_disabled: true,
+        createdAt: true,
+        updatedAt: true,
+        cameras: true,
+        customers: true,
+        groups: true,
+        sites: true,
+        users: true,
+      },
     });
+
+    const camera_count = await prisma.cameras.count({
+      where: { integrator_id },
+    });
+    const customer_count = await prisma.customers.count({
+      where: { integrator_id },
+    });
+    const group_count = await prisma.groups.count({ where: { integrator_id } });
+    const site_count = await prisma.sites.count({ where: { integrator_id } });
+    const user_count = await prisma.users.count({ where: { integrator_id } });
+
     return formatJSONResponseStatusOk({
-      integrator,
+      integrator: {
+        ...integrator,
+        group_count,
+        user_count,
+        customer_count,
+        site_count,
+        camera_count,
+      },
     });
   } catch (error) {
     console.error(error);
@@ -61,9 +93,51 @@ const findIntegratorById = async (event) => {
 
 // Find All integrator details
 const findAllIntegrators = async () => {
-  const integrators = await prisma.integrators.findMany();
+  const integrators = await prisma.integrators.findMany({
+    select: {
+      integrator_id: true,
+      name: true,
+      email: true,
+      phone: true,
+      is_disabled: true,
+      createdAt: true,
+      updatedAt: true,
+      cameras: true,
+      customers: true,
+      groups: true,
+      sites: true,
+      users: true,
+    },
+  });
+
+  const updated_integrators = await Promise.all(
+    integrators.map(async (integrator) => {
+      const integrator_id = integrator.integrator_id;
+      const camera_count = await prisma.cameras.count({
+        where: { integrator_id },
+      });
+      const customer_count = await prisma.customers.count({
+        where: { integrator_id },
+      });
+      const group_count = await prisma.groups.count({
+        where: { integrator_id },
+      });
+      const site_count = await prisma.sites.count({ where: { integrator_id } });
+      const user_count = await prisma.users.count({ where: { integrator_id } });
+
+      return {
+        ...integrator,
+        group_count,
+        user_count,
+        customer_count,
+        site_count,
+        camera_count,
+      };
+    })
+  );
+
   return formatJSONResponseStatusOk({
-    integrators,
+    integrators: updated_integrators,
   });
 };
 

@@ -7,16 +7,22 @@ import {
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
 import { middyfy } from "@libs/lambda";
-import db from "@models/db";
 import constants from "@libs/constants";
+import { PrismaClient } from ".prisma/client";
+
+const prisma = new PrismaClient();
 
 // Add a new Group
 const addNewGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event: any
 ) => {
   try {
-    const group = await db.group.create({
-      ...event.body,
+    const { group_name, integrator_id } = event.body;
+    const group = await prisma.groups.create({
+      data: {
+        group_name,
+        integrator_id,
+      },
     });
 
     return formatJSONResponseStatusCreated({
@@ -41,15 +47,40 @@ const findGroupById = async (event) => {
   }
   const group_id = event.pathParameters.groupId;
   try {
-    const group = await db.group.findOne({
+    const group = await prisma.groups.findUnique({
       where: {
         group_id,
       },
+      select: {
+        group_id: true,
+        group_name: true,
+        is_disabled: true,
+        createdAt: true,
+        updatedAt: true,
+        integrators: true,
+        cameras: true,
+        customers: true,
+        sites: true,
+        users: true,
+      },
     });
-    const number_of_users = 
+
+    const camera_count = await prisma.cameras.count({
+      where: { group_id },
+    });
+    const customer_count = await prisma.customers.count({
+      where: { group_id },
+    });
+    const site_count = await prisma.sites.count({ where: { group_id } });
+    const user_count = await prisma.users.count({ where: { group_id } });
+
     return formatJSONResponseStatusOk({
       group: {
-        ...group, number_of_users
+        ...group,
+        camera_count,
+        customer_count,
+        site_count,
+        user_count,
       },
     });
   } catch (error) {
@@ -63,9 +94,45 @@ const findGroupById = async (event) => {
 
 // Find All group details
 const findAllGroups = async () => {
-  const groups = await db.group.findAll({});
+  const groups = await prisma.groups.findMany({
+    select: {
+      group_id: true,
+      group_name: true,
+      is_disabled: true,
+      createdAt: true,
+      updatedAt: true,
+      integrators: true,
+      cameras: true,
+      customers: true,
+      sites: true,
+      users: true,
+    },
+  });
+
+  const updated_groups = await Promise.all(
+    groups.map(async (group) => {
+      const group_id = group.group_id;
+      const camera_count = await prisma.cameras.count({
+        where: { group_id },
+      });
+      const customer_count = await prisma.customers.count({
+        where: { group_id },
+      });
+      const site_count = await prisma.sites.count({ where: { group_id } });
+      const user_count = await prisma.users.count({ where: { group_id } });
+
+      return {
+        ...group,
+        camera_count,
+        customer_count,
+        site_count,
+        user_count,
+      };
+    })
+  );
+
   return formatJSONResponseStatusOk({
-    groups,
+    groups: updated_groups,
   });
 };
 
@@ -81,10 +148,11 @@ const updateGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   const group = { ...event.body };
   const group_id = event.pathParameters.groupId;
   try {
-    await db.group.update(group, {
+    await prisma.groups.update({
       where: {
         group_id,
       },
+      data: group,
     });
     return formatJSONResponseStatusOk({
       message: constants.GROUP_UPDATE,
@@ -107,7 +175,7 @@ const removeGroup = async (event) => {
   }
   const group_id = event.pathParameters.groupId;
   try {
-    await db.group.destroy({
+    await prisma.groups.delete({
       where: {
         group_id,
       },

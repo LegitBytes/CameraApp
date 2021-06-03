@@ -8,19 +8,76 @@ import {
 } from "@libs/apiGateway";
 import { middyfy } from "@libs/lambda";
 import constants from "@libs/constants";
+import { PrismaClient } from ".prisma/client";
 
+const prisma = new PrismaClient();
 
 // Add a new Camera
 const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event: any
 ) => {
   try {
-    const camera = await db.camera.create({
-      ...event.body,
-    });
+    console.log(event.body);
 
+    const {
+      camera_name,
+      smtp_user_name,
+      smtp_password,
+      group_id,
+      integrator_id,
+    } = event.body;
+
+    if (event.body.camera_ip) {
+      const camera = await prisma.cameras.create({
+        data: {
+          camera_name,
+          camera_ip: event.body.camera_ip,
+          smtp_user_name,
+          smtp_password,
+          group_id,
+          integrator_id,
+        },
+      });
+      return formatJSONResponseStatusCreated({
+        message: constants.CAMERA_SAVE,
+        camera,
+      });
+    }
+
+    // if (event.body.user_ids) {
+    //   const users = event.body.user_ids.map(
+    //     async (user_id: string) =>
+    //       await prisma.users.findUnique({ where: { user_id } })
+    //   );
+    //   const camera = await prisma.cameras.create({
+    //     data: {
+    //       camera_name,
+    //       smtp_user_name,
+    //       smtp_password,
+    //       group_id,
+    //       integrator_id,
+    //       users: {
+    //         create: users,
+    //       },
+    //     },
+    //   });
+    //   return formatJSONResponseStatusCreated({
+    //     message: constants.CAMERA_SAVE,
+    //     camera,
+    //   });
+    // }
+
+    const camera = await prisma.cameras.create({
+      data: {
+        camera_name,
+        smtp_user_name,
+        smtp_password,
+        group_id,
+        integrator_id,
+      },
+    });
     return formatJSONResponseStatusCreated({
-      message: constants.GROUP_SAVE,
+      message: constants.CAMERA_SAVE,
       camera,
     });
   } catch (error) {
@@ -36,20 +93,28 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 const findCameraById = async (event) => {
   if (!event.pathParameters || !event.pathParameters.cameraId) {
     return formatJSONResponseStatusBadRequest({
-      message: constants.GROUP_PATHPARAMETERS_ERROR,
+      message: constants.CAMERA_PATHPARAMETERS_ERROR,
     });
   }
   const camera_id = event.pathParameters.cameraId;
   try {
-    const camera = await db.camera.findOne({
+    const camera = await prisma.cameras.findUnique({
       where: {
         camera_id,
       },
+      select: {
+        camera_id: true,
+        camera_name: true,
+        smtp_user_name: true,
+        smtp_password: true,
+        groups: true,
+        integrators: true,
+        users: true,
+      },
     });
-    const number_of_users = 
     return formatJSONResponseStatusOk({
       camera: {
-        ...camera, number_of_users
+        ...camera,
       },
     });
   } catch (error) {
@@ -63,7 +128,7 @@ const findCameraById = async (event) => {
 
 // Find All camera details
 const findAllCameras = async () => {
-  const cameras = await db.camera.findAll({});
+  const cameras = await prisma.cameras.findMany();
   return formatJSONResponseStatusOk({
     cameras,
   });
@@ -75,19 +140,20 @@ const updateCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 ) => {
   if (!event.pathParameters || !event.pathParameters.cameraId) {
     return formatJSONResponseStatusBadRequest({
-      message: constants.GROUP_PATHPARAMETERS_ERROR,
+      message: constants.CAMERA_PATHPARAMETERS_ERROR,
     });
   }
   const camera = { ...event.body };
   const camera_id = event.pathParameters.cameraId;
   try {
-    await db.camera.update(camera, {
+    await prisma.cameras.update({
       where: {
         camera_id,
       },
+      data: camera,
     });
     return formatJSONResponseStatusOk({
-      message: constants.GROUP_UPDATE,
+      message: constants.CAMERA_UPDATE,
     });
   } catch (error) {
     console.error(error);
@@ -98,22 +164,22 @@ const updateCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   }
 };
 
-// Remove the camera.
+// Remove the cameras.
 const removeCamera = async (event) => {
   if (!event.pathParameters || !event.pathParameters.cameraId) {
     return formatJSONResponseStatusBadRequest({
-      message: constants.GROUP_PATHPARAMETERS_ERROR,
+      message: constants.CAMERA_PATHPARAMETERS_ERROR,
     });
   }
   const camera_id = event.pathParameters.cameraId;
   try {
-    await db.camera.destroy({
+    await prisma.cameras.delete({
       where: {
         camera_id,
       },
     });
     return formatJSONResponseStatusOk({
-      message: constants.GROUP_DELETE,
+      message: constants.CAMERA_DELETE,
     });
   } catch (error) {
     console.error(error);

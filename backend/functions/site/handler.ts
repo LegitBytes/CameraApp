@@ -7,16 +7,49 @@ import {
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
 import { middyfy } from "@libs/lambda";
-import db from "@models/db";
 import constants from "@libs/constants";
+import { PrismaClient } from ".prisma/client";
+
+const prisma = new PrismaClient();
 
 // Add a new Site
 const addNewSite: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event: any
 ) => {
   try {
-    const site = await db.site.create({
-      ...event.body,
+    const {
+      site_name,
+      group_id,
+      integrator_id,
+      user_ids,
+      customer_ids,
+      camera_ids,
+    } = event.body;
+
+    const users = user_ids.map(
+      async (user_id: string) =>
+        await prisma.users.findUnique({ where: { user_id } })
+    );
+
+    const customers = customer_ids.map(
+      async (customer_id: string) =>
+        await prisma.customers.findUnique({ where: { customer_id } })
+    );
+
+    const cameras = camera_ids.map(
+      async (camera_id: string) =>
+        await prisma.cameras.findUnique({ where: { camera_id } })
+    );
+
+    const site = await prisma.sites.create({
+      data: {
+        site_name,
+        groups: { connect: group_id },
+        integrators: { connect: integrator_id },
+        cameras: { create: cameras },
+        customers: { create: customers },
+        users: { create: users },
+      },
     });
 
     return formatJSONResponseStatusCreated({
@@ -41,15 +74,14 @@ const findSiteById = async (event) => {
   }
   const site_id = event.pathParameters.siteId;
   try {
-    const site = await db.site.findOne({
+    const site = await prisma.sites.findUnique({
       where: {
         site_id,
       },
     });
-    const number_of_users = 
     return formatJSONResponseStatusOk({
       site: {
-        ...site, number_of_users
+        ...site,
       },
     });
   } catch (error) {
@@ -63,7 +95,7 @@ const findSiteById = async (event) => {
 
 // Find All site details
 const findAllSites = async () => {
-  const sites = await db.site.findAll({});
+  const sites = await prisma.sites.findMany();
   return formatJSONResponseStatusOk({
     sites,
   });
@@ -81,10 +113,11 @@ const updateSite: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   const site = { ...event.body };
   const site_id = event.pathParameters.siteId;
   try {
-    await db.site.update(site, {
+    await prisma.sites.update({
       where: {
         site_id,
       },
+      data: site,
     });
     return formatJSONResponseStatusOk({
       message: constants.GROUP_UPDATE,
@@ -98,7 +131,7 @@ const updateSite: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   }
 };
 
-// Remove the site.
+// Remove the sites.
 const removeSite = async (event) => {
   if (!event.pathParameters || !event.pathParameters.siteId) {
     return formatJSONResponseStatusBadRequest({
@@ -107,7 +140,7 @@ const removeSite = async (event) => {
   }
   const site_id = event.pathParameters.siteId;
   try {
-    await db.site.destroy({
+    await prisma.sites.delete({
       where: {
         site_id,
       },
