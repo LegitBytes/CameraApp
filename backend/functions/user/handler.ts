@@ -129,16 +129,23 @@ const findUserById = async (event) => {
       WHERE u.user_id::text = '${user_id}'
       GROUP BY c.camera_id;`);
 
-    // const camera_count = await prisma.users;
+    const customer_count_query = await prisma.$queryRaw(`SELECT c.customer_id
+      FROM  "_customersTousers" cu
+      JOIN  customers c ON cu."A" = c.customer_id
+      JOIN  users u ON cu."B" = u.user_id
+      WHERE u.user_id::text = '${user_id}'
+      GROUP BY c.customer_id;`);
 
-    const customer_count = await (
-      await prisma.users.findMany({ select: { customers: true } })
-    ).length;
-    const site_count = await (
-      await prisma.users.findMany({ select: { sites: true } })
-    ).length;
+    const site_count_query = await prisma.$queryRaw(`SELECT s.site_id
+      FROM  "_sitesTousers" su
+      JOIN  sites s ON su."A" = s.site_id
+      JOIN  users u ON cu."B" = u.user_id
+      WHERE u.user_id::text = '${user_id}'
+      GROUP BY s.site_id;`);
 
     const camera_count = camera_count_query.length;
+    const customer_count = customer_count_query.length;
+    const site_count = site_count_query.length;
 
     return formatJSONResponseStatusOk({
       user: {
@@ -176,15 +183,31 @@ const findAllUsers = async () => {
 
   const updated_users = await Promise.all(
     users.map(async (user) => {
-      const camera_count = await (
-        await prisma.users.findMany({ select: { cameras: true } })
-      ).length;
-      const customer_count = await (
-        await prisma.users.findMany({ select: { customers: true } })
-      ).length;
-      const site_count = await (
-        await prisma.users.findMany({ select: { sites: true } })
-      ).length;
+      const user_id = user.user_id;
+      const camera_count_query = await prisma.$queryRaw(`SELECT c.camera_id
+      FROM  "_camerasTousers" cu
+      JOIN  cameras c ON cu."A" = c.camera_id
+      JOIN  users u ON cu."B" = u.user_id
+      WHERE u.user_id::text = '${user_id}'
+      GROUP BY c.camera_id;`);
+
+      const customer_count_query = await prisma.$queryRaw(`SELECT c.customer_id
+      FROM  "_customersTousers" cu
+      JOIN  customers c ON cu."A" = c.customer_id
+      JOIN  users u ON cu."B" = u.user_id
+      WHERE u.user_id::text = '${user_id}'
+      GROUP BY c.customer_id;`);
+
+      const site_count_query = await prisma.$queryRaw(`SELECT s.site_id
+      FROM  "_sitesTousers" su
+      JOIN  sites s ON su."A" = s.site_id
+      JOIN  users u ON cu."B" = u.user_id
+      WHERE u.user_id::text = '${user_id}'
+      GROUP BY s.site_id;`);
+
+      const camera_count = camera_count_query.length;
+      const customer_count = customer_count_query.length;
+      const site_count = site_count_query.length;
 
       return {
         ...user,
