@@ -72,6 +72,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {from: './database/config/rds-combined-ca-bundle.pem', to: './functions/rds-combined-ca-bundle.pem'},
+        "./database/prisma/schema.prisma",
       ]}),
   ],
   stats: 'minimal',

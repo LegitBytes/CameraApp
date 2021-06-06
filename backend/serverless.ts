@@ -46,13 +46,17 @@ import {
 const serverlessConfiguration: AWS = {
   service: "nathan-api",
   frameworkVersion: "2",
+  useDotenv: true,
   custom: {
     webpack: {
       webpackConfig: "./webpack.config.js",
-      includeModules: {
-        forceExclude: ["aws-sdk"],
-        forceInclude: ["pg", "pg-hstore"],
-      },
+      includeModules: true,
+      packager: 'yarn',
+      packagerOptions: {
+        scripts: [
+          'npx prisma generate'
+        ]
+      }
     },
   },
   plugins: ["serverless-offline", "serverless-webpack"],
@@ -68,10 +72,11 @@ const serverlessConfiguration: AWS = {
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
-      DB_HOST: "${env:DB_HOST}",
-      DB_USERNAME: "${env:DB_USERNAME}",
-      DB_NAME: "${env:DB_NAME}",
-      NODE_ENV: "${env:NODE_ENV}",
+      DATABASE_URL: "${env:DATABASE_URL}"
+      // DB_HOST: "${env:DB_HOST}",
+      // DB_USERNAME: "${env:DB_USERNAME}",
+      // DB_NAME: "${env:DB_NAME}",
+      // NODE_ENV: "${env:NODE_ENV}",
     },
     lambdaHashingVersion: "20201221",
   },
