@@ -78,6 +78,15 @@ const findSiteById = async (event) => {
       where: {
         site_id,
       },
+      select: {
+        site_id: true,
+        site_name: true,
+        groups: true,
+        integrators: true,
+        cameras: true,
+        customers: true,
+        users: true,
+      },
     });
     return formatJSONResponseStatusOk({
       site: {
@@ -95,7 +104,17 @@ const findSiteById = async (event) => {
 
 // Find All site details
 const findAllSites = async () => {
-  const sites = await prisma.sites.findMany();
+  const sites = await prisma.sites.findMany({
+    select: {
+      site_id: true,
+      site_name: true,
+      groups: true,
+      integrators: true,
+      cameras: true,
+      customers: true,
+      users: true,
+    },
+  });
   return formatJSONResponseStatusOk({
     sites,
   });

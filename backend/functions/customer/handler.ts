@@ -65,6 +65,14 @@ const findCustomerById = async (event) => {
       where: {
         customer_id,
       },
+      select: {
+        customer_id: true,
+        customer_name: true,
+        groups: true,
+        integrators: true,
+        sites: true,
+        users: true,
+      },
     });
     return formatJSONResponseStatusOk({
       customer: {
@@ -82,7 +90,16 @@ const findCustomerById = async (event) => {
 
 // Find All customer details
 const findAllCustomers = async () => {
-  const customers = await prisma.customers.findMany();
+  const customers = await prisma.customers.findMany({
+    select: {
+      customer_id: true,
+      customer_name: true,
+      groups: true,
+      integrators: true,
+      sites: true,
+      users: true,
+    },
+  });
   return formatJSONResponseStatusOk({
     customers,
   });

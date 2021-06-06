@@ -128,7 +128,17 @@ const findCameraById = async (event) => {
 
 // Find All camera details
 const findAllCameras = async () => {
-  const cameras = await prisma.cameras.findMany();
+  const cameras = await prisma.cameras.findMany({
+    select: {
+      camera_id: true,
+      camera_name: true,
+      smtp_user_name: true,
+      smtp_password: true,
+      groups: true,
+      integrators: true,
+      users: true,
+    },
+  });
   return formatJSONResponseStatusOk({
     cameras,
   });
