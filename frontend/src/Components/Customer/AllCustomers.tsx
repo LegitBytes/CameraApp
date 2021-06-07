@@ -49,10 +49,10 @@ const AllCustomers: React.FC = () => {
     try {
       const response: AxiosResponse<Customer[]> = await axios.get(url);
       const activeArr = response.data.filter(
-        (item) => item.status === "active"
+        (item) => item.is_disabled === false
       );
       const inactiveArr = response.data.filter(
-        (item) => item.status === "inactive"
+        (item) => item.is_disabled === true
       );
       setActiveData(activeArr);
       setInactiveData(inactiveArr);
@@ -75,9 +75,9 @@ const AllCustomers: React.FC = () => {
     return data.map((item) => ({
       name: item.name,
       group_name: item.group_name,
-      number_of_users: item.number_of_users,
-      number_of_sites: item.number_of_sites,
-      number_of_cameras: item.number_of_cameras,
+      user_count: item.user_count,
+      site_count: item.site_count,
+      camera_count: item.camera_count,
       actions: (
         <>
           {isActive && (

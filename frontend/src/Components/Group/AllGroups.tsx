@@ -37,7 +37,7 @@ const AllGroups: React.FC = () => {
     setAlertDetails({ ...alertDetails, open: false });
   };
 
-  const url = "http://localhost:4005/group-db";
+  const url = process.env.REACT_APP_API_URL + "groups";
 
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -47,12 +47,12 @@ const AllGroups: React.FC = () => {
   const getGroupData = useCallback(async (): Promise<void> => {
     setLoading(true);
     try {
-      const response: AxiosResponse<Group[]> = await axios.get(url);
-      const activeArr = response.data.filter(
-        (item) => item.status === "active"
+      const response: AxiosResponse<{ groups: Group[] }> = await axios.get(url);
+      const activeArr = response.data.groups.filter(
+        (item) => item.is_disabled === false
       );
-      const inactiveArr = response.data.filter(
-        (item) => item.status === "inactive"
+      const inactiveArr = response.data.groups.filter(
+        (item) => item.is_disabled === true
       );
       setActiveData(activeArr);
       setInactiveData(inactiveArr);
@@ -61,7 +61,7 @@ const AllGroups: React.FC = () => {
       setLoading(false);
       handleOpen("left", "bottom", "Something went wrong!");
     }
-  }, []);
+  }, [url]);
 
   useEffect(() => {
     getGroupData();
@@ -73,14 +73,14 @@ const AllGroups: React.FC = () => {
 
   const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
-      name: item.name,
-      number_of_users: item.number_of_users,
-      number_of_locations: item.number_of_locations,
-      number_of_sites: item.number_of_sites,
-      number_of_cameras: item.number_of_cameras, 
+      group_name: item.group_name,
+      user_count: item.user_count,
+      customer_count: item.customer_count,
+      site_count: item.site_count,
+      camera_count: item.camera_count,
       actions: (
         <>
-          {isActive && ( 
+          {isActive && (
             <ButtonComp type="dark" size="small" variant="contained">
               Modify
             </ButtonComp>
@@ -127,7 +127,7 @@ const AllGroups: React.FC = () => {
       loading={loading}
       onRowsDelete={onRowsDelete}
       transition={transition}
-      title="Users"
+      title="Groups"
     />
   );
 };

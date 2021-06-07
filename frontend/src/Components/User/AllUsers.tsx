@@ -37,7 +37,7 @@ const AllUsers: React.FC = () => {
     setAlertDetails({ ...alertDetails, open: false });
   };
 
-  const url = "http://localhost:4004/user-db";
+  const url = process.env.REACT_APP_API_URL + "users";
 
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -47,12 +47,12 @@ const AllUsers: React.FC = () => {
   const getUserData = useCallback(async (): Promise<void> => {
     setLoading(true);
     try {
-      const response: AxiosResponse<User[]> = await axios.get(url);
-      const activeArr = response.data.filter(
-        (item) => item.status === "active"
+      const response: AxiosResponse<{ users: User[] }> = await axios.get(url);
+      const activeArr = response.data.users.filter(
+        (item) => item.is_disabled === false
       );
-      const inactiveArr = response.data.filter(
-        (item) => item.status === "inactive"
+      const inactiveArr = response.data.users.filter(
+        (item) => item.is_disabled === true
       );
       setActiveData(activeArr);
       setInactiveData(inactiveArr);
@@ -60,8 +60,9 @@ const AllUsers: React.FC = () => {
     } catch (err) {
       setLoading(false);
       handleOpen("left", "bottom", "Something went wrong!");
+      console.log(err);
     }
-  }, []);
+  }, [url]);
 
   useEffect(() => {
     getUserData();
@@ -73,11 +74,11 @@ const AllUsers: React.FC = () => {
 
   const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
-      email: item.email,
-      group_name: item.group_name,
-      number_of_customers: item.number_of_customers,
-      number_of_sites: item.number_of_sites,
-      number_of_cameras: item.number_of_cameras,
+      user_email: item.user_email,
+      group_name: item.groups.group_name,
+      customer_count: item.customer_count,
+      site_count: item.site_count,
+      camera_count: item.camera_count,
       actions: (
         <>
           {isActive && (
@@ -91,7 +92,7 @@ const AllUsers: React.FC = () => {
             variant="contained"
             onClick={() =>
               handleSwitchChange(
-                String(item.id),
+                String(item.user_id),
                 item,
                 setLoading,
                 url,

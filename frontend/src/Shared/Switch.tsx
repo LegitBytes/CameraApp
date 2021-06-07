@@ -3,13 +3,13 @@ import SwitchComp from "react-switch";
 import { Done, Clear } from "@material-ui/icons";
 import { Typography } from "@material-ui/core";
 interface SwitchProps {
-  status: "active" | "inactive";
+  is_disabled: "active" | "inactive";
   handleChange: (_: "active" | "inactive") => void;
 }
 
-const Switch: React.FC<SwitchProps> = ({ status, handleChange }) => {
+const Switch: React.FC<SwitchProps> = ({ is_disabled, handleChange }) => {
   const [checked, setChecked] = useState<boolean>(
-    status === "active" ? true : false
+    is_disabled === "active" ? true : false
   );
 
   const handleSwitchChange = (checked) => {

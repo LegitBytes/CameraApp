@@ -18,7 +18,7 @@ export const columns: Columns[] = [
     },
   },
   {
-    name: "number_of_users",
+    name: "user_count",
     label: "Users",
     options: {
       filter: true,
@@ -26,7 +26,7 @@ export const columns: Columns[] = [
     },
   },
   {
-    name: "number_of_sites",
+    name: "site_count",
     label: "Sites",
     options: {
       filter: true,
@@ -34,7 +34,7 @@ export const columns: Columns[] = [
     },
   },
   {
-    name: "number_of_cameras",
+    name: "camera_count",
     label: "Cameras",
     options: {
       filter: true,

@@ -2,8 +2,8 @@ import { Columns } from "../../Interfaces";
 
 export const columns: Columns[] = [
   {
-    name: "email",
-    label: "Email", 
+    name: "user_email",
+    label: "user_email", 
     options: {
       filter: true,
       sort: true,
@@ -18,7 +18,7 @@ export const columns: Columns[] = [
     },
   },
   {
-    name: "number_of_customers",
+    name: "customer_count",
     label: "Customers",
     options: {
       filter: true,
@@ -26,7 +26,7 @@ export const columns: Columns[] = [
     },
   },
   {
-    name: "number_of_sites",
+    name: "site_count",
     label: "Sites",
     options: {
       filter: true,
@@ -34,7 +34,7 @@ export const columns: Columns[] = [
     },
   },
   {
-    name: "number_of_cameras",
+    name: "camera_count",
     label: "Cameras",
     options: {
       filter: true,

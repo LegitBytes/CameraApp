@@ -10,8 +10,8 @@
       "location": "Location A",
       "total_requests": 20,
       "group_name": "Group A",
-      "number_of_users": 15,
-      "status": "inactive"
+      "user_count": 15,
+      "is_disabled": "inactive"
     },
     {
       "id": 2,
@@ -23,8 +23,8 @@
       "location": "Location B",
       "total_requests": 20,
       "group_name": "Group B",
-      "number_of_users": 15,
-      "status": "inactive"
+      "user_count": 15,
+      "is_disabled": "active"
     },
     {
       "id": 3,
@@ -36,8 +36,8 @@
       "location": "Location C",
       "total_requests": 20,
       "group_name": "Group C",
-      "number_of_users": 15,
-      "status": "active"
+      "user_count": 15,
+      "is_disabled": "active"
     },
     {
       "id": 4,
@@ -49,8 +49,8 @@
       "location": "Location D",
       "total_requests": 20,
       "group_name": "Group D",
-      "number_of_users": 15,
-      "status": "active"
+      "user_count": 15,
+      "is_disabled": "active"
     }
   ]
 }

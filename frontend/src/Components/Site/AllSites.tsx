@@ -49,10 +49,10 @@ const AllSites: React.FC = () => {
     try {
       const response: AxiosResponse<Site[]> = await axios.get(url);
       const activeArr = response.data.filter(
-        (item) => item.status === "active"
+        (item) => item.is_disabled === false
       );
       const inactiveArr = response.data.filter(
-        (item) => item.status === "inactive"
+        (item) => item.is_disabled === true
       );
       setActiveData(activeArr);
       setInactiveData(inactiveArr);
@@ -75,9 +75,9 @@ const AllSites: React.FC = () => {
     return data.map((item) => ({
       name: item.name,
       group_name: item.group_name,
-      number_of_users: item.number_of_users,
-      number_of_customers: item.number_of_customers,
-      number_of_cameras: item.number_of_cameras,
+      user_count: item.user_count,
+      customer_count: item.customer_count,
+      camera_count: item.camera_count,
       actions: (
         <>
           {isActive && (

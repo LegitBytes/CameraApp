@@ -2,39 +2,39 @@
   "user-db": [
     {
       "id": 1,
-      "email": "xyz@example.com",
+      "user_email": "xyz@example.com",
       "group_name": "Group A",
-      "number_of_customers": 10,
-      "number_of_sites": 10,
-      "number_of_cameras": 20,
-      "status": "active"
+      "customer_count": 10,
+      "site_count": 10,
+      "camera_count": 20,
+      "is_disabled": "active"
     },
     {
       "id": 2,
-      "email": "def@example.com",
+      "user_email": "def@example.com",
       "group_name": "Group B",
-      "number_of_customers": 11,
-      "number_of_sites": 10,
-      "number_of_cameras": 20,
-      "status": "inactive"
+      "customer_count": 11,
+      "site_count": 10,
+      "camera_count": 20,
+      "is_disabled": "inactive"
     },
     {
       "id": 3,
-      "email": "abc@example.com",
+      "user_email": "abc@example.com",
       "group_name": "Group C",
-      "number_of_customers": 12,
-      "number_of_sites": 10,
-      "number_of_cameras": 20,
-      "status": "active"
+      "customer_count": 12,
+      "site_count": 10,
+      "camera_count": 20,
+      "is_disabled": "active"
     },
     {
       "id": 4,
-      "email": "mno@example.com",
+      "user_email": "mno@example.com",
       "group_name": "Group D",
-      "number_of_customers": 13,
-      "number_of_sites": 10,
-      "number_of_cameras": 20,
-      "status": "active"
+      "customer_count": 13,
+      "site_count": 10,
+      "camera_count": 20,
+      "is_disabled": "active"
     }
   ]
 }

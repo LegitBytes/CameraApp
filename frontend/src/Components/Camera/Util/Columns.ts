@@ -66,7 +66,7 @@ export const columns: Columns[] = [
       },
     },
     {
-      name: "number_of_users",
+      name: "user_count",
       label: "Users",
       options: {
         filter: true,
@@ -74,8 +74,8 @@ export const columns: Columns[] = [
       },
     },
     // {
-    //   name: "status",
-    //   label: "Status",
+    //   name: "is_disabled",
+    //   label: "is_disabled",
     //   options: {
     //     filter: false,
     //     sort: false,

@@ -1,5 +1,7 @@
-export type status = "active" | "inactive";
-
+export type is_disabled = true | false;
+interface groups {
+  group_name: string;
+}
 export interface Camera {
   id: number;
   name: string;
@@ -10,48 +12,48 @@ export interface Camera {
   location: string;
   total_requests: number;
   group_name: number;
-  number_of_users: number;
-  status: status;
+  user_count: number;
+  is_disabled: is_disabled;
 }
 
 export interface Site {
   id: number;
   name: string;
   group_name: string;
-  number_of_users: number;
-  number_of_customers: number;
-  number_of_cameras: number;
-  status: status;
+  user_count: number;
+  customer_count: number;
+  camera_count: number;
+  is_disabled: is_disabled;
 }
 
 export interface Customer {
   id: number;
   name: string;
   group_name: string;
-  number_of_users: number;
-  number_of_sites: number;
-  number_of_cameras: number;
-  status: status;
+  user_count: number;
+  site_count: number;
+  camera_count: number;
+  is_disabled: is_disabled;
 }
 
 export interface User {
   id: number;
-  email: string;
-  group_name: string;
-  number_of_customers: number;
-  number_of_sites: number;
-  number_of_cameras: number;
-  status: status;
+  user_email: string;
+  groups: groups;
+  customer_count: number;
+  site_count: number;
+  camera_count: number;
+  is_disabled: is_disabled;
 }
 
 export interface Group {
   id: number;
-  name: string;
-  number_of_users: number;
-  number_of_locations: number;
-  number_of_sites: number;
-  number_of_cameras: number;
-  status: status;
+  group_name: string;
+  user_count: number;
+  customer_count: number;
+  site_count: number;
+  camera_count: number;
+  is_disabled: is_disabled;
 }
 
 export interface FormattedCamera {
@@ -63,43 +65,43 @@ export interface FormattedCamera {
   location: string;
   total_requests: number;
   group_name: number;
-  number_of_users: number;
+  user_count: number;
   actions: JSX.Element;
 }
 
 export interface FormattedSite {
   name: string;
   group_name: string;
-  number_of_users: number;
-  number_of_customers: number;
-  number_of_cameras: number;
+  user_count: number;
+  customer_count: number;
+  camera_count: number;
   actions: JSX.Element;
 }
 
 export interface FormattedCustomer {
   name: string;
   group_name: string;
-  number_of_users: number;
-  number_of_sites: number;
-  number_of_cameras: number;
+  user_count: number;
+  site_count: number;
+  camera_count: number;
   actions: JSX.Element;
 }
 
 export interface FormattedUser {
-  email: string;
+  user_email: string;
   group_name: string;
-  number_of_customers: number;
-  number_of_sites: number;
-  number_of_cameras: number;
+  customer_count: number;
+  site_count: number;
+  camera_count: number;
   actions: JSX.Element;
 }
 
 export interface FormattedGroup {
-  name: string;
-  number_of_users: number;
-  number_of_locations: number;
-  number_of_sites: number;
-  number_of_cameras: number;
+  group_name: string;
+  user_count: number;
+  customer_count: number;
+  site_count: number;
+  camera_count: number;
   actions: JSX.Element;
 }
 
