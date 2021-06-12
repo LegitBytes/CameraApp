@@ -40,7 +40,7 @@ const addNewCustomer: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
       });
 
       return formatJSONResponseStatusCreated({
-        message: constants.GROUP_SAVE,
+        message: constants.CUSTOMER_SAVE,
         customer,
       });
     } catch (error) {
@@ -56,7 +56,7 @@ const addNewCustomer: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
 const findCustomerById = async (event) => {
   if (!event.pathParameters || !event.pathParameters.customerId) {
     return formatJSONResponseStatusBadRequest({
-      message: constants.GROUP_PATHPARAMETERS_ERROR,
+      message: constants.CUSTOMER_PATHPARAMETERS_ERROR,
     });
   }
   const customer_id = event.pathParameters.customerId;
@@ -110,7 +110,7 @@ const updateCustomer: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
   async (event) => {
     if (!event.pathParameters || !event.pathParameters.customerId) {
       return formatJSONResponseStatusBadRequest({
-        message: constants.GROUP_PATHPARAMETERS_ERROR,
+        message: constants.CUSTOMER_PATHPARAMETERS_ERROR,
       });
     }
     const customer = { ...event.body };
@@ -123,7 +123,7 @@ const updateCustomer: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
         data: customer,
       });
       return formatJSONResponseStatusOk({
-        message: constants.GROUP_UPDATE,
+        message: constants.CUSTOMER_UPDATE,
       });
     } catch (error) {
       console.error(error);
@@ -138,7 +138,7 @@ const updateCustomer: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
 const removeCustomer = async (event) => {
   if (!event.pathParameters || !event.pathParameters.customerId) {
     return formatJSONResponseStatusBadRequest({
-      message: constants.GROUP_PATHPARAMETERS_ERROR,
+      message: constants.CUSTOMER_PATHPARAMETERS_ERROR,
     });
   }
   const customer_id = event.pathParameters.customerId;
@@ -149,7 +149,7 @@ const removeCustomer = async (event) => {
       },
     });
     return formatJSONResponseStatusOk({
-      message: constants.GROUP_DELETE,
+      message: constants.CUSTOMER_DELETE,
     });
   } catch (error) {
     console.error(error);

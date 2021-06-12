@@ -53,7 +53,7 @@ const addNewSite: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     });
 
     return formatJSONResponseStatusCreated({
-      message: constants.GROUP_SAVE,
+      message: constants.SITE_SAVE,
       site,
     });
   } catch (error) {
@@ -69,7 +69,7 @@ const addNewSite: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 const findSiteById = async (event) => {
   if (!event.pathParameters || !event.pathParameters.siteId) {
     return formatJSONResponseStatusBadRequest({
-      message: constants.GROUP_PATHPARAMETERS_ERROR,
+      message: constants.SITE_PATHPARAMETERS_ERROR,
     });
   }
   const site_id = event.pathParameters.siteId;
@@ -126,7 +126,7 @@ const updateSite: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 ) => {
   if (!event.pathParameters || !event.pathParameters.siteId) {
     return formatJSONResponseStatusBadRequest({
-      message: constants.GROUP_PATHPARAMETERS_ERROR,
+      message: constants.SITE_PATHPARAMETERS_ERROR,
     });
   }
   const site = { ...event.body };
@@ -139,7 +139,7 @@ const updateSite: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       data: site,
     });
     return formatJSONResponseStatusOk({
-      message: constants.GROUP_UPDATE,
+      message: constants.SITE_UPDATE,
     });
   } catch (error) {
     console.error(error);
@@ -154,7 +154,7 @@ const updateSite: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 const removeSite = async (event) => {
   if (!event.pathParameters || !event.pathParameters.siteId) {
     return formatJSONResponseStatusBadRequest({
-      message: constants.GROUP_PATHPARAMETERS_ERROR,
+      message: constants.SITE_PATHPARAMETERS_ERROR,
     });
   }
   const site_id = event.pathParameters.siteId;
@@ -165,7 +165,7 @@ const removeSite = async (event) => {
       },
     });
     return formatJSONResponseStatusOk({
-      message: constants.GROUP_DELETE,
+      message: constants.SITE_DELETE,
     });
   } catch (error) {
     console.error(error);

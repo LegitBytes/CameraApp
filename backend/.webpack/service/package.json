@@ -1,0 +1,14 @@
+{
+  "name": "nathan-api",
+  "version": "1.0.0",
+  "description": "Packaged externals for nathan-api",
+  "private": true,
+  "scripts": {
+    "script0": "npx prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^2.24.0",
+    "@middy/core": "^1.5.2",
+    "@middy/http-json-body-parser": "^1.5.2"
+  }
+}

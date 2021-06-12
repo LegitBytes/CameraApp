@@ -83,7 +83,7 @@ const addNewUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     });
 
     return formatJSONResponseStatusCreated({
-      message: constants.GROUP_SAVE,
+      message: constants.USER_SAVE,
       user,
     });
   } catch (error) {
@@ -99,7 +99,7 @@ const addNewUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 const findUserById = async (event) => {
   if (!event.pathParameters || !event.pathParameters.userId) {
     return formatJSONResponseStatusBadRequest({
-      message: constants.GROUP_PATHPARAMETERS_ERROR,
+      message: constants.USER_PATHPARAMETERS_ERROR,
     });
   }
   const user_id = event.pathParameters.userId;
@@ -139,7 +139,7 @@ const findUserById = async (event) => {
     const site_count_query = await prisma.$queryRaw(`SELECT s.site_id
       FROM  "_sitesTousers" su
       JOIN  sites s ON su."A" = s.site_id
-      JOIN  users u ON cu."B" = u.user_id
+      JOIN  users u ON su."B" = u.user_id
       WHERE u.user_id::text = '${user_id}'
       GROUP BY s.site_id;`);
 
@@ -201,7 +201,7 @@ const findAllUsers = async () => {
       const site_count_query = await prisma.$queryRaw(`SELECT s.site_id
       FROM  "_sitesTousers" su
       JOIN  sites s ON su."A" = s.site_id
-      JOIN  users u ON cu."B" = u.user_id
+      JOIN  users u ON su."B" = u.user_id
       WHERE u.user_id::text = '${user_id}'
       GROUP BY s.site_id;`);
 
@@ -229,7 +229,7 @@ const updateUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 ) => {
   if (!event.pathParameters || !event.pathParameters.userId) {
     return formatJSONResponseStatusBadRequest({
-      message: constants.GROUP_PATHPARAMETERS_ERROR,
+      message: constants.USER_PATHPARAMETERS_ERROR,
     });
   }
   const user = { ...event.body };
@@ -242,7 +242,7 @@ const updateUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       data: user,
     });
     return formatJSONResponseStatusOk({
-      message: constants.GROUP_UPDATE,
+      message: constants.USER_UPDATE,
     });
   } catch (error) {
     console.error(error);
@@ -257,7 +257,7 @@ const updateUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 const removeUser = async (event) => {
   if (!event.pathParameters || !event.pathParameters.userId) {
     return formatJSONResponseStatusBadRequest({
-      message: constants.GROUP_PATHPARAMETERS_ERROR,
+      message: constants.USER_PATHPARAMETERS_ERROR,
     });
   }
   const user_id = event.pathParameters.userId;
@@ -268,7 +268,7 @@ const removeUser = async (event) => {
       },
     });
     return formatJSONResponseStatusOk({
-      message: constants.GROUP_DELETE,
+      message: constants.USER_DELETE,
     });
   } catch (error) {
     console.error(error);
