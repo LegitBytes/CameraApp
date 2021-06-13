@@ -3,7 +3,7 @@ import { Columns } from "../../Interfaces";
 export const columns: Columns[] = [
   {
     name: "user_email",
-    label: "user_email", 
+    label: "Email", 
     options: {
       filter: true,
       sort: true,

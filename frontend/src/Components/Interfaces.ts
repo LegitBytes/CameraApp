@@ -1,6 +1,10 @@
 export type is_disabled = true | false;
 interface groups {
   group_name: string;
+  group_id: string;
+}
+interface integrators {
+  integrator_id: string;
 }
 export interface Camera {
   id: number;
@@ -27,8 +31,8 @@ export interface Site {
 }
 
 export interface Customer {
-  id: number;
-  name: string;
+  customer_id: string;
+  customer_name: string;
   group_name: string;
   user_count: number;
   site_count: number;
@@ -37,18 +41,22 @@ export interface Customer {
 }
 
 export interface User {
-  id: number;
+  user_id: string;
   user_email: string;
   groups: groups;
   customer_count: number;
   site_count: number;
   camera_count: number;
   is_disabled: is_disabled;
+  sites: [];
+  cameras: [];
+  customers: [];
 }
 
 export interface Group {
-  id: number;
+  group_id: number;
   group_name: string;
+  integrators: integrators;
   user_count: number;
   customer_count: number;
   site_count: number;

@@ -7,6 +7,18 @@ import ButtonComp from "../../Shared/Buttons";
 import { columns } from "./Util/Columns";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
 import { handleSwitchChange } from "../../Utilities/Helpers/handleSwitchChange";
+import AddUser from "./AddUser";
+
+export interface FormState {
+  user_email: string;
+  group_id: string;
+  integrator_id: string;
+  site_ids: [];
+  customer_ids: [];
+  camera_ids: [];
+}
+
+type title = "ADD NEW USER" | "EDIT USER";
 
 const AllUsers: React.FC = () => {
   const [alertDetails, setAlertDetails] = useState<Alert>({
@@ -43,11 +55,53 @@ const AllUsers: React.FC = () => {
 
   const [acticveData, setActiveData] = useState<User[]>([]);
   const [inacticveData, setInactiveData] = useState<User[]>([]);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  const [formState, setFormState] = useState<FormState>({
+    user_email: "",
+    group_id: "",
+    integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
+    site_ids: [],
+    customer_ids: [],
+    camera_ids: [],
+  });
+
+  const [title, setTitle] = useState<title>("ADD NEW USER");
+
+  const handleModalOpen = (): void => {
+    setFormState({
+      ...formState,
+      user_email: "",
+      group_id: "",
+      site_ids: [],
+      customer_ids: [],
+      camera_ids: [],
+    });
+    setTitle("ADD NEW USER");
+    setModalOpen(true);
+  };
+  const handleEditModalOpen = (item: User): void => {
+    setFormState({
+      ...formState,
+      user_email: item.user_email,
+      group_id: item.groups.group_id,
+      site_ids: item.sites,
+      customer_ids: item.customers,
+      camera_ids: item.cameras,
+    });
+    setTitle("EDIT USER");
+    setModalOpen(true);
+  };
+  const handleModalClose = (): void => {
+    setModalOpen(false);
+    setTitle("ADD NEW USER");
+  };
 
   const getUserData = useCallback(async (): Promise<void> => {
     setLoading(true);
     try {
       const response: AxiosResponse<{ users: User[] }> = await axios.get(url);
+      console.log(response.data);
       const activeArr = response.data.users.filter(
         (item) => item.is_disabled === false
       );
@@ -72,6 +126,11 @@ const AllUsers: React.FC = () => {
     };
   }, [getUserData]);
 
+  const handleSave = () => {
+    console.log(formState);
+    handleModalClose();
+  };
+
   const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
       user_email: item.user_email,
@@ -82,7 +141,12 @@ const AllUsers: React.FC = () => {
       actions: (
         <>
           {isActive && (
-            <ButtonComp type="dark" size="small" variant="contained">
+            <ButtonComp
+              type="dark"
+              size="small"
+              variant="contained"
+              onClick={() => handleEditModalOpen(item)}
+            >
               Modify
             </ButtonComp>
           )}
@@ -92,10 +156,10 @@ const AllUsers: React.FC = () => {
             variant="contained"
             onClick={() =>
               handleSwitchChange(
-                String(item.user_id),
+                item.user_id,
                 item,
                 setLoading,
-                url,
+                url + "/disiable-user",
                 getUserData,
                 handleOpen
               )
@@ -129,7 +193,19 @@ const AllUsers: React.FC = () => {
       onRowsDelete={onRowsDelete}
       transition={transition}
       title="Users"
-    />
+      modalOpen={modalOpen}
+      handleModalClose={handleModalClose}
+      handleModalOpen={handleModalOpen}
+      modalTop="20%"
+      modalWidth="60%"
+      modalTitle={title}
+    >
+      <AddUser
+        formState={formState}
+        setFormState={setFormState}
+        handleSave={handleSave}
+      />
+    </Functionalities>
   );
 };
 

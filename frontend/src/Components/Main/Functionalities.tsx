@@ -21,6 +21,7 @@ import {
 } from "../Interfaces";
 import { TransitionProps } from "../../Shared/Slides";
 import SimpleTabs from "../../Shared/SimpleTabs";
+import ModalComp from "../../Shared/ModalComp";
 
 export type args = Camera[] | Site[] | Customer[] | User[] | Group[];
 export type retVal =
@@ -41,6 +42,13 @@ interface FunctionalitiesProps {
   handleClose: () => void;
   transition: React.ComponentType<TransitionProps> | undefined;
   title: string;
+  modalOpen: boolean;
+  modalTop: number | string;
+  modalWidth: number | string;
+  handleModalOpen: () => void;
+  handleModalClose: () => void;
+  children: JSX.Element;
+  modalTitle: string;
 }
 
 const Functionalities: React.FC<FunctionalitiesProps> = ({
@@ -54,6 +62,13 @@ const Functionalities: React.FC<FunctionalitiesProps> = ({
   transition,
   handleClose,
   title,
+  modalOpen,
+  modalWidth,
+  modalTop,
+  handleModalOpen,
+  handleModalClose,
+  children,
+  modalTitle,
 }) => {
   return (
     <>
@@ -93,6 +108,7 @@ const Functionalities: React.FC<FunctionalitiesProps> = ({
             variant="contained"
             margin={10}
             size="large"
+            onClick={handleModalOpen}
           >
             Add new {title.substr(0, title.length - 1)}
           </ButtonComp>
@@ -130,6 +146,16 @@ const Functionalities: React.FC<FunctionalitiesProps> = ({
         message={alertDetails.message}
         handleClose={handleClose}
       />
+
+      <ModalComp
+        modalOpen={modalOpen}
+        handleModalClose={handleModalClose}
+        modalTop={modalTop}
+        modalWidth={modalWidth}
+        title={modalTitle}
+      >
+        {children}
+      </ModalComp>
     </>
   );
 };

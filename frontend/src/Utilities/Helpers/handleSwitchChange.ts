@@ -19,22 +19,26 @@ export const handleSwitchChange = async (
     message: string
   ) => void
 ): Promise<any> => {
+  let body = {
+    is_disabled: false,
+  };
   if (item.is_disabled === false) {
-    item.is_disabled = true;
+    body.is_disabled = true;
   } else {
-    item.is_disabled = false;
+    body.is_disabled = false;
   }
   setLoading(true);
   try {
     const response: AxiosResponse<any> = await axios.patch(
       `${url}/${id}`,
-      item
+      body
     );
     if (response.status === 200) {
       setLoading(false);
       getData();
     }
   } catch (err) {
+    console.log(err);
     setLoading(false);
     handleOpen("left", "bottom", "Something went wrong!");
   }

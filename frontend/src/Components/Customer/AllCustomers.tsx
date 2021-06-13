@@ -117,18 +117,19 @@ const AllCustomers: React.FC = () => {
   };
 
   return (
-    <Functionalities
-      alertDetails={alertDetails}
-      columns={columns}
-      activeData={acticveData}
-      inactiveData={inacticveData}
-      formatData={formatData}
-      handleClose={handleClose}
-      loading={loading}
-      onRowsDelete={onRowsDelete}
-      transition={transition}
-      title="Customers"
-    />
+    // <Functionalities
+    //   alertDetails={alertDetails}
+    //   columns={columns}
+    //   activeData={acticveData}
+    //   inactiveData={inacticveData}
+    //   formatData={formatData}
+    //   handleClose={handleClose}
+    //   loading={loading}
+    //   onRowsDelete={onRowsDelete}
+    //   transition={transition}
+    //   title="Customers"
+    // />
+    <div>test</div>
   );
 };
 

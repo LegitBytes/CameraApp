@@ -117,18 +117,19 @@ const AllSites: React.FC = () => {
   };
 
   return (
-    <Functionalities
-      alertDetails={alertDetails}
-      columns={columns}
-      activeData={activeData}
-      inactiveData={inactiveData}
-      formatData={formatData}
-      handleClose={handleClose}
-      loading={loading}
-      onRowsDelete={onRowsDelete}
-      transition={transition}
-      title="Sites"
-    />
+    // <Functionalities
+    //   alertDetails={alertDetails}
+    //   columns={columns}
+    //   activeData={activeData}
+    //   inactiveData={inactiveData}
+    //   formatData={formatData}
+    //   handleClose={handleClose}
+    //   loading={loading}
+    //   onRowsDelete={onRowsDelete}
+    //   transition={transition}
+    //   title="Sites"
+    // />
+    <div>test</div>
   );
 };
 

@@ -49,7 +49,9 @@ const AllCameras: React.FC = () => {
     setLoading(true);
     try {
       const response: AxiosResponse<Camera[]> = await axios.get(url);
-      let activeArr = response.data.filter((item) => item.is_disabled === false);
+      let activeArr = response.data.filter(
+        (item) => item.is_disabled === false
+      );
       let inactiveArr = response.data.filter(
         (item) => item.is_disabled === true
       );
@@ -124,18 +126,19 @@ const AllCameras: React.FC = () => {
   };
 
   return (
-    <Functionalities
-      alertDetails={alertDetails}
-      columns={columns}
-      activeData={activedata}
-      inactiveData={inactivedata}
-      formatData={formatData}
-      handleClose={handleClose}
-      loading={loading}
-      onRowsDelete={onRowsDelete}
-      transition={transition}
-      title="Cameras"
-    />
+    // <Functionalities
+    //   alertDetails={alertDetails}
+    //   columns={columns}
+    //   activeData={activedata}
+    //   inactiveData={inactivedata}
+    //   formatData={formatData}
+    //   handleClose={handleClose}
+    //   loading={loading}
+    //   onRowsDelete={onRowsDelete}
+    //   transition={transition}
+    //   title="Cameras"
+    // />
+    <div>test</div>
   );
 };
 
