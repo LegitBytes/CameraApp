@@ -145,14 +145,44 @@ const updateGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       message: constants.GROUP_PATHPARAMETERS_ERROR,
     });
   }
-  const group = { ...event.body };
+  const { group_name, integrator_id } = event.body;
   const group_id = event.pathParameters.groupId;
   try {
     await prisma.groups.update({
       where: {
         group_id,
       },
-      data: group,
+      data: { group_name, integrator_id },
+    });
+    return formatJSONResponseStatusOk({
+      message: constants.GROUP_UPDATE,
+    });
+  } catch (error) {
+    console.error(error);
+    return formatJSONResponseStatusServerError({
+      message: constants.SERVER_ERROR,
+      error,
+    });
+  }
+};
+
+// Update is_disiable
+const disiableGroup = async (event) => {
+  if (!event.pathParameters || !event.pathParameters.groupId) {
+    return formatJSONResponseStatusBadRequest({
+      message: constants.GROUP_PATHPARAMETERS_ERROR,
+    });
+  }
+
+  const group_id = event.pathParameters.groupId;
+  const { is_disabled } = event.body;
+
+  try {
+    await prisma.groups.update({
+      where: {
+        group_id,
+      },
+      data: { is_disabled },
     });
     return formatJSONResponseStatusOk({
       message: constants.GROUP_UPDATE,
@@ -196,4 +226,5 @@ export const addGroup = middyfy(addNewGroup);
 export const getGroupById = middyfy(findGroupById);
 export const getAllGroups = middyfy(findAllGroups);
 export const editGroup = middyfy(updateGroup);
+export const editDisableGroup = middyfy(disiableGroup);
 export const deleteGroup = middyfy(removeGroup);

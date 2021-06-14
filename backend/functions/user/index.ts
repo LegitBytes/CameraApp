@@ -8,6 +8,7 @@ export const addNewUser = {
       http: {
         method: "post",
         path: "users/add-user",
+        cors: true,
         request: {
           schema: {
             "application/json": schema,
@@ -25,6 +26,7 @@ export const findUserById = {
       http: {
         method: "get",
         path: "users/{userId}",
+        cors: true,
       },
     },
   ],
@@ -37,6 +39,7 @@ export const findAllUsers = {
       http: {
         method: "get",
         path: "users",
+        cors: true,
       },
     },
   ],
@@ -47,13 +50,27 @@ export const updateUser = {
   events: [
     {
       http: {
-        method: "put",
+        method: "patch",
         path: "users/{userId}",
+        cors: true,
         request: {
           schema: {
             "application/json": schema,
           },
         },
+      },
+    },
+  ],
+};
+
+export const disiableUser = {
+  handler: `${handlerPath(__dirname)}/handler.editDisableUser`,
+  events: [
+    {
+      http: {
+        method: "patch",
+        path: "users/disable-user/{userId}",
+        cors: true,
       },
     },
   ],
@@ -66,6 +83,7 @@ export const removeUser = {
       http: {
         method: "delete",
         path: "users/{userId}",
+        cors: true,
       },
     },
   ],

@@ -107,6 +107,7 @@ const findCameraById = async (event) => {
         camera_name: true,
         smtp_user_name: true,
         smtp_password: true,
+        is_disabled: true,
         groups: true,
         integrators: true,
         users: true,
@@ -115,6 +116,7 @@ const findCameraById = async (event) => {
     return formatJSONResponseStatusOk({
       camera: {
         ...camera,
+        total_request: 0,
       },
     });
   } catch (error) {
@@ -134,13 +136,17 @@ const findAllCameras = async () => {
       camera_name: true,
       smtp_user_name: true,
       smtp_password: true,
+      is_disabled: true,
       groups: true,
       integrators: true,
       users: true,
     },
   });
+  const new_camera = cameras.map((camera) => {
+    return { ...camera, total_request: 0 };
+  });
   return formatJSONResponseStatusOk({
-    cameras,
+    cameras: new_camera,
   });
 };
 
@@ -153,14 +159,74 @@ const updateCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       message: constants.CAMERA_PATHPARAMETERS_ERROR,
     });
   }
-  const camera = { ...event.body };
+  const {
+    camera_name,
+    smtp_user_name,
+    smtp_password,
+    group_id,
+    integrator_id,
+  } = event.body;
   const camera_id = event.pathParameters.cameraId;
+
+  if (event.body.camera_ip) {
+    const camera = await prisma.cameras.create({
+      data: {
+        camera_name,
+        camera_ip: event.body.camera_ip,
+        smtp_user_name,
+        smtp_password,
+        group_id,
+        integrator_id,
+      },
+    });
+    return formatJSONResponseStatusCreated({
+      message: constants.CAMERA_SAVE,
+      camera,
+    });
+  }
+
   try {
     await prisma.cameras.update({
       where: {
         camera_id,
       },
-      data: camera,
+      data: {
+        camera_name,
+        smtp_user_name,
+        smtp_password,
+        group_id,
+        integrator_id,
+      },
+    });
+    return formatJSONResponseStatusOk({
+      message: constants.CAMERA_UPDATE,
+    });
+  } catch (error) {
+    console.error(error);
+    return formatJSONResponseStatusServerError({
+      message: constants.SERVER_ERROR,
+      error,
+    });
+  }
+};
+
+// Update is_disiable
+const disiableCamera = async (event) => {
+  if (!event.pathParameters || !event.pathParameters.cameraId) {
+    return formatJSONResponseStatusBadRequest({
+      message: constants.CAMERA_PATHPARAMETERS_ERROR,
+    });
+  }
+
+  const camera_id = event.pathParameters.cameraId;
+  const { is_disabled } = event.body;
+
+  try {
+    await prisma.cameras.update({
+      where: {
+        camera_id,
+      },
+      data: { is_disabled },
     });
     return formatJSONResponseStatusOk({
       message: constants.CAMERA_UPDATE,
@@ -204,4 +270,5 @@ export const addCamera = middyfy(addNewCamera);
 export const getCameraById = middyfy(findCameraById);
 export const getAllCameras = middyfy(findAllCameras);
 export const editCamera = middyfy(updateCamera);
+export const editDisableCamera = middyfy(disiableCamera);
 export const deleteCamera = middyfy(removeCamera);

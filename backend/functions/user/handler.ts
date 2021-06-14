@@ -41,20 +41,24 @@ const addNewUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         message: constants.CAMERA_ID_NOT_PROVIDED_ERROR,
       });
     }
-    const sites = site_ids.map(
-      async (site_id: string) =>
-        await prisma.sites.findUnique({ where: { site_id } })
-    );
 
-    const customers = customer_ids.map(
-      async (customer_id: string) =>
-        await prisma.customers.findUnique({ where: { customer_id } })
-    );
+    // const customers = await prisma.customers.findMany({
+    //   where: { customer_id: { in: customer_ids } },
+    // });
 
-    const cameras = camera_ids.map(
-      async (camera_id: string) =>
-        await prisma.cameras.findUnique({ where: { camera_id } })
-    );
+    // console.log("Customers in add User", customers);
+
+    // const cameras = await prisma.cameras.findMany({
+    //   where: { camera_id: { in: camera_ids } },
+    // });
+
+    // console.log("Cameras in add User", cameras);
+
+    // const sites = await prisma.sites.findMany({
+    //   where: { site_id: { in: site_ids } },
+    // });
+
+    // console.log("Sites in add User", sites);
 
     const user = await prisma.users.create({
       data: {
@@ -66,13 +70,19 @@ const addNewUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         },
         user_email: user_email,
         customers: {
-          create: customers,
+          connect: customer_ids.map((ci) => {
+            return { customer_id: ci };
+          }),
         },
         sites: {
-          create: sites,
+          connect: site_ids.map((si) => {
+            return { site_id: si };
+          }),
         },
         cameras: {
-          create: cameras,
+          connect: camera_ids.map((ci) => {
+            return { camera_id: ci };
+          }),
         },
       },
       include: {
@@ -232,14 +242,75 @@ const updateUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       message: constants.USER_PATHPARAMETERS_ERROR,
     });
   }
-  const user = { ...event.body };
+  const {
+    user_email,
+    group_id,
+    site_ids,
+    customer_ids,
+    camera_ids,
+    integrator_id,
+  } = event.body;
   const user_id = event.pathParameters.userId;
+
   try {
     await prisma.users.update({
       where: {
         user_id,
       },
-      data: user,
+      data: {
+        groups: {
+          connect: { group_id },
+        },
+        integrators: {
+          connect: { integrator_id },
+        },
+        user_email: user_email,
+        customers: {
+          connect: customer_ids.map((ci) => {
+            return { customer_id: ci };
+          }),
+        },
+        sites: {
+          connect: site_ids.map((si) => {
+            return { site_id: si };
+          }),
+        },
+        cameras: {
+          connect: camera_ids.map((ci) => {
+            return { camera_id: ci };
+          }),
+        },
+      },
+    });
+    return formatJSONResponseStatusOk({
+      message: constants.USER_UPDATE,
+    });
+  } catch (error) {
+    console.error(error);
+    return formatJSONResponseStatusServerError({
+      message: constants.SERVER_ERROR,
+      error,
+    });
+  }
+};
+
+// Update is_disiable
+const disiableUser = async (event) => {
+  if (!event.pathParameters || !event.pathParameters.userId) {
+    return formatJSONResponseStatusBadRequest({
+      message: constants.USER_PATHPARAMETERS_ERROR,
+    });
+  }
+
+  const user_id = event.pathParameters.userId;
+  const { is_disabled } = event.body;
+
+  try {
+    await prisma.users.update({
+      where: {
+        user_id,
+      },
+      data: { is_disabled },
     });
     return formatJSONResponseStatusOk({
       message: constants.USER_UPDATE,
@@ -283,4 +354,5 @@ export const addUser = middyfy(addNewUser);
 export const getUserById = middyfy(findUserById);
 export const getAllUsers = middyfy(findAllUsers);
 export const editUser = middyfy(updateUser);
+export const editDisableUser = middyfy(disiableUser);
 export const deleteUser = middyfy(removeUser);

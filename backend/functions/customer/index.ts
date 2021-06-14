@@ -8,6 +8,7 @@ export const addNewCustomer = {
       http: {
         method: "post",
         path: "customers/add-customer",
+        cors: true,
         request: {
           schema: {
             "application/json": schema,
@@ -25,6 +26,7 @@ export const findCustomerById = {
       http: {
         method: "get",
         path: "customers/{customerId}",
+        cors: true,
       },
     },
   ],
@@ -37,6 +39,7 @@ export const findAllCustomers = {
       http: {
         method: "get",
         path: "customers",
+        cors: true,
       },
     },
   ],
@@ -47,13 +50,27 @@ export const updateCustomer = {
   events: [
     {
       http: {
-        method: "put",
+        method: "patch",
         path: "customers/{customerId}",
+        cors: true,
         request: {
           schema: {
             "application/json": schema,
           },
         },
+      },
+    },
+  ],
+};
+
+export const disiableCustomer = {
+  handler: `${handlerPath(__dirname)}/handler.editDisableCustomer`,
+  events: [
+    {
+      http: {
+        method: "patch",
+        path: "customers/disable-customer/{customerId}",
+        cors: true,
       },
     },
   ],
@@ -66,6 +83,7 @@ export const removeCustomer = {
       http: {
         method: "delete",
         path: "customers/{customerId}",
+        cors: true,
       },
     },
   ],

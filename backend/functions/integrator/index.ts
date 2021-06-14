@@ -8,6 +8,7 @@ export const addNewIntegrator = {
       http: {
         method: "post",
         path: "integrators/add-integrator",
+        cors: true,
         request: {
           schema: {
             "application/json": schema,
@@ -25,6 +26,7 @@ export const findIntegratorById = {
       http: {
         method: "get",
         path: "integrators/{integratorId}",
+        cors: true,
       },
     },
   ],
@@ -37,6 +39,7 @@ export const findAllIntegrators = {
       http: {
         method: "get",
         path: "integrators",
+        cors: true,
       },
     },
   ],
@@ -47,8 +50,9 @@ export const updateIntegrator = {
   events: [
     {
       http: {
-        method: "put",
+        method: "patch",
         path: "integrators/{integratorId}",
+        cors: true,
         request: {
           schema: {
             "application/json": schema,
@@ -66,6 +70,7 @@ export const removeIntegrator = {
       http: {
         method: "delete",
         path: "integrators/{integratorId}",
+        cors: true,
       },
     },
   ],

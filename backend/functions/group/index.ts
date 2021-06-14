@@ -8,6 +8,7 @@ export const addNewGroup = {
       http: {
         method: "post",
         path: "groups/add-group",
+        cors: true,
         request: {
           schema: {
             "application/json": schema,
@@ -25,6 +26,7 @@ export const findGroupById = {
       http: {
         method: "get",
         path: "groups/{groupId}",
+        cors: true,
       },
     },
   ],
@@ -37,6 +39,7 @@ export const findAllGroups = {
       http: {
         method: "get",
         path: "groups",
+        cors: true,
       },
     },
   ],
@@ -47,13 +50,27 @@ export const updateGroup = {
   events: [
     {
       http: {
-        method: "put",
+        method: "patch",
         path: "groups/{groupId}",
+        cors: true,
         request: {
           schema: {
             "application/json": schema,
           },
         },
+      },
+    },
+  ],
+};
+
+export const disiableGroup = {
+  handler: `${handlerPath(__dirname)}/handler.editDisableGroup`,
+  events: [
+    {
+      http: {
+        method: "patch",
+        path: "groups/disable-group/{groupId}",
+        cors: true,
       },
     },
   ],
@@ -66,6 +83,7 @@ export const removeGroup = {
       http: {
         method: "delete",
         path: "groups/{groupId}",
+        cors: true,
       },
     },
   ],

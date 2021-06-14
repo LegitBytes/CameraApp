@@ -8,6 +8,7 @@ export const addNewSite = {
       http: {
         method: "post",
         path: "sites/add-site",
+        cors: true,
         request: {
           schema: {
             "application/json": schema,
@@ -25,6 +26,7 @@ export const findSiteById = {
       http: {
         method: "get",
         path: "sites/{siteId}",
+        cors: true,
       },
     },
   ],
@@ -37,6 +39,7 @@ export const findAllSites = {
       http: {
         method: "get",
         path: "sites",
+        cors: true,
       },
     },
   ],
@@ -47,13 +50,27 @@ export const updateSite = {
   events: [
     {
       http: {
-        method: "put",
+        method: "patch",
         path: "sites/{siteId}",
+        cors: true,
         request: {
           schema: {
             "application/json": schema,
           },
         },
+      },
+    },
+  ],
+};
+
+export const disiableSite = {
+  handler: `${handlerPath(__dirname)}/handler.editDisableSite`,
+  events: [
+    {
+      http: {
+        method: "patch",
+        path: "sites/disable-site/{siteId}",
+        cors: true,
       },
     },
   ],
@@ -66,6 +83,7 @@ export const removeSite = {
       http: {
         method: "delete",
         path: "sites/{siteId}",
+        cors: true,
       },
     },
   ],

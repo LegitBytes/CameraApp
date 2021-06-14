@@ -8,6 +8,7 @@ export const addNewCamera = {
       http: {
         method: "post",
         path: "cameras/add-camera",
+        cors: true,
         request: {
           schema: {
             "application/json": schema,
@@ -25,6 +26,7 @@ export const findCameraById = {
       http: {
         method: "get",
         path: "cameras/{cameraId}",
+        cors: true,
       },
     },
   ],
@@ -37,6 +39,7 @@ export const findAllCameras = {
       http: {
         method: "get",
         path: "cameras",
+        cors: true,
       },
     },
   ],
@@ -47,13 +50,27 @@ export const updateCamera = {
   events: [
     {
       http: {
-        method: "put",
+        method: "patch",
         path: "cameras/{cameraId}",
+        cors: true,
         request: {
           schema: {
             "application/json": schema,
           },
         },
+      },
+    },
+  ],
+};
+
+export const disiableCamera = {
+  handler: `${handlerPath(__dirname)}/handler.editDisableCamera`,
+  events: [
+    {
+      http: {
+        method: "patch",
+        path: "cameras/disable-camera/{cameraId}",
+        cors: true,
       },
     },
   ],
@@ -66,6 +83,7 @@ export const removeCamera = {
       http: {
         method: "delete",
         path: "cameras/{cameraId}",
+        cors: true,
       },
     },
   ],
