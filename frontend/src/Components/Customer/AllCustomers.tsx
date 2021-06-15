@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Customer, rows } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
@@ -7,6 +7,9 @@ import ButtonComp from "../../Shared/Buttons";
 import { columns } from "./Util/Columns";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
 import { handleSwitchChange } from "../../Utilities/Helpers/handleSwitchChange";
+import AddCustomer from "./AddCustomer";
+
+type title = "ADD NEW CUSTOMER" | "EDIT CUSTOMER";
 
 const AllCustomers: React.FC = () => {
   const [alertDetails, setAlertDetails] = useState<Alert>({
@@ -37,21 +40,48 @@ const AllCustomers: React.FC = () => {
     setAlertDetails({ ...alertDetails, open: false });
   };
 
-  const url = "http://localhost:4002/customer-db";
+  const url = process.env.REACT_APP_API_URL + "customers";
 
   const [loading, setLoading] = useState<boolean>(true);
 
-  const [acticveData, setActiveData] = useState<Customer[]>([]);
-  const [inacticveData, setInactiveData] = useState<Customer[]>([]);
+  const [activeData, setActiveData] = useState<Customer[]>([]);
+  const [inactiveData, setInactiveData] = useState<Customer[]>([]);
+
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  const [title, setTitle] = useState<title>("ADD NEW CUSTOMER");
+  const [updateId, setUpdateId] = useState<string>("");
+  const [action, setAction] = useState<"ADD" | "EDIT">("ADD");
+  const [item, setItem] = useState<Customer | null>(null);
+
+  const handleModalOpen = (): void => {
+    setTitle("ADD NEW CUSTOMER");
+    setAction("ADD");
+    setItem(null);
+    setUpdateId("");
+    setModalOpen(true);
+  };
+  const handleEditModalOpen = (item: Customer): void => {
+    setTitle("EDIT CUSTOMER");
+    setAction("EDIT");
+    setItem(item);
+    setUpdateId(item.customer_id);
+    setModalOpen(true);
+  };
+  const handleModalClose = (): void => {
+    setModalOpen(false);
+    setTitle("ADD NEW CUSTOMER");
+  };
 
   const getCustomerData = useCallback(async (): Promise<void> => {
     setLoading(true);
     try {
-      const response: AxiosResponse<Customer[]> = await axios.get(url);
-      const activeArr = response.data.filter(
+      const response: AxiosResponse<{ customers: Customer[] }> =
+        await axios.get(url);
+      const activeArr = response.data.customers.filter(
         (item) => item.is_disabled === false
       );
-      const inactiveArr = response.data.filter(
+      const inactiveArr = response.data.customers.filter(
         (item) => item.is_disabled === true
       );
       setActiveData(activeArr);
@@ -61,7 +91,7 @@ const AllCustomers: React.FC = () => {
       setLoading(false);
       handleOpen("left", "bottom", "Something went wrong!");
     }
-  }, []);
+  }, [url]);
 
   useEffect(() => {
     getCustomerData();
@@ -73,15 +103,20 @@ const AllCustomers: React.FC = () => {
 
   const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
-      name: item.name,
-      group_name: item.group_name,
-      user_count: item.user_count,
-      site_count: item.site_count,
+      name: item.customer_name,
+      group_name: item.groups.group_name,
+      user_count: item.users.length,
+      site_count: item.sites.length,
       camera_count: item.camera_count,
       actions: (
         <>
           {isActive && (
-            <ButtonComp type="dark" size="small" variant="contained">
+            <ButtonComp
+              type="dark"
+              size="small"
+              variant="contained"
+              onClick={() => handleEditModalOpen(item)}
+            >
               Modify
             </ButtonComp>
           )}
@@ -91,10 +126,10 @@ const AllCustomers: React.FC = () => {
             variant="contained"
             onClick={() =>
               handleSwitchChange(
-                String(item.id),
+                item.customer_id,
                 item,
                 setLoading,
-                url,
+                url + "/disable-customer",
                 getCustomerData,
                 handleOpen
               )
@@ -116,20 +151,43 @@ const AllCustomers: React.FC = () => {
     return false;
   };
 
+  const addCustomer = useMemo(
+    () => (
+      <AddCustomer
+        action={action}
+        getCustomerData={getCustomerData}
+        handleModalClose={handleModalClose}
+        handleOpen={handleOpen}
+        item={item}
+        setLoading={setLoading}
+        updateId={updateId}
+        url={url}
+      />
+    ),
+    [action, getCustomerData, item, updateId, url]
+  );
+
   return (
-    // <Functionalities
-    //   alertDetails={alertDetails}
-    //   columns={columns}
-    //   activeData={acticveData}
-    //   inactiveData={inacticveData}
-    //   formatData={formatData}
-    //   handleClose={handleClose}
-    //   loading={loading}
-    //   onRowsDelete={onRowsDelete}
-    //   transition={transition}
-    //   title="Customers"
-    // />
-    <div>test</div>
+    <Functionalities
+      alertDetails={alertDetails}
+      columns={columns}
+      activeData={activeData}
+      inactiveData={inactiveData}
+      formatData={formatData}
+      handleClose={handleClose}
+      loading={loading}
+      onRowsDelete={onRowsDelete}
+      transition={transition}
+      title="Customers"
+      modalOpen={modalOpen}
+      handleModalClose={handleModalClose}
+      handleModalOpen={handleModalOpen}
+      modalTop="20%"
+      modalWidth="60%"
+      modalTitle={title}
+    >
+      {addCustomer}
+    </Functionalities>
   );
 };
 

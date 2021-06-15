@@ -7,37 +7,43 @@ interface integrators {
   integrator_id: string;
 }
 export interface Camera {
-  id: number;
-  name: string;
+  camera_id: string;
+  camera_name: string;
   ip_address: string;
-  smtp_username: string;
+  smtp_user_name: string;
   smtp_password: string;
   site: string;
-  location: string;
+  customer: string;
   total_requests: number;
-  group_name: number;
+  groups: groups
   user_count: number;
   is_disabled: is_disabled;
+  users: []
 }
 
 export interface Site {
-  id: number;
-  name: string;
-  group_name: string;
-  user_count: number;
-  customer_count: number;
-  camera_count: number;
+  site_id: string;
+  site_name: string;
+  groups: groups;
+  // user_count: number;
+  // customer_count: number;
+  // camera_count: number;
+  users: []
+  customers: []
+  cameras: []
   is_disabled: is_disabled;
 }
 
 export interface Customer {
   customer_id: string;
   customer_name: string;
-  group_name: string;
-  user_count: number;
-  site_count: number;
-  camera_count: number;
+  groups: groups;
+  // user_count: number;
+  // site_count: number;
+  // camera_count: number;
   is_disabled: is_disabled;
+  sites: [];
+  users: [];
 }
 
 export interface User {
@@ -54,7 +60,7 @@ export interface User {
 }
 
 export interface Group {
-  group_id: number;
+  group_id: string;
   group_name: string;
   integrators: integrators;
   user_count: number;
@@ -70,7 +76,7 @@ export interface FormattedCamera {
   smtp_username: JSX.Element;
   smtp_password: JSX.Element;
   site: string;
-  location: string;
+  customer: string;
   total_requests: number;
   group_name: number;
   user_count: number;

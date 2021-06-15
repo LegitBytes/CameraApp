@@ -160,4 +160,4 @@ const Functionalities: React.FC<FunctionalitiesProps> = ({
   );
 };
 
-export default Functionalities;
+export default React.memo(Functionalities);

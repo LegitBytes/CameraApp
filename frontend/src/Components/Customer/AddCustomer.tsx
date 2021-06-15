@@ -7,28 +7,27 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import ButtonComp from "../../Shared/Buttons";
-import { Customer, Group, Site, Camera, User } from "../Interfaces";
+import { Customer, Group, Site, User } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import LoadingScreen from "../../Shared/LoadingScreen";
 import AutoCompleteComp from "../../Shared/AutoCompleteComp";
 import { FormEvent } from "react";
 
 export interface FormState {
-  user_email: string | undefined;
+  customer_name: string | undefined;
   group_id: string | undefined;
   integrator_id: string | undefined;
   site_ids: any[] | undefined;
-  customer_ids: any[] | undefined;
-  camera_ids: any[] | undefined;
+  user_ids: any[] | undefined;
 }
 
-interface AddUserProps {
+interface AddCustomerProps {
   action: "ADD" | "EDIT";
   url: string;
-  item: User | null;
+  item: Customer | null;
   handleModalClose: () => void;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  getUserData: () => void;
+  getCustomerData: () => void;
   handleOpen: (
     horizontal: "left" | "center" | "right",
     vertical: "top" | "bottom",
@@ -37,38 +36,34 @@ interface AddUserProps {
   updateId: string;
 }
 
-const AddUser: React.FC<AddUserProps> = ({
+const AddCustomer: React.FC<AddCustomerProps> = ({
   action,
   url,
   item,
   handleModalClose,
   setLoading,
-  getUserData,
+  getCustomerData,
   handleOpen,
   updateId,
 }) => {
   const initialState =
     action === "ADD"
       ? {
-          user_email: "",
+          customer_name: "",
           group_id: "",
           integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
           site_ids: [],
-          customer_ids: [],
-          camera_ids: [],
+          user_ids: [],
         }
       : {
-          user_email: item?.user_email,
+          customer_name: item?.customer_name,
           group_id: item?.groups.group_id,
           integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
           site_ids: item?.sites.map(
             (site: { site_id: string }) => site.site_id
           ),
-          customer_ids: item?.customers.map(
-            (customer: { customer_id: string }) => customer.customer_id
-          ),
-          camera_ids: item?.cameras.map(
-            (camera: { camera_id: string }) => camera.camera_id
+          user_ids: item?.users.map(
+            (user: { user_id: string }) => user.user_id
           ),
         };
 
@@ -102,14 +97,15 @@ const AddUser: React.FC<AddUserProps> = ({
 
   const [loading2, setLoading2] = useState<boolean>(true);
 
-  const [customerData, setCustomerData] = useState<Customer[]>([]);
+  const [userData, setUserData] = useState<User[]>([]);
 
-  const getCustomerData = useCallback(async (): Promise<void> => {
+  const getUserData = useCallback(async (): Promise<void> => {
     setLoading2(true);
     try {
-      const response: AxiosResponse<{ customers: Customer[] }> =
-        await axios.get(process.env.REACT_APP_API_URL + "customers");
-      setCustomerData(response.data.customers);
+      const response: AxiosResponse<{ users: User[] }> = await axios.get(
+        process.env.REACT_APP_API_URL + "users"
+      );
+      setUserData(response.data.users);
 
       setLoading2(false);
     } catch (err) {
@@ -135,24 +131,6 @@ const AddUser: React.FC<AddUserProps> = ({
     }
   }, []);
 
-  const [loading4, setLoading4] = useState<boolean>(true);
-
-  const [cameraData, setCameraData] = useState<Camera[]>([]);
-
-  const getCameraData = useCallback(async (): Promise<void> => {
-    setLoading4(true);
-    try {
-      const response: AxiosResponse<{ cameras: Camera[] }> = await axios.get(
-        process.env.REACT_APP_API_URL + "cameras"
-      );
-      setCameraData(response.data.cameras);
-
-      setLoading4(false);
-    } catch (err) {
-      setLoading4(false);
-    }
-  }, []);
-
   const getUsedData = (data: any[], dataKey: string, stateKey: string) => {
     const withUndefined = formState[stateKey].map((val) =>
       data.find((item) => item[dataKey] === val)
@@ -171,17 +149,15 @@ const AddUser: React.FC<AddUserProps> = ({
 
   useEffect(() => {
     getGroupData();
-    getCustomerData();
+    getUserData();
     getSiteData();
-    getCameraData();
 
     return () => {
       setGroupData([]);
-      setCustomerData([]);
+      setUserData([]);
       setSiteData([]);
-      setCameraData([]);
     };
-  }, [getGroupData, getCustomerData, getSiteData, getCameraData]);
+  }, [getGroupData, getUserData, getSiteData]);
 
   const handleSave = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -192,11 +168,11 @@ const AddUser: React.FC<AddUserProps> = ({
       if (action === "ADD") {
         try {
           const response: AxiosResponse<any> = await axios.post(
-            url + "/add-user",
+            url + "/add-customer",
             formState
           );
           if (response.status === 201) {
-            getUserData();
+            getCustomerData();
             setLoading(false);
           }
         } catch (err) {
@@ -210,7 +186,7 @@ const AddUser: React.FC<AddUserProps> = ({
             formState
           );
           if (response.status === 200) {
-            getUserData();
+            getCustomerData();
             setLoading(false);
           }
         } catch (err) {
@@ -221,7 +197,7 @@ const AddUser: React.FC<AddUserProps> = ({
     },
     [
       formState,
-      getUserData,
+      getCustomerData,
       updateId,
       url,
       action,
@@ -231,7 +207,7 @@ const AddUser: React.FC<AddUserProps> = ({
     ]
   );
 
-  if (loading1 || loading2 || loading3 || loading4) {
+  if (loading1 || loading2 || loading3) {
     return (
       <div style={{ marginTop: 100 }}>
         <LoadingScreen />
@@ -243,18 +219,18 @@ const AddUser: React.FC<AddUserProps> = ({
         <Grid container direction="row" spacing={1}>
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="user_email">Email:</label>
+              <label htmlFor="customer_name">Name:</label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <TextField
-              name="user_email"
-              id="user_email"
+              name="customer_name"
+              id="customer_name"
               type="text"
               onChange={onChange}
               variant="outlined"
               fullWidth={true}
-              value={formState.user_email}
+              value={formState.customer_name}
             />
           </Grid>
           <Grid item xs={12}>
@@ -281,22 +257,18 @@ const AddUser: React.FC<AddUserProps> = ({
 
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="customer_ids">Customers:</label>
+              <label htmlFor="customer_ids">Users:</label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <AutoCompleteComp
-              data={customerData}
-              usedData={getUsedData(
-                customerData,
-                "customer_id",
-                "customer_ids"
-              )}
-              changeKey="customer_ids"
-              labelKey="customer_name"
-              returnKey="customer_id"
+              data={userData}
+              usedData={getUsedData(userData, "user_id", "user_ids")}
+              changeKey="user_ids"
+              labelKey="user_email"
+              returnKey="user_id"
               handleChange={handleChange}
-              placeholder="ADD NEW CUSTOMER"
+              placeholder="ADD NEW USER"
             />
           </Grid>
 
@@ -316,23 +288,6 @@ const AddUser: React.FC<AddUserProps> = ({
               placeholder="ADD NEW SITE"
             />
           </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h6">
-              <label htmlFor="camera_ids">Cameras:</label>
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <AutoCompleteComp
-              data={cameraData}
-              usedData={getUsedData(cameraData, "camera_id", "camera_ids")}
-              changeKey="camera_ids"
-              labelKey="camera_name"
-              returnKey="camera_id"
-              handleChange={handleChange}
-              placeholder="ADD NEW CAMERA"
-            />
-          </Grid>
-
           <Grid item xs={false} sm={4} />
           <Grid item xs={12} sm={4} style={{ marginTop: 20 }}>
             <ButtonComp
@@ -351,4 +306,4 @@ const AddUser: React.FC<AddUserProps> = ({
     );
 };
 
-export default AddUser;
+export default AddCustomer;

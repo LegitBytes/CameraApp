@@ -14,21 +14,21 @@ import AutoCompleteComp from "../../Shared/AutoCompleteComp";
 import { FormEvent } from "react";
 
 export interface FormState {
-  user_email: string | undefined;
+  site_name: string | undefined;
   group_id: string | undefined;
   integrator_id: string | undefined;
-  site_ids: any[] | undefined;
+  user_ids: any[] | undefined;
   customer_ids: any[] | undefined;
   camera_ids: any[] | undefined;
 }
 
-interface AddUserProps {
+interface AddSiteProps {
   action: "ADD" | "EDIT";
   url: string;
-  item: User | null;
+  item: Site | null;
   handleModalClose: () => void;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  getUserData: () => void;
+  getSiteData: () => void;
   handleOpen: (
     horizontal: "left" | "center" | "right",
     vertical: "top" | "bottom",
@@ -37,32 +37,32 @@ interface AddUserProps {
   updateId: string;
 }
 
-const AddUser: React.FC<AddUserProps> = ({
+const AddSite: React.FC<AddSiteProps> = ({
   action,
   url,
   item,
   handleModalClose,
   setLoading,
-  getUserData,
+  getSiteData,
   handleOpen,
   updateId,
 }) => {
   const initialState =
     action === "ADD"
       ? {
-          user_email: "",
+          site_name: "",
           group_id: "",
           integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
-          site_ids: [],
+          user_ids: [],
           customer_ids: [],
           camera_ids: [],
         }
       : {
-          user_email: item?.user_email,
+          site_name: item?.site_name,
           group_id: item?.groups.group_id,
           integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
-          site_ids: item?.sites.map(
-            (site: { site_id: string }) => site.site_id
+          user_ids: item?.users.map(
+            (user: { user_id: string }) => user.user_id
           ),
           customer_ids: item?.customers.map(
             (customer: { customer_id: string }) => customer.customer_id
@@ -119,15 +119,15 @@ const AddUser: React.FC<AddUserProps> = ({
 
   const [loading3, setLoading3] = useState<boolean>(true);
 
-  const [siteData, setSiteData] = useState<Site[]>([]);
+  const [userData, setUserData] = useState<User[]>([]);
 
-  const getSiteData = useCallback(async (): Promise<void> => {
+  const getUserData = useCallback(async (): Promise<void> => {
     setLoading3(true);
     try {
-      const response: AxiosResponse<{ sites: Site[] }> = await axios.get(
-        process.env.REACT_APP_API_URL + "sites"
+      const response: AxiosResponse<{ users: User[] }> = await axios.get(
+        process.env.REACT_APP_API_URL + "users"
       );
-      setSiteData(response.data.sites);
+      setUserData(response.data.users);
 
       setLoading3(false);
     } catch (err) {
@@ -172,16 +172,16 @@ const AddUser: React.FC<AddUserProps> = ({
   useEffect(() => {
     getGroupData();
     getCustomerData();
-    getSiteData();
+    getUserData();
     getCameraData();
 
     return () => {
       setGroupData([]);
       setCustomerData([]);
-      setSiteData([]);
+      setUserData([]);
       setCameraData([]);
     };
-  }, [getGroupData, getCustomerData, getSiteData, getCameraData]);
+  }, [getGroupData, getCustomerData, getUserData, getCameraData]);
 
   const handleSave = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -192,11 +192,11 @@ const AddUser: React.FC<AddUserProps> = ({
       if (action === "ADD") {
         try {
           const response: AxiosResponse<any> = await axios.post(
-            url + "/add-user",
+            url + "/add-site",
             formState
           );
           if (response.status === 201) {
-            getUserData();
+            getSiteData();
             setLoading(false);
           }
         } catch (err) {
@@ -210,7 +210,7 @@ const AddUser: React.FC<AddUserProps> = ({
             formState
           );
           if (response.status === 200) {
-            getUserData();
+            getSiteData();
             setLoading(false);
           }
         } catch (err) {
@@ -221,7 +221,7 @@ const AddUser: React.FC<AddUserProps> = ({
     },
     [
       formState,
-      getUserData,
+      getSiteData,
       updateId,
       url,
       action,
@@ -243,18 +243,18 @@ const AddUser: React.FC<AddUserProps> = ({
         <Grid container direction="row" spacing={1}>
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="user_email">Email:</label>
+              <label htmlFor="site_name">Name:</label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <TextField
-              name="user_email"
-              id="user_email"
+              name="site_name"
+              id="site_name"
               type="text"
               onChange={onChange}
               variant="outlined"
               fullWidth={true}
-              value={formState.user_email}
+              value={formState.site_name}
             />
           </Grid>
           <Grid item xs={12}>
@@ -302,18 +302,18 @@ const AddUser: React.FC<AddUserProps> = ({
 
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="site_ids">Sites:</label>
+              <label htmlFor="user_ids">Users:</label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <AutoCompleteComp
-              data={siteData}
-              usedData={getUsedData(siteData, "site_id", "site_ids")}
-              changeKey="site_ids"
-              labelKey="site_name"
-              returnKey="site_id"
+              data={userData}
+              usedData={getUsedData(userData, "user_id", "user_ids")}
+              changeKey="user_ids"
+              labelKey="user_email"
+              returnKey="user_id"
               handleChange={handleChange}
-              placeholder="ADD NEW SITE"
+              placeholder="ADD NEW USER"
             />
           </Grid>
           <Grid item xs={12}>
@@ -351,4 +351,4 @@ const AddUser: React.FC<AddUserProps> = ({
     );
 };
 
-export default AddUser;
+export default AddSite;

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { rows, User } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
@@ -8,15 +8,6 @@ import { columns } from "./Util/Columns";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
 import { handleSwitchChange } from "../../Utilities/Helpers/handleSwitchChange";
 import AddUser from "./AddUser";
-
-export interface FormState {
-  user_email: string;
-  group_id: string;
-  integrator_id: string;
-  site_ids: [];
-  customer_ids: [];
-  camera_ids: [];
-}
 
 type title = "ADD NEW USER" | "EDIT USER";
 
@@ -53,43 +44,27 @@ const AllUsers: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
 
-  const [acticveData, setActiveData] = useState<User[]>([]);
-  const [inacticveData, setInactiveData] = useState<User[]>([]);
+  const [activeData, setActiveData] = useState<User[]>([]);
+  const [inactiveData, setInactiveData] = useState<User[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const [formState, setFormState] = useState<FormState>({
-    user_email: "",
-    group_id: "",
-    integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
-    site_ids: [],
-    customer_ids: [],
-    camera_ids: [],
-  });
-
   const [title, setTitle] = useState<title>("ADD NEW USER");
+  const [updateId, setUpdateId] = useState<string>("");
+  const [action, setAction] = useState<"ADD" | "EDIT">("ADD");
+  const [item, setItem] = useState<User | null>(null);
 
   const handleModalOpen = (): void => {
-    setFormState({
-      ...formState,
-      user_email: "",
-      group_id: "",
-      site_ids: [],
-      customer_ids: [],
-      camera_ids: [],
-    });
     setTitle("ADD NEW USER");
+    setAction("ADD");
+    setItem(null);
+    setUpdateId("");
     setModalOpen(true);
   };
   const handleEditModalOpen = (item: User): void => {
-    setFormState({
-      ...formState,
-      user_email: item.user_email,
-      group_id: item.groups.group_id,
-      site_ids: item.sites,
-      customer_ids: item.customers,
-      camera_ids: item.cameras,
-    });
     setTitle("EDIT USER");
+    setAction("EDIT");
+    setItem(item);
+    setUpdateId(item.user_id);
     setModalOpen(true);
   };
   const handleModalClose = (): void => {
@@ -101,7 +76,6 @@ const AllUsers: React.FC = () => {
     setLoading(true);
     try {
       const response: AxiosResponse<{ users: User[] }> = await axios.get(url);
-      console.log(response.data);
       const activeArr = response.data.users.filter(
         (item) => item.is_disabled === false
       );
@@ -125,11 +99,6 @@ const AllUsers: React.FC = () => {
       setInactiveData([]);
     };
   }, [getUserData]);
-
-  const handleSave = () => {
-    console.log(formState);
-    handleModalClose();
-  };
 
   const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
@@ -159,7 +128,7 @@ const AllUsers: React.FC = () => {
                 item.user_id,
                 item,
                 setLoading,
-                url + "/disiable-user",
+                url + "/disable-user",
                 getUserData,
                 handleOpen
               )
@@ -181,12 +150,28 @@ const AllUsers: React.FC = () => {
     return false;
   };
 
+  const addUsers = useMemo(
+    () => (
+      <AddUser
+        action={action}
+        getUserData={getUserData}
+        handleModalClose={handleModalClose}
+        handleOpen={handleOpen}
+        item={item}
+        setLoading={setLoading}
+        updateId={updateId}
+        url={url}
+      />
+    ),
+    [action, getUserData, item, updateId, url]
+  );
+
   return (
     <Functionalities
       alertDetails={alertDetails}
       columns={columns}
-      activeData={acticveData}
-      inactiveData={inacticveData}
+      activeData={activeData}
+      inactiveData={inactiveData}
       formatData={formatData}
       handleClose={handleClose}
       loading={loading}
@@ -200,11 +185,7 @@ const AllUsers: React.FC = () => {
       modalWidth="60%"
       modalTitle={title}
     >
-      <AddUser
-        formState={formState}
-        setFormState={setFormState}
-        handleSave={handleSave}
-      />
+      {addUsers}
     </Functionalities>
   );
 };

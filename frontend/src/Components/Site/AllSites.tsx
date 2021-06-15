@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Site, rows } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
@@ -7,6 +7,9 @@ import ButtonComp from "../../Shared/Buttons";
 import { columns } from "./Util/Columns";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
 import { handleSwitchChange } from "../../Utilities/Helpers/handleSwitchChange";
+import AddSite from "./AddSite";
+
+type title = "ADD NEW SITE" | "EDIT SITE";
 
 const AllSites: React.FC = () => {
   const [alertDetails, setAlertDetails] = useState<Alert>({
@@ -37,21 +40,47 @@ const AllSites: React.FC = () => {
     setAlertDetails({ ...alertDetails, open: false });
   };
 
-  const url = "http://localhost:4001/site-db";
+  const url = process.env.REACT_APP_API_URL + "sites";
 
   const [loading, setLoading] = useState<boolean>(true);
 
   const [activeData, setActiveData] = useState<Site[]>([]);
   const [inactiveData, setInactiveData] = useState<Site[]>([]);
 
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  const [title, setTitle] = useState<title>("ADD NEW SITE");
+  const [updateId, setUpdateId] = useState<string>("");
+  const [action, setAction] = useState<"ADD" | "EDIT">("ADD");
+  const [item, setItem] = useState<Site | null>(null);
+
+  const handleModalOpen = (): void => {
+    setTitle("ADD NEW SITE");
+    setAction("ADD");
+    setItem(null);
+    setUpdateId("");
+    setModalOpen(true);
+  };
+  const handleEditModalOpen = (item: Site): void => {
+    setTitle("EDIT SITE");
+    setAction("EDIT");
+    setItem(item);
+    setUpdateId(item.site_id);
+    setModalOpen(true);
+  };
+  const handleModalClose = (): void => {
+    setModalOpen(false);
+    setTitle("ADD NEW SITE");
+  };
+
   const getSiteData = useCallback(async (): Promise<void> => {
     setLoading(true);
     try {
-      const response: AxiosResponse<Site[]> = await axios.get(url);
-      const activeArr = response.data.filter(
+      const response: AxiosResponse<{ sites: Site[] }> = await axios.get(url);
+      const activeArr = response.data.sites.filter(
         (item) => item.is_disabled === false
       );
-      const inactiveArr = response.data.filter(
+      const inactiveArr = response.data.sites.filter(
         (item) => item.is_disabled === true
       );
       setActiveData(activeArr);
@@ -61,7 +90,7 @@ const AllSites: React.FC = () => {
       setLoading(false);
       handleOpen("left", "bottom", "Something went wrong!");
     }
-  }, []);
+  }, [url]);
 
   useEffect(() => {
     getSiteData();
@@ -73,15 +102,15 @@ const AllSites: React.FC = () => {
 
   const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
-      name: item.name,
-      group_name: item.group_name,
-      user_count: item.user_count,
-      customer_count: item.customer_count,
-      camera_count: item.camera_count,
+      name: item.site_name,
+      group_name: item.groups.group_name,
+      user_count: item.users.length,
+      customer_count: item.customers.length,
+      camera_count: item.cameras.length,
       actions: (
         <>
           {isActive && (
-            <ButtonComp type="dark" size="small" variant="contained">
+            <ButtonComp type="dark" size="small" variant="contained" onClick={() => handleEditModalOpen(item)}>
               Modify
             </ButtonComp>
           )}
@@ -91,10 +120,10 @@ const AllSites: React.FC = () => {
             variant="contained"
             onClick={() =>
               handleSwitchChange(
-                String(item.id),
+                item.site_id,
                 item,
                 setLoading,
-                url,
+                url + "/disable-site",
                 getSiteData,
                 handleOpen
               )
@@ -116,20 +145,43 @@ const AllSites: React.FC = () => {
     return false;
   };
 
+  const addSite = useMemo(
+    () => (
+      <AddSite
+        action={action}
+        getSiteData={getSiteData}
+        handleModalClose={handleModalClose}
+        handleOpen={handleOpen}
+        item={item}
+        setLoading={setLoading}
+        updateId={updateId}
+        url={url}
+      />
+    ),
+    [action, getSiteData, item, updateId, url]
+  );
+
   return (
-    // <Functionalities
-    //   alertDetails={alertDetails}
-    //   columns={columns}
-    //   activeData={activeData}
-    //   inactiveData={inactiveData}
-    //   formatData={formatData}
-    //   handleClose={handleClose}
-    //   loading={loading}
-    //   onRowsDelete={onRowsDelete}
-    //   transition={transition}
-    //   title="Sites"
-    // />
-    <div>test</div>
+    <Functionalities
+      alertDetails={alertDetails}
+      columns={columns}
+      activeData={activeData}
+      inactiveData={inactiveData}
+      formatData={formatData}
+      handleClose={handleClose}
+      loading={loading}
+      onRowsDelete={onRowsDelete}
+      transition={transition}
+      title="Sites"
+      modalOpen={modalOpen}
+      handleModalClose={handleModalClose}
+      handleModalOpen={handleModalOpen}
+      modalTop="20%"
+      modalWidth="60%"
+      modalTitle={title}
+    >
+      {addSite}
+    </Functionalities>
   );
 };
 

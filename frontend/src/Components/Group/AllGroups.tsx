@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { rows, Group } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
@@ -7,13 +7,7 @@ import ButtonComp from "../../Shared/Buttons";
 import { columns } from "./Util/Columns";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
 import { handleSwitchChange } from "../../Utilities/Helpers/handleSwitchChange";
-// import { Typography } from "@material-ui/core";
 import AddGroup from "./AddGroup";
-
-export interface FormState {
-  group_name: string;
-  integrator_id: string;
-}
 
 type title = "ADD NEW GROUP" | "EDIT GROUP";
 
@@ -54,21 +48,23 @@ const AllGroups: React.FC = () => {
   const [inacticveData, setInactiveData] = useState<Group[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-  const [formState, setFormState] = useState<FormState>({
-    group_name: "",
-    integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
-  });
-
   const [title, setTitle] = useState<title>("ADD NEW GROUP");
+  const [updateId, setUpdateId] = useState<string>("");
+  const [action, setAction] = useState<"ADD" | "EDIT">("ADD");
+  const [item, setItem] = useState<Group | null>(null);
 
   const handleModalOpen = (): void => {
-    setFormState({ ...formState, group_name: "" });
     setTitle("ADD NEW GROUP");
+    setAction("ADD");
+    setItem(null);
+    setUpdateId("");
     setModalOpen(true);
   };
   const handleEditModalOpen = (item: Group): void => {
-    setFormState({ ...formState, group_name: item.group_name });
     setTitle("EDIT GROUP");
+    setAction("EDIT");
+    setItem(item);
+    setUpdateId(item.group_id);
     setModalOpen(true);
   };
   const handleModalClose = (): void => {
@@ -105,29 +101,6 @@ const AllGroups: React.FC = () => {
     };
   }, [getGroupData]);
 
-  const handleSave = async (): Promise<void> => {
-    handleModalClose();
-    setLoading(true);
-    if (title === "ADD NEW GROUP") {
-      try {
-        const response: AxiosResponse<any> = await axios.post(
-          url + "/add-group",
-          formState
-        );
-        if (response.status === 201) {
-          getGroupData();
-          setLoading(false);
-        }
-      } catch (err) {
-        console.log(err);
-        setLoading(false);
-        handleOpen("left", "bottom", "Something went wrong!");
-      }
-    } else {
-      console.log("Update pending...");
-    }
-  };
-
   const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
       group_name: item.group_name,
@@ -153,10 +126,10 @@ const AllGroups: React.FC = () => {
             variant="contained"
             onClick={() =>
               handleSwitchChange(
-                String(item.id),
+                item.group_id,
                 item,
                 setLoading,
-                url,
+                url + "/disable-group",
                 getGroupData,
                 handleOpen
               )
@@ -178,6 +151,22 @@ const AllGroups: React.FC = () => {
     return false;
   };
 
+  const addGroups = useMemo(
+    () => (
+      <AddGroup
+        action={action}
+        getGroupData={getGroupData}
+        handleModalClose={handleModalClose}
+        handleOpen={handleOpen}
+        item={item}
+        setLoading={setLoading}
+        updateId={updateId}
+        url={url}
+      />
+    ),
+    [action, getGroupData, item, updateId, url]
+  );
+
   return (
     <Functionalities
       alertDetails={alertDetails}
@@ -197,11 +186,7 @@ const AllGroups: React.FC = () => {
       modalWidth="60%"
       modalTitle={title}
     >
-      <AddGroup
-        formState={formState}
-        setFormState={setFormState}
-        handleSave={handleSave}
-      />
+      {addGroups}
     </Functionalities>
   );
 };

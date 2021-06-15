@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Camera, rows } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
@@ -8,6 +8,9 @@ import { columns } from "./Util/Columns";
 import CopyAble from "../../Shared/CopyAble";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
 import { handleSwitchChange } from "../../Utilities/Helpers/handleSwitchChange";
+import AddCamera from "./AddCamera";
+
+type title = "ADD NEW CAMERA" | "EDIT CAMERA";
 
 const AllCameras: React.FC = () => {
   const [alertDetails, setAlertDetails] = useState<Alert>({
@@ -38,21 +41,49 @@ const AllCameras: React.FC = () => {
     setAlertDetails({ ...alertDetails, open: false });
   };
 
-  const url = "http://localhost:4000/camera-db";
+  const url = process.env.REACT_APP_API_URL + "cameras";
 
   const [loading, setLoading] = useState<boolean>(true);
 
   const [activedata, setActiveData] = useState<Camera[]>([]);
   const [inactivedata, setInctiveData] = useState<Camera[]>([]);
 
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
+  const [title, setTitle] = useState<title>("ADD NEW CAMERA");
+  const [updateId, setUpdateId] = useState<string>("");
+  const [action, setAction] = useState<"ADD" | "EDIT">("ADD");
+  const [item, setItem] = useState<Camera | null>(null);
+
+  const handleModalOpen = (): void => {
+    setTitle("ADD NEW CAMERA");
+    setAction("ADD");
+    setItem(null);
+    setUpdateId("");
+    setModalOpen(true);
+  };
+  const handleEditModalOpen = (item: Camera): void => {
+    setTitle("EDIT CAMERA");
+    setAction("EDIT");
+    setItem(item);
+    setUpdateId(item.camera_id);
+    setModalOpen(true);
+  };
+  const handleModalClose = (): void => {
+    setModalOpen(false);
+    setTitle("ADD NEW CAMERA");
+  };
+
   const getCameraData = useCallback(async (): Promise<void> => {
     setLoading(true);
     try {
-      const response: AxiosResponse<Camera[]> = await axios.get(url);
-      let activeArr = response.data.filter(
+      const response: AxiosResponse<{ cameras: Camera[] }> = await axios.get(
+        url
+      );
+      let activeArr = response.data.cameras.filter(
         (item) => item.is_disabled === false
       );
-      let inactiveArr = response.data.filter(
+      let inactiveArr = response.data.cameras.filter(
         (item) => item.is_disabled === true
       );
       setActiveData(activeArr);
@@ -62,7 +93,7 @@ const AllCameras: React.FC = () => {
       setLoading(false);
       handleOpen("left", "bottom", "Something went wrong!");
     }
-  }, []);
+  }, [url]);
 
   useEffect(() => {
     getCameraData();
@@ -74,23 +105,28 @@ const AllCameras: React.FC = () => {
 
   const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
-      name: item.name,
+      name: item.camera_name,
       ip_address: item.ip_address,
       smtp_username: (
-        <CopyAble text={item.smtp_username} handleOpen={handleOpen} />
+        <CopyAble text={item.smtp_user_name} handleOpen={handleOpen} />
       ),
       smtp_password: (
         <CopyAble text={item.smtp_password} handleOpen={handleOpen} />
       ),
       site: item.site,
-      location: item.location,
+      customer: item.customer,
       total_requests: item.total_requests,
       group_name: item.group_name,
       user_count: item.user_count,
       actions: (
         <>
           {isActive && (
-            <ButtonComp type="dark" size="small" variant="contained">
+            <ButtonComp
+              type="dark"
+              size="small"
+              variant="contained"
+              onClick={() => handleEditModalOpen(item)}
+            >
               Modify
             </ButtonComp>
           )}
@@ -100,10 +136,10 @@ const AllCameras: React.FC = () => {
             variant="contained"
             onClick={() =>
               handleSwitchChange(
-                String(item.id),
+                item.camera_id,
                 item,
                 setLoading,
-                url,
+                url + "/disable-camera",
                 getCameraData,
                 handleOpen
               )
@@ -125,20 +161,43 @@ const AllCameras: React.FC = () => {
     return false;
   };
 
+  const addCamera = useMemo(
+    () => (
+      <AddCamera
+        action={action}
+        getCameraData={getCameraData}
+        handleModalClose={handleModalClose}
+        handleOpen={handleOpen}
+        item={item}
+        setLoading={setLoading}
+        updateId={updateId}
+        url={url}
+      />
+    ),
+    [action, getCameraData, item, updateId, url]
+  );
+
   return (
-    // <Functionalities
-    //   alertDetails={alertDetails}
-    //   columns={columns}
-    //   activeData={activedata}
-    //   inactiveData={inactivedata}
-    //   formatData={formatData}
-    //   handleClose={handleClose}
-    //   loading={loading}
-    //   onRowsDelete={onRowsDelete}
-    //   transition={transition}
-    //   title="Cameras"
-    // />
-    <div>test</div>
+    <Functionalities
+      alertDetails={alertDetails}
+      columns={columns}
+      activeData={activedata}
+      inactiveData={inactivedata}
+      formatData={formatData}
+      handleClose={handleClose}
+      loading={loading}
+      onRowsDelete={onRowsDelete}
+      transition={transition}
+      title="Cameras"
+      modalOpen={modalOpen}
+      handleModalClose={handleModalClose}
+      handleModalOpen={handleModalOpen}
+      modalTop="20%"
+      modalWidth="60%"
+      modalTitle={title}
+    >
+      {addCamera}
+    </Functionalities>
   );
 };
 

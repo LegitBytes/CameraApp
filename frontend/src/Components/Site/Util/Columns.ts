@@ -42,14 +42,6 @@ export const columns: Columns[] = [
     },
   },
   {
-    name: "is_disabled",
-    label: "is_disabled",
-    options: {
-      filter: false,
-      sort: false,
-    },
-  },
-  {
     name: "actions",
     label: "Actions",
     options: {

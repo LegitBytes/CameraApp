@@ -42,8 +42,8 @@ export const columns: Columns[] = [
       },
     },
     {
-      name: "location",
-      label: "Location",
+      name: "customer",
+      label: "Customer",
       options: {
         filter: true,
         sort: true,
@@ -73,14 +73,6 @@ export const columns: Columns[] = [
         sort: true,
       },
     },
-    // {
-    //   name: "is_disabled",
-    //   label: "is_disabled",
-    //   options: {
-    //     filter: false,
-    //     sort: false,
-    //   },
-    // },
     {
       name: "actions",
       label: "Actions",

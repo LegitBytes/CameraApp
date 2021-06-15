@@ -10,7 +10,8 @@ interface ButtonsProps {
   href?: string;
   variant: "contained" | "outlined" | "text";
   margin?: number | undefined;
-  fullWidth?: boolean
+  fullWidth?: boolean;
+  htmlType?: "submit" | "button";
 }
 
 const useButtonStyles = (
@@ -49,13 +50,15 @@ const Buttons: React.FC<ButtonsProps> = ({
   onClick,
   variant,
   margin,
-  fullWidth
+  fullWidth,
+  htmlType,
 }) => {
   const classes: ClassNameMap<"dark" | "danger" | "primary" | "success"> =
     useButtonStyles(margin);
 
   return (
     <Button
+      type={htmlType ? htmlType : "button"}
       variant={variant}
       className={classes[type]}
       size={size}
