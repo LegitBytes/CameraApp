@@ -3,6 +3,10 @@ interface groups {
   group_name: string;
   group_id: string;
 }
+interface sites {
+  site_name: string;
+  site_id: string;
+}
 interface integrators {
   integrator_id: string;
 }
@@ -14,11 +18,12 @@ export interface Camera {
   smtp_password: string;
   site: string;
   customer: string;
-  total_requests: number;
+  total_request: number;
   groups: groups
   user_count: number;
   is_disabled: is_disabled;
-  users: []
+  users: [],
+  sites: sites
 }
 
 export interface Site {

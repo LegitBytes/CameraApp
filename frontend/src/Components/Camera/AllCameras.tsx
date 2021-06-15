@@ -113,11 +113,11 @@ const AllCameras: React.FC = () => {
       smtp_password: (
         <CopyAble text={item.smtp_password} handleOpen={handleOpen} />
       ),
-      site: item.site,
+      site: item.sites?.site_name,
       customer: item.customer,
-      total_requests: item.total_requests,
-      group_name: item.group_name,
-      user_count: item.user_count,
+      total_requests: item.total_request,
+      group_name: item.groups.group_name,
+      user_count: item.users.length,
       actions: (
         <>
           {isActive && (

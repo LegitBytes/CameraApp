@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   Typography,
   TextField,
@@ -76,12 +76,8 @@ const AddCamera: React.FC<AddCameraProps> = ({
 
   const [groupData, setGroupData] = useState<Group[]>([]);
 
-  const smtpUsernameRef = useRef<HTMLInputElement>(null);
-  const smtpPasswordRef = useRef<HTMLInputElement>(null);
-
-  const onCopy = (ref): void => {
-    ref.current?.select();
-    document.execCommand("copy");
+  const onCopy = (value): void => {
+    navigator.clipboard.writeText(value);
     handleOpen("right", "bottom", "Copied!");
   };
 
@@ -191,7 +187,6 @@ const AddCamera: React.FC<AddCameraProps> = ({
           </Grid>
           <Grid item xs={12}>
             <TextField
-              ref={smtpUsernameRef}
               name="smtp_user_name"
               id="smtp_user_name"
               type="text"
@@ -203,7 +198,9 @@ const AddCamera: React.FC<AddCameraProps> = ({
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
-                      onClick={() => onCopy(smtpUsernameRef)}
+                      onClick={() => {
+                        onCopy(formState.smtp_user_name);
+                      }}
                       disabled={!formState.smtp_user_name}
                       size="small"
                     >
@@ -221,7 +218,6 @@ const AddCamera: React.FC<AddCameraProps> = ({
           </Grid>
           <Grid item xs={12}>
             <TextField
-              ref={smtpPasswordRef}
               name="smtp_password"
               id="smtp_password"
               type="text"
@@ -233,7 +229,9 @@ const AddCamera: React.FC<AddCameraProps> = ({
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton
-                      onClick={() => onCopy(smtpPasswordRef)}
+                      onClick={() => {
+                        onCopy(formState.smtp_password);
+                      }}
                       disabled={!formState.smtp_password}
                       size="small"
                     >
