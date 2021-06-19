@@ -109,10 +109,14 @@ const findCameraById = async (event) => {
         smtp_password: true,
         is_disabled: true,
         groups: true,
+        sites: true,
         integrators: true,
         users: true,
       },
     });
+
+    console.log({ ...camera });
+
     return formatJSONResponseStatusOk({
       camera: {
         ...camera,
@@ -138,13 +142,16 @@ const findAllCameras = async () => {
       smtp_password: true,
       is_disabled: true,
       groups: true,
+      sites: true,
       integrators: true,
       users: true,
     },
   });
+  console.log({ ...cameras });
   const new_camera = cameras.map((camera) => {
     return { ...camera, total_request: 0 };
   });
+  console.log({ ...new_camera });
   return formatJSONResponseStatusOk({
     cameras: new_camera,
   });
