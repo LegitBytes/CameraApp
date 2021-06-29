@@ -166,7 +166,19 @@ const findCustomerById = async (event) => {
         is_disabled: true,
         groups: true,
         integrators: true,
-        sites: true,
+        sites: {
+          select: {
+            site_id: true,
+            site_name: true,
+            change_name: true,
+            is_disabled: true,
+            group_id: true,
+            integrator_id: true,
+            createdAt: true,
+            updatedAt: true,
+            cameras: true,
+          },
+        },
         users: true,
       },
     });
@@ -193,7 +205,19 @@ const findAllCustomers = async () => {
       is_disabled: true,
       groups: true,
       integrators: true,
-      sites: true,
+      sites: {
+        select: {
+          site_id: true,
+          site_name: true,
+          change_name: true,
+          is_disabled: true,
+          group_id: true,
+          integrator_id: true,
+          createdAt: true,
+          updatedAt: true,
+          cameras: true,
+        },
+      },
       users: true,
     },
   });

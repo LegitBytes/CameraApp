@@ -47,6 +47,11 @@ import {
   removeUser,
   disiableUser,
 } from "@functions/user";
+import {
+  findAllCustomerDetails,
+  findCustomerDetailsById,
+} from "@functions/customer-dashboard";
+import { groupCameraByEmail } from "@functions/statistics";
 
 const serverlessConfiguration: AWS = {
   service: "nathan-api",
@@ -82,6 +87,21 @@ const serverlessConfiguration: AWS = {
       // NODE_ENV: "${env:NODE_ENV}",
     },
     lambdaHashingVersion: "20201221",
+    iamRoleStatements: [
+      {
+        Effect: "Allow",
+        Action: [
+          "dynamodb:DescribeTable",
+          "dynamodb:Scan",
+          "dynamodb:GetItem",
+          "dynamodb:Query",
+          "dynamodb:PutItem",
+          "dynamodb:UpdateItem",
+          "dynamodb:DeleteItem",
+        ],
+        Resource: "*",
+      },
+    ],
   },
   // import the function via paths
   functions: {
@@ -120,6 +140,9 @@ const serverlessConfiguration: AWS = {
     updateUser,
     removeUser,
     disiableUser,
+    findAllCustomerDetails,
+    findCustomerDetailsById,
+    groupCameraByEmail,
   },
 };
 
