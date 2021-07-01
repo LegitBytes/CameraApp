@@ -1,0 +1,40 @@
+{
+  "group-db": [
+    {
+      "id": 1,
+      "name": "Group A",
+      "user_count": 10,
+      "customer_count": 10,
+      "site_count": 10,
+      "camera_count": 20,
+      "is_disabled": "inactive"
+    },
+    {
+      "id": 2,
+      "name": "Group B",
+      "user_count": 11,
+      "customer_count": 13,
+      "site_count": 10,
+      "camera_count": 20,
+      "is_disabled": "active"
+    },
+    {
+      "id": 3,
+      "name": "Group C",
+      "user_count": 12,
+      "customer_count": 13,
+      "site_count": 10,
+      "camera_count": 20,
+      "is_disabled": "active"
+    },
+    {
+      "id": 4,
+      "name": "Group D",
+      "user_count": 13,
+      "customer_count": 13,
+      "site_count": 10,
+      "camera_count": 20,
+      "is_disabled": "active"
+    }
+  ]
+}

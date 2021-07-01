@@ -1,0 +1,56 @@
+{
+  "camera-db": [
+    {
+      "id": 1,
+      "name": "Camera A",
+      "ip_address": "0.0.0.0",
+      "smtp_username": "camera_a",
+      "smtp_password": "camera_a_123",
+      "site": "Site A",
+      "customer": "customer A",
+      "total_requests": 20,
+      "group_name": "Group A",
+      "user_count": 15,
+      "is_disabled": "inactive"
+    },
+    {
+      "id": 2,
+      "name": "Camera B",
+      "ip_address": "0.0.0.1",
+      "smtp_username": "camera_b",
+      "smtp_password": "camera_b_123",
+      "site": "Site B",
+      "customer": "customer B",
+      "total_requests": 20,
+      "group_name": "Group B",
+      "user_count": 15,
+      "is_disabled": "active"
+    },
+    {
+      "id": 3,
+      "name": "Camera C",
+      "ip_address": "0.0.0.2",
+      "smtp_username": "camera_c",
+      "smtp_password": "camera_c_123",
+      "site": "Site C",
+      "customer": "customer C",
+      "total_requests": 20,
+      "group_name": "Group C",
+      "user_count": 15,
+      "is_disabled": "active"
+    },
+    {
+      "id": 4,
+      "name": "Camera D",
+      "ip_address": "0.0.0.3",
+      "smtp_username": "camera_d",
+      "smtp_password": "camera_d_123",
+      "site": "Site D",
+      "customer": "customer D",
+      "total_requests": 20,
+      "group_name": "Group D",
+      "user_count": 15,
+      "is_disabled": "active"
+    }
+  ]
+}
