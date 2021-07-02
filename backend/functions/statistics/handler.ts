@@ -29,12 +29,21 @@ const groupCameraByEmail = async (event) => {
   try {
     const emailGroupByPromise = await db.scan({ TableName: table }).promise();
 
-    const fromEmails = emailGroupByPromise.Items.map(
-      (item) => item["fromemail"]
-    );
+    const fromEmails = emailGroupByPromise.Items.map((item) => ({
+      smtp_email: item["fromemail"],
+      alert: item["alert"] === undefined ? false : item["alert"],
+    }));
+
     const emailGroupByFilter = fromEmails.map((email) => {
-      const obj = {};
-      obj[email] = fromEmails.filter((c) => c === email).length;
+      const obj = {
+        smtp_email: email.smtp_email,
+        alert: fromEmails.filter(
+          (c) => c.smtp_email === email.smtp_email && c.alert === true
+        ).length,
+        request_count: fromEmails.filter(
+          (c) => c.smtp_email === email.smtp_email
+        ).length,
+      };
       return obj;
     });
     const strData = emailGroupByFilter.map((data) => JSON.stringify(data));
@@ -42,10 +51,10 @@ const groupCameraByEmail = async (event) => {
     const emailGroupBy = [...uniqueEmailData].map((data) => JSON.parse(data));
     console.log(emailGroupBy);
 
-    console.log("Camera Email and its Count :: ", emailGroupBy);
+    console.log("Camera Email, Count and its Alert  :: ", emailGroupBy);
 
     return response(200, {
-      camera_count: emailGroupBy,
+      camera_details: emailGroupBy,
       total_count: emailGroupByPromise.Count,
     });
   } catch (error) {
@@ -53,7 +62,6 @@ const groupCameraByEmail = async (event) => {
     return response(500, error);
   }
 };
-
 // const findCameraDetailsById = async (event) => {
 //   try {
 //     const { fromemail, date1, date2 } = event.pathParameters;
