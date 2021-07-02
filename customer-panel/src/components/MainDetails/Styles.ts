@@ -7,5 +7,12 @@ export const useStyles = makeStyles((theme: Theme) =>
     ts2: {
       color: "#676767",
     },
+    carouselStyles: {
+      width: "80%",
+      height: "40%"
+    },
+    mt20: {
+      marginTop: 20
+    }
   })
 );

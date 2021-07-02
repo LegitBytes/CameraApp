@@ -34,11 +34,14 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes }) => {
 
   useEffect(() => {
     getCustomerDetails();
+    // history.push(
+    //   `/main/${customerDetails[0]?.customer_name}/${customerDetails[0]?.sites[0]?.site_name}/${customerDetails[0]?.sites[0]?.cameras[0]?.camera_name}-${customerDetails[0]?.sites[0]?.cameras[0]?.smtp_user_name}`
+    // );
     return () => {
       setCustomerDetails([]);
     };
   }, [getCustomerDetails]);
-  const [expanded, setExpanded] = React.useState([]);
+  const [expanded, setExpanded] = React.useState([]); 
 
   const handleChange = (event: any, nodes: any) => {
     setExpanded(nodes);

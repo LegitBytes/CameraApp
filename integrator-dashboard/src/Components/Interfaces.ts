@@ -145,3 +145,15 @@ export interface rows {
     dataIndex: number;
   }[];
 }
+
+export interface CameraStats {
+  smtp_email: string;
+  alert: number;
+  request_count: number;
+}
+
+export interface SiteStats {
+  site_name: string;
+  alert: number;
+  total_requests: number;
+}

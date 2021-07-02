@@ -1,17 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { RouteComponentProps } from "react-router";
-
+import StatisticsComp from "../Components/Statistics/Statistics";
 interface StatisticsProps extends RouteComponentProps {}
 
 const Statistics: React.FC<StatisticsProps> = () => {
-  return (
-    <div>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti
-      laboriosam sed non debitis nisi iusto velit assumenda voluptatibus
-      provident. Nobis omnis possimus asperiores nam ipsam consectetur adipisci.
-      Optio, sint vel.
-    </div>
-  );
+  useEffect(() => window.scrollTo(0, 0));
+  return <StatisticsComp />;
 };
 
 export default Statistics;

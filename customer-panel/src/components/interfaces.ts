@@ -18,3 +18,24 @@ export interface user{
     user_email: string,
     customers: customer[]
 }
+
+interface Label{
+  Confidence: number
+  Name: string
+}
+
+interface rekognitionData{
+  [key:string]: {
+    Labels: Label[]
+  }
+}
+
+export interface cameraDetails{
+  subject: string
+  toemail: string
+  alert? : boolean
+  timestamp: number
+  fromemail: string
+  HTMLbody: string
+  rekognitionData: rekognitionData[]
+}

@@ -80,6 +80,7 @@ const AllCameras: React.FC = () => {
       const response: AxiosResponse<{ cameras: Camera[] }> = await axios.get(
         url
       );
+      
       let activeArr = response.data.cameras.filter(
         (item) => item.is_disabled === false
       );
