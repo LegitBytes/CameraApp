@@ -74,6 +74,8 @@ const serverlessConfiguration: AWS = {
   provider: {
     name: "aws",
     runtime: "nodejs14.x",
+    timeout: 15,
+    memorySize: 2048,
     apiGateway: {
       minimumCompressionSize: 1024,
       shouldStartNameWithService: true,

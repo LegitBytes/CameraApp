@@ -3,6 +3,7 @@ import schema from "./schema";
 
 export const addNewIntegrator = {
   handler: `${handlerPath(__dirname)}/handler.addIntegrator`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -21,6 +22,7 @@ export const addNewIntegrator = {
 
 export const findIntegratorById = {
   handler: `${handlerPath(__dirname)}/handler.getIntegratorById`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -34,6 +36,7 @@ export const findIntegratorById = {
 
 export const findAllIntegrators = {
   handler: `${handlerPath(__dirname)}/handler.getAllIntegrators`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -47,6 +50,7 @@ export const findAllIntegrators = {
 
 export const updateIntegrator = {
   handler: `${handlerPath(__dirname)}/handler.editIntegrator`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -65,6 +69,7 @@ export const updateIntegrator = {
 
 export const removeIntegrator = {
   handler: `${handlerPath(__dirname)}/handler.deleteIntegrator`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {

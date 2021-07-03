@@ -3,6 +3,7 @@ import schema from "./schema";
 
 export const addNewCustomer = {
   handler: `${handlerPath(__dirname)}/handler.addCustomer`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -21,6 +22,7 @@ export const addNewCustomer = {
 
 export const findCustomerById = {
   handler: `${handlerPath(__dirname)}/handler.getCustomerById`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -34,6 +36,7 @@ export const findCustomerById = {
 
 export const findAllCustomers = {
   handler: `${handlerPath(__dirname)}/handler.getAllCustomers`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -47,6 +50,7 @@ export const findAllCustomers = {
 
 export const updateCustomer = {
   handler: `${handlerPath(__dirname)}/handler.editCustomer`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -65,6 +69,7 @@ export const updateCustomer = {
 
 export const disiableCustomer = {
   handler: `${handlerPath(__dirname)}/handler.editDisableCustomer`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -78,6 +83,7 @@ export const disiableCustomer = {
 
 export const removeCustomer = {
   handler: `${handlerPath(__dirname)}/handler.deleteCustomer`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {

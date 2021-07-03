@@ -8,9 +8,7 @@ import {
 } from "@libs/apiGateway";
 import { middyfy } from "@libs/lambda";
 import constants from "@libs/constants";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../DB/connection";
 
 // Add a new User
 const addNewUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (

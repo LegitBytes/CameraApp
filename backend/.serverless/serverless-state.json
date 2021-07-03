@@ -7,13 +7,15 @@
     "provider": {
       "name": "aws",
       "runtime": "nodejs14.x",
+      "timeout": 15,
+      "memorySize": 2048,
       "apiGateway": {
         "minimumCompressionSize": 1024,
         "shouldStartNameWithService": true
       },
       "environment": {
         "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-        "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+        "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
       },
       "lambdaHashingVersion": "20201221",
       "iamRoleStatements": [
@@ -422,17 +424,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.addCamera",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-addNewCamera",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -453,17 +455,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.getCameraById",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findCameraById",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -484,17 +486,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.getAllCameras",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findAllCameras",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -515,17 +517,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.editCamera",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-updateCamera",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -546,17 +548,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.deleteCamera",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-removeCamera",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -577,17 +579,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.editDisableCamera",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-disiableCamera",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -608,17 +610,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/customer/handler.addCustomer",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-addNewCustomer",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -639,17 +641,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/customer/handler.getCustomerById",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findCustomerById",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -670,17 +672,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/customer/handler.getAllCustomers",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findAllCustomers",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -701,17 +703,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/customer/handler.editCustomer",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-updateCustomer",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -732,17 +734,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/customer/handler.deleteCustomer",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-removeCustomer",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -763,17 +765,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/customer/handler.editDisableCustomer",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-disiableCustomer",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -794,17 +796,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/group/handler.addGroup",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-addNewGroup",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -825,17 +827,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/group/handler.getGroupById",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findGroupById",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -856,17 +858,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/group/handler.getAllGroups",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findAllGroups",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -887,17 +889,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/group/handler.editGroup",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-updateGroup",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -918,17 +920,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/group/handler.deleteGroup",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-removeGroup",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -949,17 +951,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/group/handler.editDisableGroup",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-disiableGroup",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -980,17 +982,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/integrator/handler.addIntegrator",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-addNewIntegrator",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1011,17 +1013,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/integrator/handler.getIntegratorById",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findIntegratorById",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1042,17 +1044,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/integrator/handler.getAllIntegrators",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findAllIntegrators",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1073,17 +1075,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/integrator/handler.editIntegrator",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-updateIntegrator",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1104,17 +1106,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/integrator/handler.deleteIntegrator",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-removeIntegrator",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1135,17 +1137,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/site/handler.addSite",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-addNewSite",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1166,17 +1168,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/site/handler.getSiteById",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findSiteById",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1197,17 +1199,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/site/handler.getAllSites",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findAllSites",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1228,17 +1230,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/site/handler.editSite",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-updateSite",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1259,17 +1261,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/site/handler.deleteSite",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-removeSite",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1290,17 +1292,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/site/handler.editDisableSite",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-disiableSite",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1321,17 +1323,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/user/handler.addUser",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-addNewUser",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1352,17 +1354,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/user/handler.getUserById",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findUserById",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1383,17 +1385,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/user/handler.getAllUsers",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findAllUsers",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1414,17 +1416,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/user/handler.editUser",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-updateUser",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1445,17 +1447,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/user/handler.deleteUser",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-removeUser",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1476,17 +1478,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/user/handler.editDisableUser",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-disiableUser",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1507,17 +1509,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/customer-dashboard/handler.getAllCustomerDetails",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findAllCustomerDetails",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1538,17 +1540,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/customer-dashboard/handler.getCustomerDetailsById",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-findCustomerDetailsById",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1569,17 +1571,17 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z/nathan-api.zip"
               },
               "Handler": "functions/statistics/handler.findGroupCameraByEmail",
               "Runtime": "nodejs14.x",
               "FunctionName": "nathan-api-dev-groupCameraByEmail",
-              "MemorySize": 1024,
-              "Timeout": 6,
+              "MemorySize": 2048,
+              "Timeout": 15,
               "Environment": {
                 "Variables": {
                   "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public"
+                  "DATABASE_URL": "postgresql://postgres:cyberoi00@cameraapp.chb5fqsyxcy2.us-east-1.rds.amazonaws.com:5432/camera_app?schema=public&connection_limit=5&pool_timeout=20"
                 }
               },
               "Role": {
@@ -1593,384 +1595,1049 @@
               "GroupCameraByEmailLogGroup"
             ]
           },
-          "AddNewCameraLambdaVersionEcVfX9dW8VxDy7dcYj2BDmFFAy4VbQgIAStEpKPw6o": {
+          "AddNewCameraLambdaVersion3sG56OhA447NoL5SyV14GrTyZfwcVXQp6jF67T5rw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddNewCameraLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindCameraByIdLambdaVersionIVvyMx4q7fTU4SAdlZjPdAYeKRcVUC7C7C8cX0iI": {
+          "AddNewCameraProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "AddNewCameraLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "AddNewCameraLambdaVersion3sG56OhA447NoL5SyV14GrTyZfwcVXQp6jF67T5rw",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "AddNewCameraLambdaFunction"
+          },
+          "FindCameraByIdLambdaVersionc8tnHMVNsC22mp0ozTVPNgesLPatmLahsTahxFivg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindCameraByIdLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindAllCamerasLambdaVersionLPv6FwdbR85DT5B1TJvheFXQfMREgN3QZoFYwzBhUQ": {
+          "FindCameraByIdProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FindCameraByIdLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "FindCameraByIdLambdaVersionc8tnHMVNsC22mp0ozTVPNgesLPatmLahsTahxFivg",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "FindCameraByIdLambdaFunction"
+          },
+          "FindAllCamerasLambdaVersionXSUVUptp7BlamJg5yyvm3BhgzgdwSKg2vROytxuGqQI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllCamerasLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "UpdateCameraLambdaVersionj0x35eZSqgWVCpeqlcmDQ9hQJawoTbaU02oPoIP80k": {
+          "FindAllCamerasProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FindAllCamerasLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "FindAllCamerasLambdaVersionXSUVUptp7BlamJg5yyvm3BhgzgdwSKg2vROytxuGqQI",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "FindAllCamerasLambdaFunction"
+          },
+          "UpdateCameraLambdaVersionXkoJAylX0WGXKRPrNuzeia76etxI4NHlLTTH3MpQR7Y": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateCameraLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "RemoveCameraLambdaVersionou2RVvcEkWamcvT1sqQ0Rp9irvOwcWQ0DPktUEIEY": {
+          "UpdateCameraProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "UpdateCameraLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "UpdateCameraLambdaVersionXkoJAylX0WGXKRPrNuzeia76etxI4NHlLTTH3MpQR7Y",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "UpdateCameraLambdaFunction"
+          },
+          "RemoveCameraLambdaVersionvfQaa1076y0ihZY9SABsMNlPiN49xurfO9wx0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RemoveCameraLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "DisiableCameraLambdaVersionXdlxguiBX5wsXPNo5sbchhlJgVwpetDjnAwOrHBcTU": {
+          "RemoveCameraProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "RemoveCameraLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "RemoveCameraLambdaVersionvfQaa1076y0ihZY9SABsMNlPiN49xurfO9wx0",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "RemoveCameraLambdaFunction"
+          },
+          "DisiableCameraLambdaVersionbMm20crv1euJWkRhzUssVazEqMmEikjxmP4rfHJbL5c": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DisiableCameraLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "AddNewCustomerLambdaVersionsO72MeQKLanb1FspwM5cn2tgNKWsozEjovj4LgHMlds": {
+          "DisiableCameraProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "DisiableCameraLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "DisiableCameraLambdaVersionbMm20crv1euJWkRhzUssVazEqMmEikjxmP4rfHJbL5c",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "DisiableCameraLambdaFunction"
+          },
+          "AddNewCustomerLambdaVersionOZVKlow7iEvWqHQgd4f8fRqnIuQGeWVw6F9evgWd8": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddNewCustomerLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindCustomerByIdLambdaVersion2XyGcb5Qqs6fzGrWXini3unZzfA8UovGLDHMi3MoXGw": {
+          "AddNewCustomerProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "AddNewCustomerLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "AddNewCustomerLambdaVersionOZVKlow7iEvWqHQgd4f8fRqnIuQGeWVw6F9evgWd8",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "AddNewCustomerLambdaFunction"
+          },
+          "FindCustomerByIdLambdaVersion5Jxkgc0iUN8Zbq0DeOQdyk0OpUS2Ud8dDRIydvng": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindCustomerByIdLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindAllCustomersLambdaVersionga79fp4twv9lPQUoUTIpqAlHHvFU0vcz1wQyIgNqzY": {
+          "FindCustomerByIdProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FindCustomerByIdLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "FindCustomerByIdLambdaVersion5Jxkgc0iUN8Zbq0DeOQdyk0OpUS2Ud8dDRIydvng",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "FindCustomerByIdLambdaFunction"
+          },
+          "FindAllCustomersLambdaVersionjUalwxADOqd9NsDUtemTb9rqOMw3jiafFQRWsBxI9E": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllCustomersLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "UpdateCustomerLambdaVersion1CDvOey9TmW3R8ITkcpiIEkCHFWibZSYhN47innk": {
+          "FindAllCustomersProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FindAllCustomersLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "FindAllCustomersLambdaVersionjUalwxADOqd9NsDUtemTb9rqOMw3jiafFQRWsBxI9E",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "FindAllCustomersLambdaFunction"
+          },
+          "UpdateCustomerLambdaVersiongRLLw4wEU1SlgJ8K6bZoxpUp9rwfLtcHYBarPcbLHyM": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateCustomerLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "RemoveCustomerLambdaVersion3IW32ZrZbrIkDKDobLoN0C1zb3HE6I9cY4QygkLTlQ": {
+          "UpdateCustomerProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "UpdateCustomerLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "UpdateCustomerLambdaVersiongRLLw4wEU1SlgJ8K6bZoxpUp9rwfLtcHYBarPcbLHyM",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "UpdateCustomerLambdaFunction"
+          },
+          "RemoveCustomerLambdaVersion87XETGpMEVZyvHFPBgOpgLqTfNHJRDQ1cHe7nEE": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RemoveCustomerLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "DisiableCustomerLambdaVersion14ZbxNJekGXeRFqb2imhvMRY5Qsc1kgw0RfMcos6U": {
+          "RemoveCustomerProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "RemoveCustomerLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "RemoveCustomerLambdaVersion87XETGpMEVZyvHFPBgOpgLqTfNHJRDQ1cHe7nEE",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "RemoveCustomerLambdaFunction"
+          },
+          "DisiableCustomerLambdaVersionCb61fCkyx7RiWfuLYyF0cSaxYkST49EiPKD03fVUBPw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DisiableCustomerLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "AddNewGroupLambdaVersiong4J9U4IXxGlZZah62NFb0MA4EoOW7qq0ra8IFCLMl44": {
+          "DisiableCustomerProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "DisiableCustomerLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "DisiableCustomerLambdaVersionCb61fCkyx7RiWfuLYyF0cSaxYkST49EiPKD03fVUBPw",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "DisiableCustomerLambdaFunction"
+          },
+          "AddNewGroupLambdaVersionkIlNXiWnsPgVLQVd04DqUUAIgUXQpOrWwn6mzR45OTs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddNewGroupLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindGroupByIdLambdaVersiontKgveCpa3KeowfG5yGDkNiw6h1eyI6EAOVnSkTKksw": {
+          "AddNewGroupProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "AddNewGroupLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "AddNewGroupLambdaVersionkIlNXiWnsPgVLQVd04DqUUAIgUXQpOrWwn6mzR45OTs",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "AddNewGroupLambdaFunction"
+          },
+          "FindGroupByIdLambdaVersionPGjitHXKvxzigWc4NzfqEAyVv9NoeIpOiJ5NWPKk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindGroupByIdLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindAllGroupsLambdaVersionnACbDO3N9uUOJdfUeTe8YuFiUE5RpPveoS9y5MTXMyI": {
+          "FindGroupByIdProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FindGroupByIdLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "FindGroupByIdLambdaVersionPGjitHXKvxzigWc4NzfqEAyVv9NoeIpOiJ5NWPKk",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "FindGroupByIdLambdaFunction"
+          },
+          "FindAllGroupsLambdaVersion3Y1jP6Y9z2oKwoHFpA4AYhdxGCdGOAW8HjQQB983jc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllGroupsLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "UpdateGroupLambdaVersionzZuhGKG6oXGxBTsHHxfJGSpTthUA9KWHFyHWYq5JK0": {
+          "FindAllGroupsProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FindAllGroupsLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "FindAllGroupsLambdaVersion3Y1jP6Y9z2oKwoHFpA4AYhdxGCdGOAW8HjQQB983jc",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "FindAllGroupsLambdaFunction"
+          },
+          "UpdateGroupLambdaVersionCWVwWVqL2l2HOqq4TzXw6Li2eYJtoUTEB83c45E3rPU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateGroupLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "RemoveGroupLambdaVersionfJP5wajcaZLcxCCX3AK5TUBTmFkQqJcMuvlEnZvj74E": {
+          "UpdateGroupProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "UpdateGroupLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "UpdateGroupLambdaVersionCWVwWVqL2l2HOqq4TzXw6Li2eYJtoUTEB83c45E3rPU",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "UpdateGroupLambdaFunction"
+          },
+          "RemoveGroupLambdaVersionCQ0siLRp62q6ABjGmkwoyKCtgx2k1XmXhAEqqZrLjQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RemoveGroupLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "DisiableGroupLambdaVersiondz9beULMrcn0EYCOkYkAIyymBmTkYtpWszYDwsk": {
+          "RemoveGroupProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "RemoveGroupLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "RemoveGroupLambdaVersionCQ0siLRp62q6ABjGmkwoyKCtgx2k1XmXhAEqqZrLjQ",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "RemoveGroupLambdaFunction"
+          },
+          "DisiableGroupLambdaVersionFcvv7FbKb931EdJll4ytorVzI8OFlyDIwl0lHEseTgI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DisiableGroupLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "AddNewIntegratorLambdaVersionAhPGGf8TWlqWaz6uRbUpe1neCYufFck8NZPNUQ00A": {
+          "DisiableGroupProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "DisiableGroupLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "DisiableGroupLambdaVersionFcvv7FbKb931EdJll4ytorVzI8OFlyDIwl0lHEseTgI",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "DisiableGroupLambdaFunction"
+          },
+          "AddNewIntegratorLambdaVersion8FXjkkXYXIjpast35gxjYxdOVitpUeF1CQscrsWI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddNewIntegratorLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindIntegratorByIdLambdaVersionnpkSne8Ib45bl0nrBciTRCoIEefTJDqEXfAnSb3lOTM": {
+          "AddNewIntegratorProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "AddNewIntegratorLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "AddNewIntegratorLambdaVersion8FXjkkXYXIjpast35gxjYxdOVitpUeF1CQscrsWI",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "AddNewIntegratorLambdaFunction"
+          },
+          "FindIntegratorByIdLambdaVersiontAyjIItbdojeiPT2rBgeFLkmUZdg9oRv9CjZXeM5I5A": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindIntegratorByIdLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindAllIntegratorsLambdaVersionED7UklQcMS0C67L0j1fh3LwLcci82I6MaIE6xnrX1Co": {
+          "FindIntegratorByIdProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FindIntegratorByIdLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "FindIntegratorByIdLambdaVersiontAyjIItbdojeiPT2rBgeFLkmUZdg9oRv9CjZXeM5I5A",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "FindIntegratorByIdLambdaFunction"
+          },
+          "FindAllIntegratorsLambdaVersionnDlQmTbw6Bt0SEkaMXFG5XlgMVG9zirtmSFE2Yz50fM": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllIntegratorsLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "UpdateIntegratorLambdaVersionnSggZXh6umqsH6kG7IO2bcGdYBujdzIcO5YMvMs": {
+          "FindAllIntegratorsProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FindAllIntegratorsLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "FindAllIntegratorsLambdaVersionnDlQmTbw6Bt0SEkaMXFG5XlgMVG9zirtmSFE2Yz50fM",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "FindAllIntegratorsLambdaFunction"
+          },
+          "UpdateIntegratorLambdaVersionKhexzLnwJx1VuvYgtzrqBV5V2uKwfkSJoDaLPBVco": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateIntegratorLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "RemoveIntegratorLambdaVersionwenyKbW6b2CaSTrTUweNWkEn5hUmWilo6mXE7j78UE": {
+          "UpdateIntegratorProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "UpdateIntegratorLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "UpdateIntegratorLambdaVersionKhexzLnwJx1VuvYgtzrqBV5V2uKwfkSJoDaLPBVco",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "UpdateIntegratorLambdaFunction"
+          },
+          "RemoveIntegratorLambdaVersionF6jYWR0ZWD9dwzIX5meKH5iOC8MVfTF2vub8KmQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RemoveIntegratorLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "AddNewSiteLambdaVersionqc0h6R999Vw6Lv0yg4MwNtMRNz07eCJwqEg6yLPbY": {
+          "RemoveIntegratorProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "RemoveIntegratorLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "RemoveIntegratorLambdaVersionF6jYWR0ZWD9dwzIX5meKH5iOC8MVfTF2vub8KmQ",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "RemoveIntegratorLambdaFunction"
+          },
+          "AddNewSiteLambdaVersionS3oRXxxTiZI0I5zRKR9aJ4SVoDH5CDTWlEoC9sXbRw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddNewSiteLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindSiteByIdLambdaVersionPY6GkJzH8r7O2BMkpWH798ivAPYV8KUCt4CHUc7wPtU": {
+          "AddNewSiteProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "AddNewSiteLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "AddNewSiteLambdaVersionS3oRXxxTiZI0I5zRKR9aJ4SVoDH5CDTWlEoC9sXbRw",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "AddNewSiteLambdaFunction"
+          },
+          "FindSiteByIdLambdaVersione3LXwskXUUU9msKMwLCObEGZM6mmr3Aq9VASeAsgbuM": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindSiteByIdLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindAllSitesLambdaVersion0wmUofCExFjrbKkNjQ8r5QTEGasgaiPtX6ZqbWCz90": {
+          "FindSiteByIdProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FindSiteByIdLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "FindSiteByIdLambdaVersione3LXwskXUUU9msKMwLCObEGZM6mmr3Aq9VASeAsgbuM",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "FindSiteByIdLambdaFunction"
+          },
+          "FindAllSitesLambdaVersionsUd4qkSMJCV0iUzv1u2mxZu1bDp8bh2qyDpy30kOK7k": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllSitesLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "UpdateSiteLambdaVersionvZNWdHSMNtiC5as4eFb38wJjvqcXVqSoqEI1EaSadM": {
+          "FindAllSitesProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FindAllSitesLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "FindAllSitesLambdaVersionsUd4qkSMJCV0iUzv1u2mxZu1bDp8bh2qyDpy30kOK7k",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "FindAllSitesLambdaFunction"
+          },
+          "UpdateSiteLambdaVersion722z21a89E9X5zxXGA6CG9fedqv0oAzydZSnWy0Ms": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateSiteLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "RemoveSiteLambdaVersionIcImXIvkrrOcZDf2Z9hMfK2q9W3FhAFr1g7lCWr6S78": {
+          "UpdateSiteProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "UpdateSiteLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "UpdateSiteLambdaVersion722z21a89E9X5zxXGA6CG9fedqv0oAzydZSnWy0Ms",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "UpdateSiteLambdaFunction"
+          },
+          "RemoveSiteLambdaVersionJ5uwKXKgBODSsynOFEAssUZoZmJ6d3RqiK4tNKjcDQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RemoveSiteLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "DisiableSiteLambdaVersionhVMQcNgUnOoE6nE3uQeUniRbCdllT6hNpQqu5xNGc": {
+          "RemoveSiteProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "RemoveSiteLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "RemoveSiteLambdaVersionJ5uwKXKgBODSsynOFEAssUZoZmJ6d3RqiK4tNKjcDQ",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "RemoveSiteLambdaFunction"
+          },
+          "DisiableSiteLambdaVersionEmos1gXcJKVuh4wXlqwlkTdzO28RWFQDGIGe5w7T4c": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DisiableSiteLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "AddNewUserLambdaVersionEXsUKkyDaeD1XoxnrVDCtTNPKpQsxRybgIG7MVEYjM": {
+          "DisiableSiteProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "DisiableSiteLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "DisiableSiteLambdaVersionEmos1gXcJKVuh4wXlqwlkTdzO28RWFQDGIGe5w7T4c",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "DisiableSiteLambdaFunction"
+          },
+          "AddNewUserLambdaVersionToPQpvSlBQT4OJEqcFqEXsm4eXq2dn6RrbXkfUg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddNewUserLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindUserByIdLambdaVersion3zzUpYXqdZBa9U0KzXBqFOUA8LbtzVrH2plMZzY": {
+          "AddNewUserProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "AddNewUserLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "AddNewUserLambdaVersionToPQpvSlBQT4OJEqcFqEXsm4eXq2dn6RrbXkfUg",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "AddNewUserLambdaFunction"
+          },
+          "FindUserByIdLambdaVersionabHkaMZjTPvTm2OGSNTW8jtrvsNH9FofwjVqdQzlI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindUserByIdLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindAllUsersLambdaVersionv1IhTFqje1eeWz9j5lEOGFHOTQuBXSYYXzR8oQ5EIs": {
+          "FindUserByIdProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FindUserByIdLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "FindUserByIdLambdaVersionabHkaMZjTPvTm2OGSNTW8jtrvsNH9FofwjVqdQzlI",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "FindUserByIdLambdaFunction"
+          },
+          "FindAllUsersLambdaVersionvgqTVVYkk6goDPt3VuN346oLTCE2aKNvuOoA8BHoI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllUsersLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "UpdateUserLambdaVersionwapK16AG6W9U8QEmBYAYaJMNl2P7nBMNlTQNKlx2k": {
+          "FindAllUsersProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "FindAllUsersLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "FindAllUsersLambdaVersionvgqTVVYkk6goDPt3VuN346oLTCE2aKNvuOoA8BHoI",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "FindAllUsersLambdaFunction"
+          },
+          "UpdateUserLambdaVersionE7tLnNnLvcTiuKEiObTDhU5M4VfCdozlizquJ8b6gQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateUserLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "RemoveUserLambdaVersionbMAbUeGbQKa8hWcaAaEvoeXFwS0gV9xd5RYsxk": {
+          "UpdateUserProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "UpdateUserLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "UpdateUserLambdaVersionE7tLnNnLvcTiuKEiObTDhU5M4VfCdozlizquJ8b6gQ",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "UpdateUserLambdaFunction"
+          },
+          "RemoveUserLambdaVersion3D0SpXU6tyv0pM5RiaTvVNulkos870cGKmufec": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RemoveUserLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "DisiableUserLambdaVersionLuvOQle18GVdxC4rl2bcZyAH9cNb4QCwEgCIt1h2c": {
+          "RemoveUserProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "RemoveUserLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "RemoveUserLambdaVersion3D0SpXU6tyv0pM5RiaTvVNulkos870cGKmufec",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "RemoveUserLambdaFunction"
+          },
+          "DisiableUserLambdaVersionaZ2ZlUDJ0IdpxxKcDEYJSwxJkvfQIOQci0kn1LpCLA": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DisiableUserLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindAllCustomerDetailsLambdaVersion4FuImuVNFUahdSwKjqsL9Hy6knZzia1NxWljDd0kw": {
+          "DisiableUserProvConcLambdaAlias": {
+            "Type": "AWS::Lambda::Alias",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "DisiableUserLambdaFunction"
+              },
+              "FunctionVersion": {
+                "Fn::GetAtt": [
+                  "DisiableUserLambdaVersionaZ2ZlUDJ0IdpxxKcDEYJSwxJkvfQIOQci0kn1LpCLA",
+                  "Version"
+                ]
+              },
+              "Name": "provisioned",
+              "ProvisionedConcurrencyConfig": {
+                "ProvisionedConcurrentExecutions": 1
+              }
+            },
+            "DependsOn": "DisiableUserLambdaFunction"
+          },
+          "FindAllCustomerDetailsLambdaVersion9S9l0jpsRXzgcmryJkC3SWWqVv3h0F657OpVJ9znDGg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllCustomerDetailsLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "FindCustomerDetailsByIdLambdaVersionI9l8RCdSFnHqUjZg4oQj3U6ovrpuwDu2dfkpM2wNWtM": {
+          "FindCustomerDetailsByIdLambdaVersionC1q6yA5AvRxoPAYKtHrdxJBloSc0D4fFVZe4t8gKo": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindCustomerDetailsByIdLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
-          "GroupCameraByEmailLambdaVersion6Q2Uqdq3PsCPiZsvgyRcdvaiNBcf0PfWiOGNB9f0": {
+          "GroupCameraByEmailLambdaVersionRVVhS7BCIpya6Bl2ZoRGkDKrTHKOSmhlHraEQPMIQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GroupCameraByEmailLambdaFunction"
               },
-              "CodeSha256": "UMTgdiMZc2oPrPKid3EmwGC29379/STaVK6MiqrgHMo="
+              "CodeSha256": "eDGmBtS4LxyViC/bqBw6ssZlxz2J1SRY2AtWaszBE/8="
             }
           },
           "ApiGatewayRestApi": {
@@ -3611,6 +4278,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -3662,6 +4331,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -3705,6 +4376,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -3748,6 +4421,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -3799,6 +4474,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -3842,6 +4519,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -3885,6 +4564,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -3936,6 +4617,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -3979,6 +4662,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4022,6 +4707,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4073,6 +4760,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4116,6 +4805,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4159,6 +4850,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4210,6 +4903,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4253,6 +4948,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4296,6 +4993,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4347,6 +5046,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4390,6 +5091,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4433,6 +5136,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4484,6 +5189,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4527,6 +5234,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4570,6 +5279,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4621,6 +5332,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4664,6 +5377,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4715,6 +5430,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4758,6 +5475,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4801,6 +5520,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4852,6 +5573,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4895,6 +5618,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4938,6 +5663,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -4989,6 +5716,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -5032,6 +5761,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -5075,6 +5806,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -5126,6 +5859,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -5169,6 +5904,8 @@
                           "Arn"
                         ]
                       },
+                      ":",
+                      "provisioned",
                       "/invocations"
                     ]
                   ]
@@ -5803,7 +6540,7 @@
               }
             }
           },
-          "ApiGatewayDeployment1625218544365": {
+          "ApiGatewayDeployment1625299354951": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -5882,9 +6619,17 @@
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "AddNewCameraLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "AddNewCameraLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -5913,15 +6658,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "AddNewCameraProvConcLambdaAlias"
           },
           "FindCameraByIdLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "FindCameraByIdLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "FindCameraByIdLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -5950,15 +6704,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "FindCameraByIdProvConcLambdaAlias"
           },
           "FindAllCamerasLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "FindAllCamerasLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "FindAllCamerasLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -5987,15 +6750,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "FindAllCamerasProvConcLambdaAlias"
           },
           "UpdateCameraLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "UpdateCameraLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "UpdateCameraLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6024,15 +6796,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "UpdateCameraProvConcLambdaAlias"
           },
           "RemoveCameraLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "RemoveCameraLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "RemoveCameraLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6061,15 +6842,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "RemoveCameraProvConcLambdaAlias"
           },
           "DisiableCameraLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "DisiableCameraLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "DisiableCameraLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6098,15 +6888,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "DisiableCameraProvConcLambdaAlias"
           },
           "AddNewCustomerLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "AddNewCustomerLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "AddNewCustomerLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6135,15 +6934,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "AddNewCustomerProvConcLambdaAlias"
           },
           "FindCustomerByIdLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "FindCustomerByIdLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "FindCustomerByIdLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6172,15 +6980,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "FindCustomerByIdProvConcLambdaAlias"
           },
           "FindAllCustomersLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "FindAllCustomersLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "FindAllCustomersLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6209,15 +7026,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "FindAllCustomersProvConcLambdaAlias"
           },
           "UpdateCustomerLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "UpdateCustomerLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "UpdateCustomerLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6246,15 +7072,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "UpdateCustomerProvConcLambdaAlias"
           },
           "RemoveCustomerLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "RemoveCustomerLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "RemoveCustomerLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6283,15 +7118,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "RemoveCustomerProvConcLambdaAlias"
           },
           "DisiableCustomerLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "DisiableCustomerLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "DisiableCustomerLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6320,15 +7164,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "DisiableCustomerProvConcLambdaAlias"
           },
           "AddNewGroupLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "AddNewGroupLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "AddNewGroupLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6357,15 +7210,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "AddNewGroupProvConcLambdaAlias"
           },
           "FindGroupByIdLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "FindGroupByIdLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "FindGroupByIdLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6394,15 +7256,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "FindGroupByIdProvConcLambdaAlias"
           },
           "FindAllGroupsLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "FindAllGroupsLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "FindAllGroupsLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6431,15 +7302,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "FindAllGroupsProvConcLambdaAlias"
           },
           "UpdateGroupLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "UpdateGroupLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "UpdateGroupLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6468,15 +7348,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "UpdateGroupProvConcLambdaAlias"
           },
           "RemoveGroupLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "RemoveGroupLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "RemoveGroupLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6505,15 +7394,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "RemoveGroupProvConcLambdaAlias"
           },
           "DisiableGroupLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "DisiableGroupLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "DisiableGroupLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6542,15 +7440,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "DisiableGroupProvConcLambdaAlias"
           },
           "AddNewIntegratorLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "AddNewIntegratorLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "AddNewIntegratorLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6579,15 +7486,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "AddNewIntegratorProvConcLambdaAlias"
           },
           "FindIntegratorByIdLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "FindIntegratorByIdLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "FindIntegratorByIdLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6616,15 +7532,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "FindIntegratorByIdProvConcLambdaAlias"
           },
           "FindAllIntegratorsLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "FindAllIntegratorsLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "FindAllIntegratorsLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6653,15 +7578,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "FindAllIntegratorsProvConcLambdaAlias"
           },
           "UpdateIntegratorLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "UpdateIntegratorLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "UpdateIntegratorLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6690,15 +7624,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "UpdateIntegratorProvConcLambdaAlias"
           },
           "RemoveIntegratorLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "RemoveIntegratorLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "RemoveIntegratorLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6727,15 +7670,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "RemoveIntegratorProvConcLambdaAlias"
           },
           "AddNewSiteLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "AddNewSiteLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "AddNewSiteLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6764,15 +7716,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "AddNewSiteProvConcLambdaAlias"
           },
           "FindSiteByIdLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "FindSiteByIdLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "FindSiteByIdLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6801,15 +7762,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "FindSiteByIdProvConcLambdaAlias"
           },
           "FindAllSitesLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "FindAllSitesLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "FindAllSitesLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6838,15 +7808,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "FindAllSitesProvConcLambdaAlias"
           },
           "UpdateSiteLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "UpdateSiteLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "UpdateSiteLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6875,15 +7854,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "UpdateSiteProvConcLambdaAlias"
           },
           "RemoveSiteLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "RemoveSiteLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "RemoveSiteLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6912,15 +7900,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "RemoveSiteProvConcLambdaAlias"
           },
           "DisiableSiteLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "DisiableSiteLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "DisiableSiteLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6949,15 +7946,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "DisiableSiteProvConcLambdaAlias"
           },
           "AddNewUserLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "AddNewUserLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "AddNewUserLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -6986,15 +7992,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "AddNewUserProvConcLambdaAlias"
           },
           "FindUserByIdLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "FindUserByIdLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "FindUserByIdLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -7023,15 +8038,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "FindUserByIdProvConcLambdaAlias"
           },
           "FindAllUsersLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "FindAllUsersLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "FindAllUsersLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -7060,15 +8084,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "FindAllUsersProvConcLambdaAlias"
           },
           "UpdateUserLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "UpdateUserLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "UpdateUserLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -7097,15 +8130,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "UpdateUserProvConcLambdaAlias"
           },
           "RemoveUserLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "RemoveUserLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "RemoveUserLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -7134,15 +8176,24 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "RemoveUserProvConcLambdaAlias"
           },
           "DisiableUserLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
-                "Fn::GetAtt": [
-                  "DisiableUserLambdaFunction",
-                  "Arn"
+                "Fn::Join": [
+                  ":",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "DisiableUserLambdaFunction",
+                        "Arn"
+                      ]
+                    },
+                    "provisioned"
+                  ]
                 ]
               },
               "Action": "lambda:InvokeFunction",
@@ -7171,7 +8222,8 @@
                   ]
                 ]
               }
-            }
+            },
+            "DependsOn": "DisiableUserProvConcLambdaAlias"
           },
           "FindAllCustomerDetailsLambdaPermissionApiGateway": {
             "Type": "AWS::Lambda::Permission",
@@ -7297,7 +8349,7 @@
           "AddNewCameraLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddNewCameraLambdaVersionEcVfX9dW8VxDy7dcYj2BDmFFAy4VbQgIAStEpKPw6o"
+              "Ref": "AddNewCameraLambdaVersion3sG56OhA447NoL5SyV14GrTyZfwcVXQp6jF67T5rw"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-AddNewCameraLambdaFunctionQualifiedArn"
@@ -7306,7 +8358,7 @@
           "FindCameraByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindCameraByIdLambdaVersionIVvyMx4q7fTU4SAdlZjPdAYeKRcVUC7C7C8cX0iI"
+              "Ref": "FindCameraByIdLambdaVersionc8tnHMVNsC22mp0ozTVPNgesLPatmLahsTahxFivg"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindCameraByIdLambdaFunctionQualifiedArn"
@@ -7315,7 +8367,7 @@
           "FindAllCamerasLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllCamerasLambdaVersionLPv6FwdbR85DT5B1TJvheFXQfMREgN3QZoFYwzBhUQ"
+              "Ref": "FindAllCamerasLambdaVersionXSUVUptp7BlamJg5yyvm3BhgzgdwSKg2vROytxuGqQI"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllCamerasLambdaFunctionQualifiedArn"
@@ -7324,7 +8376,7 @@
           "UpdateCameraLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateCameraLambdaVersionj0x35eZSqgWVCpeqlcmDQ9hQJawoTbaU02oPoIP80k"
+              "Ref": "UpdateCameraLambdaVersionXkoJAylX0WGXKRPrNuzeia76etxI4NHlLTTH3MpQR7Y"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateCameraLambdaFunctionQualifiedArn"
@@ -7333,7 +8385,7 @@
           "RemoveCameraLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RemoveCameraLambdaVersionou2RVvcEkWamcvT1sqQ0Rp9irvOwcWQ0DPktUEIEY"
+              "Ref": "RemoveCameraLambdaVersionvfQaa1076y0ihZY9SABsMNlPiN49xurfO9wx0"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-RemoveCameraLambdaFunctionQualifiedArn"
@@ -7342,7 +8394,7 @@
           "DisiableCameraLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DisiableCameraLambdaVersionXdlxguiBX5wsXPNo5sbchhlJgVwpetDjnAwOrHBcTU"
+              "Ref": "DisiableCameraLambdaVersionbMm20crv1euJWkRhzUssVazEqMmEikjxmP4rfHJbL5c"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-DisiableCameraLambdaFunctionQualifiedArn"
@@ -7351,7 +8403,7 @@
           "AddNewCustomerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddNewCustomerLambdaVersionsO72MeQKLanb1FspwM5cn2tgNKWsozEjovj4LgHMlds"
+              "Ref": "AddNewCustomerLambdaVersionOZVKlow7iEvWqHQgd4f8fRqnIuQGeWVw6F9evgWd8"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-AddNewCustomerLambdaFunctionQualifiedArn"
@@ -7360,7 +8412,7 @@
           "FindCustomerByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindCustomerByIdLambdaVersion2XyGcb5Qqs6fzGrWXini3unZzfA8UovGLDHMi3MoXGw"
+              "Ref": "FindCustomerByIdLambdaVersion5Jxkgc0iUN8Zbq0DeOQdyk0OpUS2Ud8dDRIydvng"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindCustomerByIdLambdaFunctionQualifiedArn"
@@ -7369,7 +8421,7 @@
           "FindAllCustomersLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllCustomersLambdaVersionga79fp4twv9lPQUoUTIpqAlHHvFU0vcz1wQyIgNqzY"
+              "Ref": "FindAllCustomersLambdaVersionjUalwxADOqd9NsDUtemTb9rqOMw3jiafFQRWsBxI9E"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllCustomersLambdaFunctionQualifiedArn"
@@ -7378,7 +8430,7 @@
           "UpdateCustomerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateCustomerLambdaVersion1CDvOey9TmW3R8ITkcpiIEkCHFWibZSYhN47innk"
+              "Ref": "UpdateCustomerLambdaVersiongRLLw4wEU1SlgJ8K6bZoxpUp9rwfLtcHYBarPcbLHyM"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateCustomerLambdaFunctionQualifiedArn"
@@ -7387,7 +8439,7 @@
           "RemoveCustomerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RemoveCustomerLambdaVersion3IW32ZrZbrIkDKDobLoN0C1zb3HE6I9cY4QygkLTlQ"
+              "Ref": "RemoveCustomerLambdaVersion87XETGpMEVZyvHFPBgOpgLqTfNHJRDQ1cHe7nEE"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-RemoveCustomerLambdaFunctionQualifiedArn"
@@ -7396,7 +8448,7 @@
           "DisiableCustomerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DisiableCustomerLambdaVersion14ZbxNJekGXeRFqb2imhvMRY5Qsc1kgw0RfMcos6U"
+              "Ref": "DisiableCustomerLambdaVersionCb61fCkyx7RiWfuLYyF0cSaxYkST49EiPKD03fVUBPw"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-DisiableCustomerLambdaFunctionQualifiedArn"
@@ -7405,7 +8457,7 @@
           "AddNewGroupLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddNewGroupLambdaVersiong4J9U4IXxGlZZah62NFb0MA4EoOW7qq0ra8IFCLMl44"
+              "Ref": "AddNewGroupLambdaVersionkIlNXiWnsPgVLQVd04DqUUAIgUXQpOrWwn6mzR45OTs"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-AddNewGroupLambdaFunctionQualifiedArn"
@@ -7414,7 +8466,7 @@
           "FindGroupByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindGroupByIdLambdaVersiontKgveCpa3KeowfG5yGDkNiw6h1eyI6EAOVnSkTKksw"
+              "Ref": "FindGroupByIdLambdaVersionPGjitHXKvxzigWc4NzfqEAyVv9NoeIpOiJ5NWPKk"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindGroupByIdLambdaFunctionQualifiedArn"
@@ -7423,7 +8475,7 @@
           "FindAllGroupsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllGroupsLambdaVersionnACbDO3N9uUOJdfUeTe8YuFiUE5RpPveoS9y5MTXMyI"
+              "Ref": "FindAllGroupsLambdaVersion3Y1jP6Y9z2oKwoHFpA4AYhdxGCdGOAW8HjQQB983jc"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllGroupsLambdaFunctionQualifiedArn"
@@ -7432,7 +8484,7 @@
           "UpdateGroupLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateGroupLambdaVersionzZuhGKG6oXGxBTsHHxfJGSpTthUA9KWHFyHWYq5JK0"
+              "Ref": "UpdateGroupLambdaVersionCWVwWVqL2l2HOqq4TzXw6Li2eYJtoUTEB83c45E3rPU"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateGroupLambdaFunctionQualifiedArn"
@@ -7441,7 +8493,7 @@
           "RemoveGroupLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RemoveGroupLambdaVersionfJP5wajcaZLcxCCX3AK5TUBTmFkQqJcMuvlEnZvj74E"
+              "Ref": "RemoveGroupLambdaVersionCQ0siLRp62q6ABjGmkwoyKCtgx2k1XmXhAEqqZrLjQ"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-RemoveGroupLambdaFunctionQualifiedArn"
@@ -7450,7 +8502,7 @@
           "DisiableGroupLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DisiableGroupLambdaVersiondz9beULMrcn0EYCOkYkAIyymBmTkYtpWszYDwsk"
+              "Ref": "DisiableGroupLambdaVersionFcvv7FbKb931EdJll4ytorVzI8OFlyDIwl0lHEseTgI"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-DisiableGroupLambdaFunctionQualifiedArn"
@@ -7459,7 +8511,7 @@
           "AddNewIntegratorLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddNewIntegratorLambdaVersionAhPGGf8TWlqWaz6uRbUpe1neCYufFck8NZPNUQ00A"
+              "Ref": "AddNewIntegratorLambdaVersion8FXjkkXYXIjpast35gxjYxdOVitpUeF1CQscrsWI"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-AddNewIntegratorLambdaFunctionQualifiedArn"
@@ -7468,7 +8520,7 @@
           "FindIntegratorByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindIntegratorByIdLambdaVersionnpkSne8Ib45bl0nrBciTRCoIEefTJDqEXfAnSb3lOTM"
+              "Ref": "FindIntegratorByIdLambdaVersiontAyjIItbdojeiPT2rBgeFLkmUZdg9oRv9CjZXeM5I5A"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindIntegratorByIdLambdaFunctionQualifiedArn"
@@ -7477,7 +8529,7 @@
           "FindAllIntegratorsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllIntegratorsLambdaVersionED7UklQcMS0C67L0j1fh3LwLcci82I6MaIE6xnrX1Co"
+              "Ref": "FindAllIntegratorsLambdaVersionnDlQmTbw6Bt0SEkaMXFG5XlgMVG9zirtmSFE2Yz50fM"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllIntegratorsLambdaFunctionQualifiedArn"
@@ -7486,7 +8538,7 @@
           "UpdateIntegratorLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateIntegratorLambdaVersionnSggZXh6umqsH6kG7IO2bcGdYBujdzIcO5YMvMs"
+              "Ref": "UpdateIntegratorLambdaVersionKhexzLnwJx1VuvYgtzrqBV5V2uKwfkSJoDaLPBVco"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateIntegratorLambdaFunctionQualifiedArn"
@@ -7495,7 +8547,7 @@
           "RemoveIntegratorLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RemoveIntegratorLambdaVersionwenyKbW6b2CaSTrTUweNWkEn5hUmWilo6mXE7j78UE"
+              "Ref": "RemoveIntegratorLambdaVersionF6jYWR0ZWD9dwzIX5meKH5iOC8MVfTF2vub8KmQ"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-RemoveIntegratorLambdaFunctionQualifiedArn"
@@ -7504,7 +8556,7 @@
           "AddNewSiteLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddNewSiteLambdaVersionqc0h6R999Vw6Lv0yg4MwNtMRNz07eCJwqEg6yLPbY"
+              "Ref": "AddNewSiteLambdaVersionS3oRXxxTiZI0I5zRKR9aJ4SVoDH5CDTWlEoC9sXbRw"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-AddNewSiteLambdaFunctionQualifiedArn"
@@ -7513,7 +8565,7 @@
           "FindSiteByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindSiteByIdLambdaVersionPY6GkJzH8r7O2BMkpWH798ivAPYV8KUCt4CHUc7wPtU"
+              "Ref": "FindSiteByIdLambdaVersione3LXwskXUUU9msKMwLCObEGZM6mmr3Aq9VASeAsgbuM"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindSiteByIdLambdaFunctionQualifiedArn"
@@ -7522,7 +8574,7 @@
           "FindAllSitesLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllSitesLambdaVersion0wmUofCExFjrbKkNjQ8r5QTEGasgaiPtX6ZqbWCz90"
+              "Ref": "FindAllSitesLambdaVersionsUd4qkSMJCV0iUzv1u2mxZu1bDp8bh2qyDpy30kOK7k"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllSitesLambdaFunctionQualifiedArn"
@@ -7531,7 +8583,7 @@
           "UpdateSiteLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateSiteLambdaVersionvZNWdHSMNtiC5as4eFb38wJjvqcXVqSoqEI1EaSadM"
+              "Ref": "UpdateSiteLambdaVersion722z21a89E9X5zxXGA6CG9fedqv0oAzydZSnWy0Ms"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateSiteLambdaFunctionQualifiedArn"
@@ -7540,7 +8592,7 @@
           "RemoveSiteLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RemoveSiteLambdaVersionIcImXIvkrrOcZDf2Z9hMfK2q9W3FhAFr1g7lCWr6S78"
+              "Ref": "RemoveSiteLambdaVersionJ5uwKXKgBODSsynOFEAssUZoZmJ6d3RqiK4tNKjcDQ"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-RemoveSiteLambdaFunctionQualifiedArn"
@@ -7549,7 +8601,7 @@
           "DisiableSiteLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DisiableSiteLambdaVersionhVMQcNgUnOoE6nE3uQeUniRbCdllT6hNpQqu5xNGc"
+              "Ref": "DisiableSiteLambdaVersionEmos1gXcJKVuh4wXlqwlkTdzO28RWFQDGIGe5w7T4c"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-DisiableSiteLambdaFunctionQualifiedArn"
@@ -7558,7 +8610,7 @@
           "AddNewUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddNewUserLambdaVersionEXsUKkyDaeD1XoxnrVDCtTNPKpQsxRybgIG7MVEYjM"
+              "Ref": "AddNewUserLambdaVersionToPQpvSlBQT4OJEqcFqEXsm4eXq2dn6RrbXkfUg"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-AddNewUserLambdaFunctionQualifiedArn"
@@ -7567,7 +8619,7 @@
           "FindUserByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindUserByIdLambdaVersion3zzUpYXqdZBa9U0KzXBqFOUA8LbtzVrH2plMZzY"
+              "Ref": "FindUserByIdLambdaVersionabHkaMZjTPvTm2OGSNTW8jtrvsNH9FofwjVqdQzlI"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindUserByIdLambdaFunctionQualifiedArn"
@@ -7576,7 +8628,7 @@
           "FindAllUsersLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllUsersLambdaVersionv1IhTFqje1eeWz9j5lEOGFHOTQuBXSYYXzR8oQ5EIs"
+              "Ref": "FindAllUsersLambdaVersionvgqTVVYkk6goDPt3VuN346oLTCE2aKNvuOoA8BHoI"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllUsersLambdaFunctionQualifiedArn"
@@ -7585,7 +8637,7 @@
           "UpdateUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateUserLambdaVersionwapK16AG6W9U8QEmBYAYaJMNl2P7nBMNlTQNKlx2k"
+              "Ref": "UpdateUserLambdaVersionE7tLnNnLvcTiuKEiObTDhU5M4VfCdozlizquJ8b6gQ"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateUserLambdaFunctionQualifiedArn"
@@ -7594,7 +8646,7 @@
           "RemoveUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RemoveUserLambdaVersionbMAbUeGbQKa8hWcaAaEvoeXFwS0gV9xd5RYsxk"
+              "Ref": "RemoveUserLambdaVersion3D0SpXU6tyv0pM5RiaTvVNulkos870cGKmufec"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-RemoveUserLambdaFunctionQualifiedArn"
@@ -7603,7 +8655,7 @@
           "DisiableUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DisiableUserLambdaVersionLuvOQle18GVdxC4rl2bcZyAH9cNb4QCwEgCIt1h2c"
+              "Ref": "DisiableUserLambdaVersionaZ2ZlUDJ0IdpxxKcDEYJSwxJkvfQIOQci0kn1LpCLA"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-DisiableUserLambdaFunctionQualifiedArn"
@@ -7612,7 +8664,7 @@
           "FindAllCustomerDetailsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllCustomerDetailsLambdaVersion4FuImuVNFUahdSwKjqsL9Hy6knZzia1NxWljDd0kw"
+              "Ref": "FindAllCustomerDetailsLambdaVersion9S9l0jpsRXzgcmryJkC3SWWqVv3h0F657OpVJ9znDGg"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllCustomerDetailsLambdaFunctionQualifiedArn"
@@ -7621,7 +8673,7 @@
           "FindCustomerDetailsByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindCustomerDetailsByIdLambdaVersionI9l8RCdSFnHqUjZg4oQj3U6ovrpuwDu2dfkpM2wNWtM"
+              "Ref": "FindCustomerDetailsByIdLambdaVersionC1q6yA5AvRxoPAYKtHrdxJBloSc0D4fFVZe4t8gKo"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindCustomerDetailsByIdLambdaFunctionQualifiedArn"
@@ -7630,7 +8682,7 @@
           "GroupCameraByEmailLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GroupCameraByEmailLambdaVersion6Q2Uqdq3PsCPiZsvgyRcdvaiNBcf0PfWiOGNB9f0"
+              "Ref": "GroupCameraByEmailLambdaVersionRVVhS7BCIpya6Bl2ZoRGkDKrTHKOSmhlHraEQPMIQ"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-GroupCameraByEmailLambdaFunctionQualifiedArn"
@@ -7768,6 +8820,7 @@
     "functions": {
       "addNewCamera": {
         "handler": "functions/camera/handler.addCamera",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -7807,14 +8860,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AddNewCameraLambdaVersionEcVfX9dW8VxDy7dcYj2BDmFFAy4VbQgIAStEpKPw6o"
+        "versionLogicalId": "AddNewCameraLambdaVersion3sG56OhA447NoL5SyV14GrTyZfwcVXQp6jF67T5rw",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "AddNewCameraProvConcLambdaAlias"
+        }
       },
       "findCameraById": {
         "handler": "functions/camera/handler.getCameraById",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -7847,14 +8905,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindCameraByIdLambdaVersionIVvyMx4q7fTU4SAdlZjPdAYeKRcVUC7C7C8cX0iI"
+        "versionLogicalId": "FindCameraByIdLambdaVersionc8tnHMVNsC22mp0ozTVPNgesLPatmLahsTahxFivg",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "FindCameraByIdProvConcLambdaAlias"
+        }
       },
       "findAllCameras": {
         "handler": "functions/camera/handler.getAllCameras",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -7887,14 +8950,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllCamerasLambdaVersionLPv6FwdbR85DT5B1TJvheFXQfMREgN3QZoFYwzBhUQ"
+        "versionLogicalId": "FindAllCamerasLambdaVersionXSUVUptp7BlamJg5yyvm3BhgzgdwSKg2vROytxuGqQI",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "FindAllCamerasProvConcLambdaAlias"
+        }
       },
       "updateCamera": {
         "handler": "functions/camera/handler.editCamera",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -7934,14 +9002,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateCameraLambdaVersionj0x35eZSqgWVCpeqlcmDQ9hQJawoTbaU02oPoIP80k"
+        "versionLogicalId": "UpdateCameraLambdaVersionXkoJAylX0WGXKRPrNuzeia76etxI4NHlLTTH3MpQR7Y",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "UpdateCameraProvConcLambdaAlias"
+        }
       },
       "removeCamera": {
         "handler": "functions/camera/handler.deleteCamera",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -7974,14 +9047,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "RemoveCameraLambdaVersionou2RVvcEkWamcvT1sqQ0Rp9irvOwcWQ0DPktUEIEY"
+        "versionLogicalId": "RemoveCameraLambdaVersionvfQaa1076y0ihZY9SABsMNlPiN49xurfO9wx0",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "RemoveCameraProvConcLambdaAlias"
+        }
       },
       "disiableCamera": {
         "handler": "functions/camera/handler.editDisableCamera",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8014,14 +9092,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "DisiableCameraLambdaVersionXdlxguiBX5wsXPNo5sbchhlJgVwpetDjnAwOrHBcTU"
+        "versionLogicalId": "DisiableCameraLambdaVersionbMm20crv1euJWkRhzUssVazEqMmEikjxmP4rfHJbL5c",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "DisiableCameraProvConcLambdaAlias"
+        }
       },
       "addNewCustomer": {
         "handler": "functions/customer/handler.addCustomer",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8061,14 +9144,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AddNewCustomerLambdaVersionsO72MeQKLanb1FspwM5cn2tgNKWsozEjovj4LgHMlds"
+        "versionLogicalId": "AddNewCustomerLambdaVersionOZVKlow7iEvWqHQgd4f8fRqnIuQGeWVw6F9evgWd8",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "AddNewCustomerProvConcLambdaAlias"
+        }
       },
       "findCustomerById": {
         "handler": "functions/customer/handler.getCustomerById",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8101,14 +9189,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindCustomerByIdLambdaVersion2XyGcb5Qqs6fzGrWXini3unZzfA8UovGLDHMi3MoXGw"
+        "versionLogicalId": "FindCustomerByIdLambdaVersion5Jxkgc0iUN8Zbq0DeOQdyk0OpUS2Ud8dDRIydvng",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "FindCustomerByIdProvConcLambdaAlias"
+        }
       },
       "findAllCustomers": {
         "handler": "functions/customer/handler.getAllCustomers",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8141,14 +9234,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllCustomersLambdaVersionga79fp4twv9lPQUoUTIpqAlHHvFU0vcz1wQyIgNqzY"
+        "versionLogicalId": "FindAllCustomersLambdaVersionjUalwxADOqd9NsDUtemTb9rqOMw3jiafFQRWsBxI9E",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "FindAllCustomersProvConcLambdaAlias"
+        }
       },
       "updateCustomer": {
         "handler": "functions/customer/handler.editCustomer",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8188,14 +9286,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateCustomerLambdaVersion1CDvOey9TmW3R8ITkcpiIEkCHFWibZSYhN47innk"
+        "versionLogicalId": "UpdateCustomerLambdaVersiongRLLw4wEU1SlgJ8K6bZoxpUp9rwfLtcHYBarPcbLHyM",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "UpdateCustomerProvConcLambdaAlias"
+        }
       },
       "removeCustomer": {
         "handler": "functions/customer/handler.deleteCustomer",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8228,14 +9331,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "RemoveCustomerLambdaVersion3IW32ZrZbrIkDKDobLoN0C1zb3HE6I9cY4QygkLTlQ"
+        "versionLogicalId": "RemoveCustomerLambdaVersion87XETGpMEVZyvHFPBgOpgLqTfNHJRDQ1cHe7nEE",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "RemoveCustomerProvConcLambdaAlias"
+        }
       },
       "disiableCustomer": {
         "handler": "functions/customer/handler.editDisableCustomer",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8268,14 +9376,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "DisiableCustomerLambdaVersion14ZbxNJekGXeRFqb2imhvMRY5Qsc1kgw0RfMcos6U"
+        "versionLogicalId": "DisiableCustomerLambdaVersionCb61fCkyx7RiWfuLYyF0cSaxYkST49EiPKD03fVUBPw",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "DisiableCustomerProvConcLambdaAlias"
+        }
       },
       "addNewGroup": {
         "handler": "functions/group/handler.addGroup",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8315,14 +9428,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AddNewGroupLambdaVersiong4J9U4IXxGlZZah62NFb0MA4EoOW7qq0ra8IFCLMl44"
+        "versionLogicalId": "AddNewGroupLambdaVersionkIlNXiWnsPgVLQVd04DqUUAIgUXQpOrWwn6mzR45OTs",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "AddNewGroupProvConcLambdaAlias"
+        }
       },
       "findGroupById": {
         "handler": "functions/group/handler.getGroupById",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8355,14 +9473,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindGroupByIdLambdaVersiontKgveCpa3KeowfG5yGDkNiw6h1eyI6EAOVnSkTKksw"
+        "versionLogicalId": "FindGroupByIdLambdaVersionPGjitHXKvxzigWc4NzfqEAyVv9NoeIpOiJ5NWPKk",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "FindGroupByIdProvConcLambdaAlias"
+        }
       },
       "findAllGroups": {
         "handler": "functions/group/handler.getAllGroups",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8395,14 +9518,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllGroupsLambdaVersionnACbDO3N9uUOJdfUeTe8YuFiUE5RpPveoS9y5MTXMyI"
+        "versionLogicalId": "FindAllGroupsLambdaVersion3Y1jP6Y9z2oKwoHFpA4AYhdxGCdGOAW8HjQQB983jc",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "FindAllGroupsProvConcLambdaAlias"
+        }
       },
       "updateGroup": {
         "handler": "functions/group/handler.editGroup",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8442,14 +9570,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateGroupLambdaVersionzZuhGKG6oXGxBTsHHxfJGSpTthUA9KWHFyHWYq5JK0"
+        "versionLogicalId": "UpdateGroupLambdaVersionCWVwWVqL2l2HOqq4TzXw6Li2eYJtoUTEB83c45E3rPU",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "UpdateGroupProvConcLambdaAlias"
+        }
       },
       "removeGroup": {
         "handler": "functions/group/handler.deleteGroup",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8482,14 +9615,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "RemoveGroupLambdaVersionfJP5wajcaZLcxCCX3AK5TUBTmFkQqJcMuvlEnZvj74E"
+        "versionLogicalId": "RemoveGroupLambdaVersionCQ0siLRp62q6ABjGmkwoyKCtgx2k1XmXhAEqqZrLjQ",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "RemoveGroupProvConcLambdaAlias"
+        }
       },
       "disiableGroup": {
         "handler": "functions/group/handler.editDisableGroup",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8522,14 +9660,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "DisiableGroupLambdaVersiondz9beULMrcn0EYCOkYkAIyymBmTkYtpWszYDwsk"
+        "versionLogicalId": "DisiableGroupLambdaVersionFcvv7FbKb931EdJll4ytorVzI8OFlyDIwl0lHEseTgI",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "DisiableGroupProvConcLambdaAlias"
+        }
       },
       "addNewIntegrator": {
         "handler": "functions/integrator/handler.addIntegrator",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8569,14 +9712,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AddNewIntegratorLambdaVersionAhPGGf8TWlqWaz6uRbUpe1neCYufFck8NZPNUQ00A"
+        "versionLogicalId": "AddNewIntegratorLambdaVersion8FXjkkXYXIjpast35gxjYxdOVitpUeF1CQscrsWI",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "AddNewIntegratorProvConcLambdaAlias"
+        }
       },
       "findIntegratorById": {
         "handler": "functions/integrator/handler.getIntegratorById",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8609,14 +9757,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindIntegratorByIdLambdaVersionnpkSne8Ib45bl0nrBciTRCoIEefTJDqEXfAnSb3lOTM"
+        "versionLogicalId": "FindIntegratorByIdLambdaVersiontAyjIItbdojeiPT2rBgeFLkmUZdg9oRv9CjZXeM5I5A",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "FindIntegratorByIdProvConcLambdaAlias"
+        }
       },
       "findAllIntegrators": {
         "handler": "functions/integrator/handler.getAllIntegrators",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8649,14 +9802,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllIntegratorsLambdaVersionED7UklQcMS0C67L0j1fh3LwLcci82I6MaIE6xnrX1Co"
+        "versionLogicalId": "FindAllIntegratorsLambdaVersionnDlQmTbw6Bt0SEkaMXFG5XlgMVG9zirtmSFE2Yz50fM",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "FindAllIntegratorsProvConcLambdaAlias"
+        }
       },
       "updateIntegrator": {
         "handler": "functions/integrator/handler.editIntegrator",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8696,14 +9854,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateIntegratorLambdaVersionnSggZXh6umqsH6kG7IO2bcGdYBujdzIcO5YMvMs"
+        "versionLogicalId": "UpdateIntegratorLambdaVersionKhexzLnwJx1VuvYgtzrqBV5V2uKwfkSJoDaLPBVco",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "UpdateIntegratorProvConcLambdaAlias"
+        }
       },
       "removeIntegrator": {
         "handler": "functions/integrator/handler.deleteIntegrator",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8736,14 +9899,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "RemoveIntegratorLambdaVersionwenyKbW6b2CaSTrTUweNWkEn5hUmWilo6mXE7j78UE"
+        "versionLogicalId": "RemoveIntegratorLambdaVersionF6jYWR0ZWD9dwzIX5meKH5iOC8MVfTF2vub8KmQ",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "RemoveIntegratorProvConcLambdaAlias"
+        }
       },
       "addNewSite": {
         "handler": "functions/site/handler.addSite",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8783,14 +9951,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AddNewSiteLambdaVersionqc0h6R999Vw6Lv0yg4MwNtMRNz07eCJwqEg6yLPbY"
+        "versionLogicalId": "AddNewSiteLambdaVersionS3oRXxxTiZI0I5zRKR9aJ4SVoDH5CDTWlEoC9sXbRw",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "AddNewSiteProvConcLambdaAlias"
+        }
       },
       "findSiteById": {
         "handler": "functions/site/handler.getSiteById",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8823,14 +9996,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindSiteByIdLambdaVersionPY6GkJzH8r7O2BMkpWH798ivAPYV8KUCt4CHUc7wPtU"
+        "versionLogicalId": "FindSiteByIdLambdaVersione3LXwskXUUU9msKMwLCObEGZM6mmr3Aq9VASeAsgbuM",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "FindSiteByIdProvConcLambdaAlias"
+        }
       },
       "findAllSites": {
         "handler": "functions/site/handler.getAllSites",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8863,14 +10041,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllSitesLambdaVersion0wmUofCExFjrbKkNjQ8r5QTEGasgaiPtX6ZqbWCz90"
+        "versionLogicalId": "FindAllSitesLambdaVersionsUd4qkSMJCV0iUzv1u2mxZu1bDp8bh2qyDpy30kOK7k",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "FindAllSitesProvConcLambdaAlias"
+        }
       },
       "updateSite": {
         "handler": "functions/site/handler.editSite",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8910,14 +10093,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateSiteLambdaVersionvZNWdHSMNtiC5as4eFb38wJjvqcXVqSoqEI1EaSadM"
+        "versionLogicalId": "UpdateSiteLambdaVersion722z21a89E9X5zxXGA6CG9fedqv0oAzydZSnWy0Ms",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "UpdateSiteProvConcLambdaAlias"
+        }
       },
       "removeSite": {
         "handler": "functions/site/handler.deleteSite",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8950,14 +10138,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "RemoveSiteLambdaVersionIcImXIvkrrOcZDf2Z9hMfK2q9W3FhAFr1g7lCWr6S78"
+        "versionLogicalId": "RemoveSiteLambdaVersionJ5uwKXKgBODSsynOFEAssUZoZmJ6d3RqiK4tNKjcDQ",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "RemoveSiteProvConcLambdaAlias"
+        }
       },
       "disiableSite": {
         "handler": "functions/site/handler.editDisableSite",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -8990,14 +10183,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "DisiableSiteLambdaVersionhVMQcNgUnOoE6nE3uQeUniRbCdllT6hNpQqu5xNGc"
+        "versionLogicalId": "DisiableSiteLambdaVersionEmos1gXcJKVuh4wXlqwlkTdzO28RWFQDGIGe5w7T4c",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "DisiableSiteProvConcLambdaAlias"
+        }
       },
       "addNewUser": {
         "handler": "functions/user/handler.addUser",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -9037,14 +10235,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AddNewUserLambdaVersionEXsUKkyDaeD1XoxnrVDCtTNPKpQsxRybgIG7MVEYjM"
+        "versionLogicalId": "AddNewUserLambdaVersionToPQpvSlBQT4OJEqcFqEXsm4eXq2dn6RrbXkfUg",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "AddNewUserProvConcLambdaAlias"
+        }
       },
       "findUserById": {
         "handler": "functions/user/handler.getUserById",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -9077,14 +10280,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindUserByIdLambdaVersion3zzUpYXqdZBa9U0KzXBqFOUA8LbtzVrH2plMZzY"
+        "versionLogicalId": "FindUserByIdLambdaVersionabHkaMZjTPvTm2OGSNTW8jtrvsNH9FofwjVqdQzlI",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "FindUserByIdProvConcLambdaAlias"
+        }
       },
       "findAllUsers": {
         "handler": "functions/user/handler.getAllUsers",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -9117,14 +10325,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllUsersLambdaVersionv1IhTFqje1eeWz9j5lEOGFHOTQuBXSYYXzR8oQ5EIs"
+        "versionLogicalId": "FindAllUsersLambdaVersionvgqTVVYkk6goDPt3VuN346oLTCE2aKNvuOoA8BHoI",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "FindAllUsersProvConcLambdaAlias"
+        }
       },
       "updateUser": {
         "handler": "functions/user/handler.editUser",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -9164,14 +10377,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateUserLambdaVersionwapK16AG6W9U8QEmBYAYaJMNl2P7nBMNlTQNKlx2k"
+        "versionLogicalId": "UpdateUserLambdaVersionE7tLnNnLvcTiuKEiObTDhU5M4VfCdozlizquJ8b6gQ",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "UpdateUserProvConcLambdaAlias"
+        }
       },
       "removeUser": {
         "handler": "functions/user/handler.deleteUser",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -9204,14 +10422,19 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "RemoveUserLambdaVersionbMAbUeGbQKa8hWcaAaEvoeXFwS0gV9xd5RYsxk"
+        "versionLogicalId": "RemoveUserLambdaVersion3D0SpXU6tyv0pM5RiaTvVNulkos870cGKmufec",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "RemoveUserProvConcLambdaAlias"
+        }
       },
       "disiableUser": {
         "handler": "functions/user/handler.editDisableUser",
+        "provisionedConcurrency": 1,
         "events": [
           {
             "http": {
@@ -9244,11 +10467,15 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "DisiableUserLambdaVersionLuvOQle18GVdxC4rl2bcZyAH9cNb4QCwEgCIt1h2c"
+        "versionLogicalId": "DisiableUserLambdaVersionaZ2ZlUDJ0IdpxxKcDEYJSwxJkvfQIOQci0kn1LpCLA",
+        "targetAlias": {
+          "name": "provisioned",
+          "logicalId": "DisiableUserProvConcLambdaAlias"
+        }
       },
       "findAllCustomerDetails": {
         "handler": "functions/customer-dashboard/handler.getAllCustomerDetails",
@@ -9284,11 +10511,11 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllCustomerDetailsLambdaVersion4FuImuVNFUahdSwKjqsL9Hy6knZzia1NxWljDd0kw"
+        "versionLogicalId": "FindAllCustomerDetailsLambdaVersion9S9l0jpsRXzgcmryJkC3SWWqVv3h0F657OpVJ9znDGg"
       },
       "findCustomerDetailsById": {
         "handler": "functions/customer-dashboard/handler.getCustomerDetailsById",
@@ -9324,11 +10551,11 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindCustomerDetailsByIdLambdaVersionI9l8RCdSFnHqUjZg4oQj3U6ovrpuwDu2dfkpM2wNWtM"
+        "versionLogicalId": "FindCustomerDetailsByIdLambdaVersionC1q6yA5AvRxoPAYKtHrdxJBloSc0D4fFVZe4t8gKo"
       },
       "groupCameraByEmail": {
         "handler": "functions/statistics/handler.findGroupCameraByEmail",
@@ -9364,11 +10591,11 @@
         "package": {
           "artifact": ".serverless\\nathan-api.zip"
         },
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 2048,
+        "timeout": 15,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "GroupCameraByEmailLambdaVersion6Q2Uqdq3PsCPiZsvgyRcdvaiNBcf0PfWiOGNB9f0"
+        "versionLogicalId": "GroupCameraByEmailLambdaVersionRVVhS7BCIpya6Bl2ZoRGkDKrTHKOSmhlHraEQPMIQ"
       }
     },
     "configValidationMode": "warn",
@@ -9396,7 +10623,7 @@
     "isDashboardMonitoringPreconfigured": false
   },
   "package": {
-    "artifactDirectoryName": "serverless/nathan-api/dev/1625218610457-2021-07-02T09:36:50.457Z",
+    "artifactDirectoryName": "serverless/nathan-api/dev/1625299391194-2021-07-03T08:03:11.194Z",
     "artifact": ""
   }
 }

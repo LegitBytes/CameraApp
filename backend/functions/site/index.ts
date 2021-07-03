@@ -3,6 +3,7 @@ import schema from "./schema";
 
 export const addNewSite = {
   handler: `${handlerPath(__dirname)}/handler.addSite`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -21,6 +22,7 @@ export const addNewSite = {
 
 export const findSiteById = {
   handler: `${handlerPath(__dirname)}/handler.getSiteById`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -34,6 +36,7 @@ export const findSiteById = {
 
 export const findAllSites = {
   handler: `${handlerPath(__dirname)}/handler.getAllSites`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -47,6 +50,7 @@ export const findAllSites = {
 
 export const updateSite = {
   handler: `${handlerPath(__dirname)}/handler.editSite`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -65,6 +69,7 @@ export const updateSite = {
 
 export const disiableSite = {
   handler: `${handlerPath(__dirname)}/handler.editDisableSite`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -78,6 +83,7 @@ export const disiableSite = {
 
 export const removeSite = {
   handler: `${handlerPath(__dirname)}/handler.deleteSite`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {

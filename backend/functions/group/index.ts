@@ -3,6 +3,7 @@ import schema from "./schema";
 
 export const addNewGroup = {
   handler: `${handlerPath(__dirname)}/handler.addGroup`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -21,6 +22,7 @@ export const addNewGroup = {
 
 export const findGroupById = {
   handler: `${handlerPath(__dirname)}/handler.getGroupById`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -34,6 +36,7 @@ export const findGroupById = {
 
 export const findAllGroups = {
   handler: `${handlerPath(__dirname)}/handler.getAllGroups`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -47,6 +50,7 @@ export const findAllGroups = {
 
 export const updateGroup = {
   handler: `${handlerPath(__dirname)}/handler.editGroup`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -65,6 +69,7 @@ export const updateGroup = {
 
 export const disiableGroup = {
   handler: `${handlerPath(__dirname)}/handler.editDisableGroup`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -78,6 +83,7 @@ export const disiableGroup = {
 
 export const removeGroup = {
   handler: `${handlerPath(__dirname)}/handler.deleteGroup`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {

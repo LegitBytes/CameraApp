@@ -8,24 +8,7 @@ import {
 } from "@libs/apiGateway";
 import { middyfy } from "@libs/lambda";
 import constants from "@libs/constants";
-import { PrismaClient } from "@prisma/client";
-// import { findSiteByIds, findUserByIds } from "./service/CustomerService";
-
-const prisma = new PrismaClient();
-
-export const findSiteByIds = async (site_ids, prisma) => {
-  return site_ids.map(
-    async (site_id: string) =>
-      await prisma.sites.findUnique({ where: { site_id } })
-  );
-};
-
-export const findUserByIds = async (user_ids, prisma) => {
-  return user_ids.map(
-    async (user_id: string) =>
-      await prisma.users.findUnique({ where: { user_id } })
-  );
-};
+import { prisma } from "../DB/connection";
 
 // Add a new Customer
 const addNewCustomer: ValidatedEventAPIGatewayProxyEvent<typeof schema> =

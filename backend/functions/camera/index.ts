@@ -3,6 +3,7 @@ import schema from "./schema";
 
 export const addNewCamera = {
   handler: `${handlerPath(__dirname)}/handler.addCamera`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -21,6 +22,7 @@ export const addNewCamera = {
 
 export const findCameraById = {
   handler: `${handlerPath(__dirname)}/handler.getCameraById`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -34,6 +36,7 @@ export const findCameraById = {
 
 export const findAllCameras = {
   handler: `${handlerPath(__dirname)}/handler.getAllCameras`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -47,6 +50,7 @@ export const findAllCameras = {
 
 export const updateCamera = {
   handler: `${handlerPath(__dirname)}/handler.editCamera`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -65,6 +69,7 @@ export const updateCamera = {
 
 export const disiableCamera = {
   handler: `${handlerPath(__dirname)}/handler.editDisableCamera`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
@@ -78,6 +83,7 @@ export const disiableCamera = {
 
 export const removeCamera = {
   handler: `${handlerPath(__dirname)}/handler.deleteCamera`,
+  provisionedConcurrency: 1,
   events: [
     {
       http: {
