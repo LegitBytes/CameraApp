@@ -79,10 +79,13 @@ const MainDetails: React.FC<MainDetailsProps> = ({ handleOpen }) => {
   };
 
   const getRecognitionData = useCallback(async () => {
-
-    if(timeDuration.from >= timeDuration.to ){
-      handleOpen("right", "bottom", "From date should be smaller than To date!")
-      return
+    if (timeDuration.from >= timeDuration.to) {
+      handleOpen(
+        "right",
+        "bottom",
+        "From date should be smaller than To date!"
+      );
+      return;
     }
 
     setLoading(true);
@@ -124,7 +127,16 @@ const MainDetails: React.FC<MainDetailsProps> = ({ handleOpen }) => {
 
   const getDateAndTime = (timeStamp: number): string => {
     let date = new Date(timeStamp);
-    return date.toLocaleTimeString() + ", " + date.toLocaleDateString();
+    return (
+      date.toLocaleTimeString() +
+      ", " +
+      date
+        .toDateString()
+        .substr(
+          date.toDateString().indexOf(" "),
+          date.toDateString().length - 1
+        )
+    );
   };
 
   const handleDateTimeChange = (date: MaterialUiPickersDate, key: string) => {

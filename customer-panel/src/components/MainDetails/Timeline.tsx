@@ -59,7 +59,7 @@ const Timeline: React.FC<TimelineProps> = ({
           <Tooltip title="Click to scale" arrow placement="bottom">
             <div
               style={{
-                background: "rgba(0,0,0,0.8)",
+                background: "rgba(0,0,0,0.4)",
                 width: 7,
                 height: 20,
                 position: "absolute",

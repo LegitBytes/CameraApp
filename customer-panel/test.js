@@ -1,1 +1,1 @@
-console.log(Math.round(94))
+console.log(new Date().toDateString().substr(new Date().toDateString().indexOf(" "), new Date().toDateString().length-1))
