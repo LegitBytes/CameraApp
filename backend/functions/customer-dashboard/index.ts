@@ -1,25 +1,38 @@
 import { handlerPath } from "@libs/handlerResolver";
 
-export const findCustomerDetailsById = {
-  handler: `${handlerPath(__dirname)}/handler.getCustomerDetailsById`,
+export const findCameraDetailsById = {
+  handler: `${handlerPath(__dirname)}/handler.getCameraDetailsById`,
   events: [
     {
       http: {
         method: "get",
-        path: "customer-details/{fromemail}/{date1}/{date2}",
+        path: "camera-details/{fromemail}/{date1}/{date2}",
         cors: true,
       },
     },
   ],
 };
 
-export const findAllCustomerDetails = {
-  handler: `${handlerPath(__dirname)}/handler.getAllCustomerDetails`,
+export const findAllCameraDetails = {
+  handler: `${handlerPath(__dirname)}/handler.getAllCameraDetails`,
   events: [
     {
       http: {
         method: "get",
-        path: "customer-details",
+        path: "camera-details",
+        cors: true,
+      },
+    },
+  ],
+};
+
+export const findCameraDetailsByUserId = {
+  handler: `${handlerPath(__dirname)}/handler.getCameraDetailsByUserId`,
+  events: [
+    {
+      http: {
+        method: "get",
+        path: "user-details/{userId}",
         cors: true,
       },
     },

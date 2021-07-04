@@ -48,8 +48,9 @@ import {
   disiableUser,
 } from "@functions/user";
 import {
-  findAllCustomerDetails,
-  findCustomerDetailsById,
+  findCameraDetailsById,
+  findAllCameraDetails,
+  findCameraDetailsByUserId,
 } from "@functions/customer-dashboard";
 import { groupCameraByEmail } from "@functions/statistics";
 
@@ -140,8 +141,9 @@ const serverlessConfiguration: AWS = {
     updateUser,
     removeUser,
     disiableUser,
-    findAllCustomerDetails,
-    findCustomerDetailsById,
+    findCameraDetailsById,
+    findAllCameraDetails,
+    findCameraDetailsByUserId,
     groupCameraByEmail,
   },
 };

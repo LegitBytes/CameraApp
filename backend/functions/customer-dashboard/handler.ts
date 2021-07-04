@@ -1,6 +1,11 @@
 import { middyfy } from "@libs/lambda";
 import * as AWS from "aws-sdk";
 
+import { PrismaClient } from "@prisma/client";
+import constants from "@libs/constants";
+
+const prisma = new PrismaClient();
+
 const db = new AWS.DynamoDB.DocumentClient();
 
 const table = "EmailData";
@@ -23,22 +28,22 @@ const response = (statusCode, message) => {
   };
 };
 
-const findAllCustomerDetails = async (event) => {
+const findAllCameraDetails = async (event) => {
   try {
     const details = await db.scan({ TableName: table }).promise();
-    console.log("Inside findAllCustomerDetails :: ", details.Items);
+    console.log("Inside findAllCameraDetails :: ", details.Items);
 
     return response(200, {
       camera_details: details.Items.sort(sortByDate),
       camera_details_count: details.Count,
     });
   } catch (error) {
-    console.log("Catch Block findAllCustomerDetails :: ", error);
-    return response(500, error);
+    console.log("Catch Block findAllCameraDetails :: ", error);
+    return response(500, { message: constants.SERVER_ERROR });
   }
 };
 
-const findCustomerDetailsById = async (event) => {
+const findCameraDetailsById = async (event) => {
   try {
     const { fromemail, date1, date2 } = event.pathParameters;
 
@@ -60,24 +65,92 @@ const findCustomerDetailsById = async (event) => {
 
     console.log("Params :: ", params);
 
-    const customerDetails = await db.scan(params).promise();
-    console.log("Customer Details Promise :: ", customerDetails);
-    console.log("Customer Details Promise count :: ", customerDetails.Count);
+    const cameraDetails = await db.scan(params).promise();
+    console.log("Camera Details Promise :: ", cameraDetails);
+    console.log("Camera Details Promise count :: ", cameraDetails.Count);
 
-    if (customerDetails.Items) {
-      console.log("Inside findCustomerDetailsById :: ", customerDetails.Items);
+    if (cameraDetails.Items) {
+      console.log("Inside findCameraDetailsById :: ", cameraDetails.Items);
       return response(200, {
-        camera_details: customerDetails.Items.sort(sortByDate),
-        camera_details_count: customerDetails.Count,
+        camera_details: cameraDetails.Items.sort(sortByDate),
+        camera_details_count: cameraDetails.Count,
       });
     } else {
       return response(404, { error: "Email not found" });
     }
   } catch (error) {
-    console.log("Catch Block findCustomerDetailsById :: ", error);
-    return response(500, error);
+    console.log("Catch Block findCameraDetailsById :: ", error);
+    return response(500, {
+      message: constants.SERVER_ERROR,
+    });
   }
 };
 
-export const getAllCustomerDetails = middyfy(findAllCustomerDetails);
-export const getCustomerDetailsById = middyfy(findCustomerDetailsById);
+const findCameraDetailsByUserId = async (event) => {
+  if (!event.pathParameters || !event.pathParameters.userId) {
+    return response(400, {
+      message: constants.USER_PATHPARAMETERS_ERROR,
+    });
+  }
+  const user_id = event.pathParameters.userId;
+
+  try {
+    const user = await prisma.users.findUnique({
+      where: {
+        user_id,
+      },
+      select: {
+        user_id: true,
+        user_email: true,
+        is_disabled: true,
+        createdAt: true,
+        updatedAt: true,
+        cameras: true,
+        sites: true,
+      },
+    });
+    const cameraEmails = user.cameras.map((camera) => camera.smtp_user_name);
+
+    const camera_details = await Promise.all(
+      cameraEmails.map(async (email) => await cameraDetails(email))
+    );
+
+    return response(200, {
+      user: {
+        ...user,
+        camera_details,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return response(500, {
+      message: constants.SERVER_ERROR,
+      error,
+    });
+  }
+};
+
+const cameraDetails = async (email) => {
+  const cameraDetailsArr = await db
+    .query({
+      TableName: table,
+      KeyConditionExpression: "fromemail = :fromemail",
+      ExpressionAttributeValues: {
+        ":fromemail": email,
+      },
+    })
+    .promise();
+
+  // const camera_details = [];
+  // if (cameraDetailsArr.Items) {
+  //   console.log("Camera Details of  :: ", email);
+  //   camera_details.push(cameraDetailsArr.Items.sort(sortByDate));
+  // } else {
+  //   camera_details.push({ error: "Email not found" });
+  // }
+  return cameraDetailsArr.Items;
+};
+
+export const getAllCameraDetails = middyfy(findAllCameraDetails);
+export const getCameraDetailsById = middyfy(findCameraDetailsById);
+export const getCameraDetailsByUserId = middyfy(findCameraDetailsByUserId);
