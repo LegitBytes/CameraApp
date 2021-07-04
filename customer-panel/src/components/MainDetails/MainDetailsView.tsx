@@ -66,42 +66,58 @@ const MainDetailsView: React.FC<MainDetailsViewProps> = ({
   fromTime,
   handleOpen,
 }) => {
+
+  const SCALES: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+  const [ scaleArray, setScaleArray ] = useState<number[]>(SCALES)
+
   const [startTime, setStartTime] = useState<number>(fromTime);
   const [endTime, setEndTime] = useState<number>(toTime);
 
   useEffect(() => {
-    setStartTime(fromTime)
-    setEndTime(toTime)
-  },[fromTime, toTime])
+    setStartTime(fromTime);
+    setEndTime(toTime);
+  }, [fromTime, toTime]);
 
   const changeFromTo = (item: number) => {
     if (item === 0) {
       handleOpen("right", "bottom", "Please select the next higher interval");
       return;
     } else if (item === 1) {
-      console.log("start time", fromTime);
       setStartTime(fromTime);
       let et = Math.round((toTime - fromTime) / 10 + fromTime);
-      console.log("end time -> ", et);
-
       setEndTime(et);
     } else if (item === 10) {
       let st = Math.round(0.9 * (toTime - fromTime) + fromTime);
-      console.log("start time", st);
       setStartTime(st);
-      console.log("end time -> ", toTime);
       setEndTime(toTime);
     } else {
       let st = Math.round(((item - 1) / 10) * (toTime - fromTime) + fromTime);
-      console.log("start time", st);
       setStartTime(st);
       let et = Math.round((item / 10) * (toTime - fromTime) + fromTime);
-      console.log("end time -> ", et);
-      setEndTime(et);
+      setEndTime(et)
+    }
+    setScaleArray([])
+  };
+
+  const scaleFromTo = (item: number): string => {
+    if (item === 0) { 
+      return "";
+    } else if (item === 1) {
+      let et = Math.round((toTime - fromTime) / 10 + fromTime);
+      return `${getDateAndTime(fromTime)} to ${getDateAndTime(et)}`;
+    } else if (item === 10) {
+      let st = Math.round(0.9 * (toTime - fromTime) + fromTime);
+      return `${getDateAndTime(st)} to ${getDateAndTime(toTime)}`;
+    } else {
+      let st = Math.round(((item - 1) / 10) * (toTime - fromTime) + fromTime);
+      let et = Math.round((item / 10) * (toTime - fromTime) + fromTime);
+      return `${getDateAndTime(st)} to ${getDateAndTime(et)}`;
     }
   };
 
   const reset = () => {
+    setScaleArray(SCALES)
     setStartTime(fromTime);
     setEndTime(toTime);
   };
@@ -171,10 +187,11 @@ const MainDetailsView: React.FC<MainDetailsViewProps> = ({
           {!!formatCameraDetails().length && (
             <div className={classes.utilStyles}>
               <Typography variant="h6" className={classes.ts2}>
-                From: { getDateAndTime(startTime) } -- 
-              </Typography> &nbsp;
+                From: {getDateAndTime(startTime)} --
+              </Typography>{" "}
+              &nbsp;
               <Typography variant="h6" className={classes.ts2}>
-                To: { getDateAndTime(endTime) }
+                To: {getDateAndTime(endTime)}
               </Typography>
             </div>
           )}
@@ -188,13 +205,15 @@ const MainDetailsView: React.FC<MainDetailsViewProps> = ({
                 getImageUrls={getImageUrls}
                 getDateAndTime={getDateAndTime}
                 changeFromTo={changeFromTo}
+                scaleFromTo={scaleFromTo}
+                scaleArray={scaleArray} 
               />
             </>
           )}
           {!!formatCameraDetails().length && (
             <div className={classes.utilStyles}>
               <Button variant="contained" type="primary" onClick={reset}>
-                Reset
+                Reset Scales
               </Button>
             </div>
           )}

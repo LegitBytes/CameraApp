@@ -10,6 +10,8 @@ interface TimelineProps {
   toTime: number;
   getDateAndTime: (timeStamp: number) => string;
   changeFromTo: (item: number) => void;
+  scaleFromTo: (item: number) => string;
+  scaleArray: number[];
 }
 
 const Timeline: React.FC<TimelineProps> = ({
@@ -19,6 +21,8 @@ const Timeline: React.FC<TimelineProps> = ({
   toTime,
   getDateAndTime,
   changeFromTo,
+  scaleFromTo,
+  scaleArray,
 }) => {
   const classes = useTimeLineStyles();
 
@@ -55,22 +59,31 @@ const Timeline: React.FC<TimelineProps> = ({
               />
             )
         )}
-        {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-          <Tooltip title="Click to scale" arrow placement="bottom">
-            <div
-              style={{
-                background: "rgba(0,0,0,0.4)",
-                width: 7,
-                height: 20,
-                position: "absolute",
-                top: "-80%",
-                left: item === 10 ? "99%" : item * 10 + "%",
-                cursor: "pointer",
-              }}
-              onClick={() => changeFromTo(item)}
-            ></div>
-          </Tooltip>
-        ))}
+        {!!scaleArray.length &&
+          scaleArray.map((item) => (
+            <Tooltip
+              title={
+                item === 0
+                  ? "Click next scale"
+                  : `Click to scale from ${scaleFromTo(item)}`
+              }
+              arrow
+              placement="bottom" 
+            >
+              <div
+                style={{
+                  background: "rgba(0,0,0,0.4)",
+                  width: 7,
+                  height: 20,
+                  position: "absolute",
+                  top: "-80%",
+                  left: item === 10 ? "99%" : item * 10 + "%",
+                  cursor: "pointer",
+                }}
+                onClick={() => changeFromTo(item)}
+              ></div>
+            </Tooltip>
+          ))}
       </div>
     </>
   );
