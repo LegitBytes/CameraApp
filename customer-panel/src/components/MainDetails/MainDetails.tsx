@@ -1,68 +1,110 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Breadcrumbs, Grid } from "@material-ui/core";
-import { Typography } from "@material-ui/core";
 import { useStyles } from "./Styles";
 import axios, { AxiosResponse } from "axios";
 import { cameraDetails } from "../interfaces";
-
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from "react-responsive-carousel";
-import LoadingScreen from "../../shared/LoadingScreen";
+import MainDetailsView from "./MainDetailsView";
+import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 
 interface params {
   camera: string;
   customer: string;
   site: string;
 }
-const MainDetails: React.FC = () => {
+
+interface MainDetailsProps {
+  handleOpen: (
+    horizontal: "left" | "center" | "right",
+    vertical: "top" | "bottom",
+    message: string
+  ) => void;
+}
+
+const MainDetails: React.FC<MainDetailsProps> = ({ handleOpen }) => {
   const classes = useStyles();
   const params: params = useParams();
   const { camera, customer, site } = params;
   const camera_name = camera.split("-")[0];
   const smtp_user_name = camera.split("-")[1];
-  const today: number = new Date().setHours(0, 0, 0, 0);
+  const today: number = new Date().setHours(new Date().getHours(), 0, 0, 0);
   const yesterday: number = today - 24 * 60 * 60 * 1000;
   // console.log("smtp_user_name -> ", smtp_user_name);
+
+  const [timeDuration, setTimeduration] = useState<{
+    from: number;
+    to: number;
+  }>({
+    from: yesterday,
+    to: today,
+  });
 
   const [cameraDetails, setCameraDetails] = useState<cameraDetails[]>([]);
   const [imageList, setImageList] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [timestamp, setTimestamp] = useState<number>(0);
 
-  const defaultUrl =
+  const url =
     process.env.REACT_APP_API_URL +
-    `customer-details/${smtp_user_name}/${yesterday}/${today}`;
+    `camera-details/${smtp_user_name}/${timeDuration.from}/${timeDuration.to}`;
+
+  // const testUrl =
+  //   "https://ao50moga4g.execute-api.us-east-1.amazonaws.com/dev/camera-details/jay@cyberoisystems.com/1615972493093/1615972819563";
 
   const getImageUrls = (data: cameraDetails) => {
     const imgUrls: string[] = [];
-    if (data?.rekognitionData) {
+    if (data === undefined) {
+      setTimestamp(0);
+      imgUrls.push("not-available/not-available.jpg");
+      setImageList(imgUrls);
+      handleOpen("right", "bottom", "No images available");
+      return;
+    } else {
+      setTimestamp(data.timestamp);
+    }
+    if (data.rekognitionData && !!data.rekognitionData.length) {
       data.rekognitionData.forEach((item) => {
         let imgUrl = Object.keys(item)[0];
         imgUrls.push(imgUrl);
       });
       if (imgUrls.length === 0) {
         imgUrls.push("not-available/not-available.jpg");
+        handleOpen("right", "bottom", "No images available");
       }
     } else {
       imgUrls.push("not-available/not-available.jpg");
+      handleOpen("right", "bottom", "No images available");
     }
     setImageList(imgUrls);
   };
 
   const getRecognitionData = useCallback(async () => {
+
+    if(timeDuration.from >= timeDuration.to ){
+      handleOpen("right", "bottom", "From date should be smaller than To date!")
+      return
+    }
+
     setLoading(true);
     try {
       const res: AxiosResponse<{ camera_details: cameraDetails[] }> =
-        await axios.get<{ camera_details: cameraDetails[] }>(defaultUrl);
-      console.log("response -> ", res.data.camera_details);
+        await axios.get<{ camera_details: cameraDetails[] }>(url);
+      console.log("response in maindetails -> ", res.data.camera_details);
       setCameraDetails(res.data.camera_details);
       getImageUrls(res.data.camera_details[0]);
+      // setTimestamp(res.data.camera_details)
       setLoading(false);
     } catch (err) {
       console.log(err);
+      handleOpen(
+        "right",
+        "bottom",
+        "Something went wrong. Details could not be fetched!"
+      );
       setLoading(false);
     }
-  }, [defaultUrl]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url]);
 
   useEffect(() => {
     getRecognitionData();
@@ -72,44 +114,40 @@ const MainDetails: React.FC = () => {
     };
   }, [getRecognitionData]);
 
+  const formatCameraDetails = () => {
+    return cameraDetails.map((cameraDetail: cameraDetails) =>
+      cameraDetail.alert === undefined
+        ? { ...cameraDetail, alert: false }
+        : cameraDetail
+    );
+  };
+
+  const getDateAndTime = (timeStamp: number): string => {
+    let date = new Date(timeStamp);
+    return date.toLocaleTimeString() + ", " + date.toLocaleDateString();
+  };
+
+  const handleDateTimeChange = (date: MaterialUiPickersDate, key: string) => {
+    setTimeduration({ ...timeDuration, [key]: date?.getTime() });
+  };
+
   return (
-    <>
-      <Breadcrumbs>
-        <Typography variant="body1" className={classes.ts1}>
-          {customer}
-        </Typography>
-        <Typography variant="body1" className={classes.ts1}>
-          {site}
-        </Typography>
-        <Typography variant="body1" className={classes.ts2}>
-          {camera_name}
-        </Typography>
-      </Breadcrumbs>
-      {loading ? (
-        <LoadingScreen />
-      ) : (
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          className={classes.mt20}
-        >
-          <Carousel
-            className={classes.carouselStyles}
-            showStatus={false}
-            showThumbs={false}
-            showIndicators={false}
-          >
-            {imageList.map((img) => (
-              <div key={img}>
-                <img src={process.env.REACT_APP_IMAGE_URL + img} alt={img} />
-                {/* <p className="legend">Hello</p> */}
-              </div>
-            ))}
-          </Carousel>
-        </Grid>
-      )}
-    </>
+    <MainDetailsView
+      camera_name={camera_name}
+      site={site}
+      customer={customer}
+      classes={classes}
+      formatCameraDetails={formatCameraDetails}
+      getDateAndTime={getDateAndTime}
+      getImageUrls={getImageUrls}
+      imageList={imageList}
+      loading={loading}
+      timestamp={timestamp}
+      toTime={timeDuration.to}
+      fromTime={timeDuration.from}
+      handleDateTimeChange={handleDateTimeChange}
+      handleOpen={handleOpen}
+    />
   );
 };
 

@@ -10,9 +10,14 @@ import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 
 interface MainDrawerProp {
   classes: ClassNameMap<"tvRoot">;
+  handleOpen: (
+    horizontal: "left" | "center" | "right",
+    vertical: "top" | "bottom",
+    message: string
+  ) => void;
 }
 
-const MainDrawer: React.FC<MainDrawerProp> = ({ classes }) => {
+const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
   const history = useHistory();
   const [loading, setLoading] = useState<boolean>(false);
   const temporaryUser = "6029f127-d062-4ad3-9622-f55bf99e7ee8";
@@ -23,25 +28,23 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes }) => {
       const res: AxiosResponse<{ user: user }> = await axios.get(
         process.env.REACT_APP_API_URL + "users/" + temporaryUser
       );
-      console.log("This is customers -> ", res.data.user.customers);
       setCustomerDetails(res.data.user.customers);
       setLoading(false);
     } catch (err) {
       console.log(err);
+      handleOpen("left", "bottom", "Something went wrong! Cameras could not be fetched!")
       setLoading(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     getCustomerDetails();
-    // history.push(
-    //   `/main/${customerDetails[0]?.customer_name}/${customerDetails[0]?.sites[0]?.site_name}/${customerDetails[0]?.sites[0]?.cameras[0]?.camera_name}-${customerDetails[0]?.sites[0]?.cameras[0]?.smtp_user_name}`
-    // );
     return () => {
       setCustomerDetails([]);
     };
   }, [getCustomerDetails]);
-  const [expanded, setExpanded] = React.useState([]); 
+  const [expanded, setExpanded] = React.useState([]);
 
   const handleChange = (event: any, nodes: any) => {
     setExpanded(nodes);
