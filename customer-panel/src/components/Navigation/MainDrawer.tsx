@@ -31,6 +31,7 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes }) => {
       setLoading(false);
     }
   }, []);
+  console.log(customerDetails)
 
   useEffect(() => {
     getCustomerDetails();
@@ -93,3 +94,8 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes }) => {
 };
 
 export default MainDrawer;
+
+
+
+
+

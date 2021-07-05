@@ -4,6 +4,8 @@ import CompanyLogo from "../../assets/CompanyLogo.svg";
 import { Drawer, Typography } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import MainDrawer from "./MainDrawer";
+import AlertDrawers from "./AlertDrawer2";
+import AlertDrawer from "./AlertDrawer";
 interface DrawerCompProps {
   classes: ClassNameMap<
     "drawerPaper" | "drawer" | "drawerHeader" | "titleStyles" | "tvRoot"
@@ -35,7 +37,7 @@ const DrawerComp: React.FC<DrawerCompProps> = ({ open, classes }) => {
       {currentPath === "main" ? (
         <MainDrawer classes={classes} />
       ) : (
-        <div> Coming soon... </div>
+        <AlertDrawer classes={classes} />
       )}
     </Drawer>
   );

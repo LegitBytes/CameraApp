@@ -80,5 +80,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginLeft: "5%",
       marginRight: "5%",
     },
+    
   })
 );
+
