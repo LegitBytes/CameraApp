@@ -84,20 +84,21 @@ const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
               <ListItem
                 className={classes.listStyles}
                 onClick={() => history.push("/alerts/" + alert.timestamp)}
-                style={{ cursor: "pointer" }}
+                style={{cursor: "pointer"}}
+                key={alert.timestamp} 
               >
-                <ListItemIcon >
+                <ListItemIcon className={classes.ml5}>
                   <FiberManualRecord style={{ color: "#fff" }} />
                 </ListItemIcon>
                 <ListItemText>
-                  <Typography variant="body2">
+                  <Typography variant="body1">
                     {getCameraAndSite(alert.fromemail).camera_name} -{" "}
                     {getCameraAndSite(alert.fromemail).site_name}
                   </Typography>
                   {/* <Typography variant="body1">
                     {getCameraAndSite(alert.fromemail).site_name}
                   </Typography> */}
-                  <Typography variant="body2">Detected</Typography>
+                  <Typography variant="body1">Detected</Typography>
                 </ListItemText>
               </ListItem>
             ))

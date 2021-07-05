@@ -9,7 +9,7 @@ import Routes from "../../util/routes/routes";
 const Navigation: React.FC = () => {
   const classes = useStyles();
   const theme: Theme = useTheme();
-  const isMobile: boolean = useMediaQuery(theme.breakpoints.down(600));
+  const isMobile: boolean = useMediaQuery(theme.breakpoints.down(1100));
   const [open, setOpen] = React.useState(isMobile ? false : true);
 
   useEffect(() => {

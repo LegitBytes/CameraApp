@@ -24,7 +24,7 @@ const useButtonStyles = (
       margin: margin ? margin : 5,
     },
     danger: {
-      background: "#F11D05",
+      background: "#DC3545",
       color: "#fff",
       margin: margin ? margin : 5,
     },
