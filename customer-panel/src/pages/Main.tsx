@@ -1,21 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { Typography, Grid } from "@material-ui/core";
+import { Alert } from "../shared/Interfaces";
+import { TransitionLeft, TransitionProps } from "../shared/Slides";
+import AlertComp from "../shared/Alert";
+import MainComponent from "../components/MainComponents/MainComponent";
+
 interface MainProps extends RouteComponentProps {}
 
 const Main: React.FC<MainProps> = () => {
+  useEffect(() => window.scrollTo(0, 0), []);
+
+  const [alertDetails, setAlertDetails] = useState<Alert>({
+    open: false,
+    horizontal: "center",
+    vertical: "bottom",
+    message: "",
+  });
+
+  const [transition, setTransition] = React.useState<
+    React.ComponentType<TransitionProps> | undefined
+  >(undefined);
+
+  const handleOpen = (
+    horizontal: "left" | "center" | "right",
+    vertical: "top" | "bottom",
+    message: string
+  ) => {
+    setTransition(() => TransitionLeft);
+    setAlertDetails({
+      open: true,
+      horizontal,
+      vertical,
+      message,
+    });
+  };
+
+  const handleClose = () => {
+    setAlertDetails({ ...alertDetails, open: false });
+  };
+
   return (
-    <Grid
-      container
-      direction="row"
-      style={{ position: "absolute", top: "50%", left: "0" }}
-      justify="center"
-      alignItems="center"
-    >
-      <Typography style={{ color: "rgba(0,0,0,0.3)" }} variant="h5">
-        Work in progress, please select a camera to proceed!
-      </Typography>
-    </Grid>
+    <>
+    <MainComponent handleOpen={handleOpen}/>
+      <AlertComp
+        open={alertDetails.open}
+        vertical={alertDetails.vertical}
+        horizontal={alertDetails.horizontal}
+        transition={transition}
+        message={alertDetails.message}
+        handleClose={handleClose}
+      />
+    </>
   );
 };
 

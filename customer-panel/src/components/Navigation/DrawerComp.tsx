@@ -6,10 +6,18 @@ import { useLocation } from "react-router-dom";
 import MainDrawer from "./MainDrawer";
 import { TransitionLeft, TransitionProps } from "../../shared/Slides";
 import { Alert } from "../../shared/Interfaces";
-import AlertComp from "../../shared/Alert"
+import AlertComp from "../../shared/Alert";
+import AlertDrawer from "./AlertDrawer";
 interface DrawerCompProps {
   classes: ClassNameMap<
-    "drawerPaper" | "drawer" | "drawerHeader" | "titleStyles" | "tvRoot"
+    | "drawerPaper"
+    | "drawer"
+    | "drawerHeader"
+    | "titleStyles"
+    | "tvRoot"
+    | "listStyles"
+    | "ml5"
+    | "mr5"
   >;
   open: boolean;
 }
@@ -66,9 +74,9 @@ const DrawerComp: React.FC<DrawerCompProps> = ({ open, classes }) => {
           </Typography>
         </div>
         {currentPath === "main" ? (
-          <MainDrawer classes={classes} handleOpen={handleOpen}/>
+          <MainDrawer classes={classes} handleOpen={handleOpen} />
         ) : (
-          <div> Coming soon... </div>
+          <AlertDrawer handleOpen={handleOpen} classes={classes} />
         )}
       </Drawer>
       <AlertComp

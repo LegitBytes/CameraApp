@@ -29,7 +29,6 @@ const MainDetails: React.FC<MainDetailsProps> = ({ handleOpen }) => {
   const smtp_user_name = camera.split("-")[1];
   const today: number = new Date().setHours(new Date().getHours(), 0, 0, 0);
   const yesterday: number = today - 24 * 60 * 60 * 1000;
-  // console.log("smtp_user_name -> ", smtp_user_name);
 
   const [timeDuration, setTimeduration] = useState<{
     from: number;
@@ -47,9 +46,6 @@ const MainDetails: React.FC<MainDetailsProps> = ({ handleOpen }) => {
   const url =
     process.env.REACT_APP_API_URL +
     `camera-details/${smtp_user_name}/${timeDuration.from}/${timeDuration.to}`;
-
-  // const testUrl =
-  //   "https://ao50moga4g.execute-api.us-east-1.amazonaws.com/dev/camera-details/jay@cyberoisystems.com/1615972493093/1615972819563";
 
   const getImageUrls = (data: cameraDetails) => {
     const imgUrls: string[] = [];

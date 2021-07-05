@@ -19,6 +19,11 @@ const Routes: React.FC = () => {
           render={(props) => <MainDetails {...props} />}
         />
         <Route exact path="/alerts" render={(props) => <Alerts {...props} />} />
+        <Route
+          exact
+          path="/alerts/:timestamp"
+          render={(props) => <Alerts {...props} />}
+        />
       </React.Suspense>
     </Switch>
   );

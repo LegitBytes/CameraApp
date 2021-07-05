@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Breadcrumbs, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 import { cameraDetails } from "../interfaces";
 import clsx from "clsx";
@@ -12,6 +12,7 @@ import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import { DateTimePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import BreadcrumbsComp from "../../shared/Breadcrumbs"
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -66,10 +67,9 @@ const MainDetailsView: React.FC<MainDetailsViewProps> = ({
   fromTime,
   handleOpen,
 }) => {
+  const SCALES: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-  const SCALES: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-  const [ scaleArray, setScaleArray ] = useState<number[]>(SCALES)
+  const [scaleArray, setScaleArray] = useState<number[]>(SCALES);
 
   const [startTime, setStartTime] = useState<number>(fromTime);
   const [endTime, setEndTime] = useState<number>(toTime);
@@ -95,13 +95,13 @@ const MainDetailsView: React.FC<MainDetailsViewProps> = ({
       let st = Math.round(((item - 1) / 10) * (toTime - fromTime) + fromTime);
       setStartTime(st);
       let et = Math.round((item / 10) * (toTime - fromTime) + fromTime);
-      setEndTime(et)
+      setEndTime(et);
     }
-    setScaleArray([])
+    setScaleArray([]);
   };
 
   const scaleFromTo = (item: number): string => {
-    if (item === 0) { 
+    if (item === 0) {
       return "";
     } else if (item === 1) {
       let et = Math.round((toTime - fromTime) / 10 + fromTime);
@@ -117,24 +117,14 @@ const MainDetailsView: React.FC<MainDetailsViewProps> = ({
   };
 
   const reset = () => {
-    setScaleArray(SCALES)
+    setScaleArray(SCALES);
     setStartTime(fromTime);
     setEndTime(toTime);
   };
 
   return (
     <>
-      <Breadcrumbs>
-        <Typography variant="body1" className={classes.ts1}>
-          {customer}
-        </Typography>
-        <Typography variant="body1" className={classes.ts1}>
-          {site}
-        </Typography>
-        <Typography variant="body1" className={classes.ts2}>
-          {camera_name}
-        </Typography>
-      </Breadcrumbs>
+      <BreadcrumbsComp camera={camera_name} customer={customer} site={site} />
       {loading ? (
         <LoadingScreen />
       ) : (
@@ -206,7 +196,7 @@ const MainDetailsView: React.FC<MainDetailsViewProps> = ({
                 getDateAndTime={getDateAndTime}
                 changeFromTo={changeFromTo}
                 scaleFromTo={scaleFromTo}
-                scaleArray={scaleArray} 
+                scaleArray={scaleArray}
               />
             </>
           )}

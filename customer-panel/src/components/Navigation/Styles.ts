@@ -80,5 +80,18 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginLeft: "5%",
       marginRight: "5%",
     },
+    ml5: {
+      marginLeft: 5,
+    },
+    mr5: {
+      marginRight: 5,
+    },
+    listStyles: {
+      borderBottom: "2px solid #fff",
+      color: "#fff",
+      "&:hover": {
+        background: "#28344B"
+      }
+    },
   })
 );
