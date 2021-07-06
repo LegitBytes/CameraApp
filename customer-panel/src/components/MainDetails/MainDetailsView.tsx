@@ -12,7 +12,7 @@ import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import { DateTimePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import BreadcrumbsComp from "../../shared/Breadcrumbs"
+import BreadcrumbsComp from "../../shared/Breadcrumbs";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -122,6 +122,18 @@ const MainDetailsView: React.FC<MainDetailsViewProps> = ({
     setEndTime(toTime);
   };
 
+  const onMultipleDownload = (e: any) => {
+    e.preventDefault();
+    imageList.forEach((image) => {
+      window.open((process.env.REACT_APP_DOWNLOAD_URL as string) + image);
+    });
+  };
+
+  const onSingleDownload = (e: any, imageUrl: string) => {
+    e.preventDefault();
+    window.open((process.env.REACT_APP_DOWNLOAD_URL as string) + imageUrl);
+  };
+
   return (
     <>
       <BreadcrumbsComp camera={camera_name} customer={customer} site={site} />
@@ -158,13 +170,16 @@ const MainDetailsView: React.FC<MainDetailsViewProps> = ({
                       <Button
                         type="primary"
                         variant="contained"
-                        href={process.env.REACT_APP_IMAGE_URL + img}
-                        // onClick={(e) => onImageDownload(e)}
+                        onClick={(e) => onSingleDownload(e, img)}
                       >
                         Download this image
                         {/* Download this image */}
                       </Button>
-                      <Button type="success" variant="contained">
+                      <Button
+                        type="success"
+                        variant="contained"
+                        onClick={onMultipleDownload}
+                      >
                         Download All images
                       </Button>
                     </div>

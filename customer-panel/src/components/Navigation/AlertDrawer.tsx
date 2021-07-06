@@ -13,7 +13,7 @@ import { FiberManualRecord } from "@material-ui/icons";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import { useHistory } from "react-router-dom";
 interface AlertDrawerProps {
-  classes: ClassNameMap<"ml5" | "mr5" | "listStyles">;
+  classes: ClassNameMap<"ml5" | "mr5" | "listStyles" | "inputStyles">;
   handleOpen: (
     horizontal: "left" | "center" | "right",
     vertical: "top" | "bottom",
@@ -31,6 +31,7 @@ const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
     user_email: "",
     user_id: "",
   });
+
   const [loading, setLoading] = useState<boolean>(false);
 
   const url = process.env.REACT_APP_API_URL + "user-details/" + temporaryUser;
@@ -83,9 +84,13 @@ const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
             alerts.map((alert) => (
               <ListItem
                 className={classes.listStyles}
-                onClick={() => history.push("/alerts/" + alert.timestamp)}
-                style={{cursor: "pointer"}}
-                key={alert.timestamp} 
+                onClick={() =>
+                  history.push(
+                    "/alerts/" + alert.fromemail + "/" + alert.timestamp
+                  )
+                }
+                style={{ cursor: "pointer" }}
+                key={alert.timestamp}
               >
                 <ListItemIcon className={classes.ml5}>
                   <FiberManualRecord style={{ color: "#fff" }} />

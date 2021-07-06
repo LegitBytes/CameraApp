@@ -1,6 +1,6 @@
 import { makeStyles, createStyles, Theme } from "@material-ui/core";
 /********************--Styles--*************************/
-const drawerWidth = 240;
+const drawerWidth = 250;
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -77,8 +77,8 @@ export const useStyles = makeStyles((theme: Theme) =>
       //   marginRight: theme.spacing(2)
     },
     tvRoot: {
-      marginLeft: "5%",
-      marginRight: "5%",
+      marginLeft: "6%",
+      marginRight: "6%",
     },
     ml5: {
       marginLeft: 5,
@@ -93,5 +93,12 @@ export const useStyles = makeStyles((theme: Theme) =>
         background: "#28344B"
       }
     },
+    inputStyles: {
+      width: "90%",
+      background: "#fff",
+      height: 30,
+      borderRadius: 5,
+      marginBottom: 20
+    }
   })
 );

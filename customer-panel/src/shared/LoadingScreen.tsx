@@ -6,6 +6,7 @@ const useStyles = makeStyles((_: Theme) => ({
   progressStyles: {
     position: "absolute",
     top: "50%",
+    color: "#0079FE"
   },
   white: {
     color: "#fff",

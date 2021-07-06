@@ -12,11 +12,12 @@ interface AlertComponentProps {
 }
 
 interface params {
+  fromemail: string;
   timestamp: string;
 }
 
 const AlertComponent: React.FC<AlertComponentProps> = ({ handleOpen }) => {
-  const { timestamp }: params = useParams();
+  const { timestamp, fromemail }: params = useParams();
 
   const temporaryUser = "6029f127-d062-4ad3-9622-f55bf99e7ee8";
 
@@ -70,7 +71,8 @@ const AlertComponent: React.FC<AlertComponentProps> = ({ handleOpen }) => {
     let alert: cameraDetails | undefined;
     allAlerts.camera_details.forEach((alerts) => {
       let exists = alerts.find(
-        (item) => item.timestamp === parseInt(timestamp)
+        (item) =>
+          item.timestamp === parseInt(timestamp) && item.fromemail === fromemail
       );
       if (exists) {
         alert = exists;
@@ -104,9 +106,14 @@ const AlertComponent: React.FC<AlertComponentProps> = ({ handleOpen }) => {
       const response: AxiosResponse<{ user: alertUser }> = await axios.get<{
         user: alertUser;
       }>(url);
-      if (!timestamp) {
-        setAlert(response.data.user.camera_details[0][0]);
-        getImageUrls(response.data.user.camera_details[0][0]);
+      if (!(timestamp && fromemail)) {
+        let al = response.data.user.camera_details[0][0];
+        al = { ...al, alert: al.alert !== undefined ? al.alert : false };
+        setAlert(al);
+        // setAlert(response.data.user.camera_details[0][0]);
+        getImageUrls(al);
+        // getImageUrls(response.data.user.camera_details[0][0]);
+        getCameraAndSite(response.data.user, al.fromemail);
       } else {
         let al = getAlert(response.data.user);
         if (al) {
@@ -166,6 +173,18 @@ const AlertComponent: React.FC<AlertComponentProps> = ({ handleOpen }) => {
     );
   };
 
+  const onMultipleDownload = (e: any) => {
+    e.preventDefault();
+    imageList.forEach((image) => {
+      window.open((process.env.REACT_APP_DOWNLOAD_URL as string) + image);
+    });
+  };
+
+  const onSingleDownload = (e: any, imageUrl: string) => {
+    e.preventDefault();
+    window.open((process.env.REACT_APP_DOWNLOAD_URL as string) + imageUrl);
+  };
+
   return (
     <AlertView
       loading={loading}
@@ -174,6 +193,8 @@ const AlertComponent: React.FC<AlertComponentProps> = ({ handleOpen }) => {
       alert={alert}
       site={cameraAndSite.site_name}
       camera={cameraAndSite.camera_name}
+      onSingleDownload={onSingleDownload}
+      onMultipleDownload={onMultipleDownload}
     />
   );
 };

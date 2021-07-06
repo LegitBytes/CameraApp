@@ -15,6 +15,8 @@ interface AlertViewProps {
   site: string;
   loading: boolean;
   imageList: string[];
+  onMultipleDownload: (e: any) => void
+  onSingleDownload: (e: any, imageUrl: string) => void
 }
 
 const AlertView: React.FC<AlertViewProps> = ({
@@ -24,6 +26,8 @@ const AlertView: React.FC<AlertViewProps> = ({
   site,
   loading,
   imageList,
+  onSingleDownload,
+  onMultipleDownload
 }) => {
   const classes = useStyles();
   const [checked, setChecked] = useState<boolean>(true);
@@ -40,7 +44,7 @@ const AlertView: React.FC<AlertViewProps> = ({
           <Typography variant="body2" className={classes.ts1}>
             {dateTime}/{camera} - {site} ({alert.fromemail}){" "}
           </Typography>
-          <Fade in={checked}>
+          { checked && <Fade in={checked}>
             <div className={classes.response}>
               <Typography variant="body2">
                 Is this alarm true or false?
@@ -62,7 +66,7 @@ const AlertView: React.FC<AlertViewProps> = ({
                 </Button>
               </div>
             </div>
-          </Fade>
+          </Fade>}
           <Grid container direction="row" className={classes.mt20}>
             <Grid item xs={12} sm={12} md={5}>
               <Grid container direction="row">
@@ -190,8 +194,8 @@ const AlertView: React.FC<AlertViewProps> = ({
                           <Button
                             type="primary"
                             variant="contained"
-                            href={process.env.REACT_APP_IMAGE_URL + img}
                             size="small"
+                            onClick={(e) => onSingleDownload(e,img)}
                           >
                             <GetApp />
                           </Button>
@@ -199,6 +203,7 @@ const AlertView: React.FC<AlertViewProps> = ({
                             type="success"
                             variant="contained"
                             size="small"
+                            onClick={onMultipleDownload}
                           >
                             <Folder />
                           </Button>

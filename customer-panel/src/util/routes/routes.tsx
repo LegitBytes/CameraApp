@@ -21,7 +21,7 @@ const Routes: React.FC = () => {
         <Route exact path="/alerts" render={(props) => <Alerts {...props} />} />
         <Route
           exact
-          path="/alerts/:timestamp"
+          path="/alerts/:fromemail/:timestamp"
           render={(props) => <Alerts {...props} />}
         />
       </React.Suspense>
