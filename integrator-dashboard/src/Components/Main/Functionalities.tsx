@@ -18,10 +18,16 @@ import {
   FormattedUser,
   FormattedGroup,
   Group,
+  xlsxSites,
+  xlsxCamera,
+  xlsxCustomer,
+  xlsxUser,
+  xlsxGroup,
 } from "../Interfaces";
 import { TransitionProps } from "../../Shared/Slides";
 import SimpleTabs from "../../Shared/SimpleTabs";
 import ModalComp from "../../Shared/ModalComp";
+import { downloadXLSX } from "../../Utilities/Helpers/XLSX";
 
 export type args = Camera[] | Site[] | Customer[] | User[] | Group[];
 export type retVal =
@@ -37,6 +43,7 @@ interface FunctionalitiesProps {
   columns: Columns[];
   activeData: args;
   inactiveData: args;
+  wholeData: xlsxCamera[] | xlsxSites[] | xlsxCustomer[] | xlsxUser[] | xlsxGroup[];
   formatData: (data: args, isActive: boolean) => retVal;
   onRowsDelete: (rows: rows) => false;
   handleClose: () => void;
@@ -57,6 +64,7 @@ const Functionalities: React.FC<FunctionalitiesProps> = ({
   columns,
   activeData,
   inactiveData,
+  wholeData,
   formatData,
   onRowsDelete,
   transition,
@@ -95,23 +103,29 @@ const Functionalities: React.FC<FunctionalitiesProps> = ({
           </ButtonComp>
         </Grid> */}
         <div style={{ marginTop: 80 }}>
-          <ButtonComp
-            type="primary"
-            variant="contained"
-            margin={10}
-            size="large"
-          >
-            Download CSV
-          </ButtonComp>
-          <ButtonComp
-            type="primary"
-            variant="contained"
-            margin={10}
-            size="large"
-            onClick={handleModalOpen}
-          >
-            Add new {title.substr(0, title.length - 1)}
-          </ButtonComp>
+          {!!wholeData.length && (
+            <>
+              {" "}
+              <ButtonComp
+                type="primary"
+                variant="contained"
+                margin={10}
+                size="large"
+                onClick={() => downloadXLSX(wholeData, title)}
+              >
+                Download XLSX
+              </ButtonComp>
+              <ButtonComp
+                type="primary"
+                variant="contained"
+                margin={10}
+                size="large"
+                onClick={handleModalOpen}
+              >
+                Add new {title.substr(0, title.length - 1)}
+              </ButtonComp>
+            </>
+          )}
         </div>
       </Grid>
       {loading ? (

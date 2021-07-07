@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Customer, rows } from "../Interfaces";
+import { Customer, rows, xlsxCustomer } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
 import { TransitionLeft, TransitionProps } from "../../Shared/Slides";
@@ -19,8 +19,9 @@ const AllCustomers: React.FC = () => {
     message: "",
   });
 
-  const [transition, setTransition] =
-    React.useState<React.ComponentType<TransitionProps> | undefined>(undefined);
+  const [transition, setTransition] = React.useState<
+    React.ComponentType<TransitionProps> | undefined
+  >(undefined);
 
   const handleOpen = (
     horizontal: "left" | "center" | "right",
@@ -44,6 +45,7 @@ const AllCustomers: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
 
+  const [wholeData, setWholeData] = useState<Customer[]>([]);
   const [activeData, setActiveData] = useState<Customer[]>([]);
   const [inactiveData, setInactiveData] = useState<Customer[]>([]);
 
@@ -78,6 +80,7 @@ const AllCustomers: React.FC = () => {
     try {
       const response: AxiosResponse<{ customers: Customer[] }> =
         await axios.get(url);
+      setWholeData(response.data.customers);
       const activeArr = response.data.customers.filter(
         (item) => item.is_disabled === false
       );
@@ -142,6 +145,16 @@ const AllCustomers: React.FC = () => {
     }));
   };
 
+  const getXLSXData = (): xlsxCustomer[] => {
+    return wholeData.map(customer => ({
+      "Customer ID": customer.customer_id,
+      "Customer Name": customer.customer_name,
+      "Number of Sites": customer.sites.length,
+      "Number of Users": customer.users.length,
+      Disabled: customer.is_disabled
+    }))
+  }
+
   const onRowsDelete = (rows: rows): false => {
     handleOpen(
       "left",
@@ -173,6 +186,7 @@ const AllCustomers: React.FC = () => {
       columns={columns}
       activeData={activeData}
       inactiveData={inactiveData}
+      wholeData={getXLSXData()}
       formatData={formatData}
       handleClose={handleClose}
       loading={loading}

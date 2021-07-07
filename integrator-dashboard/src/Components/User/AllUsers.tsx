@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { rows, User } from "../Interfaces";
+import { rows, User, xlsxUser } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
 import { TransitionLeft, TransitionProps } from "../../Shared/Slides";
@@ -44,6 +44,7 @@ const AllUsers: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
 
+  const [wholeData, setWholeData] = useState<User[]>([]);
   const [activeData, setActiveData] = useState<User[]>([]);
   const [inactiveData, setInactiveData] = useState<User[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -76,6 +77,7 @@ const AllUsers: React.FC = () => {
     setLoading(true);
     try {
       const response: AxiosResponse<{ users: User[] }> = await axios.get(url);
+      setWholeData(response.data.users)
       const activeArr = response.data.users.filter(
         (item) => item.is_disabled === false
       );
@@ -141,6 +143,18 @@ const AllUsers: React.FC = () => {
     }));
   };
 
+  const getXLSXData = (): xlsxUser[] => {
+    return wholeData.map(user => ({
+      "User ID": user.user_id,
+      "Email": user.user_email,
+      "Group Name": user.groups.group_name,
+      "Number of Customers": user.customer_count,
+      "Number of Sites": user.site_count,
+      "Number of Cameras": user.camera_count,
+      Disabled: user.is_disabled
+    }))
+  }
+
   const onRowsDelete = (rows: rows): false => {
     handleOpen(
       "left",
@@ -172,6 +186,7 @@ const AllUsers: React.FC = () => {
       columns={columns}
       activeData={activeData}
       inactiveData={inactiveData}
+      wholeData={getXLSXData()}
       formatData={formatData}
       handleClose={handleClose}
       loading={loading}

@@ -157,3 +157,54 @@ export interface SiteStats {
   alert: number;
   total_requests: number;
 }
+
+export interface xlsxSites {
+  "Site ID": string
+  "Site Name": string
+  "Group Name": string
+  "Number of Users": number
+  "Number of Customers": number
+  "Number of Cameras": number
+  Disabled: boolean
+}
+
+export interface xlsxCamera {
+  "Camera ID": string
+  "Camera Name": string
+  "IP Address": string
+  "SMTP Username": string
+  "SMTP Password": string
+  Site: string
+  Group: string
+  "Number of Users": number 
+  "Total Requests": number
+  Disabled: boolean
+}
+
+export interface xlsxCustomer {
+  "Customer ID": string
+  "Customer Name": string
+  "Number of Users": number
+  "Number of Sites": number
+  Disabled: boolean
+}
+
+export interface xlsxUser {
+  "User ID": string
+  "Email": string
+  "Group Name": string
+  "Number of Customers": number
+  "Number of Sites": number
+  "Number of Cameras": number
+  Disabled: boolean
+}
+
+export interface xlsxGroup {
+  "Group ID": string 
+  "Group Name": string
+  "Number of Users": number
+  "Number of Customers": number
+  "Number of Sites": number
+  "Number of Cameras": number
+  Disabled: boolean
+}

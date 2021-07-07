@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Site, rows } from "../Interfaces";
+import { Site, rows, xlsxSites } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
 import { TransitionLeft, TransitionProps } from "../../Shared/Slides";
@@ -19,8 +19,9 @@ const AllSites: React.FC = () => {
     message: "",
   });
 
-  const [transition, setTransition] =
-    React.useState<React.ComponentType<TransitionProps> | undefined>(undefined);
+  const [transition, setTransition] = React.useState<
+    React.ComponentType<TransitionProps> | undefined
+  >(undefined);
 
   const handleOpen = (
     horizontal: "left" | "right" | "center",
@@ -44,6 +45,7 @@ const AllSites: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
 
+  const [wholeData, setWholeData] = useState<Site[]>([]);
   const [activeData, setActiveData] = useState<Site[]>([]);
   const [inactiveData, setInactiveData] = useState<Site[]>([]);
 
@@ -83,6 +85,7 @@ const AllSites: React.FC = () => {
       const inactiveArr = response.data.sites.filter(
         (item) => item.is_disabled === true
       );
+      setWholeData(response.data.sites);
       setActiveData(activeArr);
       setInactiveData(inactiveArr);
       setLoading(false);
@@ -110,7 +113,12 @@ const AllSites: React.FC = () => {
       actions: (
         <>
           {isActive && (
-            <ButtonComp type="dark" size="small" variant="contained" onClick={() => handleEditModalOpen(item)}>
+            <ButtonComp
+              type="dark"
+              size="small"
+              variant="contained"
+              onClick={() => handleEditModalOpen(item)}
+            >
               Modify
             </ButtonComp>
           )}
@@ -133,6 +141,18 @@ const AllSites: React.FC = () => {
           </ButtonComp>
         </>
       ),
+    }));
+  };
+
+  const getXLSXData = (): xlsxSites[] => {
+    return wholeData.map((site) => ({
+      "Site ID": site.site_id,
+      "Site Name": site.site_name,
+      "Group Name": site.groups.group_name,
+      "Number of Cameras": site.cameras.length,
+      "Number of Customers": site.customers.length,
+      "Number of Users": site.users.length,
+      Disabled: site.is_disabled,
     }));
   };
 
@@ -167,6 +187,7 @@ const AllSites: React.FC = () => {
       columns={columns}
       activeData={activeData}
       inactiveData={inactiveData}
+      wholeData={getXLSXData()}
       formatData={formatData}
       handleClose={handleClose}
       loading={loading}

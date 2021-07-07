@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { Camera, rows } from "../Interfaces";
+import { Camera, rows, xlsxCamera } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
 import { TransitionLeft, TransitionProps } from "../../Shared/Slides";
@@ -20,8 +20,9 @@ const AllCameras: React.FC = () => {
     message: "",
   });
 
-  const [transition, setTransition] =
-    React.useState<React.ComponentType<TransitionProps> | undefined>(undefined);
+  const [transition, setTransition] = React.useState<
+    React.ComponentType<TransitionProps> | undefined
+  >(undefined);
 
   const handleOpen = (
     horizontal: "left" | "center" | "right",
@@ -45,6 +46,7 @@ const AllCameras: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
 
+  const [wholeData, setWholeData] = useState<Camera[]>([]);
   const [activedata, setActiveData] = useState<Camera[]>([]);
   const [inactivedata, setInctiveData] = useState<Camera[]>([]);
 
@@ -80,7 +82,7 @@ const AllCameras: React.FC = () => {
       const response: AxiosResponse<{ cameras: Camera[] }> = await axios.get(
         url
       );
-      
+      setWholeData(response.data.cameras);
       let activeArr = response.data.cameras.filter(
         (item) => item.is_disabled === false
       );
@@ -153,6 +155,21 @@ const AllCameras: React.FC = () => {
     }));
   };
 
+  const getXLSXData = (): xlsxCamera[] => {
+    return wholeData.map((camera) => ({
+      "Camera ID": camera.camera_id,
+      "Camera Name": camera.camera_name,
+      "IP Address": camera.ip_address,
+      "SMTP Username": camera.smtp_password,
+      "SMTP Password": camera.smtp_password,
+      "Number of Users": camera.user_count,
+      "Total Requests": camera.total_request,
+      Group: camera.groups.group_name,
+      Site: camera.sites.site_name,
+     Disabled: camera.is_disabled
+    }));
+  };
+
   const onRowsDelete = (rows: rows): false => {
     handleOpen(
       "left",
@@ -184,6 +201,7 @@ const AllCameras: React.FC = () => {
       columns={columns}
       activeData={activedata}
       inactiveData={inactivedata}
+      wholeData={getXLSXData()}
       formatData={formatData}
       handleClose={handleClose}
       loading={loading}

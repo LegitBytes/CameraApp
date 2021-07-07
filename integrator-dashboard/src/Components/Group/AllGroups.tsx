@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { rows, Group } from "../Interfaces";
+import { rows, Group, xlsxGroup } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
 import { TransitionLeft, TransitionProps } from "../../Shared/Slides";
@@ -44,6 +44,7 @@ const AllGroups: React.FC = () => {
 
   const [loading, setLoading] = useState<boolean>(true);
 
+  const [wholeData, setWholeData] = useState<Group[]>([]);
   const [acticveData, setActiveData] = useState<Group[]>([]);
   const [inacticveData, setInactiveData] = useState<Group[]>([]);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -77,7 +78,7 @@ const AllGroups: React.FC = () => {
     try {
       const response: AxiosResponse<{ groups: Group[] }> = await axios.get(url);
       // console.log(response.data);
-
+      setWholeData(response.data.groups)
       const activeArr = response.data.groups.filter(
         (item) => item.is_disabled === false
       );
@@ -142,6 +143,18 @@ const AllGroups: React.FC = () => {
     }));
   };
 
+  const getXLSXData = (): xlsxGroup[] => {
+    return wholeData.map(group => ({
+      "Group ID": group.group_id,
+      "Group Name": group.group_name,
+      "Number of Users": group.user_count,
+      "Number of Customers": group.customer_count,
+      "Number of Sites": group.site_count,
+      "Number of Cameras": group.camera_count,
+      Disabled: group.is_disabled
+    }))
+  }
+
   const onRowsDelete = (rows: rows): false => {
     handleOpen(
       "left",
@@ -173,6 +186,7 @@ const AllGroups: React.FC = () => {
       columns={columns}
       activeData={acticveData}
       inactiveData={inacticveData}
+      wholeData={getXLSXData()}
       formatData={formatData}
       handleClose={handleClose}
       loading={loading}

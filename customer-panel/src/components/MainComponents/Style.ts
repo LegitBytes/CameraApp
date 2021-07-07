@@ -4,6 +4,6 @@ export const useTileStyles = makeStyles((theme: Theme) => createStyles({
         color: "#0079FE"
     },
     root: {
-        minHeight: 350
+        minHeight: 330
     }
 }))

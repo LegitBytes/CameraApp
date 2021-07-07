@@ -98,7 +98,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       background: "#fff",
       height: 30,
       borderRadius: 5,
-      marginBottom: 20
+      border: "1px solid #fff"
     }
   })
 );
