@@ -146,6 +146,19 @@ const serverlessConfiguration: AWS = {
     findCameraDetailsByUserId,
     groupCameraByEmail,
   },
+
+  resources: {
+    Resources: {
+      UserPoolCameraApp: {
+        Type: "AWS::Cognito::UserPool",
+        Properties: {
+          MfaConfiguration: "OFF",
+          UserPoolName: "user-camera-app",
+          UsernameAttributes: ["email"],
+        },
+      },
+    },
+  },
 };
 
 module.exports = serverlessConfiguration;
