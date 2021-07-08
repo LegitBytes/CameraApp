@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, createStyles, Theme, Typography } from "@material-ui/core";
 import { TreeItem } from "@material-ui/lab";
+// type component = "customers" | "sites" | "camera"
 interface StyledTreeItemProps {
   nodeId: string;
   labelText: string;
-  onClick?: () => void
+  onClick?: () => void;
+  onDoubleClick?: () => void;
+  labelIcon: JSX.Element;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -16,9 +19,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       alignItems: "center",
       padding: theme.spacing(0.5, 0),
-    },
-    labelIcon: {
-      marginRight: theme.spacing(1),
     },
     labelText: {
       fontWeight: "inherit",
@@ -32,13 +32,19 @@ const StyledTreeItem: React.FC<StyledTreeItemProps> = ({
   nodeId,
   labelText,
   onClick,
+  onDoubleClick,
+  labelIcon,
   ...others
 }) => {
   const classes = useStyles();
+  const [ visible, setVisible ] = useState<boolean>(false)
   return (
-    <TreeItem 
+    <TreeItem
+      onMouseEnter={() => setVisible(true)}
+      onMouseLeave={() => setVisible(false)}
       label={
         <div className={classes.labelRoot}>
+          {visible && labelIcon}
           <Typography variant="body2" className={classes.labelText}>
             {labelText}
           </Typography>
@@ -49,6 +55,7 @@ const StyledTreeItem: React.FC<StyledTreeItemProps> = ({
         content: classes.content,
       }}
       onClick={onClick}
+      onDoubleClick={onDoubleClick}
       {...others}
     />
   );

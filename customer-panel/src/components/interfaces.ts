@@ -55,3 +55,5 @@ export interface alertUser {
   }>;
   camera_details: cameraDetails[][]
 }
+
+export type modalAction = "EDIT CUSTOMER" | "EDIT SITE" | "EDIT CAMERA" | ""

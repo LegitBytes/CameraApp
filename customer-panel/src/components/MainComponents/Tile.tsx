@@ -52,14 +52,8 @@ const Tile: React.FC<TileProps> = ({
       return;
     } else {
       if (data.rekognitionData && !!data.rekognitionData.length) {
-        data.rekognitionData.forEach((item) => {
-          let imgUrl = Object.keys(item)[0];
-          if (!!imgUrl.length) {
-            setImage(imgUrl[0]);
-          } else {
-            setImage("not-available/not-available.jpg");
-          }
-        });
+        let imgUrl = Object.keys(data.rekognitionData[0])[0];
+        setImage(imgUrl);
       } else {
         setImage("not-available/not-available.jpg");
       }

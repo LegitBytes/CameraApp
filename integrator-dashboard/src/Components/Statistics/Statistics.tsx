@@ -135,7 +135,7 @@ const Statistics: React.FC = () => {
       },
     ],
   };
- 
+
   const getOptions = (title: "Camera" | "Site") => {
     return {
       indexAxis: "y",
@@ -146,7 +146,7 @@ const Statistics: React.FC = () => {
           borderWidth: 2,
         },
       },
-    //   responsive: true,
+      //   responsive: true,
       maintainAspectRatio: false,
       plugins: {
         legend: {
@@ -166,12 +166,12 @@ const Statistics: React.FC = () => {
         <LoadingScreen />
       ) : (
         <Grid container direction="row" style={{ marginTop: 100 }}>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={12} md={6}>
             <Paper elevation={5} className={classes.paperStyles}>
               <Bar type="bar1" data={siteData} options={getOptions("Site")} />
             </Paper>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={12} md={6}>
             <Paper elevation={5} className={classes.paperStyles}>
               <Bar
                 type="bar"

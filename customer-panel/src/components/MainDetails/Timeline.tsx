@@ -29,15 +29,8 @@ const Timeline: React.FC<TimelineProps> = ({
   const calculatePercentage = (data: cameraDetails, index: number): string => {
     const timeGap = toTime - fromTime;
     const timePassed = data.timestamp - fromTime;
-
-    console.log("timeGap -> ", timeGap);
-    console.log("timePassed -> ", timePassed);
-
     const percent = (timePassed / timeGap) * 100;
-    console.log(index + " Percent -> ", percent);
-
     return Math.round(percent) === 100 ? 99 + "%" : percent + "%";
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   };
 
   return (

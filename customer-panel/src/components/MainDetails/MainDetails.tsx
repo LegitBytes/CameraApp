@@ -59,7 +59,9 @@ const MainDetails: React.FC<MainDetailsProps> = ({ handleOpen }) => {
       setTimestamp(data.timestamp);
     }
     if (data.rekognitionData && !!data.rekognitionData.length) {
+
       data.rekognitionData.forEach((item) => {
+        
         let imgUrl = Object.keys(item)[0];
         imgUrls.push(imgUrl);
       });
@@ -88,7 +90,6 @@ const MainDetails: React.FC<MainDetailsProps> = ({ handleOpen }) => {
     try {
       const res: AxiosResponse<{ camera_details: cameraDetails[] }> =
         await axios.get<{ camera_details: cameraDetails[] }>(url);
-      console.log("response in maindetails -> ", res.data.camera_details);
       setCameraDetails(res.data.camera_details);
       getImageUrls(res.data.camera_details[0]);
       // setTimestamp(res.data.camera_details)

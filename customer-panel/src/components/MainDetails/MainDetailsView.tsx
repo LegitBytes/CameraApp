@@ -240,6 +240,7 @@ const MainDetailsView: React.FC<MainDetailsViewProps> = ({
                   onChange={(date) => handleDateTimeChange(date, "to")}
                   label="To"
                   showTodayButton
+                  disableFuture
                 />
               </div>
             </div>

@@ -1,13 +1,16 @@
 import React, { useEffect, useCallback, useState } from "react";
 import LoadingScreen from "../../shared/LoadingScreen";
 import axios, { AxiosResponse } from "axios";
-import { customer, site, user, camera } from "../interfaces";
+import { customer, site, user, camera, modalAction } from "../interfaces";
 import StyledTreeItem from "../../shared/StyledTreeItem";
 import { TreeView } from "@material-ui/lab";
-import { ChevronLeft, ExpandMore } from "@material-ui/icons";
+import { ChevronLeft, ExpandMore, Edit } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import { ChangeEvent } from "react";
+import ModalComp from "../../shared/ModalComp";
+import ModalChild from "./ModalChild";
+import { IconButton } from "@material-ui/core";
 
 interface MainDrawerProp {
   classes: ClassNameMap<"tvRoot" | "inputStyles">;
@@ -17,6 +20,8 @@ interface MainDrawerProp {
     message: string
   ) => void;
 }
+
+type Label = "customer_name" | "site_name" | "camera_name";
 
 const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
   const history = useHistory();
@@ -61,9 +66,11 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     let { value } = e.target;
-    value= value.toLowerCase()
+    value = value.toLowerCase();
     let arr: customer[] = [];
-    arr = customerDetails.filter((item) => item.customer_name.toLowerCase().includes(value));
+    arr = customerDetails.filter((item) =>
+      item.customer_name.toLowerCase().includes(value)
+    );
     if (arr.length === 0) {
       arr = customerDetails.filter((customer) => {
         let crr = customer.sites.filter((site) =>
@@ -91,15 +98,48 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
     }
   };
 
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [title, setTitle] = useState<modalAction>("EDIT CUSTOMER");
+  const [updateId, setUpdateId] = useState<string>("");
+  const [label, setLabel] = useState<Label>("customer_name");
+  const [defaultValue, setDefaultValue] = useState<string>("");
+  const handleModalOpen = (
+    title: modalAction,
+    p_updateId: string,
+    p_label: Label,
+    dValue: string
+  ): void => {
+    setTitle(title);
+    setUpdateId(p_updateId);
+    setLabel(p_label);
+    setDefaultValue(dValue);
+    setModalOpen(true);
+  };
+  const handleModalClose = (): void => {
+    setModalOpen(false);
+    setTitle("");
+  };
+
   return (
     <>
       {loading ? (
         <LoadingScreen white />
       ) : (
         <>
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: 10 }}>
-            <input className={classes.inputStyles} onChange={onChange} placeholder="Filter for Customer / Site / Camera"/>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: 10,
+            }}
+          >
+            <input
+              className={classes.inputStyles}
+              onChange={onChange}
+              placeholder="Filter for Customer / Site / Camera"
+            />
           </div>
+
           <TreeView
             className={classes.tvRoot}
             defaultCollapseIcon={<ExpandMore style={{ color: "#fff" }} />}
@@ -112,12 +152,54 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
                 labelText={customer.customer_name}
                 nodeId={customer.customer_id}
                 key={customer.customer_id}
+                labelIcon={
+                  <IconButton
+                    size="medium"
+                    style={{
+                      marginRight: 7,
+                      color: "#fff",
+                      height: 7,
+                      width: 7,
+                    }}
+                    onClick={() =>
+                      handleModalOpen(
+                        "EDIT CUSTOMER",
+                        customer.customer_id,
+                        "customer_name",
+                        customer.customer_name
+                      )
+                    }
+                  >
+                    <Edit fontSize="small" />
+                  </IconButton>
+                }
               >
                 {customer.sites.map((site: site) => (
                   <StyledTreeItem
                     labelText={site.site_name}
                     nodeId={site.site_id}
                     key={site.site_id}
+                    labelIcon={
+                      <IconButton
+                        size="medium"
+                        style={{
+                          marginRight: 7,
+                          color: "#fff",
+                          height: 7,
+                          width: 7,
+                        }}
+                        onClick={() =>
+                          handleModalOpen(
+                            "EDIT SITE",
+                            site.site_id,
+                            "site_name",
+                            site.site_name
+                          )
+                        }
+                      >
+                        <Edit fontSize="small" />
+                      </IconButton>
+                    }
                   >
                     {site.cameras.map((camera: camera) => (
                       <StyledTreeItem
@@ -129,6 +211,27 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
                             `/main/${customer.customer_name}/${site.site_name}/${camera.camera_name}-${camera.smtp_user_name}`
                           )
                         }
+                        labelIcon={
+                          <IconButton
+                            size="medium"
+                            style={{
+                              marginRight: 7,
+                              color: "#fff",
+                              height: 7,
+                              width: 7,
+                            }}
+                            onClick={() =>
+                              handleModalOpen(
+                                "EDIT CAMERA",
+                                camera.camera_id,
+                                "camera_name",
+                                camera.camera_name
+                              )
+                            }
+                          >
+                            <Edit fontSize="small" />
+                          </IconButton>
+                        }
                       />
                     ))}
                   </StyledTreeItem>
@@ -138,6 +241,23 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
           </TreeView>
         </>
       )}
+      <ModalComp
+        modalOpen={modalOpen}
+        handleModalClose={handleModalClose}
+        modalTop="20%"
+        modalWidth="60%"
+        title={title}
+      >
+        <ModalChild
+          handleGet={getCustomerDetails}
+          handleModalClose={handleModalClose}
+          handleOpen={handleOpen}
+          label={label}
+          title={title}
+          updateId={updateId}
+          value={defaultValue}
+        />
+      </ModalComp>
     </>
   );
 };
