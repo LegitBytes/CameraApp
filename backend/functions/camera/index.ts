@@ -76,6 +76,19 @@ export const disiableCamera = {
   ],
 };
 
+export const updateChangeNameCamera = {
+  handler: `${handlerPath(__dirname)}/handler.editChangeName`,
+  events: [
+    {
+      http: {
+        method: "patch",
+        path: "cameras/aliase-camera/{cameraId}",
+        cors: true,
+      },
+    },
+  ],
+};
+
 export const removeCamera = {
   handler: `${handlerPath(__dirname)}/handler.deleteCamera`,
   events: [

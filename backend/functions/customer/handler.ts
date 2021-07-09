@@ -164,6 +164,7 @@ const findCustomerById = async (event) => {
         customer_id: true,
         customer_name: true,
         is_disabled: true,
+        change_name: true,
         groups: true,
         integrators: true,
         sites: {
@@ -203,6 +204,7 @@ const findAllCustomers = async () => {
       customer_id: true,
       customer_name: true,
       is_disabled: true,
+      change_name: true,
       groups: true,
       integrators: true,
       sites: {
@@ -300,6 +302,36 @@ const disiableCustomer = async (event) => {
   }
 };
 
+// Update change_name
+const updateChangeName = async (event) => {
+  if (!event.pathParameters || !event.pathParameters.customerId) {
+    return formatJSONResponseStatusBadRequest({
+      message: constants.CUSTOMER_PATHPARAMETERS_ERROR,
+    });
+  }
+
+  const customer_id = event.pathParameters.customerId;
+  const { change_name } = event.body;
+
+  try {
+    await prisma.customers.update({
+      where: {
+        customer_id,
+      },
+      data: { change_name },
+    });
+    return formatJSONResponseStatusOk({
+      message: constants.CUSTOMER_UPDATE,
+    });
+  } catch (error) {
+    console.error(error);
+    return formatJSONResponseStatusServerError({
+      message: constants.SERVER_ERROR,
+      error,
+    });
+  }
+};
+
 // Remove the customers.
 const removeCustomer = async (event) => {
   if (!event.pathParameters || !event.pathParameters.customerId) {
@@ -331,4 +363,5 @@ export const getCustomerById = middyfy(findCustomerById);
 export const getAllCustomers = middyfy(findAllCustomers);
 export const editCustomer = middyfy(updateCustomer);
 export const editDisableCustomer = middyfy(disiableCustomer);
+export const editChangeName = middyfy(updateChangeName);
 export const deleteCustomer = middyfy(removeCustomer);

@@ -7,6 +7,7 @@ import {
   updateCamera,
   removeCamera,
   disiableCamera,
+  updateChangeNameCamera,
 } from "@functions/camera";
 import {
   addNewCustomer,
@@ -15,6 +16,7 @@ import {
   updateCustomer,
   removeCustomer,
   disiableCustomer,
+  updateChangeNameCustomer,
 } from "@functions/customer";
 import {
   addNewGroup,
@@ -38,6 +40,7 @@ import {
   updateSite,
   removeSite,
   disiableSite,
+  updateChangeNameSite,
 } from "@functions/site";
 import {
   addNewUser,
@@ -112,12 +115,14 @@ const serverlessConfiguration: AWS = {
     updateCamera,
     removeCamera,
     disiableCamera,
+    updateChangeNameCamera,
     addNewCustomer,
     findCustomerById,
     findAllCustomers,
     updateCustomer,
     removeCustomer,
     disiableCustomer,
+    updateChangeNameCustomer,
     addNewGroup,
     findGroupById,
     findAllGroups,
@@ -135,6 +140,7 @@ const serverlessConfiguration: AWS = {
     updateSite,
     removeSite,
     disiableSite,
+    updateChangeNameSite,
     addNewUser,
     findUserById,
     findAllUsers,

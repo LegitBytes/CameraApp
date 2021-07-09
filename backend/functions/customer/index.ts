@@ -76,6 +76,19 @@ export const disiableCustomer = {
   ],
 };
 
+export const updateChangeNameCustomer = {
+  handler: `${handlerPath(__dirname)}/handler.editChangeName`,
+  events: [
+    {
+      http: {
+        method: "patch",
+        path: "customers/aliase-customer/{customerId}",
+        cors: true,
+      },
+    },
+  ],
+};
+
 export const removeCustomer = {
   handler: `${handlerPath(__dirname)}/handler.deleteCustomer`,
   events: [

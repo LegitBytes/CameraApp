@@ -76,6 +76,19 @@ export const disiableSite = {
   ],
 };
 
+export const updateChangeNameSite = {
+  handler: `${handlerPath(__dirname)}/handler.editChangeName`,
+  events: [
+    {
+      http: {
+        method: "patch",
+        path: "sites/aliase-site/{siteId}",
+        cors: true,
+      },
+    },
+  ],
+};
+
 export const removeSite = {
   handler: `${handlerPath(__dirname)}/handler.deleteSite`,
   events: [

@@ -108,6 +108,7 @@ const findCameraById = async (event) => {
         smtp_user_name: true,
         smtp_password: true,
         is_disabled: true,
+        change_name: true,
         groups: true,
         sites: true,
         integrators: true,
@@ -141,6 +142,7 @@ const findAllCameras = async () => {
       smtp_user_name: true,
       smtp_password: true,
       is_disabled: true,
+      change_name: true,
       groups: true,
       sites: true,
       integrators: true,
@@ -247,6 +249,36 @@ const disiableCamera = async (event) => {
   }
 };
 
+// Update change_name
+const updateChangeName = async (event) => {
+  if (!event.pathParameters || !event.pathParameters.cameraId) {
+    return formatJSONResponseStatusBadRequest({
+      message: constants.CAMERA_PATHPARAMETERS_ERROR,
+    });
+  }
+
+  const camera_id = event.pathParameters.cameraId;
+  const { change_name } = event.body;
+
+  try {
+    await prisma.cameras.update({
+      where: {
+        camera_id,
+      },
+      data: { change_name },
+    });
+    return formatJSONResponseStatusOk({
+      message: constants.CAMERA_UPDATE,
+    });
+  } catch (error) {
+    console.error(error);
+    return formatJSONResponseStatusServerError({
+      message: constants.SERVER_ERROR,
+      error,
+    });
+  }
+};
+
 // Remove the cameras.
 const removeCamera = async (event) => {
   if (!event.pathParameters || !event.pathParameters.cameraId) {
@@ -278,4 +310,5 @@ export const getCameraById = middyfy(findCameraById);
 export const getAllCameras = middyfy(findAllCameras);
 export const editCamera = middyfy(updateCamera);
 export const editDisableCamera = middyfy(disiableCamera);
+export const editChangeName = middyfy(updateChangeName);
 export const deleteCamera = middyfy(removeCamera);

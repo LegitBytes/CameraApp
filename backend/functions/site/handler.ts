@@ -122,6 +122,7 @@ const findAllSites = async () => {
       site_id: true,
       site_name: true,
       is_disabled: true,
+      change_name: true,
       groups: true,
       integrators: true,
       cameras: true,
@@ -220,6 +221,36 @@ const disiableSite = async (event) => {
   }
 };
 
+// Update change_name
+const updateChangeName = async (event) => {
+  if (!event.pathParameters || !event.pathParameters.siteId) {
+    return formatJSONResponseStatusBadRequest({
+      message: constants.SITE_PATHPARAMETERS_ERROR,
+    });
+  }
+
+  const site_id = event.pathParameters.siteId;
+  const { change_name } = event.body;
+
+  try {
+    await prisma.sites.update({
+      where: {
+        site_id,
+      },
+      data: { change_name },
+    });
+    return formatJSONResponseStatusOk({
+      message: constants.SITE_UPDATE,
+    });
+  } catch (error) {
+    console.error(error);
+    return formatJSONResponseStatusServerError({
+      message: constants.SERVER_ERROR,
+      error,
+    });
+  }
+};
+
 // Remove the sites.
 const removeSite = async (event) => {
   if (!event.pathParameters || !event.pathParameters.siteId) {
@@ -251,4 +282,5 @@ export const getSiteById = middyfy(findSiteById);
 export const getAllSites = middyfy(findAllSites);
 export const editSite = middyfy(updateSite);
 export const editDisableSite = middyfy(disiableSite);
+export const editChangeName = middyfy(updateChangeName);
 export const deleteSite = middyfy(removeSite);

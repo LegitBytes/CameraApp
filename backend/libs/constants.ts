@@ -27,6 +27,8 @@ export default {
   CUSTOMER_DELETE: "Customer Deleted Successfully.",
   CUSTOMER_NOT_FOUND: "Customer not found with the given ID.",
   CUSTOMER_PATHPARAMETERS_ERROR: "Please provide Customer ID.",
+  CUSTOMER_CHANGE_NAME_PATHPARAMETERS_ERROR:
+    "Please provide Customer aliases name.",
   CUSTOMER_ID_NOT_PROVIDED_ERROR: "Please provide Customer IDs.",
   CAMERA_SAVE: "Camera Saved Successfully.",
   CAMERA_UPDATE: "Camera Updated Successfully.",
