@@ -1,4 +1,3 @@
-import { middyfy } from "@libs/lambda";
 import * as AWS from "aws-sdk";
 
 const db = new AWS.DynamoDB.DocumentClient();
@@ -100,5 +99,5 @@ const groupCameraByEmail = async (event) => {
 //   }
 // };
 
-export const findGroupCameraByEmail = middyfy(groupCameraByEmail);
+export const findGroupCameraByEmail = groupCameraByEmail;
 // export const getCameraDetailsById = middyfy(findCameraDetailsById);

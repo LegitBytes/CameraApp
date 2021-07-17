@@ -6,7 +6,6 @@ import {
   formatJSONResponseStatusServerError,
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
-import { middyfy } from "@libs/lambda";
 import constants from "@libs/constants";
 import { PrismaClient } from "@prisma/client";
 
@@ -24,7 +23,7 @@ const addNewSite: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       user_ids,
       customer_ids,
       camera_ids,
-    } = event.body;
+    } = JSON.parse(event.body);
 
     // const users = user_ids.map(
     //   async (user_id: string) =>
@@ -101,6 +100,7 @@ const findSiteById = async (event) => {
         users: true,
       },
     });
+    console.log("Find Site by ID :: ", site);
     return formatJSONResponseStatusOk({
       site: {
         ...site,
@@ -130,6 +130,7 @@ const findAllSites = async () => {
       users: true,
     },
   });
+  console.log("Get all Sites :: ", sites);
   return formatJSONResponseStatusOk({
     sites,
   });
@@ -137,7 +138,7 @@ const findAllSites = async () => {
 
 // Update Site
 const updateSite: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
-  event
+  event: any
 ) => {
   if (!event.pathParameters || !event.pathParameters.siteId) {
     return formatJSONResponseStatusBadRequest({
@@ -151,7 +152,7 @@ const updateSite: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     user_ids,
     customer_ids,
     camera_ids,
-  } = event.body;
+  } = JSON.parse(event.body);
   const site_id = event.pathParameters.siteId;
   try {
     await prisma.sites.update({
@@ -200,7 +201,7 @@ const disiableSite = async (event) => {
   }
 
   const site_id = event.pathParameters.siteId;
-  const { is_disabled } = event.body;
+  const { is_disabled } = JSON.parse(event.body);
 
   try {
     await prisma.sites.update({
@@ -230,7 +231,7 @@ const updateChangeName = async (event) => {
   }
 
   const site_id = event.pathParameters.siteId;
-  const { change_name } = event.body;
+  const { change_name } = JSON.parse(event.body);
 
   try {
     await prisma.sites.update({
@@ -277,10 +278,10 @@ const removeSite = async (event) => {
   }
 };
 
-export const addSite = middyfy(addNewSite);
-export const getSiteById = middyfy(findSiteById);
-export const getAllSites = middyfy(findAllSites);
-export const editSite = middyfy(updateSite);
-export const editDisableSite = middyfy(disiableSite);
-export const editChangeName = middyfy(updateChangeName);
-export const deleteSite = middyfy(removeSite);
+export const addSite = addNewSite;
+export const getSiteById = findSiteById;
+export const getAllSites = findAllSites;
+export const editSite = updateSite;
+export const editDisableSite = disiableSite;
+export const editChangeName = updateChangeName;
+export const deleteSite = removeSite;

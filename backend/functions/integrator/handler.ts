@@ -6,7 +6,6 @@ import {
   formatJSONResponseStatusServerError,
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
-import { middyfy } from "@libs/lambda";
 import constants from "@libs/constants";
 import { PrismaClient } from "@prisma/client";
 
@@ -17,7 +16,7 @@ const addNewIntegrator: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
   async (event: any) => {
     try {
       const integrator = await prisma.integrators.create({
-        data: { ...event.body },
+        data: { ...JSON.parse(event.body) },
       });
 
       return formatJSONResponseStatusCreated({
@@ -143,13 +142,13 @@ const findAllIntegrators = async () => {
 
 // Update Integrator
 const updateIntegrator: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
-  async (event) => {
+  async (event: any) => {
     if (!event.pathParameters || !event.pathParameters.integratorId) {
       return formatJSONResponseStatusBadRequest({
         message: constants.INTEGRATOR_PATHPARAMETERS_ERROR,
       });
     }
-    const integrator = { ...event.body };
+    const integrator = { ...JSON.parse(event.body) };
     const integrator_id = event.pathParameters.integratorId;
     try {
       await prisma.integrators.update({
@@ -196,8 +195,8 @@ const removeIntegrator = async (event) => {
   }
 };
 
-export const addIntegrator = middyfy(addNewIntegrator);
-export const getIntegratorById = middyfy(findIntegratorById);
-export const getAllIntegrators = middyfy(findAllIntegrators);
-export const editIntegrator = middyfy(updateIntegrator);
-export const deleteIntegrator = middyfy(removeIntegrator);
+export const addIntegrator = addNewIntegrator;
+export const getIntegratorById = findIntegratorById;
+export const getAllIntegrators = findAllIntegrators;
+export const editIntegrator = updateIntegrator;
+export const deleteIntegrator = removeIntegrator;

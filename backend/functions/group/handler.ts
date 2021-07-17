@@ -6,7 +6,6 @@ import {
   formatJSONResponseStatusServerError,
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
-import { middyfy } from "@libs/lambda";
 import constants from "@libs/constants";
 import { PrismaClient } from "@prisma/client";
 
@@ -17,7 +16,7 @@ const addNewGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event: any
 ) => {
   try {
-    const { group_name, integrator_id } = event.body;
+    const { group_name, integrator_id } = JSON.parse(event.body);
     const group = await prisma.groups.create({
       data: {
         group_name,
@@ -138,14 +137,14 @@ const findAllGroups = async () => {
 
 // Update Group
 const updateGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
-  event
+  event:any
 ) => {
   if (!event.pathParameters || !event.pathParameters.groupId) {
     return formatJSONResponseStatusBadRequest({
       message: constants.GROUP_PATHPARAMETERS_ERROR,
     });
   }
-  const { group_name, integrator_id } = event.body;
+  const { group_name, integrator_id } = JSON.parse(event.body);
   const group_id = event.pathParameters.groupId;
   try {
     await prisma.groups.update({
@@ -175,7 +174,7 @@ const disiableGroup = async (event) => {
   }
 
   const group_id = event.pathParameters.groupId;
-  const { is_disabled } = event.body;
+  const { is_disabled } = JSON.parse(event.body);
 
   try {
     await prisma.groups.update({
@@ -222,9 +221,9 @@ const removeGroup = async (event) => {
   }
 };
 
-export const addGroup = middyfy(addNewGroup);
-export const getGroupById = middyfy(findGroupById);
-export const getAllGroups = middyfy(findAllGroups);
-export const editGroup = middyfy(updateGroup);
-export const editDisableGroup = middyfy(disiableGroup);
-export const deleteGroup = middyfy(removeGroup);
+export const addGroup = addNewGroup;
+export const getGroupById = findGroupById;
+export const getAllGroups = findAllGroups;
+export const editGroup = updateGroup;
+export const editDisableGroup = disiableGroup;
+export const deleteGroup = removeGroup;

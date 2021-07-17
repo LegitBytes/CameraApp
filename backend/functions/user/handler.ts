@@ -6,7 +6,6 @@ import {
   formatJSONResponseStatusServerError,
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
-import { middyfy } from "@libs/lambda";
 import constants from "@libs/constants";
 import { PrismaClient } from "@prisma/client";
 
@@ -24,7 +23,7 @@ const addNewUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       customer_ids,
       camera_ids,
       integrator_id,
-    } = event.body;
+    } = JSON.parse(event.body);
 
     if (!site_ids) {
       return formatJSONResponseStatusBadRequest({
@@ -303,7 +302,7 @@ const updateUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     customer_ids,
     camera_ids,
     integrator_id,
-  } = event.body;
+  } = JSON.parse(event.body);
   const user_id = event.pathParameters.userId;
 
   try {
@@ -404,9 +403,9 @@ const removeUser = async (event) => {
   }
 };
 
-export const addUser = middyfy(addNewUser);
-export const getUserById = middyfy(findUserById);
-export const getAllUsers = middyfy(findAllUsers);
-export const editUser = middyfy(updateUser);
-export const editDisableUser = middyfy(disiableUser);
-export const deleteUser = middyfy(removeUser);
+export const addUser = addNewUser;
+export const getUserById = findUserById;
+export const getAllUsers = findAllUsers;
+export const editUser = updateUser;
+export const editDisableUser = disiableUser;
+export const deleteUser = removeUser;

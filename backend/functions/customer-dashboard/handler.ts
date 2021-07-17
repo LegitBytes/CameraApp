@@ -1,4 +1,3 @@
-import { middyfy } from "@libs/lambda";
 import * as AWS from "aws-sdk";
 
 import { PrismaClient } from "@prisma/client";
@@ -151,6 +150,6 @@ const cameraDetails = async (email) => {
   return cameraDetailsArr.Items;
 };
 
-export const getAllCameraDetails = middyfy(findAllCameraDetails);
-export const getCameraDetailsById = middyfy(findCameraDetailsById);
-export const getCameraDetailsByUserId = middyfy(findCameraDetailsByUserId);
+export const getAllCameraDetails = findAllCameraDetails;
+export const getCameraDetailsById = findCameraDetailsById;
+export const getCameraDetailsByUserId = findCameraDetailsByUserId;

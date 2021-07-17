@@ -6,7 +6,6 @@ import {
   formatJSONResponseStatusServerError,
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
-import { middyfy } from "@libs/lambda";
 import constants from "@libs/constants";
 import { PrismaClient } from "@prisma/client";
 // import { findSiteByIds, findUserByIds } from "./service/CustomerService";
@@ -32,9 +31,9 @@ const addNewCustomer: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
   async (event: any) => {
     try {
       const { customer_name, group_id, integrator_id, user_ids, site_ids } =
-        event.body;
+        JSON.parse(event.body);
 
-      console.log("Event Body -> ", event.body);
+      console.log("Event Body -> ", JSON.parse(event.body));
 
       // const sites = await findSiteByIds(site_ids, prisma);
       // const users = await findUserByIds(user_ids, prisma);
@@ -230,14 +229,14 @@ const findAllCustomers = async () => {
 
 // Update Customer
 const updateCustomer: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
-  async (event) => {
+  async (event: any) => {
     if (!event.pathParameters || !event.pathParameters.customerId) {
       return formatJSONResponseStatusBadRequest({
         message: constants.CUSTOMER_PATHPARAMETERS_ERROR,
       });
     }
     const { customer_name, group_id, integrator_id, user_ids, site_ids } =
-      event.body;
+      JSON.parse(event.body);
     const customer_id = event.pathParameters.customerId;
     try {
       await prisma.customers.update({
@@ -281,7 +280,7 @@ const disiableCustomer = async (event) => {
   }
 
   const customer_id = event.pathParameters.customerId;
-  const { is_disabled } = event.body;
+  const { is_disabled } = JSON.parse(event.body);
 
   try {
     await prisma.customers.update({
@@ -311,7 +310,7 @@ const updateChangeName = async (event) => {
   }
 
   const customer_id = event.pathParameters.customerId;
-  const { change_name } = event.body;
+  const { change_name } = JSON.parse(event.body);
 
   try {
     await prisma.customers.update({
@@ -358,10 +357,10 @@ const removeCustomer = async (event) => {
   }
 };
 
-export const addCustomer = middyfy(addNewCustomer);
-export const getCustomerById = middyfy(findCustomerById);
-export const getAllCustomers = middyfy(findAllCustomers);
-export const editCustomer = middyfy(updateCustomer);
-export const editDisableCustomer = middyfy(disiableCustomer);
-export const editChangeName = middyfy(updateChangeName);
-export const deleteCustomer = middyfy(removeCustomer);
+export const addCustomer = addNewCustomer;
+export const getCustomerById = findCustomerById;
+export const getAllCustomers = findAllCustomers;
+export const editCustomer = updateCustomer;
+export const editDisableCustomer = disiableCustomer;
+export const editChangeName = updateChangeName;
+export const deleteCustomer = removeCustomer;

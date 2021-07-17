@@ -6,7 +6,6 @@ import {
   formatJSONResponseStatusServerError,
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
-import { middyfy } from "@libs/lambda";
 import constants from "@libs/constants";
 import { PrismaClient } from "@prisma/client";
 
@@ -17,7 +16,7 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event: any
 ) => {
   try {
-    console.log(event.body);
+    console.log(JSON.parse(event.body));
 
     const {
       camera_name,
@@ -25,13 +24,13 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       smtp_password,
       group_id,
       integrator_id,
-    } = event.body;
+    } = JSON.parse(event.body);
 
-    if (event.body.camera_ip) {
+    if (JSON.parse(event.body).camera_ip) {
       const camera = await prisma.cameras.create({
         data: {
           camera_name,
-          camera_ip: event.body.camera_ip,
+          camera_ip: JSON.parse(event.body).camera_ip,
           smtp_user_name,
           smtp_password,
           group_id,
@@ -44,8 +43,8 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       });
     }
 
-    // if (event.body.user_ids) {
-    //   const users = event.body.user_ids.map(
+    // if (JSON.parse(event.body).user_ids) {
+    //   const users = JSON.parse(event.body).user_ids.map(
     //     async (user_id: string) =>
     //       await prisma.users.findUnique({ where: { user_id } })
     //   );
@@ -161,7 +160,7 @@ const findAllCameras = async () => {
 
 // Update Camera
 const updateCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
-  event
+  event: any
 ) => {
   if (!event.pathParameters || !event.pathParameters.cameraId) {
     return formatJSONResponseStatusBadRequest({
@@ -174,14 +173,14 @@ const updateCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     smtp_password,
     group_id,
     integrator_id,
-  } = event.body;
+  } = JSON.parse(event.body);
   const camera_id = event.pathParameters.cameraId;
 
-  if (event.body.camera_ip) {
+  if (JSON.parse(event.body).camera_ip) {
     const camera = await prisma.cameras.create({
       data: {
         camera_name,
-        camera_ip: event.body.camera_ip,
+        camera_ip: JSON.parse(event.body).camera_ip,
         smtp_user_name,
         smtp_password,
         group_id,
@@ -228,7 +227,7 @@ const disiableCamera = async (event) => {
   }
 
   const camera_id = event.pathParameters.cameraId;
-  const { is_disabled } = event.body;
+  const { is_disabled } = JSON.parse(event.body);
 
   try {
     await prisma.cameras.update({
@@ -258,7 +257,7 @@ const updateChangeName = async (event) => {
   }
 
   const camera_id = event.pathParameters.cameraId;
-  const { change_name } = event.body;
+  const { change_name } = JSON.parse(event.body);
 
   try {
     await prisma.cameras.update({
@@ -305,10 +304,10 @@ const removeCamera = async (event) => {
   }
 };
 
-export const addCamera = middyfy(addNewCamera);
-export const getCameraById = middyfy(findCameraById);
-export const getAllCameras = middyfy(findAllCameras);
-export const editCamera = middyfy(updateCamera);
-export const editDisableCamera = middyfy(disiableCamera);
-export const editChangeName = middyfy(updateChangeName);
-export const deleteCamera = middyfy(removeCamera);
+export const addCamera = addNewCamera;
+export const getCameraById = findCameraById;
+export const getAllCameras = findAllCameras;
+export const editCamera = updateCamera;
+export const editDisableCamera = disiableCamera;
+export const editChangeName = updateChangeName;
+export const deleteCamera = removeCamera;
