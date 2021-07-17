@@ -2,15 +2,18 @@ export interface camera {
   camera_id: string;
   smtp_user_name: string;
   camera_name: string;
+  change_name: null | string;
 }
 export interface site {
   site_id: string;
   site_name: string;
+  change_name: null | string;
   cameras: camera[];
 }
 export interface customer {
   customer_id: string;
   customer_name: string;
+  change_name: null | string;
   sites: site[];
 }
 export interface user {
@@ -47,13 +50,13 @@ export interface alertUser {
     camera_id: string;
     smtp_user_name: string;
     camera_name: string;
-    site_id: string
+    site_id: string;
   }>;
   sites: Array<{
     site_id: string;
     site_name: string;
   }>;
-  camera_details: cameraDetails[][]
+  camera_details: cameraDetails[][];
 }
 
-export type modalAction = "EDIT CUSTOMER" | "EDIT SITE" | "EDIT CAMERA" | ""
+export type modalAction = "EDIT CUSTOMER" | "EDIT SITE" | "EDIT CAMERA" | "";

@@ -23,19 +23,23 @@ import {
   xlsxCustomer,
   xlsxUser,
   xlsxGroup,
+  FormattedIntegrator,
+  xlsxIntegrator,
+  Integrator
 } from "../Interfaces";
 import { TransitionProps } from "../../Shared/Slides";
 import SimpleTabs from "../../Shared/SimpleTabs";
 import ModalComp from "../../Shared/ModalComp";
 import { downloadXLSX } from "../../Utilities/Helpers/XLSX";
 
-export type args = Camera[] | Site[] | Customer[] | User[] | Group[];
+export type args = Camera[] | Site[] | Customer[] | User[] | Group[] | Integrator[];
 export type retVal =
   | FormattedCamera[]
   | FormattedSite[]
   | FormattedCustomer[]
   | FormattedUser[]
-  | FormattedGroup[];
+  | FormattedGroup[]
+  | FormattedIntegrator[]
 
 interface FunctionalitiesProps {
   loading: boolean;
@@ -43,7 +47,7 @@ interface FunctionalitiesProps {
   columns: Columns[];
   activeData: args;
   inactiveData: args;
-  wholeData: xlsxCamera[] | xlsxSites[] | xlsxCustomer[] | xlsxUser[] | xlsxGroup[];
+  wholeData: xlsxCamera[] | xlsxSites[] | xlsxCustomer[] | xlsxUser[] | xlsxGroup[] | xlsxIntegrator[];
   formatData: (data: args, isActive: boolean) => retVal;
   onRowsDelete: (rows: rows) => false;
   handleClose: () => void;

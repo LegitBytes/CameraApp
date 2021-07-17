@@ -51,14 +51,15 @@ const MainComponent: React.FC<MainComponentProps> = ({ handleOpen }) => {
         customer.sites.map((site) =>
           site.cameras.map((camera) => (
             <Tile
+              key={camera.camera_id}
               smtp_user_name={camera.smtp_user_name}
-              camera={camera.camera_name}
-              customer={customer.customer_name}
-              site={site.site_name}
+              camera={camera.change_name?camera.change_name:camera.camera_name}
+              customer={customer.change_name?customer.change_name:customer.customer_name}
+              site={site.change_name?site.change_name: site.site_name}
             />
           ))
         )
-      )}
+      )}f
     </Grid>
   );
 };

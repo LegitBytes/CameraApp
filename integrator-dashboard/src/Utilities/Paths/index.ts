@@ -27,4 +27,8 @@ export const paths: Path[] = [
     path: "/camera",
     text: "Camera",
   },
+  {
+    path: "/integrator",
+    text: "Integrator",
+  },
 ];

@@ -6,6 +6,7 @@ import {
   FormattedCamera,
   FormattedCustomer,
   FormattedGroup,
+  FormattedIntegrator,
   FormattedSite,
   FormattedUser,
   rows,
@@ -13,7 +14,7 @@ import {
 import { getMuiTheme } from "./MuiOverrides";
 
 export interface TableProps {
-  data: FormattedCamera[] | FormattedSite[] | FormattedCustomer[] | FormattedUser[] | FormattedGroup[];
+  data: FormattedCamera[] | FormattedSite[] | FormattedCustomer[] | FormattedUser[] | FormattedGroup[] | FormattedIntegrator[];
   columns: Columns[];
   title: string;
   onRowsDelete: (rows: rows) => void | false;

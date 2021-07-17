@@ -65,7 +65,6 @@ const Tile: React.FC<TileProps> = ({
     try {
       const res: AxiosResponse<{ camera_details: cameraDetails[] }> =
         await axios.get<{ camera_details: cameraDetails[] }>(url);
-      console.log("response in maindetails -> ", res.data.camera_details);
       setCameraDetails(res.data.camera_details);
       getImageUrl(res.data.camera_details[0]);
       setLoading(false);

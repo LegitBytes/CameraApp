@@ -76,6 +76,19 @@ export interface Group {
   is_disabled: is_disabled;
 }
 
+export interface Integrator {
+  integrator_id: string;
+  name: string;
+  email: string;
+  phone: string;
+  is_disabled: boolean;
+  group_count: number;
+  user_count: number;
+  customer_count: number;
+  site_count: number;
+  camera_count: number;
+}
+
 export interface FormattedCamera {
   name: string;
   ip_address: string;
@@ -125,6 +138,17 @@ export interface FormattedGroup {
   actions: JSX.Element;
 }
 
+export interface FormattedIntegrator {
+  name: string;
+  email: string;
+  phone: string;
+  group_count: number;
+  user_count: number;
+  customer_count: number;
+  site_count: number;
+  camera_count: number;
+}
+
 interface options {
   filter: boolean;
   sort: boolean;
@@ -159,52 +183,64 @@ export interface SiteStats {
 }
 
 export interface xlsxSites {
-  "Site ID": string
-  "Site Name": string
-  "Group Name": string
-  "Number of Users": number
-  "Number of Customers": number
-  "Number of Cameras": number
-  Disabled: boolean
+  "Site ID": string;
+  "Site Name": string;
+  "Group Name": string;
+  "Number of Users": number;
+  "Number of Customers": number;
+  "Number of Cameras": number;
+  Disabled: boolean;
 }
 
 export interface xlsxCamera {
-  "Camera ID": string
-  "Camera Name": string
-  "IP Address": string
-  "SMTP Username": string
-  "SMTP Password": string
-  Site: string
-  Group: string
-  "Number of Users": number 
-  "Total Requests": number
-  Disabled: boolean
+  "Camera ID": string;
+  "Camera Name": string;
+  "IP Address": string;
+  "SMTP Username": string;
+  "SMTP Password": string;
+  Site: string;
+  Group: string;
+  "Number of Users": number;
+  "Total Requests": number;
+  Disabled: boolean;
 }
 
 export interface xlsxCustomer {
-  "Customer ID": string
-  "Customer Name": string
-  "Number of Users": number
-  "Number of Sites": number
-  Disabled: boolean
+  "Customer ID": string;
+  "Customer Name": string;
+  "Number of Users": number;
+  "Number of Sites": number;
+  Disabled: boolean;
 }
 
 export interface xlsxUser {
-  "User ID": string
-  "Email": string
-  "Group Name": string
-  "Number of Customers": number
-  "Number of Sites": number
-  "Number of Cameras": number
-  Disabled: boolean
+  "User ID": string;
+  Email: string;
+  "Group Name": string;
+  "Number of Customers": number;
+  "Number of Sites": number;
+  "Number of Cameras": number;
+  Disabled: boolean;
 }
 
 export interface xlsxGroup {
-  "Group ID": string 
-  "Group Name": string
-  "Number of Users": number
-  "Number of Customers": number
-  "Number of Sites": number
-  "Number of Cameras": number
-  Disabled: boolean
+  "Group ID": string;
+  "Group Name": string;
+  "Number of Users": number;
+  "Number of Customers": number;
+  "Number of Sites": number;
+  "Number of Cameras": number;
+  Disabled: boolean;
+}
+
+export interface xlsxIntegrator {
+  "Integrator ID": string;
+  Email: string;
+  Phone: string;
+  Disabled: boolean;
+  "Number of Groups": number;
+  "Number of Users": number;
+  "Number of Customers": number;
+  "Number of Sites": number;
+  "Number of Cameras": number;
 }

@@ -8,6 +8,7 @@ const Customer = React.lazy(() => import("../../Pages/Customer"));
 const Group = React.lazy(() => import("../../Pages/Group"));
 const Site = React.lazy(() => import("../../Pages/Site"));
 const User = React.lazy(() => import("../../Pages/User"));
+const Integrator = React.lazy(() => import("../../Pages/Integrator"));
 
 export const Routes: React.FC = () => {
   return (
@@ -30,6 +31,11 @@ export const Routes: React.FC = () => {
         <Route exact path="/Group" render={(props) => <Group {...props} />} />
         <Route exact path="/site" render={(props) => <Site {...props} />} />
         <Route exact path="/user" render={(props) => <User {...props} />} />
+        <Route
+          exact
+          path="/integrator"
+          render={(props) => <Integrator {...props} />}
+        />
       </React.Suspense>
     </Switch>
   );

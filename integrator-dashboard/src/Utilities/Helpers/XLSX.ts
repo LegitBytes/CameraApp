@@ -4,9 +4,10 @@ import {
   xlsxCustomer,
   xlsxUser,
   xlsxGroup,
+  xlsxIntegrator,
 } from "../../Components/Interfaces";
 import { utils, WorkSheet, writeFile } from "xlsx";
-type Data = xlsxCamera[] | xlsxSites[] | xlsxUser[] | xlsxGroup[] | xlsxCustomer[];
+type Data = xlsxCamera[] | xlsxSites[] | xlsxUser[] | xlsxGroup[] | xlsxCustomer[] | xlsxIntegrator[];
 export const downloadXLSX = (data: Data, fileName: string) => {
   let wb = utils.book_new();
 

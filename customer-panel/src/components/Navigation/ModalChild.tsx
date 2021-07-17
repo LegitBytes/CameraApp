@@ -15,15 +15,8 @@ interface ModalChildProps {
     message: string
   ) => void;
   handleModalClose: () => void;
-  label: "customer_name" | "site_name" | "camera_name";
   value: string;
 }
-
-type formState =
-  | { customer_name: string }
-  | { site_name: string }
-  | { camera_name: string }
-  | {};
 
 const ModalChild: React.FC<ModalChildProps> = ({
   title,
@@ -31,27 +24,23 @@ const ModalChild: React.FC<ModalChildProps> = ({
   updateId,
   handleOpen,
   handleModalClose,
-  label,
   value,
 }) => {
-  const [formState, setFormState] = useState<formState>({});
+  const [formState, setFormState] = useState<{change_name:string}>({change_name: ''});
   const [url, setUrl] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     switch (title) {
       case "EDIT CUSTOMER":
-        setFormState({ customer_name: value });
-        setUrl(`${process.env.REACT_APP_API_URL}customers/${updateId}`);
+        setUrl(`${process.env.REACT_APP_API_URL}customers/aliase-customer/${updateId}`);
         break;
       case "EDIT SITE":
-        setFormState({ site_name: value });
-        setUrl(`${process.env.REACT_APP_API_URL}sites/${updateId}`);
+        setUrl(`${process.env.REACT_APP_API_URL}sites/aliase-site/${updateId}`);
         break;
       case "EDIT CAMERA":
-        setFormState({ camera_name: value });
-        setUrl(`${process.env.REACT_APP_API_URL}cameras/${updateId}`);
-        break;
+        setUrl(`${process.env.REACT_APP_API_URL}cameras/aliase-camera/${updateId}`);
+        break; 
       default:
         break;
     }
@@ -88,7 +77,7 @@ const ModalChild: React.FC<ModalChildProps> = ({
               variant="outlined"
               size="medium"
               label={title}
-              onChange={(e) => setFormState({ [label]: e.target.value })}
+              onChange={(e) => setFormState({ change_name: e.target.value })}
               fullWidth
               defaultValue={value}
             />

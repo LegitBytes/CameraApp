@@ -21,8 +21,6 @@ interface MainDrawerProp {
   ) => void;
 }
 
-type Label = "customer_name" | "site_name" | "camera_name";
-
 const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
   const history = useHistory();
   const [loading, setLoading] = useState<boolean>(false);
@@ -101,17 +99,14 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [title, setTitle] = useState<modalAction>("EDIT CUSTOMER");
   const [updateId, setUpdateId] = useState<string>("");
-  const [label, setLabel] = useState<Label>("customer_name");
   const [defaultValue, setDefaultValue] = useState<string>("");
   const handleModalOpen = (
     title: modalAction,
     p_updateId: string,
-    p_label: Label,
     dValue: string
   ): void => {
     setTitle(title);
     setUpdateId(p_updateId);
-    setLabel(p_label);
     setDefaultValue(dValue);
     setModalOpen(true);
   };
@@ -149,7 +144,11 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
           >
             {filteredCustomerDetails.map((customer: customer) => (
               <StyledTreeItem
-                labelText={customer.customer_name}
+                labelText={
+                  customer.change_name
+                    ? customer.change_name
+                    : customer.customer_name
+                }
                 nodeId={customer.customer_id}
                 key={customer.customer_id}
                 labelIcon={
@@ -165,8 +164,9 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
                       handleModalOpen(
                         "EDIT CUSTOMER",
                         customer.customer_id,
-                        "customer_name",
-                        customer.customer_name
+                        customer.change_name
+                          ? customer.change_name
+                          : customer.customer_name
                       )
                     }
                   >
@@ -176,7 +176,9 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
               >
                 {customer.sites.map((site: site) => (
                   <StyledTreeItem
-                    labelText={site.site_name}
+                    labelText={
+                      site.change_name ? site.change_name : site.site_name
+                    }
                     nodeId={site.site_id}
                     key={site.site_id}
                     labelIcon={
@@ -192,8 +194,7 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
                           handleModalOpen(
                             "EDIT SITE",
                             site.site_id,
-                            "site_name",
-                            site.site_name
+                            site.change_name ? site.change_name : site.site_name
                           )
                         }
                       >
@@ -203,12 +204,28 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
                   >
                     {site.cameras.map((camera: camera) => (
                       <StyledTreeItem
-                        labelText={camera.camera_name}
-                        nodeId={camera.camera_name}
-                        key={camera.camera_name}
+                        labelText={
+                          camera.change_name
+                            ? camera.change_name
+                            : camera.camera_name
+                        }
+                        nodeId={camera.camera_id}
+                        key={camera.camera_id}
                         onClick={() =>
                           history.push(
-                            `/main/${customer.customer_name}/${site.site_name}/${camera.camera_name}-${camera.smtp_user_name}`
+                            `/main/${
+                              customer.change_name
+                                ? customer.change_name
+                                : customer.customer_name
+                            }/${
+                              site.change_name
+                                ? site.change_name
+                                : site.site_name
+                            }/${
+                              camera.change_name
+                                ? camera.change_name
+                                : camera.camera_name
+                            }-${camera.smtp_user_name}`
                           )
                         }
                         labelIcon={
@@ -224,8 +241,9 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
                               handleModalOpen(
                                 "EDIT CAMERA",
                                 camera.camera_id,
-                                "camera_name",
-                                camera.camera_name
+                                camera.change_name
+                                  ? camera.change_name
+                                  : camera.camera_name
                               )
                             }
                           >
@@ -252,7 +270,6 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
           handleGet={getCustomerDetails}
           handleModalClose={handleModalClose}
           handleOpen={handleOpen}
-          label={label}
           title={title}
           updateId={updateId}
           value={defaultValue}
