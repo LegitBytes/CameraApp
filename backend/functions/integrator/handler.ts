@@ -168,6 +168,35 @@ const updateIntegrator: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
       });
     }
   };
+// Update is_disiable
+const disiableIntegrator = async (event) => {
+  if (!event.pathParameters || !event.pathParameters.integratorId) {
+    return formatJSONResponseStatusBadRequest({
+      message: constants.INTEGRATOR_PATHPARAMETERS_ERROR,
+    });
+  }
+ 
+  const integrator_id = event.pathParameters.integratorId;
+  const { is_disabled } = JSON.parse(event.body);
+ 
+  try {
+    await prisma.integrators.update({
+      where: {
+        integrator_id,
+      },
+      data: { is_disabled },
+    });
+    return formatJSONResponseStatusOk({
+      message: constants.INTEGRATOR_UPDATE,
+    });
+  } catch (error) {
+    console.error(error);
+    return formatJSONResponseStatusServerError({
+      message: constants.SERVER_ERROR,
+      error,
+    });
+  }
+};
 
 // Remove the integrators.
 const removeIntegrator = async (event) => {
@@ -200,3 +229,4 @@ export const getIntegratorById = findIntegratorById;
 export const getAllIntegrators = findAllIntegrators;
 export const editIntegrator = updateIntegrator;
 export const deleteIntegrator = removeIntegrator;
+export const editDisableIntegrator = disiableIntegrator;

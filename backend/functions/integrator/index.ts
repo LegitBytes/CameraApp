@@ -63,6 +63,19 @@ export const updateIntegrator = {
   ],
 };
 
+export const disiableIntegrator = {
+  handler: `${handlerPath(__dirname)}/handler.editDisableIntegrator`,
+  events: [
+    {
+      http: {
+        method: "patch",
+        path: "integrators/disable-integrator/{integratorId}",
+        cors: true,
+      },
+    },
+  ],
+};
+
 export const removeIntegrator = {
   handler: `${handlerPath(__dirname)}/handler.deleteIntegrator`,
   events: [

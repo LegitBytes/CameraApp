@@ -32,6 +32,7 @@ import {
   findAllIntegrators,
   updateIntegrator,
   removeIntegrator,
+  disiableIntegrator
 } from "@functions/integrator";
 import {
   addNewSite,
@@ -133,6 +134,7 @@ const serverlessConfiguration: AWS = {
     findIntegratorById,
     findAllIntegrators,
     updateIntegrator,
+    disiableIntegrator,
     removeIntegrator,
     addNewSite,
     findSiteById,
