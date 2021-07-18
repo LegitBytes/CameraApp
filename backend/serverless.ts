@@ -32,7 +32,7 @@ import {
   findAllIntegrators,
   updateIntegrator,
   removeIntegrator,
-  disiableIntegrator
+  disiableIntegrator,
 } from "@functions/integrator";
 import {
   addNewSite,
@@ -72,7 +72,11 @@ const serverlessConfiguration: AWS = {
       },
     },
   },
-  plugins: ["serverless-offline", "serverless-webpack"],
+  plugins: [
+    "serverless-offline",
+    "serverless-webpack",
+    "serverless-prune-plugin",
+  ],
   // package: {
   //   patterns: ["../api_database/*"],
   // },
@@ -103,6 +107,7 @@ const serverlessConfiguration: AWS = {
           "dynamodb:PutItem",
           "dynamodb:UpdateItem",
           "dynamodb:DeleteItem",
+          "cognito-idp:AdminCreateUser",
         ],
         Resource: "*",
       },
@@ -153,6 +158,19 @@ const serverlessConfiguration: AWS = {
     findAllCameraDetails,
     findCameraDetailsByUserId,
     groupCameraByEmail,
+  },
+
+  resources: {
+    Resources: {
+      UserPoolCameraApp: {
+        Type: "AWS::Cognito::UserPool",
+        Properties: {
+          MfaConfiguration: "OFF",
+          UserPoolName: "user-camera-app",
+          UsernameAttributes: ["email"],
+        },
+      },
+    },
   },
 };
 

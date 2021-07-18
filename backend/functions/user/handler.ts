@@ -8,6 +8,7 @@ import {
 } from "@libs/apiGateway";
 import constants from "@libs/constants";
 import { PrismaClient } from "@prisma/client";
+import { auth } from "./auth";
 
 const prisma = new PrismaClient();
 
@@ -41,23 +42,7 @@ const addNewUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       });
     }
 
-    // const customers = await prisma.customers.findMany({
-    //   where: { customer_id: { in: customer_ids } },
-    // });
-
-    // console.log("Customers in add User", customers);
-
-    // const cameras = await prisma.cameras.findMany({
-    //   where: { camera_id: { in: camera_ids } },
-    // });
-
-    // console.log("Cameras in add User", cameras);
-
-    // const sites = await prisma.sites.findMany({
-    //   where: { site_id: { in: site_ids } },
-    // });
-
-    // console.log("Sites in add User", sites);
+    await auth(user_email);
 
     const user = await prisma.users.create({
       data: {
@@ -288,7 +273,7 @@ const findAllUsers = async () => {
 
 // Update User
 const updateUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
-  event
+  event:any
 ) => {
   if (!event.pathParameters || !event.pathParameters.userId) {
     return formatJSONResponseStatusBadRequest({
