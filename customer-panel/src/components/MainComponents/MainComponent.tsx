@@ -1,8 +1,9 @@
 import { Grid } from "@material-ui/core";
 import axios, { AxiosResponse } from "axios";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useContext } from "react";
 import LoadingScreen from "../../shared/LoadingScreen";
 import { customer, user } from "../interfaces";
+import { AuthContext } from "../../context/Auth"
 import Tile from "./Tile";
 interface MainComponentProps {
   handleOpen: (
@@ -14,13 +15,14 @@ interface MainComponentProps {
 
 const MainComponent: React.FC<MainComponentProps> = ({ handleOpen }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const temporaryUser = "6029f127-d062-4ad3-9622-f55bf99e7ee8";
+  // const temporaryUser = "6029f127-d062-4ad3-9622-f55bf99e7ee8";
+  const { userId } = useContext(AuthContext)
   const [customerDetails, setCustomerDetails] = useState<customer[]>([]);
   const getCustomerDetails = useCallback(async () => {
     setLoading(true);
     try {
       const res: AxiosResponse<{ user: user }> = await axios.get(
-        process.env.REACT_APP_API_URL + "users/" + temporaryUser
+        process.env.REACT_APP_API_URL + "users/" + userId
       );
       setCustomerDetails(res.data.user.customers);
       setLoading(false);
@@ -59,7 +61,7 @@ const MainComponent: React.FC<MainComponentProps> = ({ handleOpen }) => {
             />
           ))
         )
-      )}f
+      )}
     </Grid>
   );
 };

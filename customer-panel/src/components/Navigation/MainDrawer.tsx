@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState, useContext } from "react";
 import LoadingScreen from "../../shared/LoadingScreen";
 import axios, { AxiosResponse } from "axios";
 import { customer, site, user, camera, modalAction } from "../interfaces";
@@ -11,6 +11,7 @@ import { ChangeEvent } from "react";
 import ModalComp from "../../shared/ModalComp";
 import ModalChild from "./ModalChild";
 import { IconButton } from "@material-ui/core";
+import { AuthContext } from "../../context/Auth";
 
 interface MainDrawerProp {
   classes: ClassNameMap<"tvRoot" | "inputStyles">;
@@ -23,8 +24,9 @@ interface MainDrawerProp {
 
 const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
   const history = useHistory();
+  const { userId } = useContext(AuthContext)
   const [loading, setLoading] = useState<boolean>(false);
-  const temporaryUser = "6029f127-d062-4ad3-9622-f55bf99e7ee8";
+  // const temporaryUser = "6029f127-d062-4ad3-9622-f55bf99e7ee8";
   const [customerDetails, setCustomerDetails] = useState<customer[]>([]);
   const [filteredCustomerDetails, setFilteredCustomerDetails] = useState<
     customer[]
@@ -33,13 +35,13 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
     setLoading(true);
     try {
       const res: AxiosResponse<{ user: user }> = await axios.get(
-        process.env.REACT_APP_API_URL + "users/" + temporaryUser
+        process.env.REACT_APP_API_URL + "users/" + userId
       );
       setCustomerDetails(res.data.user.customers);
       setFilteredCustomerDetails(res.data.user.customers);
       setLoading(false);
     } catch (err) {
-      console.log(err);
+      console.log(err); 
       handleOpen(
         "left",
         "bottom",

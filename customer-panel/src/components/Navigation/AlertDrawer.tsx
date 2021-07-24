@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState, useContext } from "react";
 import {
   List,
   ListItem,
@@ -12,6 +12,8 @@ import LoadingScreen from "../../shared/LoadingScreen";
 import { FiberManualRecord } from "@material-ui/icons";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import { useHistory } from "react-router-dom";
+import { AuthContext } from "../../context/Auth"
+
 interface AlertDrawerProps {
   classes: ClassNameMap<"ml5" | "mr5" | "listStyles" | "inputStyles">;
   handleOpen: (
@@ -22,7 +24,8 @@ interface AlertDrawerProps {
 }
 
 const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
-  const temporaryUser = "6029f127-d062-4ad3-9622-f55bf99e7ee8";
+  // const temporaryUser = "6029f127-d062-4ad3-9622-f55bf99e7ee8";
+  const { userId } = useContext(AuthContext)
   const history = useHistory();
   const [userAlerts, setUserAlerts] = useState<alertUser>({
     camera_details: [],
@@ -34,7 +37,7 @@ const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const url = process.env.REACT_APP_API_URL + "user-details/" + temporaryUser;
+  const url = process.env.REACT_APP_API_URL + "user-details/" +userId;
 
   const getCameraAlerts = useCallback(async () => {
     setLoading(true);

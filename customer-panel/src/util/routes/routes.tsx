@@ -24,6 +24,7 @@ const Routes: React.FC = () => {
           path="/alerts/:fromemail/:timestamp"
           render={(props) => <Alerts {...props} />}
         />
+        <Redirect from="*" to="/main" />
       </React.Suspense>
     </Switch>
   );

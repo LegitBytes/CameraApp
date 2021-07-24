@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { alertUser, cameraDetails } from "../interfaces";
 import axios, { AxiosResponse } from "axios";
 import { useParams } from "react-router-dom";
 import AlertView from "./AlertView";
+import { AuthContext } from "../../context/Auth";
 interface AlertComponentProps {
   handleOpen: (
     horizontal: "left" | "center" | "right",
@@ -19,7 +20,8 @@ interface params {
 const AlertComponent: React.FC<AlertComponentProps> = ({ handleOpen }) => {
   const { timestamp, fromemail }: params = useParams();
 
-  const temporaryUser = "6029f127-d062-4ad3-9622-f55bf99e7ee8";
+  // const temporaryUser = "6029f127-d062-4ad3-9622-f55bf99e7ee8";
+  const { userId } = useContext(AuthContext)
 
   const [alert, setAlert] = useState<cameraDetails>({
     HTMLbody: "",
@@ -33,7 +35,7 @@ const AlertComponent: React.FC<AlertComponentProps> = ({ handleOpen }) => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const url = process.env.REACT_APP_API_URL + "user-details/" + temporaryUser;
+  const url = process.env.REACT_APP_API_URL + "user-details/" + userId;
 
   const [imageList, setImageList] = useState<string[]>([]);
 

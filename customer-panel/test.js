@@ -6,4 +6,4 @@
 // let brr = [].concat(...arr)
 // console.log(brr);
 
-console.log(!![])
+console.log(false && 12)

@@ -6,11 +6,27 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import { AuthProvider } from "./context/Auth";
+
+//Amplify setup
+import { Amplify } from "aws-amplify";
+Amplify.configure({
+  Auth: {
+    userPoolId: process.env.REACT_APP_USERPOOLID,
+    userPoolWebClientId: process.env.REACT_APP_USERPOOLWEBCLIENTID,
+  },
+  Analytics: {
+    disabled: true,
+  },
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </MuiPickersUtilsProvider>
     </Router>
   </React.StrictMode>,
