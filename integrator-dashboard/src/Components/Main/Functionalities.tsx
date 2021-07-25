@@ -25,21 +25,27 @@ import {
   xlsxGroup,
   FormattedIntegrator,
   xlsxIntegrator,
-  Integrator
+  Integrator,
 } from "../Interfaces";
 import { TransitionProps } from "../../Shared/Slides";
 import SimpleTabs from "../../Shared/SimpleTabs";
 import ModalComp from "../../Shared/ModalComp";
 import { downloadXLSX } from "../../Utilities/Helpers/XLSX";
 
-export type args = Camera[] | Site[] | Customer[] | User[] | Group[] | Integrator[];
+export type args =
+  | Camera[]
+  | Site[]
+  | Customer[]
+  | User[]
+  | Group[]
+  | Integrator[];
 export type retVal =
   | FormattedCamera[]
   | FormattedSite[]
   | FormattedCustomer[]
   | FormattedUser[]
   | FormattedGroup[]
-  | FormattedIntegrator[]
+  | FormattedIntegrator[];
 
 interface FunctionalitiesProps {
   loading: boolean;
@@ -47,7 +53,13 @@ interface FunctionalitiesProps {
   columns: Columns[];
   activeData: args;
   inactiveData: args;
-  wholeData: xlsxCamera[] | xlsxSites[] | xlsxCustomer[] | xlsxUser[] | xlsxGroup[] | xlsxIntegrator[];
+  wholeData:
+    | xlsxCamera[]
+    | xlsxSites[]
+    | xlsxCustomer[]
+    | xlsxUser[]
+    | xlsxGroup[]
+    | xlsxIntegrator[];
   formatData: (data: args, isActive: boolean) => retVal;
   onRowsDelete: (rows: rows) => false;
   handleClose: () => void;
@@ -107,29 +119,25 @@ const Functionalities: React.FC<FunctionalitiesProps> = ({
           </ButtonComp>
         </Grid> */}
         <div style={{ marginTop: 80 }}>
-          {!!wholeData.length && (
-            <>
-              {" "}
-              <ButtonComp
-                type="primary"
-                variant="contained"
-                margin={10}
-                size="large"
-                onClick={() => downloadXLSX(wholeData, title)}
-              >
-                Download XLSX
-              </ButtonComp>
-              <ButtonComp
-                type="primary"
-                variant="contained"
-                margin={10}
-                size="large"
-                onClick={handleModalOpen}
-              >
-                Add new {title.substr(0, title.length - 1)}
-              </ButtonComp>
-            </>
-          )}
+          {" "}
+          <ButtonComp
+            type="primary"
+            variant="contained"
+            margin={10}
+            size="large"
+            onClick={() => downloadXLSX(wholeData, title)}
+          >
+            Download XLSX
+          </ButtonComp>
+          <ButtonComp
+            type="primary"
+            variant="contained"
+            margin={10}
+            size="large"
+            onClick={handleModalOpen}
+          >
+            Add new {title.substr(0, title.length - 1)}
+          </ButtonComp>
         </div>
       </Grid>
       {loading ? (

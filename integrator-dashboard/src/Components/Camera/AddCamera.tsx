@@ -55,14 +55,14 @@ const AddCamera: React.FC<AddCameraProps> = ({
           smtp_user_name: "",
           smtp_password: "",
           group_id: "",
-          integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
+          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
         }
       : {
           camera_name: item?.camera_name,
           smtp_user_name: item?.smtp_user_name,
           smtp_password: item?.smtp_password,
           group_id: item?.groups.group_id,
-          integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
+          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
         };
 
   const [formState, setFormState] = useState<FormState>(initialState);

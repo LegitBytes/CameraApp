@@ -116,7 +116,7 @@ const AllCameras: React.FC = () => {
       smtp_password: (
         <CopyAble text={item.smtp_password} handleOpen={handleOpen} />
       ),
-      site: item.sites?.site_name,
+      site: item.sites ? item.sites.site_name : "NO SITE ASSIGNED",
       customer: item.customer,
       total_requests: item.total_request,
       group_name: item.groups.group_name,
@@ -165,8 +165,8 @@ const AllCameras: React.FC = () => {
       "Number of Users": camera.user_count,
       "Total Requests": camera.total_request,
       Group: camera.groups.group_name,
-      Site: camera.sites.site_name,
-     Disabled: camera.is_disabled
+      Site: camera.sites ? camera.sites.site_name : "NO SITE ASSIGNED",
+      Disabled: camera.is_disabled,
     }));
   };
 

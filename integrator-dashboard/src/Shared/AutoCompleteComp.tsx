@@ -1,7 +1,7 @@
 import React from "react";
 import { Chip, TextField } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
-import { Delete } from "@material-ui/icons";
+import { Delete, NotInterested } from "@material-ui/icons";
 interface AutoCompleteCompProps {
   data: any[];
   usedData: any[];
@@ -9,6 +9,7 @@ interface AutoCompleteCompProps {
   returnKey: string;
   changeKey: string;
   handleChange: (newVal: any, changeKey: string, returnKey: string) => void;
+  handleDelete?: (option: any) => void;
   placeholder: string;
 }
 
@@ -20,6 +21,7 @@ const AutoCompleteComp: React.FC<AutoCompleteCompProps> = ({
   changeKey,
   labelKey,
   returnKey,
+  handleDelete
 }) => {
   return (
     <Autocomplete
@@ -33,15 +35,15 @@ const AutoCompleteComp: React.FC<AutoCompleteCompProps> = ({
         <TextField {...params} variant="outlined" placeholder={placeholder} />
       )}
       getOptionDisabled={(option) =>
-        option[labelKey] === "No sites available" || 
+        option[labelKey] === "No sites available" ||
         option[labelKey] === "No cameras available" ||
         option[labelKey] === "No customers available" ||
-        option.deleteDisabled 
-        // usedData.find((item) => item[returnKey] === option[returnKey])
-        //   ? true
-        //   : false
+        option.deleteDisabled ||
+        usedData.find((item) => item[returnKey] === option[returnKey])
+          ? true
+          : false
       }
-      // disableClearable
+      disableClearable
       getOptionSelected={(option, value) =>
         option[returnKey] === value[returnKey]
       }
@@ -54,16 +56,19 @@ const AutoCompleteComp: React.FC<AutoCompleteCompProps> = ({
               variant="outlined"
               label={option[labelKey]}
               {...getTagProps({ index })}
-              style={{
+              style={!option.deleteDisabled ? {
                 color: "#007BFF",
                 border: "1px solid #007BFF",
                 margin: 5,
+              }: {
+                color: "grey",
+                border: "1px solid grey",
+                margin: 5
               }}
-              deleteIcon={<Delete style={{ color: "#007BFF" }} />}
+              deleteIcon={option.deleteDisabled ? <NotInterested style={{color: "grey"}} /> :<Delete style={{ color: "#007BFF" }} />}
               disabled={option.deleteDisabled}
               onDelete={() => {
-                console.log("option deleted -> ", option[returnKey]);
-                console.log("option -> ", option);
+                handleDelete? handleDelete(option) : console.log(option);
               }}
             />
           );

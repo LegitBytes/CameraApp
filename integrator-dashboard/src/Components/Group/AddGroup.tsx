@@ -39,11 +39,11 @@ const AddGroup: React.FC<AddGroupProps> = ({
     action === "ADD"
       ? {
           group_name: "",
-          integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
+          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
         }
       : {
           group_name: item?.group_name,
-          integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
+          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
         };
 
   const [formState, setFormState] = useState<FormState>(initialState);

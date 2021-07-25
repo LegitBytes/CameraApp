@@ -52,7 +52,7 @@ const AddUser: React.FC<AddUserProps> = ({
       ? {
           user_email: "",
           group_id: "",
-          integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
+          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
           site_ids: [],
           customer_ids: [],
           camera_ids: [],
@@ -60,7 +60,7 @@ const AddUser: React.FC<AddUserProps> = ({
       : {
           user_email: item?.user_email,
           group_id: item?.groups.group_id,
-          integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
+          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
           site_ids: item?.sites.map(
             (site: { site_id: string }) => site.site_id
           ),
@@ -74,10 +74,14 @@ const AddUser: React.FC<AddUserProps> = ({
 
   const [formState, setFormState] = useState<FormState>(initialState);
 
+  //This is simple, this is onChange for email
+
   const onChange = (e) => {
     let { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
   };
+
+  //Fetching all groups. No other transformation
 
   const [loading1, setLoading1] = useState<boolean>(true);
 
@@ -89,16 +93,15 @@ const AddUser: React.FC<AddUserProps> = ({
       const response: AxiosResponse<{ groups: Group[] }> = await axios.get(
         process.env.REACT_APP_API_URL + "groups"
       );
-      // const activeArr = response.data.groups.filter(
-      //   (item) => item.is_disabled === false
-      // );
-      // setGroupData(activeArr);
       setGroupData(response.data.groups);
       setLoading1(false);
     } catch (err) {
       setLoading1(false);
     }
   }, []);
+
+  // Fetching all customers, sites and group, and adding a key deleteDisabled in each, so that they can be later used for greying out in AutoComplete
+  // FilteredData is initially the duplicate of data fetched, but is changed based on group change
 
   const [loading2, setLoading2] = useState<boolean>(true);
 
@@ -173,128 +176,6 @@ const AddUser: React.FC<AddUserProps> = ({
     }
   }, []);
 
-  const getUsedData = (data: any[], dataKey: string, stateKey: string) => {
-    const withUndefined = formState[stateKey].map((val) =>
-      data.find((item) => item[dataKey] === val)
-    );
-    return withUndefined.filter((item) => item !== undefined);
-    // let beforeReturn = withUndefined.filter((item) => item !== undefined);
-
-    // let retVal: any[] = [];
-    // //
-
-    // if (stateKey === "customer_ids") {
-    //   retVal = beforeReturn.map((item) => ({
-    //     ...item,
-    //     deleteDisabled: false,
-    //   }));
-    // }else{
-    //   retVal = beforeReturn.map((item) => ({
-    //     ...item,
-    //     deleteDisabled: true,
-    //   }));
-    // }
-
-    // return retVal;
-  };
-
-  const handleChange = (
-    newVal: any[],
-    changeKey: string,
-    returnKey: string
-  ) => {
-    // console.log("newVal ->", newVal);
-
-    let arr = newVal.map((item) => item[returnKey]);
-    // setFormState({ ...formState, [changeKey]: arr });
-
-    switch (changeKey) {
-      case "customer_ids":
-        let siteIds: string[] = [];
-        newVal.forEach((val) => {
-          val.sites.forEach((site) => siteIds.push(site.site_id));
-        });
-        let formSiteIds = formState.site_ids ? formState.site_ids : [];
-        siteIds.forEach((item) => {
-          let exists = formSiteIds.find((ele) => ele === item);
-          if (!exists) {
-            formSiteIds.push(item);
-          }
-        });
-        // brr = [...brr, ...temp]
-        let disabledSites = filteredSiteData;
-        formSiteIds.forEach((siteId) => {
-          let index = disabledSites.findIndex(
-            (item) => item.site_id === siteId
-          );
-          if (index >= 0) {
-            disabledSites[index].deleteDisabled = true;
-          }
-        });
-        setFilteredSiteData(disabledSites);
-
-        let camIdsFromCust: string[] = [];
-
-        newVal.forEach((val) => {
-          val.sites.forEach((site) => {
-            site.cameras.forEach((cam) => {
-              camIdsFromCust.push(cam.camera_id);
-            });
-          });
-        });
-
-        let formCamIds = formState.camera_ids ? formState.camera_ids : [];
-        camIdsFromCust.forEach((item) => {
-          let exists = formCamIds.find((ele) => ele === item);
-          if (!exists) {
-            formCamIds.push(item);
-          }
-        });
-
-        let disabledCameras = filteredCameraData;
-
-        formCamIds.forEach((camId) => {
-          let index = disabledCameras.findIndex(
-            (item) => item.camera_id === camId
-          );
-          if (index >= 0) {
-            disabledCameras[index].deleteDisabled = true;
-          }
-        });
-        // setFilteredCameraData(disabledCameras);
-        setFormState({ ...formState, [changeKey]: arr, site_ids: formSiteIds });
-        break;
-      case "site_ids":
-        let camIds: string[] = [];
-        newVal.forEach((val) => {
-          val.cameras.forEach((cam) => camIds.push(cam.camera_id));
-        });
-
-        let formCameraIds = formState.camera_ids ? formState.camera_ids : [];
-        camIds.forEach((item) => {
-          let exists = formCameraIds.find((ele) => ele === item);
-          if (!exists) {
-            formCameraIds.push(item);
-          }
-        });
-        setFormState({
-          ...formState,
-          [changeKey]: arr,
-          camera_ids: formCameraIds,
-        });
-
-        break;
-      case "camera_ids":
-        setFormState({
-          ...formState,
-          [changeKey]: arr,
-        });
-        break;
-      default:
-        break;
-    }
-  };
-
   useEffect(() => {
     getGroupData();
     getCustomerData();
@@ -307,12 +188,16 @@ const AddUser: React.FC<AddUserProps> = ({
       setSiteData([]);
       setCameraData([]);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getGroupData, getCustomerData, getSiteData, getCameraData]);
+
+  //getUsedData return the whole customers, sites and Cameras data which are already present in formState, onMount -> comes into effect for update action, as a result of which the values are not greyed out.
+
+  //Filtering customers, sites and cameras values based on current group.
 
   const onGroupChange = (e) => {
     let { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
-    console.log("group_id in onGroupChange", value);
 
     let filteredCustomers = customerData.filter(
       (item: Customer) => item.groups.group_id === value
@@ -324,7 +209,7 @@ const AddUser: React.FC<AddUserProps> = ({
       setFilteredCustomerData([
         {
           customer_id: "",
-          customer_name: "No customers available",
+          customer_name: "No customers available", //This is for visual feedback, Since we are mapping customer_name in autoComplete
           groups: { group_id: "", group_name: "" },
           is_disabled: false,
           sites: [],
@@ -342,7 +227,7 @@ const AddUser: React.FC<AddUserProps> = ({
       setFilteredSiteData([
         {
           site_id: "",
-          site_name: "No sites available",
+          site_name: "No sites available", //This is for visual feedback, Since we are mapping site_name in autoComplete
           groups: { group_name: "", group_id: "" },
           users: [],
           customers: [],
@@ -361,7 +246,7 @@ const AddUser: React.FC<AddUserProps> = ({
       setFilteredCameraData([
         {
           camera_id: "",
-          camera_name: "No cameras available",
+          camera_name: "No cameras available", //This is for visula feedback, Since we are mapping camera_name in autoComplete
           ip_address: "",
           smtp_user_name: "",
           smtp_password: "",
@@ -374,6 +259,176 @@ const AddUser: React.FC<AddUserProps> = ({
           deleteDisabled: false,
         },
       ]);
+    }
+  };
+
+  const getUsedData = (data: any[], dataKey: string, stateKey: string) => {
+    const withUndefined = formState[stateKey].map((val) => {
+      let obj = data.find((item) => item[dataKey] === val);
+
+      let allSitesFromCustomer: string[] = [];
+      let allCamerasFromCustomer: string[] = [];
+      let existingCustomersWithUndefined = formState.customer_ids?.map(
+        (custId) =>
+          filteredCustomerData.find((cust) => cust.customer_id === custId)
+      );
+      let existingCustomersWithoutUndefined =
+        existingCustomersWithUndefined?.filter((item) => item !== undefined);
+      existingCustomersWithoutUndefined?.forEach((cust) => {
+        cust?.sites.forEach((site: Site) => {
+          allSitesFromCustomer.push(site.site_id);
+          site.cameras.forEach((camera: Camera) => {
+            allCamerasFromCustomer.push(camera.camera_id);
+          });
+        });
+      });
+
+      if (stateKey === "site_ids") {
+        if (allSitesFromCustomer.indexOf(val) >= 0) {
+          obj = { ...obj, deleteDisabled: true };
+        }
+      }
+
+      if (stateKey === "camera_ids") {
+        let lonerSites: string[] = [];
+        formState["site_ids"]?.forEach((site) => {
+          if (allSitesFromCustomer.indexOf(site) < 0) {
+            lonerSites.push(site);
+          }
+        });
+        let allCamerasFromLonerSites: string[] = [];
+
+        lonerSites.forEach((site) => {
+          let siteDetails = filteredSiteData.find((s) => s.site_id === site);
+          if (siteDetails) {
+            siteDetails.cameras.forEach((sdCam: Camera) => {
+              allCamerasFromLonerSites.push(sdCam.camera_id);
+            });
+          }
+        });
+
+        let readOnlyCameras = [
+          ...allCamerasFromCustomer,
+          ...allCamerasFromLonerSites,
+        ];
+
+        if (readOnlyCameras.indexOf(val) >= 0) {
+          obj = { ...obj, deleteDisabled: true };
+        }
+      }
+      return obj;
+    });
+    return withUndefined.filter((item) => item !== undefined);
+  };
+
+  //This is where main logic is residing for making stuffs read only, since nothing is changed onMount for action edit, they will not be greyed out
+
+  const handleChange = (
+    newVal: any[],
+    changeKey: string,
+    returnKey: string
+  ) => {
+
+    let arr = newVal.map((item) => item[returnKey]); //All the customers/site/cameras selected after change
+    // setFormState({ ...formState, [changeKey]: arr });
+
+    switch (changeKey) {
+      case "customer_ids": //key in the formState
+        let siteIds: string[] = [];
+        let camIdsFromCust: string[] = [];
+        newVal.forEach((val) => {
+          val.sites.forEach((site) => {
+            siteIds.push(site.site_id);
+            site.cameras.forEach((camera) =>
+              camIdsFromCust.push(camera.camera_id)
+            );
+          }); //All sites - sitesIDs and cameras-cameraIDs in the selected customers after change
+        });
+        let formSiteIds = formState.site_ids ? formState.site_ids : []; //All sites - siteIDs in the formState now, can be empty [] as well
+        siteIds.forEach((item) => {
+          let exists = formSiteIds.find((ele) => ele === item);
+          if (!exists) {
+            formSiteIds.push(item); //Adding site - siteIDs from selected sites-siteIds to formState siteIDs which are not present
+          }
+        });
+        let disabledSites = filteredSiteData;
+        siteIds.forEach((siteId) => {
+          let index = disabledSites.findIndex(
+            (item) => item.site_id === siteId
+          );
+          if (index >= 0) {
+            disabledSites[index].deleteDisabled = true;
+          }
+        });
+        setFilteredSiteData(disabledSites);
+
+        let formCamIds = formState.camera_ids ? formState.camera_ids : [];
+        camIdsFromCust.forEach((item) => {
+          let exists = formCamIds.find((ele) => ele === item);
+          if (!exists) {
+            formCamIds.push(item);
+          }
+        });
+
+        let disabledCameras = filteredCameraData;
+
+        camIdsFromCust.forEach((camId) => {
+          let index = disabledCameras.findIndex(
+            (item) => item.camera_id === camId
+          );
+          if (index >= 0) {
+            disabledCameras[index].deleteDisabled = true;
+          }
+        });
+        setFilteredCameraData(disabledCameras);
+        setFormState({
+          ...formState,
+          [changeKey]: arr,
+          site_ids: formSiteIds,
+          camera_ids: formCamIds,
+        });
+        break;
+      case "site_ids":
+        let camIds: string[] = [];
+        newVal.forEach((val) => {
+          val.cameras.forEach((cam) => camIds.push(cam.camera_id));
+        });
+
+        let formCameraIds = formState.camera_ids ? formState.camera_ids : [];
+        camIds.forEach((item) => {
+          let exists = formCameraIds.find((ele) => ele === item);
+          if (!exists) {
+            formCameraIds.push(item);
+          }
+        });
+
+        let disabledCameras2 = filteredCameraData;
+
+        camIds.forEach((camId) => {
+          let index = disabledCameras2.findIndex(
+            (item) => item.camera_id === camId
+          );
+          if (index >= 0) {
+            disabledCameras2[index].deleteDisabled = true;
+          }
+        });
+        setFilteredCameraData(disabledCameras2);
+
+        setFormState({
+          ...formState,
+          [changeKey]: arr,
+          camera_ids: formCameraIds,
+        });
+
+        break;
+      case "camera_ids":
+        setFormState({
+          ...formState,
+          [changeKey]: arr,
+        });
+        break;
+      default:
+        break;
     }
   };
 
@@ -424,6 +479,59 @@ const AddUser: React.FC<AddUserProps> = ({
       handleOpen,
     ]
   );
+
+  const handleDelete = (option: any) => {
+
+    if (option.hasOwnProperty("customer_id")) {
+      let filteredCustomerIds = formState["customer_ids"]?.filter(
+        (custId) => custId !== option["customer_id"]
+      );
+      let sitesFromCustomer: string[] = [];
+      let camerasFromCustomer: string[] = [];
+      option.sites.forEach((site: Site) => {
+        sitesFromCustomer.push(site.site_id);
+        site.cameras.forEach((camera: Camera) => {
+          camerasFromCustomer.push(camera.camera_id);
+        });
+      });
+      let siteIdsDelete = formState["site_ids"];
+      let cameraIdsDelete = formState["camera_ids"];
+      sitesFromCustomer.forEach((sid) => {
+        siteIdsDelete = siteIdsDelete?.filter((siteID) => siteID !== sid);
+      });
+      camerasFromCustomer.forEach((cid) => {
+        cameraIdsDelete = cameraIdsDelete?.filter((camID) => camID !== cid);
+      });
+      setFormState({
+        ...formState,
+        customer_ids: filteredCustomerIds,
+        site_ids: siteIdsDelete,
+        camera_ids: cameraIdsDelete,
+      });
+    }
+
+    if (option.hasOwnProperty("site_id")) {
+      let filteredSiteIds = formState["site_ids"]?.filter(
+        (siteId) => siteId !== option["site_id"]
+      );
+      let camerasFromSites = option.cameras.map((cam) => cam.camera_id);
+      let cameraIdsDelete = formState["camera_ids"];
+      camerasFromSites.forEach((cid) => {
+        cameraIdsDelete = cameraIdsDelete?.filter((camID) => camID !== cid);
+      });
+      setFormState({
+        ...formState,
+        site_ids: filteredSiteIds,
+        camera_ids: cameraIdsDelete,
+      });
+    }
+    if (option.hasOwnProperty("camera_id")) {
+      let filteredCameraIds = formState["camera_ids"]?.filter(
+        (camId) => camId !== option["camera_id"]
+      );
+      setFormState({ ...formState, camera_ids: filteredCameraIds });
+    }
+  };
 
   if (loading1 || loading2 || loading3 || loading4) {
     return (
@@ -491,6 +599,7 @@ const AddUser: React.FC<AddUserProps> = ({
               returnKey="customer_id"
               handleChange={handleChange}
               placeholder="ADD NEW CUSTOMER"
+              handleDelete={handleDelete}
             />
           </Grid>
 
@@ -508,6 +617,7 @@ const AddUser: React.FC<AddUserProps> = ({
               returnKey="site_id"
               handleChange={handleChange}
               placeholder="ADD NEW SITE"
+              handleDelete={handleDelete}
             />
           </Grid>
           <Grid item xs={12}>
@@ -528,6 +638,7 @@ const AddUser: React.FC<AddUserProps> = ({
               returnKey="camera_id"
               handleChange={handleChange}
               placeholder="ADD NEW CAMERA"
+              handleDelete={handleDelete}
             />
           </Grid>
 

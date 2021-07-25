@@ -52,7 +52,7 @@ const AddSite: React.FC<AddSiteProps> = ({
       ? {
           site_name: "",
           group_id: "",
-          integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
+          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
           user_ids: [],
           customer_ids: [],
           camera_ids: [],
@@ -60,7 +60,7 @@ const AddSite: React.FC<AddSiteProps> = ({
       : {
           site_name: item?.site_name,
           group_id: item?.groups.group_id,
-          integrator_id: "084c16fc-2b4d-4d2b-a335-7f7bc618d345",
+          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
           user_ids: item?.users.map(
             (user: { user_id: string }) => user.user_id
           ),
