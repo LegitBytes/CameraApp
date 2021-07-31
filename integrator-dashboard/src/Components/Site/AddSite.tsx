@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import {
   Typography,
   TextField,
@@ -7,11 +7,12 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import ButtonComp from "../../Shared/Buttons";
-import { Customer, Group, Site, Camera, User } from "../Interfaces";
+import { Group, Site, Camera } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import LoadingScreen from "../../Shared/LoadingScreen";
 import AutoCompleteComp from "../../Shared/AutoCompleteComp";
 import { FormEvent } from "react";
+import { AuthContext } from "../../Context/Auth";
 
 export interface FormState {
   site_name: string | undefined;
@@ -20,6 +21,10 @@ export interface FormState {
   user_ids: any[] | undefined;
   customer_ids: any[] | undefined;
   camera_ids: any[] | undefined;
+}
+
+interface FormError {
+  site_name: boolean;
 }
 
 interface AddSiteProps {
@@ -47,12 +52,14 @@ const AddSite: React.FC<AddSiteProps> = ({
   handleOpen,
   updateId,
 }) => {
+  const { isSuperAdmin, userId } = useContext(AuthContext);
+
   const initialState =
     action === "ADD"
       ? {
           site_name: "",
           group_id: "",
-          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
+          integrator_id: !isSuperAdmin ? userId : "",
           user_ids: [],
           customer_ids: [],
           camera_ids: [],
@@ -60,7 +67,9 @@ const AddSite: React.FC<AddSiteProps> = ({
       : {
           site_name: item?.site_name,
           group_id: item?.groups.group_id,
-          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
+          integrator_id: !isSuperAdmin
+            ? userId
+            : item?.integrators.integrator_id,
           user_ids: item?.users.map(
             (user: { user_id: string }) => user.user_id
           ),
@@ -73,10 +82,31 @@ const AddSite: React.FC<AddSiteProps> = ({
         };
 
   const [formState, setFormState] = useState<FormState>(initialState);
-
+  const [formError, setFormError] = useState<FormError>({
+    site_name: false,
+  });
   const onChange = (e) => {
     let { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
+    validateFormField(name, value);
+  };
+
+  const validateFormField = (name, value) => {
+    //eslint-disable-next-line
+    let regexp1 = /[~`!@#$%^&()_={}[\]:;,.<>+\/?-]/;
+    let errors = { site_name: false };
+    switch (name) {
+      case "site_name":
+        if (regexp1.test(value)) {
+          errors.site_name = true;
+        } else {
+          errors.site_name = false;
+        }
+        break;
+      default:
+        break;
+    }
+    setFormError(errors);
   };
 
   const [loading1, setLoading1] = useState<boolean>(true);
@@ -89,10 +119,6 @@ const AddSite: React.FC<AddSiteProps> = ({
       const response: AxiosResponse<{ groups: Group[] }> = await axios.get(
         process.env.REACT_APP_API_URL + "groups"
       );
-      // const activeArr = response.data.groups.filter(
-      //   (item) => item.is_disabled === false
-      // );
-      // setGroupData(activeArr);
       setGroupData(response.data.groups);
       setLoading1(false);
     } catch (err) {
@@ -100,45 +126,11 @@ const AddSite: React.FC<AddSiteProps> = ({
     }
   }, []);
 
-  const [loading2, setLoading2] = useState<boolean>(true);
-
-  const [customerData, setCustomerData] = useState<Customer[]>([]);
-
-  const getCustomerData = useCallback(async (): Promise<void> => {
-    setLoading2(true);
-    try {
-      const response: AxiosResponse<{ customers: Customer[] }> =
-        await axios.get(process.env.REACT_APP_API_URL + "customers");
-      setCustomerData(response.data.customers);
-
-      setLoading2(false);
-    } catch (err) {
-      setLoading2(false);
-    }
-  }, []);
-
-  const [loading3, setLoading3] = useState<boolean>(true);
-
-  const [userData, setUserData] = useState<User[]>([]);
-
-  const getUserData = useCallback(async (): Promise<void> => {
-    setLoading3(true);
-    try {
-      const response: AxiosResponse<{ users: User[] }> = await axios.get(
-        process.env.REACT_APP_API_URL + "users"
-      );
-      setUserData(response.data.users);
-
-      setLoading3(false);
-    } catch (err) {
-      setLoading3(false);
-    }
-  }, []);
-
   const [loading4, setLoading4] = useState<boolean>(true);
 
   const [cameraData, setCameraData] = useState<Camera[]>([]);
-
+  const [filteredCameraData, setFilteredCameraData] =
+    useState<Camera[]>(cameraData);
   const getCameraData = useCallback(async (): Promise<void> => {
     setLoading4(true);
     try {
@@ -146,6 +138,7 @@ const AddSite: React.FC<AddSiteProps> = ({
         process.env.REACT_APP_API_URL + "cameras"
       );
       setCameraData(response.data.cameras);
+      setFilteredCameraData(response.data.cameras);
 
       setLoading4(false);
     } catch (err) {
@@ -160,6 +153,50 @@ const AddSite: React.FC<AddSiteProps> = ({
     return withUndefined.filter((item) => item !== undefined);
   };
 
+  const onGroupChange = (e) => {
+    let { name, value } = e.target;
+    if (isSuperAdmin) {
+      let group = groupData.find((gr) => gr.group_id === value);
+      console.log(group);
+      setFormState({
+        ...formState,
+        integrator_id: group?.integrators.integrator_id,
+        [name]: value,
+      });
+    } else {
+      setFormState({ ...formState, [name]: value });
+    }
+    let filteredCameras = cameraData.filter(
+      (item: Camera) => item.groups.group_id === value
+    );
+    if (!!filteredCameras.length) {
+      setFilteredCameraData(filteredCameras);
+    } else {
+      setFilteredCameraData([
+        {
+          camera_id: "",
+          camera_name: "No cameras available", //This is for visula feedback, Since we are mapping camera_name in autoComplete
+          ip_address: "",
+          smtp_user_name: "",
+          smtp_password: "",
+          total_request: 0,
+          groups: {
+            group_id: "",
+            group_name: "",
+            integrators: { integrator_id: "" },
+          },
+          user_count: 0,
+          is_disabled: false,
+          users: [],
+          sites: { site_id: "", site_name: "" },
+          deleteDisabled: false,
+          integrators: { integrator_id: "" },
+          change_name: "",
+        },
+      ]);
+    }
+  };
+
   const handleChange = (
     newVal: any[],
     changeKey: string,
@@ -171,17 +208,13 @@ const AddSite: React.FC<AddSiteProps> = ({
 
   useEffect(() => {
     getGroupData();
-    getCustomerData();
-    getUserData();
     getCameraData();
 
     return () => {
       setGroupData([]);
-      setCustomerData([]);
-      setUserData([]);
       setCameraData([]);
     };
-  }, [getGroupData, getCustomerData, getUserData, getCameraData]);
+  }, [getGroupData, getCameraData]);
 
   const handleSave = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -231,7 +264,16 @@ const AddSite: React.FC<AddSiteProps> = ({
     ]
   );
 
-  if (loading1 || loading2 || loading3 || loading4) {
+  const handleDelete = (option: any) => {
+    if (option.hasOwnProperty("camera_id")) {
+      let filteredCameras = formState.camera_ids?.filter(
+        (camId) => camId !== option["camera_id"]
+      );
+      setFormState({ ...formState, camera_ids: filteredCameras });
+    }
+  };
+
+  if (loading1 || loading4) {
     return (
       <div style={{ marginTop: 100 }}>
         <LoadingScreen />
@@ -243,7 +285,9 @@ const AddSite: React.FC<AddSiteProps> = ({
         <Grid container direction="row" spacing={1}>
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="site_name">Name:</label>
+              <label htmlFor="site_name">
+                Name: <span style={{ color: "red" }}>*</span>
+              </label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -255,11 +299,19 @@ const AddSite: React.FC<AddSiteProps> = ({
               variant="outlined"
               fullWidth={true}
               value={formState.site_name}
+              error={formError.site_name}
             />
+            {formError.site_name && (
+              <Typography variant="overline" style={{ color: "red" }}>
+                Special characters are not allowed
+              </Typography>
+            )}
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="group_id">Group:</label>
+              <label htmlFor="group_id">
+                Group: <span style={{ color: "red" }}>*</span>
+              </label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -267,7 +319,7 @@ const AddSite: React.FC<AddSiteProps> = ({
               variant="outlined"
               fullWidth={true}
               name="group_id"
-              onChange={onChange}
+              onChange={onGroupChange}
               value={formState.group_id}
               id="group_id"
             >
@@ -281,55 +333,25 @@ const AddSite: React.FC<AddSiteProps> = ({
 
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="customer_ids">Customers:</label>
+              <label htmlFor="camera_ids">
+                Cameras:
+              </label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <AutoCompleteComp
-              data={customerData}
+              data={filteredCameraData}
               usedData={getUsedData(
-                customerData,
-                "customer_id",
-                "customer_ids"
+                filteredCameraData,
+                "camera_id",
+                "camera_ids"
               )}
-              changeKey="customer_ids"
-              labelKey="customer_name"
-              returnKey="customer_id"
-              handleChange={handleChange}
-              placeholder="ADD NEW CUSTOMER"
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <Typography variant="h6">
-              <label htmlFor="user_ids">Users:</label>
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <AutoCompleteComp
-              data={userData}
-              usedData={getUsedData(userData, "user_id", "user_ids")}
-              changeKey="user_ids"
-              labelKey="user_email"
-              returnKey="user_id"
-              handleChange={handleChange}
-              placeholder="ADD NEW USER"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h6">
-              <label htmlFor="camera_ids">Cameras:</label>
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <AutoCompleteComp
-              data={cameraData}
-              usedData={getUsedData(cameraData, "camera_id", "camera_ids")}
               changeKey="camera_ids"
               labelKey="camera_name"
               returnKey="camera_id"
               handleChange={handleChange}
               placeholder="ADD NEW CAMERA"
+              handleDelete={handleDelete}
             />
           </Grid>
 
@@ -341,6 +363,7 @@ const AddSite: React.FC<AddSiteProps> = ({
               variant="contained"
               fullWidth={true}
               htmlType="submit"
+              disabled={ formError.site_name || !formState.site_name || !formState.group_id}
             >
               Save
             </ButtonComp>

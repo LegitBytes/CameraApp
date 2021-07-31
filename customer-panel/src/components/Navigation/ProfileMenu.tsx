@@ -3,11 +3,13 @@ import ProfileLogo from "../../assets/ProfileLogo.svg";
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { AuthContext } from "../../context/Auth";
 import { Auth } from "aws-amplify";
+import { RouteContext } from "../../context/RouteContext";
+import { useHistory } from "react-router-dom"
 const ProfileMenu: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const { replace } = useHistory()
   const { logout } = useContext(AuthContext);
-
+  const { resetRoute } = useContext(RouteContext);
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
@@ -18,8 +20,11 @@ const ProfileMenu: React.FC = () => {
 
   const signOut = async () => {
     handleClose();
-    logout();
-    await Auth.signOut();
+    Auth.signOut().then((_) => {
+      logout();
+      resetRoute();
+      replace("/")
+    });
   };
 
   return (

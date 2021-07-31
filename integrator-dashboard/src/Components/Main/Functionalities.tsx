@@ -120,15 +120,17 @@ const Functionalities: React.FC<FunctionalitiesProps> = ({
         </Grid> */}
         <div style={{ marginTop: 80 }}>
           {" "}
-          <ButtonComp
-            type="primary"
-            variant="contained"
-            margin={10}
-            size="large"
-            onClick={() => downloadXLSX(wholeData, title)}
-          >
-            Download XLSX
-          </ButtonComp>
+          {!!wholeData.length && (
+            <ButtonComp
+              type="primary"
+              variant="contained"
+              margin={10}
+              size="large"
+              onClick={() => downloadXLSX(wholeData, title)}
+            >
+              Download XLSX
+            </ButtonComp>
+          )}
           <ButtonComp
             type="primary"
             variant="contained"

@@ -3,12 +3,11 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import LoadingScreen from "../../Shared/LoadingScreen";
 
 const Login = React.lazy(() => import("../../Pages/Login"));
-const LoginType = React.lazy(() => import("../../Pages/LoginType"));
-const ForgotPasswordType = React.lazy(
-  () => import("../../Pages/ForgotPasswordType")
+const ForgotPassword = React.lazy(
+  () => import("../../Pages/ForgotPassword")
 );
-const ResetPasswordType = React.lazy(
-  () => import("../../Pages/ResetPasswordType")
+const ResetPassword = React.lazy(
+  () => import("../../Pages/ResetPassword")
 );
 
 export const AuthRoutes: React.FC = () => {
@@ -21,18 +20,13 @@ export const AuthRoutes: React.FC = () => {
         <Route exact path="/login" render={(props) => <Login {...props} />} />
         <Route
           exact
-          path="/login/:type"
-          render={(props) => <LoginType {...props} />}
+          path="/forgot-password"
+          render={(props) => <ForgotPassword {...props} />}
         />
         <Route
           exact
-          path="/forgot-password/:type"
-          render={(props) => <ForgotPasswordType {...props} />}
-        />
-        <Route
-          exact
-          path="/reset-password/:type"
-          render={(props) => <ResetPasswordType {...props} />}
+          path="/reset-password/"
+          render={(props) => <ResetPassword {...props} />}
         />
         <Redirect from="*" to="/login" />
       </React.Suspense>

@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Site, rows, xlsxSites } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
@@ -8,10 +14,13 @@ import { columns } from "./Util/Columns";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
 import { handleSwitchChange } from "../../Utilities/Helpers/handleSwitchChange";
 import AddSite from "./AddSite";
+import { AuthContext } from "../../Context/Auth";
 
 type title = "ADD NEW SITE" | "EDIT SITE";
 
 const AllSites: React.FC = () => {
+  const { isSuperAdmin, userId } = useContext(AuthContext);
+
   const [alertDetails, setAlertDetails] = useState<Alert>({
     open: false,
     horizontal: "center",
@@ -79,13 +88,21 @@ const AllSites: React.FC = () => {
     setLoading(true);
     try {
       const response: AxiosResponse<{ sites: Site[] }> = await axios.get(url);
-      const activeArr = response.data.sites.filter(
+
+      let sites: Site[] = []
+      if(!isSuperAdmin){
+        sites = response.data.sites.filter(site => site.integrators.integrator_id === userId)
+      }else{
+        sites = response.data.sites
+      }
+
+      const activeArr = sites.filter(
         (item) => item.is_disabled === false
       );
-      const inactiveArr = response.data.sites.filter(
+      const inactiveArr = sites.filter(
         (item) => item.is_disabled === true
       );
-      setWholeData(response.data.sites);
+      setWholeData(sites);
       setActiveData(activeArr);
       setInactiveData(inactiveArr);
       setLoading(false);
@@ -93,7 +110,7 @@ const AllSites: React.FC = () => {
       setLoading(false);
       handleOpen("left", "bottom", "Something went wrong!");
     }
-  }, [url]);
+  }, [isSuperAdmin, url, userId]);
 
   useEffect(() => {
     getSiteData();
@@ -106,6 +123,7 @@ const AllSites: React.FC = () => {
   const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
       name: item.site_name,
+      change_name: item.change_name ? item.change_name : "",
       group_name: item.groups.group_name,
       user_count: item.users.length,
       customer_count: item.customers.length,
@@ -148,6 +166,7 @@ const AllSites: React.FC = () => {
     return wholeData.map((site) => ({
       "Site ID": site.site_id,
       "Site Name": site.site_name,
+      "Changed Name": site.change_name? site.change_name : "",
       "Group Name": site.groups.group_name,
       "Number of Cameras": site.cameras.length,
       "Number of Customers": site.customers.length,

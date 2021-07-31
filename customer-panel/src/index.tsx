@@ -10,10 +10,12 @@ import { AuthProvider } from "./context/Auth";
 
 //Amplify setup
 import { Amplify } from "aws-amplify";
+import { RouteProvider } from "./context/RouteContext";
 Amplify.configure({
   Auth: {
     userPoolId: process.env.REACT_APP_USERPOOLID,
     userPoolWebClientId: process.env.REACT_APP_USERPOOLWEBCLIENTID,
+    awsCognitoIdentityPoolId: process.env.REACT_APP_IDENTITYPOOLID,
   },
   Analytics: {
     disabled: true,
@@ -25,7 +27,9 @@ ReactDOM.render(
     <Router>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <AuthProvider>
-          <App />
+          <RouteProvider>
+            <App />
+          </RouteProvider>
         </AuthProvider>
       </MuiPickersUtilsProvider>
     </Router>

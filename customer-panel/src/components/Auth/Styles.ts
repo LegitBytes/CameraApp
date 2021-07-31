@@ -34,7 +34,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       },
       width: "30%",
       marginTop: 20,
-      background: "#0079FE",
+      background: "#3C56A6",
       color: "#fff",
     },
     adornmentStyle: {

@@ -7,22 +7,22 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
-import { Person, Lock, LockOpen } from "@material-ui/icons";
+import { useHistory, useLocation } from "react-router-dom";
+import { Lock, LockOpen } from "@material-ui/icons";
 import { AuthContext } from "../../Context/Auth";
 import { Auth } from "aws-amplify";
 import LoadingScreen from "../../Shared/LoadingScreen";
 
 interface formState {
-  email: string;
   password: string;
+  cnfPassword: string;
 }
 interface Errors {
-  email: boolean;
   password: boolean;
+  cnfPassword: boolean;
 }
 
-interface LoginProps {
+interface ResetPasswordProps {
   handleOpen: (
     horizontal: "left" | "center" | "right",
     vertical: "top" | "bottom",
@@ -30,20 +30,28 @@ interface LoginProps {
   ) => void;
 }
 
-const Login: React.FC<LoginProps> = ({ handleOpen }) => {
+interface location {
+  search: {};
+  state: { email: string; pass: string };
+}
+
+const ResetPassword: React.FC<ResetPasswordProps> = ({ handleOpen }) => {
   const { login } = useContext(AuthContext);
   const history = useHistory();
+  const { state }: location = useLocation();
+  const { email, pass } = state;
   const classes = useStyles();
   const [pwdType, setPwdType] = useState<"password" | "text">("password");
+  const [cnfPwdType, setCnfPwdType] = useState<"password" | "text">("password");
   const [loading, setLoading] = useState<boolean>(false);
   const [formState, setFormState] = useState<formState>({
-    email: "",
     password: "",
+    cnfPassword: "",
   });
 
   const [errors, setErrors] = useState<Errors>({
-    email: false,
     password: false,
+    cnfPassword: false,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,16 +63,6 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
   const validateFormFields = (name: string, value: string) => {
     let errs = errors;
     switch (name) {
-      case "email":
-        const re =
-          //eslint-disable-next-line
-          /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!re.test(value)) {
-          errs.email = true;
-        } else {
-          errs.email = false;
-        }
-        break;
       case "password":
         if (value.length < 8) {
           errs.password = true;
@@ -72,10 +70,16 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
           errs.password = false;
         }
         break;
+      case "cnfPassword":
+        if (value !== formState["password"]) {
+          errs.cnfPassword = true;
+        } else {
+          errs.cnfPassword = false;
+        }
+        break;
       default:
         break;
     }
-
     setErrors(errs);
   };
 
@@ -90,19 +94,18 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
 
     setLoading(true);
 
-    try {
-      const user = await Auth.signIn(formState.email, formState.password);
-      console.log("user -> ", user);
-      if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
-        setLoading(false);
-        history.replace({
-          pathname: "reset-password",
-          state: {
-            email: formState.email,
-            pass: formState.password,
-          },
-        });
-      } else {
+    if (!formState.password || !formState.cnfPassword) {
+      handleOpen("left", "bottom", "Enter credentials!");
+      return;
+    } else {
+      try {
+        const user = await Auth.signIn(email, pass);
+        console.log("user -> ", user);
+        const finalUser = await Auth.completeNewPassword(
+          user,
+          formState.password
+        );
+        console.log("final user -> ", finalUser);
         if (
           user.signInUserSession.accessToken.payload["cognito:groups"] &&
           user.signInUserSession.accessToken.payload["cognito:groups"].indexOf(
@@ -110,25 +113,25 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
           ) >= 0
         ) {
           login(
-            user.signInUserSession.idToken.jwtToken,
-            user.attributes["custom:user_id"],
+            finalUser.signInUserSession.idToken.jwtToken,
+            finalUser.challengeParam.userAttributes["custom:user_id"],
             true
           );
         } else {
           login(
-            user.signInUserSession.idToken.jwtToken,
-            user.attributes["custom:integrator_id"],
+            finalUser.signInUserSession.idToken.jwtToken,
+            finalUser.challengeParam.userAttributes["custom:integrator_id"],
             false
           );
         }
+
         setLoading(false);
         history.replace("/");
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+        handleOpen("left", "bottom", err.message);
       }
-    } catch (err) {
-      console.log(err);
-
-      setLoading(false);
-      handleOpen("left", "bottom", err.message);
     }
   };
 
@@ -151,37 +154,11 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
             Smart Alert Center
           </Typography>
           <TextField
-            name="email"
-            type="email"
-            variant="outlined"
-            size="small"
-            error={errors.email}
-            placeholder="Email"
-            onChange={handleChange}
-            value={formState.email}
-            className={classes.textFieldStyles}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment
-                  position="start"
-                  className={classes.adornmentStyle}
-                >
-                  <Person className={classes.iconStyle} />
-                </InputAdornment>
-              ),
-            }}
-          />
-          {errors.email && (
-            <Typography variant="overline" style={{ color: "#fff" }}>
-              Invalid Email
-            </Typography>
-          )}
-          <TextField
             name="password"
             type={pwdType}
             variant="outlined"
             size="small"
-            placeholder="Password"
+            placeholder="New Password"
             error={errors.password}
             onChange={handleChange}
             value={formState.password}
@@ -212,33 +189,57 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
               Password should be at least 8 characters long
             </Typography>
           )}
+
+          <TextField
+            name="cnfPassword"
+            type={cnfPwdType}
+            variant="outlined"
+            size="small"
+            placeholder="Confirm Password"
+            error={errors.cnfPassword}
+            onChange={handleChange}
+            value={formState.cnfPassword}
+            className={classes.textFieldStyles}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment
+                  position="start"
+                  className={classes.adornmentStyle}
+                >
+                  {cnfPwdType === "password" ? (
+                    <LockOpen
+                      className={classes.iconStyle}
+                      onClick={() => setCnfPwdType("text")}
+                    />
+                  ) : (
+                    <Lock
+                      className={classes.iconStyle}
+                      onClick={() => setCnfPwdType("password")}
+                    />
+                  )}
+                </InputAdornment>
+              ),
+            }}
+          />
+          {errors.cnfPassword && (
+            <Typography variant="overline" style={{ color: "#fff" }}>
+              Password and Confirm Passwords should be the same
+            </Typography>
+          )}
+
           <Button
             disableElevation
             className={classes.btnStyles}
             variant="contained"
-            disabled={errors.email || errors.password}
+            disabled={errors.password || errors.cnfPassword}
             onClick={signIn}
           >
-            Login
+            Reset Password
           </Button>
-
-          <Typography
-            variant="overline"
-            style={{
-              color: "#fff",
-              cursor: "pointer",
-              fontWeight: "bold",
-              marginTop: 10,
-              marginBottom: 10,
-            }}
-            onClick={() => history.push("/forgot-password")}
-          >
-            Forgot Password
-          </Typography>
         </>
       )}
     </div>
   );
 };
 
-export default Login;
+export default ResetPassword;

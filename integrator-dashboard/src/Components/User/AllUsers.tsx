@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { rows, User, xlsxUser } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
@@ -8,10 +14,13 @@ import { columns } from "./Util/Columns";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
 import { handleSwitchChange } from "../../Utilities/Helpers/handleSwitchChange";
 import AddUser from "./AddUser";
+import { AuthContext } from "../../Context/Auth";
 
 type title = "ADD NEW USER" | "EDIT USER";
 
 const AllUsers: React.FC = () => {
+  let { isSuperAdmin, userId } = useContext(AuthContext);
+
   const [alertDetails, setAlertDetails] = useState<Alert>({
     open: false,
     horizontal: "center",
@@ -19,8 +28,9 @@ const AllUsers: React.FC = () => {
     message: "",
   });
 
-  const [transition, setTransition] =
-    React.useState<React.ComponentType<TransitionProps> | undefined>(undefined);
+  const [transition, setTransition] = React.useState<
+    React.ComponentType<TransitionProps> | undefined
+  >(undefined);
 
   const handleOpen = (
     horizontal: "left" | "center" | "right",
@@ -77,13 +87,21 @@ const AllUsers: React.FC = () => {
     setLoading(true);
     try {
       const response: AxiosResponse<{ users: User[] }> = await axios.get(url);
-      setWholeData(response.data.users)
-      const activeArr = response.data.users.filter(
+      let users: User[] = [];
+      if (!isSuperAdmin) {
+        users = response.data.users.filter(
+          (user) => user.integrators.integrator_id === userId
+        );
+      } else {
+        users = response.data.users;
+      }
+      const activeArr = users.filter(
         (item) => item.is_disabled === false
       );
-      const inactiveArr = response.data.users.filter(
+      const inactiveArr = users.filter(
         (item) => item.is_disabled === true
       );
+      setWholeData(users);
       setActiveData(activeArr);
       setInactiveData(inactiveArr);
       setLoading(false);
@@ -92,7 +110,7 @@ const AllUsers: React.FC = () => {
       handleOpen("left", "bottom", "Something went wrong!");
       console.log(err);
     }
-  }, [url]);
+  }, [isSuperAdmin, url, userId]);
 
   useEffect(() => {
     getUserData();
@@ -144,16 +162,16 @@ const AllUsers: React.FC = () => {
   };
 
   const getXLSXData = (): xlsxUser[] => {
-    return wholeData.map(user => ({
+    return wholeData.map((user) => ({
       "User ID": user.user_id,
-      "Email": user.user_email,
+      Email: user.user_email,
       "Group Name": user.groups.group_name,
       "Number of Customers": user.customer_count,
       "Number of Sites": user.site_count,
       "Number of Cameras": user.camera_count,
-      Disabled: user.is_disabled
-    }))
-  }
+      Disabled: user.is_disabled,
+    }));
+  };
 
   const onRowsDelete = (rows: rows): false => {
     handleOpen(

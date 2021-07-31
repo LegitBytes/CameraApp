@@ -10,6 +10,10 @@ interface FormState {
   email: string | undefined;
   phone: string | undefined;
 }
+interface FormError {
+  name: boolean;
+  email: boolean;
+}
 
 interface AddIntegratorProps {
   action: "ADD" | "EDIT";
@@ -51,6 +55,11 @@ const AddIntegrator: React.FC<AddIntegratorProps> = ({
 
   const [formState, setFormState] = useState<FormState>(initialState);
 
+  const [formError, setFormError] = useState<FormError>({
+    name: false,
+    email: false,
+  });
+
   const onChange:
     | React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
     | undefined = (
@@ -58,6 +67,35 @@ const AddIntegrator: React.FC<AddIntegratorProps> = ({
   ) => {
     let { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
+    validateFormField(name, value);
+  };
+
+  const validateFormField = (name, value) => {
+    //eslint-disable-next-line
+    let regexp1 = /[~`!@#$%^&()_={}[\]:;,.<>+\/?-]/;
+    let regexp2 =
+      //eslint-disable-next-line
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let errors = { name: false, email: false };
+    switch (name) {
+      case "name":
+        if (regexp1.test(value)) {
+          errors.name = true;
+        } else {
+          errors.name = false;
+        }
+        break;
+      case "email":
+        if (!regexp2.test(value)) {
+          errors.email = true;
+        } else {
+          errors.email = false;
+        }
+        break;
+      default:
+        break;
+    }
+    setFormError(errors);
   };
 
   const handleSave = useCallback(
@@ -112,7 +150,7 @@ const AddIntegrator: React.FC<AddIntegratorProps> = ({
       <Grid container direction="row" spacing={1}>
         <Grid item xs={12}>
           <Typography variant="h6">
-            <label htmlFor="name">Name: </label>
+            <label htmlFor="name">Name: <span style={{ color: "red" }}>*</span></label>
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -125,11 +163,17 @@ const AddIntegrator: React.FC<AddIntegratorProps> = ({
             variant="outlined"
             fullWidth={true}
             value={formState.name}
+            error={formError.name}
           />
+          {formError.name && (
+            <Typography variant="overline" style={{ color: "red" }}>
+              Special characters are not allowed
+            </Typography>
+          )}
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6">
-            <label htmlFor="email">Email: </label>
+            <label htmlFor="email">Email: <span style={{ color: "red" }}>*</span></label>
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -142,7 +186,13 @@ const AddIntegrator: React.FC<AddIntegratorProps> = ({
             variant="outlined"
             fullWidth={true}
             value={formState.email}
+            error={formError.email}
           />
+          {formError.email && (
+            <Typography variant="overline" style={{ color: "red" }}>
+              Invalid email
+            </Typography>
+          )}
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h6">
@@ -169,6 +219,7 @@ const AddIntegrator: React.FC<AddIntegratorProps> = ({
             type="primary"
             variant="contained"
             fullWidth={true}
+            disabled={formError.name || formError.email || !formState.name || !formState.email}
           >
             Save
           </ButtonComp>

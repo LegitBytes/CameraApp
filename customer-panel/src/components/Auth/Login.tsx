@@ -93,13 +93,6 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
     try {
       const user = await Auth.signIn(formState.email, formState.password);
       console.log("user -> ", user);
-
-      // let dUser = await Auth.currentAuthenticatedUser()
-      // console.log("Attributes -> ", dUser.attributes);
-      
-      // Auth.userAttributes(user)
-      //   .then((data) => console.log("user info -> ", data))
-      //   .catch((err) => console.log("Error -> ", err));
       if (user.challengeName === "NEW_PASSWORD_REQUIRED") { 
         setLoading(false);
         history.replace({
@@ -112,7 +105,7 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
       } else {
         login(user.signInUserSession.idToken.jwtToken, user.attributes["custom:user_id"]);
         setLoading(false);
-        history.push("/");
+        history.replace("/");
       }
     } catch (err) {
       console.log(err);

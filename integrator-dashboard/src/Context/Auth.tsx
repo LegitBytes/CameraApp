@@ -1,31 +1,27 @@
 import React, { useReducer, createContext, Reducer } from "react";
 
 interface State {
-  user: string | undefined | boolean;
+  userToken: string | undefined | boolean;
+  userId: string | undefined | boolean;
   isSuperAdmin: boolean | undefined | string;
 }
 interface Action {
-  type: "LOGIN" | "LOGOUT" | "TOGGLE SUPERADMIN";
-  payload: string | boolean | undefined;
+  type: "LOGIN" | "LOGOUT";
+  payload: undefined | { userToken: string, userId: string, isSuperAdmin: boolean };
 }
 
 const initialState: State = {
-  user: undefined,
+  userToken: undefined,
+  userId: undefined,
   isSuperAdmin: undefined,
 };
 
-if (localStorage.getItem("isSuperAdmin")) {
-  initialState.isSuperAdmin = JSON.parse(
-    localStorage.getItem("isSuperAdmin") || "{}"
-  );
-}
-
 const AuthContext = createContext({
-  user: undefined,
+  userToken: undefined,
+  userId: undefined,
   isSuperAdmin: undefined,
-  login: (userData: string) => {},
+  login: (userToken: string, userId: string, isSuperAdmin: boolean) => {},
   logout: () => {},
-  toggleIsSuperAdmin: (currentIsSuperAdmin: boolean) => {},
 });
 
 const authReducer: Reducer<State, Action> = (state: State, action) => {
@@ -33,19 +29,17 @@ const authReducer: Reducer<State, Action> = (state: State, action) => {
     case "LOGIN": {
       return {
         ...state,
-        user: action.payload,
+        userId: action.payload?.userId,
+        userToken: action.payload?.userToken,
+        isSuperAdmin: action.payload?.isSuperAdmin
       };
     }
     case "LOGOUT": {
       return {
         ...state,
-        user: undefined,
-      };
-    }
-    case "TOGGLE SUPERADMIN": {
-      return {
-        ...state,
-        isSuperAdmin: action.payload,
+        userToken: undefined,
+        userId: undefined,
+        isSuperAdmin: false
       };
     }
     default:
@@ -56,35 +50,28 @@ const authReducer: Reducer<State, Action> = (state: State, action) => {
 function AuthProvider(props) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const login = (userData: string) => {
+  const login = (userToken: string, userId: string, isSuperAdmin: boolean) => {
     dispatch({
       type: "LOGIN",
-      payload: userData,
+      payload: { userToken, userId, isSuperAdmin },
     });
   };
 
   const logout = () => {
     dispatch({
       type: "LOGOUT",
-      payload: "",
-    });
-  };
-
-  const toggleIsSuperAdmin = (currentIsSuperAdmin: boolean) => {
-    dispatch({
-      type: "TOGGLE SUPERADMIN",
-      payload: currentIsSuperAdmin,
+      payload: { userToken: "", userId: "", isSuperAdmin: false },
     });
   };
 
   return (
     <AuthContext.Provider
       value={{
-        user: state.user,
+        userToken: state.userToken,
+        userId: state.userId,
         isSuperAdmin: state.isSuperAdmin,
         login,
         logout,
-        toggleIsSuperAdmin,
       }}
       {...props}
     />

@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import { NavLink } from "react-router-dom";
 import { paths } from "../../util/paths";
 import { IconButton, Typography } from "@material-ui/core";
 import Notification from "../../assets/Notification.svg";
 import ProfileMenu from "./ProfileMenu";
+import { RouteContext } from "../../context/RouteContext";
 interface DesktopViewProps {
   classes: ClassNameMap<"link" | "linkActive" | "spacing">;
 }
 
 const DesktopView: React.FC<DesktopViewProps> = ({ classes }) => {
+  const { setRoute } = useContext(RouteContext)
   return (
     <>
       {paths.map((path) => (
@@ -18,6 +20,7 @@ const DesktopView: React.FC<DesktopViewProps> = ({ classes }) => {
           className={classes.link}
           activeClassName={classes.linkActive}
           key={path.text}
+          onClick={() => setRoute(path.path)}
         >
           <Typography variant="body1">{path.text}</Typography>
         </NavLink>

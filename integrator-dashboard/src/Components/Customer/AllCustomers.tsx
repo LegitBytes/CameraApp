@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { Customer, rows, xlsxCustomer } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
@@ -8,10 +8,14 @@ import { columns } from "./Util/Columns";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
 import { handleSwitchChange } from "../../Utilities/Helpers/handleSwitchChange";
 import AddCustomer from "./AddCustomer";
+import { AuthContext } from "../../Context/Auth";
 
 type title = "ADD NEW CUSTOMER" | "EDIT CUSTOMER";
 
 const AllCustomers: React.FC = () => {
+
+  const { isSuperAdmin, userId } = useContext(AuthContext)
+  
   const [alertDetails, setAlertDetails] = useState<Alert>({
     open: false,
     horizontal: "center",
@@ -80,11 +84,19 @@ const AllCustomers: React.FC = () => {
     try {
       const response: AxiosResponse<{ customers: Customer[] }> =
         await axios.get(url);
-      setWholeData(response.data.customers);
-      const activeArr = response.data.customers.filter(
+
+      let customers: Customer[] = []
+      if(!isSuperAdmin){
+        customers = response.data.customers.filter(customer => customer.integrators.integrator_id === userId)
+      }else{
+        customers = response.data.customers;
+      }
+
+      setWholeData(customers);
+      const activeArr = customers.filter(
         (item) => item.is_disabled === false
       );
-      const inactiveArr = response.data.customers.filter(
+      const inactiveArr = customers.filter(
         (item) => item.is_disabled === true
       );
       setActiveData(activeArr);
@@ -94,7 +106,7 @@ const AllCustomers: React.FC = () => {
       setLoading(false);
       handleOpen("left", "bottom", "Something went wrong!");
     }
-  }, [url]);
+  }, [isSuperAdmin, url, userId]);
 
   useEffect(() => {
     getCustomerData();
@@ -107,6 +119,7 @@ const AllCustomers: React.FC = () => {
   const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
       name: item.customer_name,
+      change_name: item.change_name ? item.change_name : "",
       group_name: item.groups.group_name,
       user_count: item.users.length,
       site_count: item.sites.length,
@@ -148,7 +161,8 @@ const AllCustomers: React.FC = () => {
   const getXLSXData = (): xlsxCustomer[] => {
     return wholeData.map(customer => ({
       "Customer ID": customer.customer_id,
-      "Customer Name": customer.customer_name,
+      "Customer Name": customer.customer_name ? customer.customer_name : "",
+      "Changed Name":customer.change_name,
       "Number of Sites": customer.sites.length,
       "Number of Users": customer.users.length,
       Disabled: customer.is_disabled

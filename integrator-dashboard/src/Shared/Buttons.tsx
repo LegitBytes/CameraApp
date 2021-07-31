@@ -12,6 +12,7 @@ interface ButtonsProps {
   margin?: number | undefined;
   fullWidth?: boolean;
   htmlType?: "submit" | "button";
+  disabled?:boolean
 }
 
 const useButtonStyles = (
@@ -52,6 +53,7 @@ const Buttons: React.FC<ButtonsProps> = ({
   margin,
   fullWidth,
   htmlType,
+  disabled
 }) => {
   const classes: ClassNameMap<"dark" | "danger" | "primary" | "success"> =
     useButtonStyles(margin);
@@ -64,6 +66,7 @@ const Buttons: React.FC<ButtonsProps> = ({
       size={size}
       onClick={onClick}
       fullWidth={fullWidth}
+      disabled={disabled}
     >
       {children}
     </Button>

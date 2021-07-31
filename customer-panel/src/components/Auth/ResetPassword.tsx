@@ -110,7 +110,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ handleOpen }) => {
 
         login(finalUser.signInUserSession.idToken.jwtToken, finalUser.challengeParam.userAttributes["custom:user_id"]);
         setLoading(false);
-        history.push("/");
+        history.replace("/"); 
       } catch (err) {
         console.log(err);
         setLoading(false);

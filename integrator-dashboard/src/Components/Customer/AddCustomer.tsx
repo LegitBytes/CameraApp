@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import {
   Typography,
   TextField,
@@ -7,11 +7,12 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import ButtonComp from "../../Shared/Buttons";
-import { Customer, Group, Site, User } from "../Interfaces";
+import { Customer, Group, Site } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import LoadingScreen from "../../Shared/LoadingScreen";
 import AutoCompleteComp from "../../Shared/AutoCompleteComp";
 import { FormEvent } from "react";
+import { AuthContext } from "../../Context/Auth";
 
 export interface FormState {
   customer_name: string | undefined;
@@ -19,6 +20,10 @@ export interface FormState {
   integrator_id: string | undefined;
   site_ids: any[] | undefined;
   user_ids: any[] | undefined;
+}
+
+interface FormError {
+  customer_name: boolean;
 }
 
 interface AddCustomerProps {
@@ -46,19 +51,22 @@ const AddCustomer: React.FC<AddCustomerProps> = ({
   handleOpen,
   updateId,
 }) => {
+  const { isSuperAdmin, userId } = useContext(AuthContext);
   const initialState =
     action === "ADD"
       ? {
           customer_name: "",
           group_id: "",
-          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
+          integrator_id: !isSuperAdmin ? userId : "",
           site_ids: [],
           user_ids: [],
         }
       : {
           customer_name: item?.customer_name,
           group_id: item?.groups.group_id,
-          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
+          integrator_id: !isSuperAdmin
+            ? userId
+            : item?.integrators.integrator_id,
           site_ids: item?.sites.map(
             (site: { site_id: string }) => site.site_id
           ),
@@ -68,10 +76,31 @@ const AddCustomer: React.FC<AddCustomerProps> = ({
         };
 
   const [formState, setFormState] = useState<FormState>(initialState);
+  const [formError, setFormError] = useState<FormError>({
+    customer_name: false,
+  });
 
   const onChange = (e) => {
     let { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
+    validateFormField(name, value);
+  };
+  const validateFormField = (name, value) => {
+    //eslint-disable-next-line
+    let regexp1 = /[~`!@#$%^&()_={}[\]:;,.<>+\/?-]/;
+    let errors = { customer_name: false };
+    switch (name) {
+      case "customer_name":
+        if (regexp1.test(value)) {
+          errors.customer_name = true;
+        } else {
+          errors.customer_name = false;
+        }
+        break;
+      default:
+        break;
+    }
+    setFormError(errors);
   };
 
   const [loading1, setLoading1] = useState<boolean>(true);
@@ -84,10 +113,6 @@ const AddCustomer: React.FC<AddCustomerProps> = ({
       const response: AxiosResponse<{ groups: Group[] }> = await axios.get(
         process.env.REACT_APP_API_URL + "groups"
       );
-      // const activeArr = response.data.groups.filter(
-      //   (item) => item.is_disabled === false
-      // );
-      // setGroupData(activeArr);
       setGroupData(response.data.groups);
       setLoading1(false);
     } catch (err) {
@@ -95,27 +120,10 @@ const AddCustomer: React.FC<AddCustomerProps> = ({
     }
   }, []);
 
-  const [loading2, setLoading2] = useState<boolean>(true);
-
-  const [userData, setUserData] = useState<User[]>([]);
-
-  const getUserData = useCallback(async (): Promise<void> => {
-    setLoading2(true);
-    try {
-      const response: AxiosResponse<{ users: User[] }> = await axios.get(
-        process.env.REACT_APP_API_URL + "users"
-      );
-      setUserData(response.data.users);
-
-      setLoading2(false);
-    } catch (err) {
-      setLoading2(false);
-    }
-  }, []);
-
   const [loading3, setLoading3] = useState<boolean>(true);
 
   const [siteData, setSiteData] = useState<Site[]>([]);
+  const [filteredSiteData, setFilteredSiteData] = useState<Site[]>([]);
 
   const getSiteData = useCallback(async (): Promise<void> => {
     setLoading3(true);
@@ -124,6 +132,7 @@ const AddCustomer: React.FC<AddCustomerProps> = ({
         process.env.REACT_APP_API_URL + "sites"
       );
       setSiteData(response.data.sites);
+      setFilteredSiteData(response.data.sites);
 
       setLoading3(false);
     } catch (err) {
@@ -138,6 +147,45 @@ const AddCustomer: React.FC<AddCustomerProps> = ({
     return withUndefined.filter((item) => item !== undefined);
   };
 
+  const onGroupChange = (e) => {
+    let { name, value } = e.target;
+    if (isSuperAdmin) {
+      let group = groupData.find((gr) => gr.group_id === value);
+      setFormState({
+        ...formState,
+        integrator_id: group?.integrators.integrator_id,
+        [name]: value,
+      });
+    } else {
+      setFormState({ ...formState, [name]: value });
+    }
+    let filteredSites = siteData.filter(
+      (item: Site) => item.groups.group_id === value
+    );
+    if (!!filteredSites.length) {
+      setFilteredSiteData(filteredSites);
+    } else {
+      setFilteredSiteData([
+        {
+          site_id: "",
+          site_name: "No sites available", //This is for visual feedback, Since we are mapping site_name in autoComplete
+          groups: {
+            group_name: "",
+            group_id: "",
+            integrators: { integrator_id: "" },
+          },
+          users: [],
+          customers: [],
+          cameras: [],
+          is_disabled: false,
+          deleteDisabled: false,
+          integrators: { integrator_id: "" },
+          change_name: "",
+        },
+      ]);
+    }
+  };
+
   const handleChange = (
     newVal: any[],
     changeKey: string,
@@ -149,15 +197,13 @@ const AddCustomer: React.FC<AddCustomerProps> = ({
 
   useEffect(() => {
     getGroupData();
-    getUserData();
     getSiteData();
 
     return () => {
       setGroupData([]);
-      setUserData([]);
       setSiteData([]);
     };
-  }, [getGroupData, getUserData, getSiteData]);
+  }, [getGroupData, getSiteData]);
 
   const handleSave = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -207,7 +253,17 @@ const AddCustomer: React.FC<AddCustomerProps> = ({
     ]
   );
 
-  if (loading1 || loading2 || loading3) {
+  const handleDelete = (option: any) => {
+    let filteredSiteIds = formState["site_ids"]?.filter(
+      (siteId) => siteId !== option["site_id"]
+    );
+    setFormState({
+      ...formState,
+      site_ids: filteredSiteIds,
+    });
+  };
+
+  if (loading1 || loading3) {
     return (
       <div style={{ marginTop: 100 }}>
         <LoadingScreen />
@@ -219,7 +275,9 @@ const AddCustomer: React.FC<AddCustomerProps> = ({
         <Grid container direction="row" spacing={1}>
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="customer_name">Name:</label>
+              <label htmlFor="customer_name">
+                Name: <span style={{ color: "red" }}>*</span>
+              </label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -231,11 +289,19 @@ const AddCustomer: React.FC<AddCustomerProps> = ({
               variant="outlined"
               fullWidth={true}
               value={formState.customer_name}
+              error={formError.customer_name}
             />
+            {formError.customer_name && (
+              <Typography variant="overline" style={{ color: "red" }}>
+                Special characters are not allowed
+              </Typography>
+            )}
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="group_id">Group:</label>
+              <label htmlFor="group_id">
+                Group: <span style={{ color: "red" }}>*</span>
+              </label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -243,7 +309,7 @@ const AddCustomer: React.FC<AddCustomerProps> = ({
               variant="outlined"
               fullWidth={true}
               name="group_id"
-              onChange={onChange}
+              onChange={onGroupChange}
               value={formState.group_id}
               id="group_id"
             >
@@ -257,35 +323,19 @@ const AddCustomer: React.FC<AddCustomerProps> = ({
 
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="customer_ids">Users:</label>
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <AutoCompleteComp
-              data={userData}
-              usedData={getUsedData(userData, "user_id", "user_ids")}
-              changeKey="user_ids"
-              labelKey="user_email"
-              returnKey="user_id"
-              handleChange={handleChange}
-              placeholder="ADD NEW USER"
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <Typography variant="h6">
               <label htmlFor="site_ids">Sites:</label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <AutoCompleteComp
-              data={siteData}
-              usedData={getUsedData(siteData, "site_id", "site_ids")}
+              data={filteredSiteData}
+              usedData={getUsedData(filteredSiteData, "site_id", "site_ids")}
               changeKey="site_ids"
               labelKey="site_name"
               returnKey="site_id"
               handleChange={handleChange}
               placeholder="ADD NEW SITE"
+              handleDelete={handleDelete}
             />
           </Grid>
           <Grid item xs={false} sm={4} />
@@ -296,6 +346,7 @@ const AddCustomer: React.FC<AddCustomerProps> = ({
               variant="contained"
               fullWidth={true}
               htmlType="submit"
+              disabled={formError.customer_name || !formState.customer_name || !formState.group_id}
             >
               Save
             </ButtonComp>

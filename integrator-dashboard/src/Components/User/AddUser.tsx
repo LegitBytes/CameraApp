@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import {
   Typography,
   TextField,
@@ -12,6 +12,7 @@ import axios, { AxiosResponse } from "axios";
 import LoadingScreen from "../../Shared/LoadingScreen";
 import AutoCompleteComp from "../../Shared/AutoCompleteComp";
 import { FormEvent } from "react";
+import { AuthContext } from "../../Context/Auth";
 
 export interface FormState {
   user_email: string | undefined;
@@ -20,6 +21,9 @@ export interface FormState {
   site_ids: any[] | undefined;
   customer_ids: any[] | undefined;
   camera_ids: any[] | undefined;
+}
+interface FormError {
+  email: boolean;
 }
 
 interface AddUserProps {
@@ -47,12 +51,13 @@ const AddUser: React.FC<AddUserProps> = ({
   handleOpen,
   updateId,
 }) => {
+  const { isSuperAdmin, userId } = useContext(AuthContext);
   const initialState =
     action === "ADD"
       ? {
           user_email: "",
           group_id: "",
-          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
+          integrator_id: !isSuperAdmin ? userId : "",
           site_ids: [],
           customer_ids: [],
           camera_ids: [],
@@ -60,7 +65,9 @@ const AddUser: React.FC<AddUserProps> = ({
       : {
           user_email: item?.user_email,
           group_id: item?.groups.group_id,
-          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
+          integrator_id: !isSuperAdmin
+            ? userId
+            : item?.integrators.integrator_id,
           site_ids: item?.sites.map(
             (site: { site_id: string }) => site.site_id
           ),
@@ -73,12 +80,34 @@ const AddUser: React.FC<AddUserProps> = ({
         };
 
   const [formState, setFormState] = useState<FormState>(initialState);
+  const [formError, setFormError] = useState<FormError>({
+    email: false,
+  });
 
   //This is simple, this is onChange for email
 
   const onChange = (e) => {
     let { name, value } = e.target;
     setFormState({ ...formState, [name]: value });
+    validateFormField(name, value);
+  };
+  const validateFormField = (name, value) => {
+    let regexp2 =
+      //eslint-disable-next-line
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let errors = { email: false };
+    switch (name) {
+      case "user_email":
+        if (!regexp2.test(value)) {
+          errors.email = true;
+        } else {
+          errors.email = false;
+        }
+        break;
+      default:
+        break;
+    }
+    setFormError(errors);
   };
 
   //Fetching all groups. No other transformation
@@ -197,7 +226,18 @@ const AddUser: React.FC<AddUserProps> = ({
 
   const onGroupChange = (e) => {
     let { name, value } = e.target;
-    setFormState({ ...formState, [name]: value });
+
+    if (isSuperAdmin) {
+      let group = groupData.find((gr) => gr.group_id === value);
+      console.log(group);
+      setFormState({
+        ...formState,
+        integrator_id: group?.integrators.integrator_id,
+        [name]: value,
+      });
+    } else {
+      setFormState({ ...formState, [name]: value });
+    }
 
     let filteredCustomers = customerData.filter(
       (item: Customer) => item.groups.group_id === value
@@ -210,11 +250,17 @@ const AddUser: React.FC<AddUserProps> = ({
         {
           customer_id: "",
           customer_name: "No customers available", //This is for visual feedback, Since we are mapping customer_name in autoComplete
-          groups: { group_id: "", group_name: "" },
+          groups: {
+            group_id: "",
+            group_name: "",
+            integrators: { integrator_id: "" },
+          },
           is_disabled: false,
           sites: [],
           users: [],
           deleteDisabled: false,
+          integrators: { integrator_id: "" },
+          change_name: "",
         },
       ]);
     }
@@ -228,12 +274,18 @@ const AddUser: React.FC<AddUserProps> = ({
         {
           site_id: "",
           site_name: "No sites available", //This is for visual feedback, Since we are mapping site_name in autoComplete
-          groups: { group_name: "", group_id: "" },
+          groups: {
+            group_name: "",
+            group_id: "",
+            integrators: { integrator_id: "" },
+          },
           users: [],
           customers: [],
           cameras: [],
           is_disabled: false,
           deleteDisabled: false,
+          integrators: { integrator_id: "" },
+          change_name: "",
         },
       ]);
     }
@@ -251,12 +303,18 @@ const AddUser: React.FC<AddUserProps> = ({
           smtp_user_name: "",
           smtp_password: "",
           total_request: 0,
-          groups: { group_id: "", group_name: "" },
+          groups: {
+            group_id: "",
+            group_name: "",
+            integrators: { integrator_id: "" },
+          },
           user_count: 0,
           is_disabled: false,
           users: [],
           sites: { site_id: "", site_name: "" },
           deleteDisabled: false,
+          integrators: { integrator_id: "" },
+          change_name: "",
         },
       ]);
     }
@@ -328,7 +386,6 @@ const AddUser: React.FC<AddUserProps> = ({
     changeKey: string,
     returnKey: string
   ) => {
-
     let arr = newVal.map((item) => item[returnKey]); //All the customers/site/cameras selected after change
     // setFormState({ ...formState, [changeKey]: arr });
 
@@ -481,7 +538,6 @@ const AddUser: React.FC<AddUserProps> = ({
   );
 
   const handleDelete = (option: any) => {
-
     if (option.hasOwnProperty("customer_id")) {
       let filteredCustomerIds = formState["customer_ids"]?.filter(
         (custId) => custId !== option["customer_id"]
@@ -545,7 +601,9 @@ const AddUser: React.FC<AddUserProps> = ({
         <Grid container direction="row" spacing={1}>
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="user_email">Email:</label>
+              <label htmlFor="user_email">
+                Email: <span style={{ color: "red" }}>*</span>
+              </label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -557,11 +615,19 @@ const AddUser: React.FC<AddUserProps> = ({
               variant="outlined"
               fullWidth={true}
               value={formState.user_email}
+              error={formError.email}
             />
+            {formError.email && (
+              <Typography variant="overline" style={{ color: "red" }}>
+                Invalid email
+              </Typography>
+            )}
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="group_id">Group:</label>
+              <label htmlFor="group_id">
+                Group: <span style={{ color: "red" }}>*</span>
+              </label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -650,6 +716,9 @@ const AddUser: React.FC<AddUserProps> = ({
               variant="contained"
               fullWidth={true}
               htmlType="submit"
+              disabled={
+                formError.email || !formState.user_email || !formState.group_id
+              }
             >
               Save
             </ButtonComp>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Typography } from "@material-ui/core";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import { paths } from "../../util/paths";
@@ -7,6 +7,7 @@ import ProfileMenu from "./ProfileMenu";
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { MoreVert } from "@material-ui/icons";
 import Notification from "../../assets/Notification.svg";
+import { RouteContext } from "../../context/RouteContext";
 
 interface MobileMenuProps {
   classes: ClassNameMap<"spacing" | "link" | "linkActive">;
@@ -14,6 +15,7 @@ interface MobileMenuProps {
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ classes }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const { setRoute } = useContext(RouteContext)
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -22,6 +24,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ classes }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const onPathClick = (path:string) => {
+    handleClose()
+    setRoute(path)
+  }
+  
   return (
     <>
       <div className={classes.spacing} />
@@ -31,12 +39,12 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ classes }) => {
       <Menu
         anchorEl={anchorEl}
         keepMounted
-        open={Boolean(anchorEl)}
+        open={Boolean(anchorEl)} 
         onClose={handleClose}
       >
         {paths.map((path) => (
           <MenuItem
-            onClick={handleClose}
+            onClick={() => onPathClick(path.path)}
             key={path.text}
             style={{
               display: "flex",

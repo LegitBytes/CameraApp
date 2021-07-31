@@ -10,6 +10,14 @@ export const columns: Columns[] = [
     },
   },
   {
+    name: "change_name",
+    label: "Changed Name",
+    options: {
+      filter: true,
+      sort: true,
+    },
+  },
+  {
     name: "group_name",
     label: "Group",
     options: {
@@ -33,14 +41,14 @@ export const columns: Columns[] = [
       sort: true,
     },
   },
-  {
-    name: "camera_count",
-    label: "Cameras",
-    options: {
-      filter: true,
-      sort: true,
-    },
-  },
+  // {
+  //   name: "camera_count",
+  //   label: "Cameras",
+  //   options: {
+  //     filter: true,
+  //     sort: true,
+  //   },
+  // },
   {
     name: "actions",
     label: "Actions",

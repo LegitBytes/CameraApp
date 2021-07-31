@@ -26,10 +26,29 @@ const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
 
   const theme: Theme = useTheme();
   const isMobile: boolean = useMediaQuery(theme.breakpoints.down("sm"));
-  const { user } = useContext(AuthContext);
+  const { userId } = useContext(AuthContext);
   return (
+    // <>
+    //   <AppBar elevation={0} position="fixed" className={classes.root}>
+    //     <Toolbar>
+    //       <div className={classes.brand} onClick={() => history.push("/")}>
+    //         <img src={CompanyLogo} alt="Company Logo" />
+    //         <Typography variant="h6">Camera-app</Typography>
+    //       </div>
+    //       {isMobile ? (
+    //         <MobileMenu classes={classes} />
+    //       ) : (
+    //         <DesktopView classes={classes} />
+    //       )}
+    //     </Toolbar>
+    //   </AppBar>
+    //   <div className={classes.containerStyles}>
+    //     <Routes />
+    //   </div>{" "}
+    // </>
+
     <>
-      {!user ? (
+      {!userId ? (
         <AuthRoutes />
       ) : (
         <>
@@ -37,7 +56,7 @@ const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
           <AppBar elevation={0} position="fixed" className={classes.root}>
             <Toolbar>
               <div className={classes.brand} onClick={() => history.push("/")}>
-                <img src={CompanyLogo} alt="Company Logo" /> 
+                <img src={CompanyLogo} alt="Company Logo" />
                 <Typography variant="h6">Camera-app</Typography>
               </div>
               {isMobile ? (
@@ -49,8 +68,8 @@ const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
           </AppBar>
           <div className={classes.containerStyles}>
             <Routes />
-          </div>{" "}
-        </>
+          </div>{" "} 
+        </> 
       )}
     </>
   );

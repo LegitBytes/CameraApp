@@ -2,6 +2,7 @@ export type is_disabled = true | false;
 interface groups {
   group_name: string;
   group_id: string;
+  integrators: integrators;
 }
 interface sites {
   site_name: string;
@@ -23,6 +24,8 @@ export interface Camera {
   users: [];
   sites: sites;
   deleteDisabled: boolean;
+  integrators: integrators;
+  change_name: string;
 }
 
 export interface Site {
@@ -37,6 +40,8 @@ export interface Site {
   cameras: [];
   is_disabled: is_disabled;
   deleteDisabled: boolean;
+  integrators: integrators;
+  change_name: string;
 }
 
 export interface Customer {
@@ -50,6 +55,8 @@ export interface Customer {
   sites: [];
   users: [];
   deleteDisabled: boolean;
+  integrators: integrators;
+  change_name: string;
 }
 
 export interface User {
@@ -63,6 +70,7 @@ export interface User {
   sites: [];
   cameras: [];
   customers: [];
+  integrators: integrators;
 }
 
 export interface Group {
@@ -74,6 +82,7 @@ export interface Group {
   site_count: number;
   camera_count: number;
   is_disabled: is_disabled;
+  cameras: Camera[]
 }
 
 export interface Integrator {
@@ -87,6 +96,7 @@ export interface Integrator {
   customer_count: number;
   site_count: number;
   camera_count: number;
+  cameras: Camera[]
 }
 
 export interface FormattedCamera {
@@ -94,12 +104,13 @@ export interface FormattedCamera {
   ip_address: string;
   smtp_username: JSX.Element;
   smtp_password: JSX.Element;
-  site: string;
+  site: string; 
   customer: string;
   total_requests: number;
   group_name: number;
   user_count: number;
   actions: JSX.Element;
+  change_name: string;
 }
 
 export interface FormattedSite {
@@ -109,6 +120,7 @@ export interface FormattedSite {
   customer_count: number;
   camera_count: number;
   actions: JSX.Element;
+  change_name: string;
 }
 
 export interface FormattedCustomer {
@@ -118,6 +130,7 @@ export interface FormattedCustomer {
   site_count: number;
   camera_count: number;
   actions: JSX.Element;
+  change_name: string;
 }
 
 export interface FormattedUser {
@@ -181,6 +194,16 @@ export interface SiteStats {
   alert: number;
   total_requests: number;
 }
+export interface GroupStats {
+  group_name: string;
+  alert: number;
+  total_requests: number;
+}
+export interface IntegratorStats {
+  name: string;
+  alert: number;
+  total_requests: number;
+}
 
 export interface xlsxSites {
   "Site ID": string;
@@ -190,6 +213,7 @@ export interface xlsxSites {
   "Number of Customers": number;
   "Number of Cameras": number;
   Disabled: boolean;
+  "Changed Name": string;
 }
 
 export interface xlsxCamera {
@@ -203,6 +227,7 @@ export interface xlsxCamera {
   "Number of Users": number;
   "Total Requests": number;
   Disabled: boolean;
+  "Changed Name": string;
 }
 
 export interface xlsxCustomer {
@@ -211,6 +236,7 @@ export interface xlsxCustomer {
   "Number of Users": number;
   "Number of Sites": number;
   Disabled: boolean;
+  "Changed Name": string;
 }
 
 export interface xlsxUser {

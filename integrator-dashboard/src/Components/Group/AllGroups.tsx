@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState, useContext } from "react";
 import { rows, Group, xlsxGroup } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
@@ -8,10 +8,14 @@ import { columns } from "./Util/Columns";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
 import { handleSwitchChange } from "../../Utilities/Helpers/handleSwitchChange";
 import AddGroup from "./AddGroup";
+import { AuthContext } from "../../Context/Auth";
 
 type title = "ADD NEW GROUP" | "EDIT GROUP";
 
 const AllGroups: React.FC = () => {
+
+  const { isSuperAdmin, userId } = useContext(AuthContext)
+
   const [alertDetails, setAlertDetails] = useState<Alert>({
     open: false,
     horizontal: "center",
@@ -78,11 +82,20 @@ const AllGroups: React.FC = () => {
     try {
       const response: AxiosResponse<{ groups: Group[] }> = await axios.get(url);
       // console.log(response.data);
-      setWholeData(response.data.groups)
-      const activeArr = response.data.groups.filter(
+
+      let groups: Group[] = []
+
+      if(!isSuperAdmin){
+        groups = response.data.groups.filter(group => group.integrators.integrator_id === userId)
+      }else{
+        groups = response.data.groups
+      }
+
+      setWholeData(groups)
+      const activeArr = groups.filter(
         (item) => item.is_disabled === false
       );
-      const inactiveArr = response.data.groups.filter(
+      const inactiveArr = groups.filter(
         (item) => item.is_disabled === true
       );
       setActiveData(activeArr);
@@ -92,7 +105,7 @@ const AllGroups: React.FC = () => {
       setLoading(false);
       handleOpen("left", "bottom", "Something went wrong!");
     }
-  }, [url]);
+  }, [isSuperAdmin, url, userId]);
 
   useEffect(() => {
     getGroupData();

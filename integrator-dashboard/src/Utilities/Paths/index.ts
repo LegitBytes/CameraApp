@@ -8,27 +8,27 @@ export const paths: Path[] = [
     text: "Statistics",
   },
   {
+    path: "/integrator",
+    text: "Integrator",
+  },
+  {
     path: "/group",
     text: "Group",
-  },
-  {
-    path: "/user",
-    text: "User",
-  },
-  {
-    path: "/customer",
-    text: "Customer",
-  },
-  {
-    path: "/site",
-    text: "Site",
   },
   {
     path: "/camera",
     text: "Camera",
   },
   {
-    path: "/integrator",
-    text: "Integrator",
+    path: "/site",
+    text: "Site",
   },
+  {
+    path: "/customer",
+    text: "Customer",
+  },
+  {
+    path: "/user",
+    text: "User",
+  }
 ];

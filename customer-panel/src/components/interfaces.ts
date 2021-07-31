@@ -20,6 +20,8 @@ export interface user {
   user_id: string;
   user_email: string;
   customers: customer[];
+  sites: site[],
+  cameras: camera[]
 }
 
 interface Label {

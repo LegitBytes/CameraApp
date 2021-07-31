@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import {
   Typography,
   TextField,
@@ -14,6 +14,7 @@ import axios, { AxiosResponse } from "axios";
 import LoadingScreen from "../../Shared/LoadingScreen";
 import { FormEvent } from "react";
 import { FileCopy } from "@material-ui/icons";
+import { AuthContext } from "../../Context/Auth";
 
 export interface FormState {
   camera_name: string | undefined;
@@ -21,6 +22,10 @@ export interface FormState {
   smtp_password: string | undefined;
   group_id: string | undefined;
   integrator_id: string | undefined;
+}
+
+interface FormError {
+  camera_name: boolean;
 }
 
 interface AddCameraProps {
@@ -48,6 +53,8 @@ const AddCamera: React.FC<AddCameraProps> = ({
   handleOpen,
   updateId,
 }) => {
+  const { isSuperAdmin, userId } = useContext(AuthContext);
+
   const initialState =
     action === "ADD"
       ? {
@@ -55,21 +62,54 @@ const AddCamera: React.FC<AddCameraProps> = ({
           smtp_user_name: "",
           smtp_password: "",
           group_id: "",
-          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
+          integrator_id: !isSuperAdmin ? userId : "",
         }
       : {
           camera_name: item?.camera_name,
           smtp_user_name: item?.smtp_user_name,
           smtp_password: item?.smtp_password,
           group_id: item?.groups.group_id,
-          integrator_id: "06909c66-bb62-4329-a25e-80f52d2db10b",
+          integrator_id: !isSuperAdmin
+            ? userId
+            : item?.integrators.integrator_id,
         };
 
   const [formState, setFormState] = useState<FormState>(initialState);
 
+  const [formError, setFormError] = useState<FormError>({
+    camera_name: false,
+  });
   const onChange = (e) => {
     let { name, value } = e.target;
-    setFormState({ ...formState, [name]: value });
+    if (isSuperAdmin && name === "group_id") {
+      let group = groupData.find((gr) => gr.group_id === value);
+      setFormState({
+        ...formState,
+        [name]: value,
+        integrator_id: group?.integrators.integrator_id,
+      });
+    } else {
+      setFormState({ ...formState, [name]: value });
+    }
+    validateFormField(name, value);
+  };
+
+  const validateFormField = (name, value) => {
+    //eslint-disable-next-line
+    let regexp1 = /[~`!@#$%^&()_={}[\]:;,.<>+\/?-]/;
+    let errors = { camera_name: false };
+    switch (name) {
+      case "camera_name":
+        if (regexp1.test(value)) {
+          errors.camera_name = true;
+        } else {
+          errors.camera_name = false;
+        }
+        break;
+      default:
+        break;
+    }
+    setFormError(errors);
   };
 
   const [loading1, setLoading1] = useState<boolean>(true);
@@ -87,10 +127,6 @@ const AddCamera: React.FC<AddCameraProps> = ({
       const response: AxiosResponse<{ groups: Group[] }> = await axios.get(
         process.env.REACT_APP_API_URL + "groups"
       );
-      // const activeArr = response.data.groups.filter(
-      //   (item) => item.is_disabled === false
-      // );
-      // setGroupData(activeArr);
       setGroupData(response.data.groups);
       setLoading1(false);
     } catch (err) {
@@ -166,7 +202,9 @@ const AddCamera: React.FC<AddCameraProps> = ({
         <Grid container direction="row" spacing={1}>
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="camera_name">Name:</label>
+              <label htmlFor="camera_name">
+                Name: <span style={{ color: "red" }}>*</span>
+              </label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -178,11 +216,19 @@ const AddCamera: React.FC<AddCameraProps> = ({
               variant="outlined"
               fullWidth={true}
               value={formState.camera_name}
+              error={formError.camera_name}
             />
+            {formError.camera_name && (
+              <Typography variant="overline" style={{ color: "red" }}>
+                Special characters are not allowed
+              </Typography>
+            )}
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="smtp_user_name">SMTP Username:</label>
+              <label htmlFor="smtp_user_name">
+                SMTP Username: <span style={{ color: "red" }}>*</span>
+              </label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -213,7 +259,9 @@ const AddCamera: React.FC<AddCameraProps> = ({
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="smtp_password">SMTP Password:</label>
+              <label htmlFor="smtp_password">
+                SMTP Password: <span style={{ color: "red" }}>*</span>
+              </label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -244,7 +292,9 @@ const AddCamera: React.FC<AddCameraProps> = ({
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="group_id">Group:</label>
+              <label htmlFor="group_id">
+                Group: <span style={{ color: "red" }}>*</span>
+              </label>
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -271,6 +321,13 @@ const AddCamera: React.FC<AddCameraProps> = ({
               variant="contained"
               fullWidth={true}
               htmlType="submit"
+              disabled={
+                formError.camera_name ||
+                !formState.camera_name ||
+                !formState.smtp_user_name ||
+                !formState.smtp_password ||
+                !formState.group_id
+              }
             >
               Save
             </ButtonComp>

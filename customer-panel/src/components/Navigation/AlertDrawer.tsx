@@ -13,6 +13,7 @@ import { FiberManualRecord } from "@material-ui/icons";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/Auth"
+import { RouteContext } from "../../context/RouteContext";
 
 interface AlertDrawerProps {
   classes: ClassNameMap<"ml5" | "mr5" | "listStyles" | "inputStyles">;
@@ -26,6 +27,7 @@ interface AlertDrawerProps {
 const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
   // const temporaryUser = "6029f127-d062-4ad3-9622-f55bf99e7ee8";
   const { userId } = useContext(AuthContext)
+  const { setRoute } = useContext(RouteContext)
   const history = useHistory();
   const [userAlerts, setUserAlerts] = useState<alertUser>({
     camera_details: [],
@@ -59,7 +61,7 @@ const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
     return () => {
       setUserAlerts({
         camera_details: [],
-        cameras: [],
+        cameras: [], 
         sites: [],
         user_email: "",
         user_id: "",
@@ -77,6 +79,11 @@ const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
     return { camera_name: camera?.camera_name, site_name: site?.site_name };
   };
 
+  const onClick = (path: string) => {
+    history.push(path)
+    setRoute(path)
+  }
+
   return (
     <>
       {loading ? (
@@ -87,11 +94,7 @@ const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
             alerts.map((alert) => (
               <ListItem
                 className={classes.listStyles}
-                onClick={() =>
-                  history.push(
-                    "/alerts/" + alert.fromemail + "/" + alert.timestamp
-                  )
-                }
+                onClick={() => onClick("/alerts/" + alert.fromemail + "/" + alert.timestamp)}
                 style={{ cursor: "pointer" }}
                 key={alert.timestamp}
               >

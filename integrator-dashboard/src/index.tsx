@@ -6,11 +6,27 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./Assets/global.css";
 import { AuthProvider } from "./Context/Auth";
 
+//Amplify setup
+import { Amplify } from "aws-amplify";
+import { RouteProvider } from "./Context/RouteContext";
+Amplify.configure({
+  Auth: {
+    userPoolId: process.env.REACT_APP_USERPOOLID,
+    userPoolWebClientId: process.env.REACT_APP_USERPOOLWEBCLIENTID,
+    awsCognitoIdentityPoolId: process.env.REACT_APP_IDENTITYPOOLID,
+  },
+  Analytics: {
+    disabled: true,
+  },
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <AuthProvider>
-        <App />
+        <RouteProvider>
+          <App />
+        </RouteProvider>
       </AuthProvider>
     </Router>
   </React.StrictMode>,

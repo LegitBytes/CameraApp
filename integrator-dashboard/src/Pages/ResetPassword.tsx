@@ -3,13 +3,14 @@ import { RouteComponentProps } from "react-router-dom";
 import { Alert } from "../Shared/Interfaces";
 import { TransitionLeft, TransitionProps } from "../Shared/Slides";
 import AlertComp from "../Shared/Alert";
-import LoginComp from "../Components/Auth/Login"
-interface LoginProps extends RouteComponentProps {}
-const Login: React.FC<LoginProps> = () => {
+import ResetPasswordComp from "../Components/Auth/ResetPassword";
+
+interface ResetPasswordProps extends RouteComponentProps {}
+const ResetPassword: React.FC<ResetPasswordProps> = () => {
   useEffect(() => window.scrollTo(0, 0), []);
   const [alertDetails, setAlertDetails] = useState<Alert>({
     open: false,
-    horizontal: "center",
+    horizontal: "center", 
     vertical: "bottom",
     message: "",
   });
@@ -38,7 +39,7 @@ const Login: React.FC<LoginProps> = () => {
 
   return (
     <>
-    <LoginComp handleOpen={handleOpen}/>
+      <ResetPasswordComp handleOpen={handleOpen} />
       <AlertComp
         open={alertDetails.open}
         vertical={alertDetails.vertical}
@@ -51,4 +52,4 @@ const Login: React.FC<LoginProps> = () => {
   );
 };
 
-export default Login;
+export default ResetPassword;

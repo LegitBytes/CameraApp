@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { Camera, rows, xlsxCamera } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import { Alert } from "../../Shared/Interfaces";
@@ -9,6 +9,7 @@ import CopyAble from "../../Shared/CopyAble";
 import Functionalities, { args, retVal } from "../Main/Functionalities";
 import { handleSwitchChange } from "../../Utilities/Helpers/handleSwitchChange";
 import AddCamera from "./AddCamera";
+import { AuthContext } from "../../Context/Auth";
 
 type title = "ADD NEW CAMERA" | "EDIT CAMERA";
 
@@ -56,6 +57,7 @@ const AllCameras: React.FC = () => {
   const [updateId, setUpdateId] = useState<string>("");
   const [action, setAction] = useState<"ADD" | "EDIT">("ADD");
   const [item, setItem] = useState<Camera | null>(null);
+  const { isSuperAdmin, userId } = useContext(AuthContext)
 
   const handleModalOpen = (): void => {
     setTitle("ADD NEW CAMERA");
@@ -82,11 +84,17 @@ const AllCameras: React.FC = () => {
       const response: AxiosResponse<{ cameras: Camera[] }> = await axios.get(
         url
       );
-      setWholeData(response.data.cameras);
-      let activeArr = response.data.cameras.filter(
+      let cameras: Camera[] = []
+      if(!isSuperAdmin){
+        cameras = response.data.cameras.filter(camera => camera.integrators.integrator_id === userId)
+      }else{
+        cameras = response.data.cameras
+      }
+      setWholeData(cameras);
+      let activeArr = cameras.filter(
         (item) => item.is_disabled === false
       );
-      let inactiveArr = response.data.cameras.filter(
+      let inactiveArr = cameras.filter(
         (item) => item.is_disabled === true
       );
       setActiveData(activeArr);
@@ -96,7 +104,7 @@ const AllCameras: React.FC = () => {
       setLoading(false);
       handleOpen("left", "bottom", "Something went wrong!");
     }
-  }, [url]);
+  }, [isSuperAdmin, url, userId]);
 
   useEffect(() => {
     getCameraData();
@@ -109,6 +117,7 @@ const AllCameras: React.FC = () => {
   const formatData = (data: args, isActive: boolean): retVal => {
     return data.map((item) => ({
       name: item.camera_name,
+      change_name: item.change_name ? item.change_name : "",
       ip_address: item.ip_address,
       smtp_username: (
         <CopyAble text={item.smtp_user_name} handleOpen={handleOpen} />
@@ -159,6 +168,7 @@ const AllCameras: React.FC = () => {
     return wholeData.map((camera) => ({
       "Camera ID": camera.camera_id,
       "Camera Name": camera.camera_name,
+      "Changed Name": camera.change_name ? camera.change_name : "",
       "IP Address": camera.ip_address,
       "SMTP Username": camera.smtp_password,
       "SMTP Password": camera.smtp_password,

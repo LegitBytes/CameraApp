@@ -10,6 +10,14 @@ export const columns: Columns[] = [
       },
     },
     {
+      name: "change_name",
+      label: "Changed Name",
+      options: {
+        filter: true,
+        sort: true, 
+      },
+    },
+    {
       name: "ip_address",
       label: "IP",
       options: {
@@ -24,7 +32,7 @@ export const columns: Columns[] = [
         filter: false,
         sort: false,
       },
-    },
+    }, 
     {
       name: "smtp_password",
       label: "SMTP Password",
@@ -41,14 +49,14 @@ export const columns: Columns[] = [
         sort: true,
       },
     },
-    {
-      name: "customer",
-      label: "Customer",
-      options: {
-        filter: true,
-        sort: true,
-      },
-    },
+    // {
+    //   name: "customer",
+    //   label: "Customer",
+    //   options: {
+    //     filter: true,
+    //     sort: true,
+    //   },
+    // },
     {
       name: "total_requests",
       label: "Requests",
