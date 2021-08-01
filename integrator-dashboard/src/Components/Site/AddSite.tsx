@@ -119,12 +119,18 @@ const AddSite: React.FC<AddSiteProps> = ({
       const response: AxiosResponse<{ groups: Group[] }> = await axios.get(
         process.env.REACT_APP_API_URL + "groups"
       );
-      setGroupData(response.data.groups);
+      let groups: Group[] = []
+      if(!isSuperAdmin){
+        groups = response.data.groups.filter(group => group.integrators.integrator_id === userId)
+      }else{
+        groups = response.data.groups
+      }
+      setGroupData(groups);
       setLoading1(false);
     } catch (err) {
       setLoading1(false);
     }
-  }, []);
+  }, [isSuperAdmin, userId]);
 
   const [loading4, setLoading4] = useState<boolean>(true);
 

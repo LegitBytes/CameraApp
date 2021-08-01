@@ -122,12 +122,18 @@ const AddUser: React.FC<AddUserProps> = ({
       const response: AxiosResponse<{ groups: Group[] }> = await axios.get(
         process.env.REACT_APP_API_URL + "groups"
       );
-      setGroupData(response.data.groups);
+      let groups: Group[] = []
+      if(!isSuperAdmin){
+        groups = response.data.groups.filter(group => group.integrators.integrator_id === userId)
+      }else{
+        groups = response.data.groups
+      }
+      setGroupData(groups);
       setLoading1(false);
     } catch (err) {
       setLoading1(false);
     }
-  }, []);
+  }, [isSuperAdmin, userId]);
 
   // Fetching all customers, sites and group, and adding a key deleteDisabled in each, so that they can be later used for greying out in AutoComplete
   // FilteredData is initially the duplicate of data fetched, but is changed based on group change

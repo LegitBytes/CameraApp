@@ -115,7 +115,7 @@ const Statistics: React.FC = () => {
       handleOpen("left", "bottom", "Something went wrong!");
       setLoading(false);
     }
-  }, [url, siteUrl, groupUrl, integratorUrl]);
+  }, [url, siteUrl, groupUrl, integratorUrl, isSuperAdmin, userId]);
 
   useEffect(() => {
     getStatistics();
