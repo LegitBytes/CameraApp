@@ -25,8 +25,8 @@ const MainDetails: React.FC<MainDetailsProps> = ({ handleOpen }) => {
   const classes = useStyles();
   const params: params = useParams();
   const { camera, customer, site } = params;
-  const camera_name = camera.split("-")[0];
-  const smtp_user_name = camera.split("-")[1];
+  const camera_name = camera.split("@")[0];
+  const smtp_user_name = camera.split("@")[1];
   const today: number = new Date().setHours(new Date().getHours(), 0, 0, 0);
   const yesterday: number = today - 24 * 60 * 60 * 1000;
 

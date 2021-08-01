@@ -248,8 +248,8 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
     camera_name: string,
     smtp: string
   ) => {
-    history.push(`/main/${customer}/${site}/${camera_name}-${smtp}`);
-    setRoute(`/main/${customer}/${site}/${camera_name}-${smtp}`)
+    history.push(`/main/${customer}/${site}/${camera_name}@${smtp}`);
+    setRoute(`/main/${customer}/${site}/${camera_name}@${smtp}`)
   };
 
   return (
