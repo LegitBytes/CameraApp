@@ -10,8 +10,26 @@ import {
 import constants from "@libs/constants";
 import { PrismaClient } from "@prisma/client";
 import { isAuthorized } from "@libs/authUtil";
+import * as AWS from "aws-sdk";
+import { generatePassword } from "./generatePassword";
+import * as policy from "./policy.json";
+import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
+
+const iam = new AWS.IAM();
+
+const response = (statusCode, message) => {
+  return {
+    statusCode,
+    body: JSON.stringify(message),
+    headers: {
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT,DELETE,PATCH",
+    },
+  };
+};
 
 // Add a new Camera
 const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
@@ -24,26 +42,28 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   ) {
     try {
       console.log(JSON.parse(event.body));
-
-      const {
-        camera_name,
-        smtp_user_name,
-        smtp_password,
-        group_id,
-        integrator_id,
-      } = JSON.parse(event.body);
+      const camera_id = uuidv4();
+      const { camera_name, group_id, integrator_id } = JSON.parse(event.body);
 
       if (JSON.parse(event.body).camera_ip) {
+        const {
+          SecretAccessKey: secretAccessKey,
+          AccessKeyId: smtp_user_name,
+        } = await createSMTPCredential(camera_id);
+        const smtp_password = generatePassword(secretAccessKey);
+
         const camera = await prisma.cameras.create({
           data: {
+            camera_id,
             camera_name,
-            camera_ip: JSON.parse(event.body).camera_ip,
             smtp_user_name,
             smtp_password,
+            camera_ip: JSON.parse(event.body).camera_ip,
             group_id,
             integrator_id,
           },
         });
+
         return formatJSONResponseStatusCreated({
           message: constants.CAMERA_SAVE,
           camera,
@@ -73,8 +93,13 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       //   });
       // }
 
+      const { SecretAccessKey: secretAccessKey, AccessKeyId: smtp_user_name } =
+        await createSMTPCredential(camera_id);
+      const smtp_password = generatePassword(secretAccessKey);
+
       const camera = await prisma.cameras.create({
         data: {
+          camera_id,
           camera_name,
           smtp_user_name,
           smtp_password,
@@ -82,6 +107,9 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
           integrator_id,
         },
       });
+
+      console.log("Camera :: ", camera);
+
       return formatJSONResponseStatusCreated({
         message: constants.CAMERA_SAVE,
         camera,
@@ -384,6 +412,44 @@ const removeCamera = async (event) => {
     return formatJSONResponseStatusUnAuthorized({
       message: constants.NOT_AUTHORIZED,
     });
+  }
+};
+
+const createSMTPCredential = async (camera_id): Promise<AWS.IAM.AccessKey> => {
+  const params = { UserName: camera_id };
+
+  // IAM - createUser
+  try {
+    await iam.createUser(params).promise();
+  } catch (error) {
+    console.log("Catch Block createSMTPCredential :: ", error);
+    throw response(500, error);
+  }
+
+  // IAM - putUserPolicy
+  const putUserPolicyParams = {
+    PolicyDocument: JSON.stringify(policy),
+    PolicyName: "SESAllAccessPolicy",
+    UserName: camera_id,
+  };
+  try {
+    await iam.putUserPolicy(putUserPolicyParams).promise();
+  } catch (error) {
+    console.log("Catch Block createSMTPCredential :: ", error);
+    throw response(500, error);
+  }
+
+  // IAM - createAccessKey
+
+  try {
+    const accessKey = await (
+      await iam.createAccessKey(params).promise()
+    ).AccessKey;
+    console.log("SecretAccessKey :: ", accessKey);
+    return accessKey;
+  } catch (error) {
+    console.log("Catch Block createSMTPCredential :: ", error);
+    throw response(500, error);
   }
 };
 

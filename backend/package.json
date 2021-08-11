@@ -12,23 +12,19 @@
     "npm": ">=7.6.0"
   },
   "dependencies": {
-    "@middy/core": "^1.5.2",
-    "@middy/http-json-body-parser": "^1.5.2",
     "@prisma/client": "^2.24.0",
-    "@types/uuid": "^8.3.0",
-    "aws-sdk": "^2.902.0",
-    "npm": "^7.16.0",
+    "crypto": "^1.0.1",
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.3",
-    "source-map-support": "^0.5.19",
-    "umzug": "^2.3.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "utf8": "^3.0.0"
   },
   "devDependencies": {
     "@serverless/typescript": "^2.23.0",
     "@types/aws-lambda": "^8.10.71",
     "@types/bluebird": "^3.5.33",
-    "@types/node": "^14.14.25",
+    "@types/node": "^16.4.13",
+    "@types/utf8": "^3.0.0",
     "@types/validator": "^13.1.3",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
@@ -50,7 +46,9 @@
     "typescript": "^4.1.3",
     "webpack": "^5.20.2",
     "webpack-cli": "^4.7.0",
-    "webpack-node-externals": "^2.5.2"
+    "webpack-node-externals": "^2.5.2",
+    "@types/uuid": "^8.3.0",
+    "aws-sdk": "^2.902.0"
   },
   "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
   "license": "MIT"

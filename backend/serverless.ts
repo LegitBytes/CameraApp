@@ -81,9 +81,9 @@ const serverlessConfiguration: AWS = {
     "serverless-webpack",
     "serverless-prune-plugin",
   ],
-  // package: {
-  //   patterns: ["../api_database/*"],
-  // },
+  package: {
+    excludeDevDependencies: true,
+  },
   provider: {
     name: "aws",
     runtime: "nodejs14.x",
