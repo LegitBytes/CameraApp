@@ -7,12 +7,6 @@ export default {
     camera_ip: {
       type: "string",
     },
-    smtp_user_name: {
-      type: "string",
-    },
-    smtp_password: {
-      type: "string",
-    },
     group_id: {
       type: "string",
     },
@@ -26,11 +20,5 @@ export default {
       type: "array",
     },
   },
-  required: [
-    "camera_name",
-    "smtp_user_name",
-    "smtp_password",
-    "group_id",
-    "integrator_id",
-  ],
+  required: ["camera_name", "group_id", "integrator_id"],
 } as const;
