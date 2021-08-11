@@ -9,6 +9,10 @@ export const addNewUser = {
         method: "post",
         path: "users/add-user",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
         request: {
           schema: {
             "application/json": schema,
@@ -27,6 +31,10 @@ export const findUserById = {
         method: "get",
         path: "users/{userId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -40,6 +48,10 @@ export const findAllUsers = {
         method: "get",
         path: "users",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -53,6 +65,10 @@ export const updateUser = {
         method: "patch",
         path: "users/{userId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
         request: {
           schema: {
             "application/json": schema,
@@ -71,6 +87,10 @@ export const disiableUser = {
         method: "patch",
         path: "users/disable-user/{userId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -84,6 +104,10 @@ export const removeUser = {
         method: "delete",
         path: "users/{userId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],

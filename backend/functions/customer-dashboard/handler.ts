@@ -43,6 +43,8 @@ const findAllCameraDetails = async (event) => {
 };
 
 const findCameraDetailsById = async (event) => {
+  console.log(event.requestContext.authorizer.claims);
+
   try {
     const { fromemail, date1, date2 } = event.pathParameters;
 

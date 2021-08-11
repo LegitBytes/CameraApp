@@ -9,6 +9,10 @@ export const addNewSite = {
         method: "post",
         path: "sites/add-site",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
         request: {
           schema: {
             "application/json": schema,
@@ -27,6 +31,10 @@ export const findSiteById = {
         method: "get",
         path: "sites/{siteId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -40,6 +48,10 @@ export const findAllSites = {
         method: "get",
         path: "sites",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -53,6 +65,10 @@ export const updateSite = {
         method: "patch",
         path: "sites/{siteId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
         request: {
           schema: {
             "application/json": schema,
@@ -71,6 +87,10 @@ export const disiableSite = {
         method: "patch",
         path: "sites/disable-site/{siteId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -84,6 +104,10 @@ export const updateChangeNameSite = {
         method: "patch",
         path: "sites/aliase-site/{siteId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -97,6 +121,10 @@ export const removeSite = {
         method: "delete",
         path: "sites/{siteId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],

@@ -63,6 +63,10 @@ const serverlessConfiguration: AWS = {
   frameworkVersion: "2",
   useDotenv: true,
   custom: {
+    prune: {
+      automatic: true,
+      number: 4,
+    },
     webpack: {
       webpackConfig: "./webpack.config.js",
       includeModules: true,
@@ -108,6 +112,8 @@ const serverlessConfiguration: AWS = {
           "dynamodb:UpdateItem",
           "dynamodb:DeleteItem",
           "cognito-idp:AdminCreateUser",
+          "cognito-idp:AdminListGroupsForUser",
+          "cognito-idp:AdminAddUserToGroup",
         ],
         Resource: "*",
       },

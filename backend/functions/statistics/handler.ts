@@ -1,3 +1,6 @@
+import { formatJSONResponseStatusUnAuthorized } from "@libs/apiGateway";
+import { isAuthorized } from "@libs/authUtil";
+import constants from "@libs/constants";
 import * as AWS from "aws-sdk";
 
 const db = new AWS.DynamoDB.DocumentClient();
@@ -24,41 +27,50 @@ const response = (statusCode, message) => {
 
 const groupCameraByEmail = async (event) => {
   console.log("Inside findAllCameraDetails.");
+  const userName = event.requestContext.authorizer.claims.sub;
+  if (
+    (await isAuthorized(userName, "AdminGroup")) ||
+    (await isAuthorized(userName, "IntegratorGroup"))
+  ) {
+    try {
+      const emailGroupByPromise = await db.scan({ TableName: table }).promise();
 
-  try {
-    const emailGroupByPromise = await db.scan({ TableName: table }).promise();
+      const fromEmails = emailGroupByPromise.Items.map((item) => ({
+        smtp_email: item["fromemail"],
+        alert: item["alert"] === undefined ? false : item["alert"],
+      }));
 
-    const fromEmails = emailGroupByPromise.Items.map((item) => ({
-      smtp_email: item["fromemail"],
-      alert: item["alert"] === undefined ? false : item["alert"],
-    }));
+      const emailGroupByFilter = fromEmails.map((email) => {
+        const obj = {
+          smtp_email: email.smtp_email,
+          alert: fromEmails.filter(
+            (c) => c.smtp_email === email.smtp_email && c.alert === true
+          ).length,
+          request_count: fromEmails.filter(
+            (c) => c.smtp_email === email.smtp_email
+          ).length,
+        };
+        return obj;
+      });
+      const strData = emailGroupByFilter.map((data) => JSON.stringify(data));
+      const uniqueEmailData = new Set(strData);
+      const emailGroupBy = [...uniqueEmailData].map((data) => JSON.parse(data));
+      console.log(emailGroupBy);
 
-    const emailGroupByFilter = fromEmails.map((email) => {
-      const obj = {
-        smtp_email: email.smtp_email,
-        alert: fromEmails.filter(
-          (c) => c.smtp_email === email.smtp_email && c.alert === true
-        ).length,
-        request_count: fromEmails.filter(
-          (c) => c.smtp_email === email.smtp_email
-        ).length,
-      };
-      return obj;
+      console.log("Camera Email, Count and its Alert  :: ", emailGroupBy);
+
+      return response(200, {
+        camera_details: emailGroupBy,
+        total_count: emailGroupByPromise.Count,
+      });
+    } catch (error) {
+      console.log("Catch Block findAllCameraDetails :: ", error);
+      return response(500, error);
+    }
+  } else {
+    return formatJSONResponseStatusUnAuthorized({
+      message: constants.NOT_AUTHORIZED,
     });
-    const strData = emailGroupByFilter.map((data) => JSON.stringify(data));
-    const uniqueEmailData = new Set(strData);
-    const emailGroupBy = [...uniqueEmailData].map((data) => JSON.parse(data));
-    console.log(emailGroupBy);
-
-    console.log("Camera Email, Count and its Alert  :: ", emailGroupBy);
-
-    return response(200, {
-      camera_details: emailGroupBy,
-      total_count: emailGroupByPromise.Count,
-    });
-  } catch (error) {
-    console.log("Catch Block findAllCameraDetails :: ", error);
-    return response(500, error);
   }
 };
 // const findCameraDetailsById = async (event) => {

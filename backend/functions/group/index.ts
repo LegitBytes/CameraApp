@@ -9,6 +9,10 @@ export const addNewGroup = {
         method: "post",
         path: "groups/add-group",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
         request: {
           schema: {
             "application/json": schema,
@@ -27,6 +31,10 @@ export const findGroupById = {
         method: "get",
         path: "groups/{groupId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -40,6 +48,10 @@ export const findAllGroups = {
         method: "get",
         path: "groups",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -53,6 +65,10 @@ export const updateGroup = {
         method: "patch",
         path: "groups/{groupId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
         request: {
           schema: {
             "application/json": schema,
@@ -71,6 +87,10 @@ export const disiableGroup = {
         method: "patch",
         path: "groups/disable-group/{groupId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -84,6 +104,10 @@ export const removeGroup = {
         method: "delete",
         path: "groups/{groupId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],

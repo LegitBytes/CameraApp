@@ -82,3 +82,17 @@ export const formatJSONResponseStatusServerError = (
     },
   };
 };
+
+export const formatJSONResponseStatusUnAuthorized = (
+  response: Record<string, unknown>
+) => {
+  return {
+    statusCode: 403,
+    body: JSON.stringify(response),
+    headers: {
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "OPTIONS,POST,GET,PUT,DELETE,PATCH",
+    },
+  };
+};

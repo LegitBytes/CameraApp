@@ -9,6 +9,10 @@ export const addNewCamera = {
         method: "post",
         path: "cameras/add-camera",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
         request: {
           schema: {
             "application/json": schema,
@@ -27,6 +31,10 @@ export const findCameraById = {
         method: "get",
         path: "cameras/{cameraId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -40,6 +48,10 @@ export const findAllCameras = {
         method: "get",
         path: "cameras",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -53,6 +65,10 @@ export const updateCamera = {
         method: "patch",
         path: "cameras/{cameraId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
         request: {
           schema: {
             "application/json": schema,
@@ -71,6 +87,10 @@ export const disiableCamera = {
         method: "patch",
         path: "cameras/disable-camera/{cameraId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -84,6 +104,10 @@ export const updateChangeNameCamera = {
         method: "patch",
         path: "cameras/aliase-camera/{cameraId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -97,6 +121,10 @@ export const removeCamera = {
         method: "delete",
         path: "cameras/{cameraId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],

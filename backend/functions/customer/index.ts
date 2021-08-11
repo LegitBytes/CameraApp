@@ -9,6 +9,10 @@ export const addNewCustomer = {
         method: "post",
         path: "customers/add-customer",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
         request: {
           schema: {
             "application/json": schema,
@@ -27,6 +31,10 @@ export const findCustomerById = {
         method: "get",
         path: "customers/{customerId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -40,6 +48,10 @@ export const findAllCustomers = {
         method: "get",
         path: "customers",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -53,6 +65,10 @@ export const updateCustomer = {
         method: "patch",
         path: "customers/{customerId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
         request: {
           schema: {
             "application/json": schema,
@@ -71,6 +87,10 @@ export const disiableCustomer = {
         method: "patch",
         path: "customers/disable-customer/{customerId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -84,6 +104,10 @@ export const updateChangeNameCustomer = {
         method: "patch",
         path: "customers/aliase-customer/{customerId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],
@@ -97,6 +121,10 @@ export const removeCustomer = {
         method: "delete",
         path: "customers/{customerId}",
         cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
       },
     },
   ],

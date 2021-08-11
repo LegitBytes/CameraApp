@@ -37,4 +37,5 @@ export default {
   CAMERA_PATHPARAMETERS_ERROR: "Please provide Camera ID.",
   CAMERA_ID_NOT_PROVIDED_ERROR: "Please provide Camera IDs.",
   SERVER_ERROR: "Internal Server Error occured.",
+  NOT_AUTHORIZED: "You are not Authorized.",
 };
