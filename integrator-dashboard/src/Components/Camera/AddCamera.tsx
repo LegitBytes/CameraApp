@@ -5,21 +5,17 @@ import {
   Grid,
   Select,
   MenuItem,
-  InputAdornment,
-  IconButton,
+
 } from "@material-ui/core";
 import ButtonComp from "../../Shared/Buttons";
 import { Group, Camera } from "../Interfaces";
 import axios, { AxiosResponse } from "axios";
 import LoadingScreen from "../../Shared/LoadingScreen";
 import { FormEvent } from "react";
-import { FileCopy } from "@material-ui/icons";
 import { AuthContext } from "../../Context/Auth";
 
 export interface FormState {
   camera_name: string | undefined;
-  smtp_user_name: string | undefined;
-  smtp_password: string | undefined;
   group_id: string | undefined;
   integrator_id: string | undefined;
 }
@@ -59,15 +55,11 @@ const AddCamera: React.FC<AddCameraProps> = ({
     action === "ADD"
       ? {
           camera_name: "",
-          smtp_user_name: "",
-          smtp_password: "",
           group_id: "",
           integrator_id: !isSuperAdmin ? userId : "",
         }
       : {
           camera_name: item?.camera_name,
-          smtp_user_name: item?.smtp_user_name,
-          smtp_password: item?.smtp_password,
           group_id: item?.groups.group_id,
           integrator_id: !isSuperAdmin
             ? userId
@@ -232,72 +224,6 @@ const AddCamera: React.FC<AddCameraProps> = ({
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6">
-              <label htmlFor="smtp_user_name">
-                SMTP Username: <span style={{ color: "red" }}>*</span>
-              </label>
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              name="smtp_user_name"
-              id="smtp_user_name"
-              type="text"
-              onChange={onChange}
-              variant="outlined"
-              fullWidth={true}
-              value={formState.smtp_user_name}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => {
-                        onCopy(formState.smtp_user_name);
-                      }}
-                      disabled={!formState.smtp_user_name}
-                      size="small"
-                    >
-                      <FileCopy />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h6">
-              <label htmlFor="smtp_password">
-                SMTP Password: <span style={{ color: "red" }}>*</span>
-              </label>
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              name="smtp_password"
-              id="smtp_password"
-              type="text"
-              onChange={onChange}
-              variant="outlined"
-              fullWidth={true}
-              value={formState.smtp_password}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => {
-                        onCopy(formState.smtp_password);
-                      }}
-                      disabled={!formState.smtp_password}
-                      size="small"
-                    >
-                      <FileCopy />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h6">
               <label htmlFor="group_id">
                 Group: <span style={{ color: "red" }}>*</span>
               </label>
@@ -330,8 +256,6 @@ const AddCamera: React.FC<AddCameraProps> = ({
               disabled={
                 formError.camera_name ||
                 !formState.camera_name ||
-                !formState.smtp_user_name ||
-                !formState.smtp_password ||
                 !formState.group_id
               }
             >
