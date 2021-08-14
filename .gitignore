@@ -1,1 +1,3 @@
 .DS_Store
+/customer-panel/node_modules/
+/integrator-dashboard/node_modules/

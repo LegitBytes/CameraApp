@@ -13,6 +13,7 @@ import { isAuthorized } from "@libs/authUtil";
 import * as AWS from "aws-sdk";
 import { generatePassword } from "./generatePassword";
 import * as randomWords from "random-words";
+import {v4 as uuidv4} from 'uuid';
 
 const prisma = new PrismaClient();
 
@@ -41,7 +42,7 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   ) {
     try {
       console.log(JSON.parse(event.body));
-      // const camera_id = uuidv4();
+      const camera_id = uuidv4();
 
       let fromEmail: string = randomWords({ exactly: 2, join: "_" }) + process.env.DOMAIN;
       // do {
@@ -49,25 +50,21 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       // } while (isCameraEmailExists(fromEmail));
 
       console.log("fromEmail :: ", fromEmail);
-
       const { camera_name, group_id, integrator_id } = JSON.parse(event.body);
-
-      if (JSON.parse(event.body).camera_ip) {
-        const {
-          SecretAccessKey: secretAccessKey,
-          AccessKeyId: smtp_user_name,
-        } = await createSMTPCredential(fromEmail, fromEmail);
-        const smtp_password = generatePassword(secretAccessKey);
-        let camera : any = await createCameraInPrisma(fromEmail, camera_name, smtp_user_name, smtp_password, event, group_id, integrator_id);
-        while (!camera.result) {
-          fromEmail = randomWords({ exactly: 2, join: "_" }) + process.env.DOMAIN;
-          camera = await createCameraInPrisma(fromEmail, camera_name, smtp_user_name, smtp_password, event, group_id, integrator_id);
-        }
-        return formatJSONResponseStatusCreated({
-          message: constants.CAMERA_SAVE,
-          camera,
-        });
+      const {
+        SecretAccessKey: secretAccessKey,
+        AccessKeyId: smtp_user_name,
+      } = await createSMTPCredential(fromEmail);
+      const smtp_password = generatePassword(secretAccessKey);
+      let camera : any = await createCameraInPrisma(camera_id, camera_name, smtp_user_name, smtp_password, group_id, integrator_id, fromEmail);
+      while (!camera.result) {
+        fromEmail = randomWords({ exactly: 2, join: "_" }) + process.env.DOMAIN;
+        camera = await createCameraInPrisma(camera_id, camera_name, smtp_user_name, smtp_password, group_id, integrator_id, fromEmail);
       }
+      return formatJSONResponseStatusCreated({
+        message: constants.CAMERA_SAVE,
+        camera,
+      });
 
       // if (JSON.parse(event.body).user_ids) {
       //   const users = JSON.parse(event.body).user_ids.map(
@@ -92,28 +89,28 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       //   });
       // }
 
-      const { SecretAccessKey: secretAccessKey, AccessKeyId: smtp_user_name } =
-        await createSMTPCredential(fromEmail, fromEmail);
-      const smtp_password = generatePassword(secretAccessKey);
+      // const { SecretAccessKey: secretAccessKey, AccessKeyId: smtp_user_name } =
+      //   await createSMTPCredential(fromEmail, fromEmail);
+      // const smtp_password = generatePassword(secretAccessKey);
 
-      const camera = await prisma.cameras.create({
-        data: {
-          camera_id: fromEmail,
-          camera_name,
-          smtp_user_name,
-          smtp_password,
-          group_id,
-          integrator_id,
-          email: fromEmail,
-        },
-      });
+      // const camera = await prisma.cameras.create({
+      //   data: {
+      //     camera_id: fromEmail,
+      //     camera_name,
+      //     smtp_user_name,
+      //     smtp_password,
+      //     group_id,
+      //     integrator_id,
+      //     email: fromEmail,
+      //   },
+      // });
 
-      console.log("Camera :: ", camera);
+      // console.log("Camera :: ", camera);
 
-      return formatJSONResponseStatusCreated({
-        message: constants.CAMERA_SAVE,
-        camera,
-      });
+      // return formatJSONResponseStatusCreated({
+      //   message: constants.CAMERA_SAVE,
+      //   camera,
+      // });
     } catch (error) {
       console.error(error);
       return formatJSONResponseStatusServerError({
@@ -432,10 +429,9 @@ const removeCamera = async (event) => {
 };
 
 const createSMTPCredential = async (
-  camera_id,
   fromEmail: string
 ): Promise<AWS.IAM.AccessKey> => {
-  const params = { UserName: camera_id };
+  const params = { UserName: fromEmail };
 
   // IAM - createUser
   try {
@@ -446,7 +442,7 @@ const createSMTPCredential = async (
   }
 
   //  IAM - addUserToGroup
-  const addUserToGroupParams = { GroupName: "Camera", UserName: camera_id };
+  const addUserToGroupParams = { GroupName: "Camera", UserName: fromEmail };
   try {
     await iam.addUserToGroup(addUserToGroupParams).promise();
   } catch (error) {
@@ -460,10 +456,13 @@ const createSMTPCredential = async (
 
   const putUserPolicyParams = {
     // PolicyDocument: JSON.stringify(policy),
-    PolicyDocument: `{"Version":"2012-10-17","Statement":{"Effect":"Allow","Action":["ses:SendEmail","ses:SendRawEmail"],"Resource":"*","Condition":{"ForAllValues:StringLike":{"ses:Recipients":[${toEmail}]},"StringEquals":{"ses:FromAddress":${fromEmail}}}}}`,
+    PolicyDocument: `{"Version":"2012-10-17","Statement":{"Effect":"Allow","Action":["ses:SendEmail","ses:SendRawEmail"],"Resource":"*","Condition":{"ForAllValues:StringLike":{"ses:Recipients":["${toEmail}"]},"StringEquals":{"ses:FromAddress":"${fromEmail}"}}}}`,
     PolicyName: "SESAllAccessPolicy",
-    UserName: camera_id,
+    UserName: fromEmail,
   };
+
+  console.log("Iam Policy", putUserPolicyParams);
+  
   try {
     await iam.putUserPolicy(putUserPolicyParams).promise();
   } catch (error) {
@@ -494,15 +493,14 @@ export const editCamera = updateCamera;
 export const editDisableCamera = disiableCamera;
 export const editChangeName = updateChangeName;
 export const deleteCamera = removeCamera;
-const createCameraInPrisma = async (fromEmail: string, camera_name: any, smtp_user_name: string, smtp_password: string, event: any, group_id: any, integrator_id: any) : Promise<object>  => {
+const createCameraInPrisma = async (camera_id: string, camera_name: any, smtp_user_name: string, smtp_password: string, group_id: any, integrator_id: any, fromEmail: string) : Promise<object>  => {
   try {
     const camera = await prisma.cameras.create({
       data: {
-        camera_id: fromEmail,
+        camera_id,
         camera_name,
         smtp_user_name,
         smtp_password,
-        camera_ip: JSON.parse(event.body).camera_ip,
         group_id,
         integrator_id,
         email: fromEmail,
