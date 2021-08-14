@@ -19,7 +19,7 @@ model cameras {
   group_id       String?         @db.Uuid
   site_id        String?         @db.Uuid
   integrator_id  String?         @db.Uuid
-  email          String?        @db.VarChar(255)
+  email          String?        @db.VarChar(255) @unique
   is_disabled    Boolean?       @db.Boolean     @default(false)
   createdAt      DateTime       @default(now()) @map("created_at")
   updatedAt      DateTime       @updatedAt @map("updated_at")

@@ -8,7 +8,7 @@ import {
   ValidatedEventAPIGatewayProxyEvent,
 } from "@libs/apiGateway";
 import constants from "@libs/constants";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import { isAuthorized } from "@libs/authUtil";
 import * as AWS from "aws-sdk";
 import { generatePassword } from "./generatePassword";
@@ -43,10 +43,10 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       console.log(JSON.parse(event.body));
       // const camera_id = uuidv4();
 
-      let fromEmail: string;
-      do {
-        fromEmail = randomWords({ exactly: 2, join: "_" }) + process.env.DOMAIN;
-      } while (isCameraEmailExists(fromEmail));
+      let fromEmail: string = randomWords({ exactly: 2, join: "_" }) + process.env.DOMAIN;
+      // do {
+        // fromEmail = randomWords({ exactly: 2, join: "_" }) + process.env.DOMAIN;
+      // } while (isCameraEmailExists(fromEmail));
 
       console.log("fromEmail :: ", fromEmail);
 
@@ -58,20 +58,11 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
           AccessKeyId: smtp_user_name,
         } = await createSMTPCredential(fromEmail, fromEmail);
         const smtp_password = generatePassword(secretAccessKey);
-
-        const camera = await prisma.cameras.create({
-          data: {
-            camera_id: fromEmail,
-            camera_name,
-            smtp_user_name,
-            smtp_password,
-            camera_ip: JSON.parse(event.body).camera_ip,
-            group_id,
-            integrator_id,
-            email: fromEmail,
-          },
-        });
-
+        let camera : any = await createCameraInPrisma(fromEmail, camera_name, smtp_user_name, smtp_password, event, group_id, integrator_id);
+        while (!camera.result) {
+          fromEmail = randomWords({ exactly: 2, join: "_" }) + process.env.DOMAIN;
+          camera = await createCameraInPrisma(fromEmail, camera_name, smtp_user_name, smtp_password, event, group_id, integrator_id);
+        }
         return formatJSONResponseStatusCreated({
           message: constants.CAMERA_SAVE,
           camera,
@@ -228,21 +219,21 @@ const findAllCameras = async (event) => {
   }
 };
 
-const isCameraEmailExists = async (email: string): Promise<boolean> => {
-  try {
-    const camera = await prisma.cameras.findUnique({
-      where: {
-        email,
-      },
-    });
+// const isCameraEmailExists = async (email: string): Promise<boolean> => {
+//   try {
+//     const camera = await prisma.cameras.findUnique({
+//       where: {
+//         email,
+//       },
+//     });
 
-    console.log({ ...camera });
+//     console.log({ ...camera });
 
-    return camera ? true : false;
-  } catch (error) {
-    console.error("isCameraEmailExists :: ", error);
-  }
-};
+//     return camera ? true : false;
+//   } catch (error) {
+//     console.error("isCameraEmailExists :: ", error);
+//   }
+// };
 
 // Update Camera
 const updateCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
@@ -503,3 +494,30 @@ export const editCamera = updateCamera;
 export const editDisableCamera = disiableCamera;
 export const editChangeName = updateChangeName;
 export const deleteCamera = removeCamera;
+const createCameraInPrisma = async (fromEmail: string, camera_name: any, smtp_user_name: string, smtp_password: string, event: any, group_id: any, integrator_id: any) : Promise<object>  => {
+  try {
+    const camera = await prisma.cameras.create({
+      data: {
+        camera_id: fromEmail,
+        camera_name,
+        smtp_user_name,
+        smtp_password,
+        camera_ip: JSON.parse(event.body).camera_ip,
+        group_id,
+        integrator_id,
+        email: fromEmail,
+      },
+    });
+    return {...camera, result: true};
+  } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      // The .code property can be accessed in a type-safe manner
+      if (e.code === 'P2002') {
+        console.log(
+          'There is a unique constraint violation, a new user cannot be created with this email'
+        );
+        return {result: false};
+      }
+    }
+  }
+}

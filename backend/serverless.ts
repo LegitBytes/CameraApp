@@ -94,6 +94,10 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
       DATABASE_URL: "${env:DATABASE_URL}",
+      RECIPIENT: "${env:RECIPIENT}",
+      DOMAIN: "${env:DOMAIN}",
+      EMAIL_DATA_TABLE: "${env:EMAIL_DATA_TABLE}",
+      USER_POOL_CAMERA_APP: "${env:USER_POOL_CAMERA_APP}",
       // DB_HOST: "${env:DB_HOST}",
       // DB_USERNAME: "${env:DB_USERNAME}",
       // DB_NAME: "${env:DB_NAME}",
@@ -117,6 +121,7 @@ const serverlessConfiguration: AWS = {
           "iam:CreateUser",
           "iam:PutUserPolicy",
           "iam:CreateAccessKey",
+          "iam:AddUserToGroup"
         ],
         Resource: "*",
       },
