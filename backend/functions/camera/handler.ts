@@ -12,8 +12,7 @@ import { PrismaClient } from "@prisma/client";
 import { isAuthorized } from "@libs/authUtil";
 import * as AWS from "aws-sdk";
 import { generatePassword } from "./generatePassword";
-import * as policy from "./policy.json";
-import { v4 as uuidv4 } from "uuid";
+import * as randomWords from "random-words";
 
 const prisma = new PrismaClient();
 
@@ -42,25 +41,34 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   ) {
     try {
       console.log(JSON.parse(event.body));
-      const camera_id = uuidv4();
+      // const camera_id = uuidv4();
+
+      let fromEmail: string;
+      do {
+        fromEmail = randomWords({ exactly: 2, join: "_" }) + process.env.DOMAIN;
+      } while (isCameraEmailExists(fromEmail));
+
+      console.log("fromEmail :: ", fromEmail);
+
       const { camera_name, group_id, integrator_id } = JSON.parse(event.body);
 
       if (JSON.parse(event.body).camera_ip) {
         const {
           SecretAccessKey: secretAccessKey,
           AccessKeyId: smtp_user_name,
-        } = await createSMTPCredential(camera_id);
+        } = await createSMTPCredential(fromEmail, fromEmail);
         const smtp_password = generatePassword(secretAccessKey);
 
         const camera = await prisma.cameras.create({
           data: {
-            camera_id,
+            camera_id: fromEmail,
             camera_name,
             smtp_user_name,
             smtp_password,
             camera_ip: JSON.parse(event.body).camera_ip,
             group_id,
             integrator_id,
+            email: fromEmail,
           },
         });
 
@@ -94,17 +102,18 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       // }
 
       const { SecretAccessKey: secretAccessKey, AccessKeyId: smtp_user_name } =
-        await createSMTPCredential(camera_id);
+        await createSMTPCredential(fromEmail, fromEmail);
       const smtp_password = generatePassword(secretAccessKey);
 
       const camera = await prisma.cameras.create({
         data: {
-          camera_id,
+          camera_id: fromEmail,
           camera_name,
           smtp_user_name,
           smtp_password,
           group_id,
           integrator_id,
+          email: fromEmail,
         },
       });
 
@@ -216,6 +225,22 @@ const findAllCameras = async (event) => {
     return formatJSONResponseStatusUnAuthorized({
       message: constants.NOT_AUTHORIZED,
     });
+  }
+};
+
+const isCameraEmailExists = async (email: string): Promise<boolean> => {
+  try {
+    const camera = await prisma.cameras.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    console.log({ ...camera });
+
+    return camera ? true : false;
+  } catch (error) {
+    console.error("isCameraEmailExists :: ", error);
   }
 };
 
@@ -415,32 +440,47 @@ const removeCamera = async (event) => {
   }
 };
 
-const createSMTPCredential = async (camera_id): Promise<AWS.IAM.AccessKey> => {
+const createSMTPCredential = async (
+  camera_id,
+  fromEmail: string
+): Promise<AWS.IAM.AccessKey> => {
   const params = { UserName: camera_id };
 
   // IAM - createUser
   try {
     await iam.createUser(params).promise();
   } catch (error) {
-    console.log("Catch Block createSMTPCredential :: ", error);
+    console.log("Catch Block createSMTPCredential -> createUser :: ", error);
+    throw response(500, error);
+  }
+
+  //  IAM - addUserToGroup
+  const addUserToGroupParams = { GroupName: "Camera", UserName: camera_id };
+  try {
+    await iam.addUserToGroup(addUserToGroupParams).promise();
+  } catch (error) {
+    console.log("Catch Block addUserToGroup :: ", error);
     throw response(500, error);
   }
 
   // IAM - putUserPolicy
+  const toEmail: string = process.env.RECIPIENT;
+  console.log("toEmail :: ", toEmail);
+
   const putUserPolicyParams = {
-    PolicyDocument: JSON.stringify(policy),
+    // PolicyDocument: JSON.stringify(policy),
+    PolicyDocument: `{"Version":"2012-10-17","Statement":{"Effect":"Allow","Action":["ses:SendEmail","ses:SendRawEmail"],"Resource":"*","Condition":{"ForAllValues:StringLike":{"ses:Recipients":[${toEmail}]},"StringEquals":{"ses:FromAddress":${fromEmail}}}}}`,
     PolicyName: "SESAllAccessPolicy",
     UserName: camera_id,
   };
   try {
     await iam.putUserPolicy(putUserPolicyParams).promise();
   } catch (error) {
-    console.log("Catch Block createSMTPCredential :: ", error);
+    console.log("Catch Block createSMTPCredential -> putUserPolicy :: ", error);
     throw response(500, error);
   }
 
   // IAM - createAccessKey
-
   try {
     const accessKey = await (
       await iam.createAccessKey(params).promise()
@@ -448,7 +488,10 @@ const createSMTPCredential = async (camera_id): Promise<AWS.IAM.AccessKey> => {
     console.log("SecretAccessKey :: ", accessKey);
     return accessKey;
   } catch (error) {
-    console.log("Catch Block createSMTPCredential :: ", error);
+    console.log(
+      "Catch Block createSMTPCredential -> createAccessKey :: ",
+      error
+    );
     throw response(500, error);
   }
 };

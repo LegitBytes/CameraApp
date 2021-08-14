@@ -1,7 +1,7 @@
 import { createHmac } from "crypto";
 import * as utf8 from "utf8";
 
-export const generatePassword = (secretAccessKey) => {
+export const generatePassword = (key) => {
   // const key = "TA2+lJ3C4i53unwCmGailkp5wp3xGKBuverGdG0x";
   const region = "us-east-1";
 
@@ -14,11 +14,11 @@ export const generatePassword = (secretAccessKey) => {
   function sign(key, msg) {
     return createHmac("sha256", Buffer.from(key.map((a) => a.charCodeAt(0))))
       .update(utf8.encode(msg))
-      .digest("base64")
+      .digest("latin1")
       .split("");
   }
 
-  let signature = sign(utf8.encode("AWS4" + secretAccessKey).split(""), date);
+  let signature = sign(utf8.encode("AWS4" + key).split(""), date);
   signature = sign(signature, region);
   signature = sign(signature, service);
   signature = sign(signature, terminal);
