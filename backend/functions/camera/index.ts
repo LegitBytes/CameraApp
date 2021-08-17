@@ -129,3 +129,20 @@ export const removeCamera = {
     },
   ],
 };
+
+export const removeIAMPolicy = {
+  handler: `${handlerPath(__dirname)}/handler.deleteIAMPolicy`,
+  events: [
+    {
+      http: {
+        method: "delete",
+        path: "delete-policy/{policyArn}",
+        cors: true,
+        authorizer: {
+          name: "authorizer",
+          arn: "arn:aws:cognito-idp:us-east-1:962195032846:userpool/us-east-1_6ExNtggrn",
+        },
+      },
+    },
+  ],
+};

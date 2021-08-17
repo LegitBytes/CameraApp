@@ -36,6 +36,7 @@ export default {
   CAMERA_NOT_FOUND: "Camera not found with the given ID.",
   CAMERA_PATHPARAMETERS_ERROR: "Please provide Camera ID.",
   CAMERA_ID_NOT_PROVIDED_ERROR: "Please provide Camera IDs.",
+  POLICY_ARN_NOT_PROVIDED_ERROR: "Please provide policy Arn.",
   SERVER_ERROR: "Internal Server Error occured.",
   NOT_AUTHORIZED: "You are not Authorized.",
 };

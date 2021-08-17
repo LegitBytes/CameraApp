@@ -121,7 +121,8 @@ const serverlessConfiguration: AWS = {
           "iam:CreateUser",
           "iam:PutUserPolicy",
           "iam:CreateAccessKey",
-          "iam:AddUserToGroup"
+          "iam:AddUserToGroup",
+          "iam:DeletePolicy",
         ],
         Resource: "*",
       },

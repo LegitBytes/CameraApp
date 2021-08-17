@@ -121,46 +121,95 @@ const findAllGroups = async (event) => {
     (await isAuthorized(userName, "AdminGroup")) ||
     (await isAuthorized(userName, "IntegratorGroup"))
   ) {
-    const groups = await prisma.groups.findMany({
-      select: {
-        group_id: true,
-        group_name: true,
-        is_disabled: true,
-        createdAt: true,
-        updatedAt: true,
-        integrators: true,
-        cameras: true,
-        customers: true,
-        sites: true,
-        users: true,
-      },
-    });
+    if (await isAuthorized(userName, "AdminGroup")) {
+      const groups = await prisma.groups.findMany({
+        select: {
+          group_id: true,
+          group_name: true,
+          is_disabled: true,
+          createdAt: true,
+          updatedAt: true,
+          integrators: true,
+          cameras: true,
+          customers: true,
+          sites: true,
+          users: true,
+        },
+      });
 
-    const updated_groups = await Promise.all(
-      groups.map(async (group) => {
-        const group_id = group.group_id;
-        const camera_count = await prisma.cameras.count({
-          where: { group_id },
-        });
-        const customer_count = await prisma.customers.count({
-          where: { group_id },
-        });
-        const site_count = await prisma.sites.count({ where: { group_id } });
-        const user_count = await prisma.users.count({ where: { group_id } });
+      const updated_groups = await Promise.all(
+        groups.map(async (group) => {
+          const group_id = group.group_id;
+          const camera_count = await prisma.cameras.count({
+            where: { group_id },
+          });
+          const customer_count = await prisma.customers.count({
+            where: { group_id },
+          });
+          const site_count = await prisma.sites.count({ where: { group_id } });
+          const user_count = await prisma.users.count({ where: { group_id } });
 
-        return {
-          ...group,
-          camera_count,
-          customer_count,
-          site_count,
-          user_count,
-        };
-      })
-    );
+          return {
+            ...group,
+            camera_count,
+            customer_count,
+            site_count,
+            user_count,
+          };
+        })
+      );
 
-    return formatJSONResponseStatusOk({
-      groups: updated_groups,
-    });
+      return formatJSONResponseStatusOk({
+        groups: updated_groups,
+      });
+    } else if (await isAuthorized(userName, "IntegratorGroup")) {
+      const integrator_id =
+        event.request.userAttributes["custom:integrator_id"];
+
+      const groups = await prisma.groups.findMany({
+        where: {
+          integrator_id,
+        },
+        select: {
+          group_id: true,
+          group_name: true,
+          is_disabled: true,
+          createdAt: true,
+          updatedAt: true,
+          integrators: true,
+          cameras: true,
+          customers: true,
+          sites: true,
+          users: true,
+        },
+      });
+
+      const updated_groups = await Promise.all(
+        groups.map(async (group) => {
+          const group_id = group.group_id;
+          const camera_count = await prisma.cameras.count({
+            where: { group_id },
+          });
+          const customer_count = await prisma.customers.count({
+            where: { group_id },
+          });
+          const site_count = await prisma.sites.count({ where: { group_id } });
+          const user_count = await prisma.users.count({ where: { group_id } });
+
+          return {
+            ...group,
+            camera_count,
+            customer_count,
+            site_count,
+            user_count,
+          };
+        })
+      );
+
+      return formatJSONResponseStatusOk({
+        groups: updated_groups,
+      });
+    }
   } else {
     return formatJSONResponseStatusUnAuthorized({
       message: constants.NOT_AUTHORIZED,

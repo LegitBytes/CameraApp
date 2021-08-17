@@ -13,7 +13,7 @@ import { isAuthorized } from "@libs/authUtil";
 import * as AWS from "aws-sdk";
 import { generatePassword } from "./generatePassword";
 import * as randomWords from "random-words";
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
 
@@ -44,22 +44,37 @@ const addNewCamera: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       console.log(JSON.parse(event.body));
       const camera_id = uuidv4();
 
-      let fromEmail: string = randomWords({ exactly: 2, join: "_" }) + process.env.DOMAIN;
+      let fromEmail: string =
+        randomWords({ exactly: 2, join: "_" }) + process.env.DOMAIN;
       // do {
-        // fromEmail = randomWords({ exactly: 2, join: "_" }) + process.env.DOMAIN;
+      // fromEmail = randomWords({ exactly: 2, join: "_" }) + process.env.DOMAIN;
       // } while (isCameraEmailExists(fromEmail));
 
       console.log("fromEmail :: ", fromEmail);
       const { camera_name, group_id, integrator_id } = JSON.parse(event.body);
-      const {
-        SecretAccessKey: secretAccessKey,
-        AccessKeyId: smtp_user_name,
-      } = await createSMTPCredential(fromEmail);
+      const { SecretAccessKey: secretAccessKey, AccessKeyId: smtp_user_name } =
+        await createSMTPCredential(fromEmail);
       const smtp_password = generatePassword(secretAccessKey);
-      let camera : any = await createCameraInPrisma(camera_id, camera_name, smtp_user_name, smtp_password, group_id, integrator_id, fromEmail);
+      let camera: any = await createCameraInPrisma(
+        camera_id,
+        camera_name,
+        smtp_user_name,
+        smtp_password,
+        group_id,
+        integrator_id,
+        fromEmail
+      );
       while (!camera.result) {
         fromEmail = randomWords({ exactly: 2, join: "_" }) + process.env.DOMAIN;
-        camera = await createCameraInPrisma(camera_id, camera_name, smtp_user_name, smtp_password, group_id, integrator_id, fromEmail);
+        camera = await createCameraInPrisma(
+          camera_id,
+          camera_name,
+          smtp_user_name,
+          smtp_password,
+          group_id,
+          integrator_id,
+          fromEmail
+        );
       }
       return formatJSONResponseStatusCreated({
         message: constants.CAMERA_SAVE,
@@ -155,6 +170,7 @@ const findCameraById = async (event) => {
           sites: true,
           integrators: true,
           users: true,
+          email: true,
         },
       });
 
@@ -199,6 +215,7 @@ const findAllCameras = async (event) => {
         sites: true,
         integrators: true,
         users: true,
+        email: true,
       },
     });
     console.log({ ...cameras });
@@ -428,6 +445,37 @@ const removeCamera = async (event) => {
   }
 };
 
+const removeIAMPolicy = async (event) => {
+  const userName = event.requestContext.authorizer.claims.sub;
+  if (
+    (await isAuthorized(userName, "AdminGroup")) ||
+    (await isAuthorized(userName, "IntegratorGroup"))
+  ) {
+    if (!event.pathParameters || !event.pathParameters.policyArn) {
+      return formatJSONResponseStatusBadRequest({
+        message: constants.POLICY_ARN_NOT_PROVIDED_ERROR,
+      });
+    }
+    const policyArn = event.pathParameters.policyArn;
+    console.log("deleteIAMPolicy -> policyArn :: ", policyArn);
+
+    // Delete Policy
+    const params = {
+      PolicyArn: policyArn,
+    };
+    try {
+      await iam.deletePolicy(params).promise();
+    } catch (error) {
+      console.log("Catch Block deleteIAMPolicy :: ", error);
+      throw response(500, error);
+    }
+  } else {
+    return formatJSONResponseStatusUnAuthorized({
+      message: constants.NOT_AUTHORIZED,
+    });
+  }
+};
+
 const createSMTPCredential = async (
   fromEmail: string
 ): Promise<AWS.IAM.AccessKey> => {
@@ -462,7 +510,7 @@ const createSMTPCredential = async (
   };
 
   console.log("Iam Policy", putUserPolicyParams);
-  
+
   try {
     await iam.putUserPolicy(putUserPolicyParams).promise();
   } catch (error) {
@@ -493,7 +541,17 @@ export const editCamera = updateCamera;
 export const editDisableCamera = disiableCamera;
 export const editChangeName = updateChangeName;
 export const deleteCamera = removeCamera;
-const createCameraInPrisma = async (camera_id: string, camera_name: any, smtp_user_name: string, smtp_password: string, group_id: any, integrator_id: any, fromEmail: string) : Promise<object>  => {
+export const deleteIAMPolicy = removeIAMPolicy;
+
+const createCameraInPrisma = async (
+  camera_id: string,
+  camera_name: any,
+  smtp_user_name: string,
+  smtp_password: string,
+  group_id: any,
+  integrator_id: any,
+  fromEmail: string
+): Promise<object> => {
   try {
     const camera = await prisma.cameras.create({
       data: {
@@ -506,16 +564,16 @@ const createCameraInPrisma = async (camera_id: string, camera_name: any, smtp_us
         email: fromEmail,
       },
     });
-    return {...camera, result: true};
+    return { ...camera, result: true };
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       // The .code property can be accessed in a type-safe manner
-      if (e.code === 'P2002') {
+      if (e.code === "P2002") {
         console.log(
-          'There is a unique constraint violation, a new user cannot be created with this email'
+          "There is a unique constraint violation, a new user cannot be created with this email"
         );
-        return {result: false};
+        return { result: false };
       }
     }
   }
-}
+};
