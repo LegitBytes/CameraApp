@@ -122,6 +122,8 @@ const findAllGroups = async (event) => {
     (await isAuthorized(userName, "IntegratorGroup"))
   ) {
     if (await isAuthorized(userName, "AdminGroup")) {
+      console.log("AdminGroup findAllGroups.");
+
       const groups = await prisma.groups.findMany({
         select: {
           group_id: true,
@@ -164,8 +166,11 @@ const findAllGroups = async (event) => {
       });
     } else if (await isAuthorized(userName, "IntegratorGroup")) {
       const integrator_id =
-        event.request.userAttributes["custom:integrator_id"];
-
+        event.requestContext.authorizer.claims["custom:integrator_id"];
+      console.log(
+        "integrator_id inside findAllGroups method :: ",
+        integrator_id
+      );
       const groups = await prisma.groups.findMany({
         where: {
           integrator_id,

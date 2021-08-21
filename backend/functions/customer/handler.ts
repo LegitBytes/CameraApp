@@ -226,33 +226,74 @@ const findAllCustomers = async (event) => {
     (await isAuthorized(userName, "AdminGroup")) ||
     (await isAuthorized(userName, "IntegratorGroup"))
   ) {
-    const customers = await prisma.customers.findMany({
-      select: {
-        customer_id: true,
-        customer_name: true,
-        is_disabled: true,
-        change_name: true,
-        groups: true,
-        integrators: true,
-        sites: {
-          select: {
-            site_id: true,
-            site_name: true,
-            change_name: true,
-            is_disabled: true,
-            group_id: true,
-            integrator_id: true,
-            createdAt: true,
-            updatedAt: true,
-            cameras: true,
+    if (await isAuthorized(userName, "AdminGroup")) {
+      console.log("AdminGroup findAllCustomers.");
+      const customers = await prisma.customers.findMany({
+        select: {
+          customer_id: true,
+          customer_name: true,
+          is_disabled: true,
+          change_name: true,
+          groups: true,
+          integrators: true,
+          sites: {
+            select: {
+              site_id: true,
+              site_name: true,
+              change_name: true,
+              is_disabled: true,
+              group_id: true,
+              integrator_id: true,
+              createdAt: true,
+              updatedAt: true,
+              cameras: true,
+            },
           },
+          users: true,
         },
-        users: true,
-      },
-    });
-    return formatJSONResponseStatusOk({
-      customers,
-    });
+      });
+      return formatJSONResponseStatusOk({
+        customers,
+      });
+    } else if (await isAuthorized(userName, "IntegratorGroup")) {
+      const integrator_id =
+        event.requestContext.authorizer.claims["custom:integrator_id"];
+      console.log(
+        "integrator_id inside findAllCustomers method :: ",
+        integrator_id
+      );
+
+      const customers = await prisma.customers.findMany({
+        where: {
+          integrator_id,
+        },
+        select: {
+          customer_id: true,
+          customer_name: true,
+          is_disabled: true,
+          change_name: true,
+          groups: true,
+          integrators: true,
+          sites: {
+            select: {
+              site_id: true,
+              site_name: true,
+              change_name: true,
+              is_disabled: true,
+              group_id: true,
+              integrator_id: true,
+              createdAt: true,
+              updatedAt: true,
+              cameras: true,
+            },
+          },
+          users: true,
+        },
+      });
+      return formatJSONResponseStatusOk({
+        customers,
+      });
+    }
   } else {
     return formatJSONResponseStatusUnAuthorized({
       message: constants.NOT_AUTHORIZED,

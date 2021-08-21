@@ -203,29 +203,67 @@ const findAllCameras = async (event) => {
     (await isAuthorized(userName, "AdminGroup")) ||
     (await isAuthorized(userName, "IntegratorGroup"))
   ) {
-    const cameras = await prisma.cameras.findMany({
-      select: {
-        camera_id: true,
-        camera_name: true,
-        smtp_user_name: true,
-        smtp_password: true,
-        is_disabled: true,
-        change_name: true,
-        groups: true,
-        sites: true,
-        integrators: true,
-        users: true,
-        email: true,
-      },
-    });
-    console.log({ ...cameras });
-    const new_camera = cameras.map((camera) => {
-      return { ...camera, total_request: 0 };
-    });
-    console.log({ ...new_camera });
-    return formatJSONResponseStatusOk({
-      cameras: new_camera,
-    });
+    if (await isAuthorized(userName, "AdminGroup")) {
+      console.log("AdminGroup findAllCameras.");
+
+      const cameras = await prisma.cameras.findMany({
+        select: {
+          camera_id: true,
+          camera_name: true,
+          smtp_user_name: true,
+          smtp_password: true,
+          is_disabled: true,
+          change_name: true,
+          groups: true,
+          sites: true,
+          integrators: true,
+          users: true,
+          email: true,
+        },
+      });
+      console.log({ ...cameras });
+      const new_camera = cameras.map((camera) => {
+        return { ...camera, total_request: 0 };
+      });
+      console.log({ ...new_camera });
+      return formatJSONResponseStatusOk({
+        cameras: new_camera,
+      });
+    } else if (await isAuthorized(userName, "IntegratorGroup")) {
+      const integrator_id =
+        event.requestContext.authorizer.claims["custom:integrator_id"];
+      console.log(
+        "integrator_id inside findAllCameras method :: ",
+        integrator_id
+      );
+
+      const cameras = await prisma.cameras.findMany({
+        where: {
+          integrator_id,
+        },
+        select: {
+          camera_id: true,
+          camera_name: true,
+          smtp_user_name: true,
+          smtp_password: true,
+          is_disabled: true,
+          change_name: true,
+          groups: true,
+          sites: true,
+          integrators: true,
+          users: true,
+          email: true,
+        },
+      });
+      console.log({ ...cameras });
+      const new_camera = cameras.map((camera) => {
+        return { ...camera, total_request: 0 };
+      });
+      console.log({ ...new_camera });
+      return formatJSONResponseStatusOk({
+        cameras: new_camera,
+      });
+    }
   } else {
     return formatJSONResponseStatusUnAuthorized({
       message: constants.NOT_AUTHORIZED,

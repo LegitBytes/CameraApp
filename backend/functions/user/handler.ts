@@ -227,89 +227,186 @@ const findAllUsers = async (event) => {
     isAuthorized(userName, "AdminGroup") ||
     isAuthorized(userName, "IntegratorGroup")
   ) {
-    const users = await prisma.users.findMany({
-      select: {
-        user_id: true,
-        user_email: true,
-        is_disabled: true,
-        createdAt: true,
-        updatedAt: true,
-        groups: true,
-        integrators: true,
-        cameras: true,
-        customers: {
-          select: {
-            customer_id: true,
-            customer_name: true,
-            change_name: true,
-            is_disabled: true,
-            group_id: true,
-            integrator_id: true,
-            createdAt: true,
-            updatedAt: true,
-            groups: true,
-            integrators: true,
-            sites: {
-              select: {
-                site_id: true,
-                site_name: true,
-                change_name: true,
-                is_disabled: true,
-                group_id: true,
-                integrator_id: true,
-                createdAt: true,
-                updatedAt: true,
-                cameras: true,
+    if (await isAuthorized(userName, "AdminGroup")) {
+      console.log("AdminGroup findAllUsers.");
+      const users = await prisma.users.findMany({
+        select: {
+          user_id: true,
+          user_email: true,
+          is_disabled: true,
+          createdAt: true,
+          updatedAt: true,
+          groups: true,
+          integrators: true,
+          cameras: true,
+          customers: {
+            select: {
+              customer_id: true,
+              customer_name: true,
+              change_name: true,
+              is_disabled: true,
+              group_id: true,
+              integrator_id: true,
+              createdAt: true,
+              updatedAt: true,
+              groups: true,
+              integrators: true,
+              sites: {
+                select: {
+                  site_id: true,
+                  site_name: true,
+                  change_name: true,
+                  is_disabled: true,
+                  group_id: true,
+                  integrator_id: true,
+                  createdAt: true,
+                  updatedAt: true,
+                  cameras: true,
+                },
               },
+              users: true,
             },
-            users: true,
           },
+          sites: true,
         },
-        sites: true,
-      },
-    });
+      });
 
-    const updated_users = await Promise.all(
-      users.map(async (user) => {
-        const user_id = user.user_id;
-        const camera_count_query = await prisma.$queryRaw(`SELECT c.camera_id
+      const updated_users = await Promise.all(
+        users.map(async (user) => {
+          const user_id = user.user_id;
+          const camera_count_query = await prisma.$queryRaw(`SELECT c.camera_id
       FROM  "_camerasTousers" cu
       JOIN  cameras c ON cu."A" = c.camera_id
       JOIN  users u ON cu."B" = u.user_id
       WHERE u.user_id::text = '${user_id}'
       GROUP BY c.camera_id;`);
 
-        const customer_count_query =
-          await prisma.$queryRaw(`SELECT c.customer_id
+          const customer_count_query =
+            await prisma.$queryRaw(`SELECT c.customer_id
       FROM  "_customersTousers" cu
       JOIN  customers c ON cu."A" = c.customer_id
       JOIN  users u ON cu."B" = u.user_id
       WHERE u.user_id::text = '${user_id}'
       GROUP BY c.customer_id;`);
 
-        const site_count_query = await prisma.$queryRaw(`SELECT s.site_id
+          const site_count_query = await prisma.$queryRaw(`SELECT s.site_id
       FROM  "_sitesTousers" su
       JOIN  sites s ON su."A" = s.site_id
       JOIN  users u ON su."B" = u.user_id
       WHERE u.user_id::text = '${user_id}'
       GROUP BY s.site_id;`);
 
-        const camera_count = camera_count_query.length;
-        const customer_count = customer_count_query.length;
-        const site_count = site_count_query.length;
+          const camera_count = camera_count_query.length;
+          const customer_count = customer_count_query.length;
+          const site_count = site_count_query.length;
 
-        return {
-          ...user,
-          camera_count,
-          customer_count,
-          site_count,
-        };
-      })
-    );
+          return {
+            ...user,
+            camera_count,
+            customer_count,
+            site_count,
+          };
+        })
+      );
 
-    return formatJSONResponseStatusOk({
-      users: updated_users,
-    });
+      return formatJSONResponseStatusOk({
+        users: updated_users,
+      });
+    } else if (await isAuthorized(userName, "IntegratorGroup")) {
+      const integrator_id =
+        event.requestContext.authorizer.claims["custom:integrator_id"];
+      console.log(
+        "integrator_id inside findAllUsers method :: ",
+        integrator_id
+      );
+
+      const users = await prisma.users.findMany({
+        where: {
+          integrator_id,
+        },
+        select: {
+          user_id: true,
+          user_email: true,
+          is_disabled: true,
+          createdAt: true,
+          updatedAt: true,
+          groups: true,
+          integrators: true,
+          cameras: true,
+          customers: {
+            select: {
+              customer_id: true,
+              customer_name: true,
+              change_name: true,
+              is_disabled: true,
+              group_id: true,
+              integrator_id: true,
+              createdAt: true,
+              updatedAt: true,
+              groups: true,
+              integrators: true,
+              sites: {
+                select: {
+                  site_id: true,
+                  site_name: true,
+                  change_name: true,
+                  is_disabled: true,
+                  group_id: true,
+                  integrator_id: true,
+                  createdAt: true,
+                  updatedAt: true,
+                  cameras: true,
+                },
+              },
+              users: true,
+            },
+          },
+          sites: true,
+        },
+      });
+
+      const updated_users = await Promise.all(
+        users.map(async (user) => {
+          const user_id = user.user_id;
+          const camera_count_query = await prisma.$queryRaw(`SELECT c.camera_id
+      FROM  "_camerasTousers" cu
+      JOIN  cameras c ON cu."A" = c.camera_id
+      JOIN  users u ON cu."B" = u.user_id
+      WHERE u.user_id::text = '${user_id}'
+      GROUP BY c.camera_id;`);
+
+          const customer_count_query =
+            await prisma.$queryRaw(`SELECT c.customer_id
+      FROM  "_customersTousers" cu
+      JOIN  customers c ON cu."A" = c.customer_id
+      JOIN  users u ON cu."B" = u.user_id
+      WHERE u.user_id::text = '${user_id}'
+      GROUP BY c.customer_id;`);
+
+          const site_count_query = await prisma.$queryRaw(`SELECT s.site_id
+      FROM  "_sitesTousers" su
+      JOIN  sites s ON su."A" = s.site_id
+      JOIN  users u ON su."B" = u.user_id
+      WHERE u.user_id::text = '${user_id}'
+      GROUP BY s.site_id;`);
+
+          const camera_count = camera_count_query.length;
+          const customer_count = customer_count_query.length;
+          const site_count = site_count_query.length;
+
+          return {
+            ...user,
+            camera_count,
+            customer_count,
+            site_count,
+          };
+        })
+      );
+
+      return formatJSONResponseStatusOk({
+        users: updated_users,
+      });
+    }
   } else {
     return formatJSONResponseStatusUnAuthorized({
       message: constants.NOT_AUTHORIZED,

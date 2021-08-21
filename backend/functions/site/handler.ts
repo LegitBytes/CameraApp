@@ -145,23 +145,53 @@ const findAllSites = async (event) => {
     (await isAuthorized(userName, "AdminGroup")) ||
     (await isAuthorized(userName, "IntegratorGroup"))
   ) {
-    const sites = await prisma.sites.findMany({
-      select: {
-        site_id: true,
-        site_name: true,
-        is_disabled: true,
-        change_name: true,
-        groups: true,
-        integrators: true,
-        cameras: true,
-        customers: true,
-        users: true,
-      },
-    });
-    console.log("Get all Sites :: ", sites);
-    return formatJSONResponseStatusOk({
-      sites,
-    });
+    if (await isAuthorized(userName, "AdminGroup")) {
+      console.log("AdminGroup findAllSites.");
+      const sites = await prisma.sites.findMany({
+        select: {
+          site_id: true,
+          site_name: true,
+          is_disabled: true,
+          change_name: true,
+          groups: true,
+          integrators: true,
+          cameras: true,
+          customers: true,
+          users: true,
+        },
+      });
+      console.log("Get all Sites :: ", sites);
+      return formatJSONResponseStatusOk({
+        sites,
+      });
+    } else if (await isAuthorized(userName, "IntegratorGroup")) {
+      const integrator_id =
+        event.requestContext.authorizer.claims["custom:integrator_id"];
+      console.log(
+        "integrator_id inside findAllSites method :: ",
+        integrator_id
+      );
+      const sites = await prisma.sites.findMany({
+        where: {
+          integrator_id,
+        },
+        select: {
+          site_id: true,
+          site_name: true,
+          is_disabled: true,
+          change_name: true,
+          groups: true,
+          integrators: true,
+          cameras: true,
+          customers: true,
+          users: true,
+        },
+      });
+      console.log("Get all Sites :: ", sites);
+      return formatJSONResponseStatusOk({
+        sites,
+      });
+    }
   } else {
     return formatJSONResponseStatusUnAuthorized({
       message: constants.NOT_AUTHORIZED,

@@ -16,20 +16,21 @@ export const isAuthorized = async (userName, group) => {
     const data = await cognitoidentityserviceprovider
       .adminListGroupsForUser(params)
       .promise();
+    console.log("Group data :: ", data.Groups);
     console.log(
       "Group from adminListGroupsForUser :: ",
-      data.Groups.filter((g) => g.GroupName === group)
+      data.Groups.map((g) => g.GroupName)
     );
-    if (data.Groups.filter((g) => g.GroupName === group)) {
+    if (data.Groups.map((g) => g.GroupName).includes(group)) {
       console.log(
         "Is Group present :: ",
-        data.Groups.filter((g) => g.GroupName === group).includes(group)
+        data.Groups.map((g) => g.GroupName).includes(group)
       );
       authorized = true;
     } else {
       console.log(
         "Is Group present :: ",
-        data.Groups.filter((g) => g.GroupName === group).includes(group)
+        data.Groups.map((g) => g.GroupName).includes(group)
       );
       authorized = false;
     }
