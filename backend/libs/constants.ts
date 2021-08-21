@@ -39,4 +39,5 @@ export default {
   POLICY_ARN_NOT_PROVIDED_ERROR: "Please provide policy Arn.",
   SERVER_ERROR: "Internal Server Error occured.",
   NOT_AUTHORIZED: "You are not Authorized.",
+  SQS_ERROR: "Error while consuming message from SQS.",
 };
