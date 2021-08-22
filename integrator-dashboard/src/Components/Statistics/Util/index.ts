@@ -1,9 +1,6 @@
 import { CameraStats, Site, Camera, SiteStats, Group, GroupStats, Integrator, IntegratorStats } from "../../Interfaces";
 
 export const getSiteStats = (siteData: Site[], cameraStats: CameraStats[]) => {
-  console.log("cameraStats -> ", cameraStats);
-  console.log("SiteData -> ", siteData);
-
   let siteStat: SiteStats[] = [];
   siteData.forEach((site) => {
     let obj = { site_name: site.site_name, alert: 0, total_requests: 0 };
@@ -22,9 +19,6 @@ export const getSiteStats = (siteData: Site[], cameraStats: CameraStats[]) => {
 };
 
 export const getGroupStats = (groupData: Group[], cameraStats: CameraStats[]) => {
-  console.log("cameraStats -> ", cameraStats);
-  console.log("GroupData -> ", groupData);
-
   let groupStat: GroupStats[] = [];
   groupData.forEach((group) => {
     let obj = { group_name: group.group_name, alert: 0, total_requests: 0 };
@@ -43,9 +37,6 @@ export const getGroupStats = (groupData: Group[], cameraStats: CameraStats[]) =>
 };
 
 export const getIntegratorStats = (integratorData: Integrator[], cameraStats: CameraStats[]) => {
-  console.log("cameraStats -> ", cameraStats);
-  console.log("IntegratorData -> ", integratorData);
-
   let integratorStat: IntegratorStats[] = [];
   integratorData.forEach((integrator) => {
     let obj = { name: integrator.name, alert: 0, total_requests: 0 };

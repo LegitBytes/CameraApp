@@ -92,7 +92,6 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
 
     try {
       const user = await Auth.signIn(formState.email, formState.password);
-      console.log("user -> ", user);
       if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
         setLoading(false);
         history.replace({

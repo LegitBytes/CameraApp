@@ -100,12 +100,10 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ handleOpen }) => {
     } else {
       try {
         const user = await Auth.signIn(email, pass);
-        console.log("user -> ", user);
         const finalUser = await Auth.completeNewPassword(
           user,
           formState.password
         );
-        console.log("final user -> ", finalUser);
         if (
           user.signInUserSession.accessToken.payload["cognito:groups"] &&
           user.signInUserSession.accessToken.payload["cognito:groups"].indexOf(
