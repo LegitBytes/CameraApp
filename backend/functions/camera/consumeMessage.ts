@@ -56,10 +56,12 @@ async function sendMail(message) {
   const imageUrls = rekognitionData.map(
     (data) => "https://d39e2k7irzkh52.cloudfront.net/" + Object.keys(data)[0]
   );
-  const attachments = {};
+  const attachments = [];
   for (let i = 0; i < imageNames.length; i++) {
-    attachments["filename"] = imageNames[i];
-    attachments["path"] = imageUrls[i];
+    const newAttachment = {};
+    newAttachment["filename"] = imageNames[i];
+    newAttachment["path"] = imageUrls[i];
+    attachments.push(newAttachment);
   }
   console.log("Attachments :: ", attachments);
 
