@@ -8,6 +8,8 @@ import {
   removeCamera,
   disiableCamera,
   updateChangeNameCamera,
+  consumeSQSMessage,
+  removeIAMPolicy
 } from "@functions/camera";
 import {
   addNewCustomer,
@@ -123,6 +125,9 @@ const serverlessConfiguration: AWS = {
           "iam:CreateAccessKey",
           "iam:AddUserToGroup",
           "iam:DeletePolicy",
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "ses:SendMessage"
         ],
         Resource: "*",
       },
@@ -135,6 +140,8 @@ const serverlessConfiguration: AWS = {
     findAllCameras,
     updateCamera,
     removeCamera,
+    consumeSQSMessage,
+    removeIAMPolicy,
     disiableCamera,
     updateChangeNameCamera,
     addNewCustomer,

@@ -146,3 +146,12 @@ export const removeIAMPolicy = {
     },
   ],
 };
+
+export const consumeSQSMessage = {
+  handler: `${handlerPath(__dirname)}/handler.sqsMessage`,
+  events: [
+    {
+      sqs: "arn:aws:sqs:us-east-1:962195032846:EmailQueue",
+    },
+  ],
+};

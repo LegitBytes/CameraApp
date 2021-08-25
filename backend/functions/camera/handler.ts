@@ -14,6 +14,7 @@ import * as AWS from "aws-sdk";
 import { generatePassword } from "./generatePassword";
 import * as randomWords from "random-words";
 import { v4 as uuidv4 } from "uuid";
+import { consumeMessage } from "./consumeMessage";
 
 const prisma = new PrismaClient();
 
@@ -580,6 +581,7 @@ export const editDisableCamera = disiableCamera;
 export const editChangeName = updateChangeName;
 export const deleteCamera = removeCamera;
 export const deleteIAMPolicy = removeIAMPolicy;
+export const sqsMessage = consumeMessage;
 
 const createCameraInPrisma = async (
   camera_id: string,
