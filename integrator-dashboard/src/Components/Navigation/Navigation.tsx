@@ -26,7 +26,7 @@ const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
 
   const theme: Theme = useTheme();
   const isMobile: boolean = useMediaQuery(theme.breakpoints.down("sm"));
-  const { userId } = useContext(AuthContext);
+  const { userId, userToken } = useContext(AuthContext);
   return (
     // <>
     //   <AppBar elevation={0} position="fixed" className={classes.root}>
@@ -48,7 +48,7 @@ const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
     // </>
 
     <>
-      {!userId ? (
+      {!userId || !userToken ? (
         <AuthRoutes />
       ) : (
         <>
@@ -68,8 +68,8 @@ const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
           </AppBar>
           <div className={classes.containerStyles}>
             <Routes />
-          </div>{" "} 
-        </> 
+          </div>{" "}
+        </>
       )}
     </>
   );

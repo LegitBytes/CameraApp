@@ -16,9 +16,9 @@ function App() {
       .then(async (data) => {
         if (data) {
           console.log("data -> ", data.getAccessToken());
-
           let idToken = data.getIdToken().getJwtToken();
           let cUser = await Auth.currentAuthenticatedUser();
+          console.log("cUser -> ",cUser);
           login(idToken, cUser.attributes["custom:user_id"]);
           axios.defaults.headers.common["AUTHORIZATION"] = idToken;
           push(inMemRoute);

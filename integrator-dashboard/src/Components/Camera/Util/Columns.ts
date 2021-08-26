@@ -18,8 +18,8 @@ export const columns: Columns[] = [
       },
     },
     {
-      name: "ip_address",
-      label: "IP",
+      name: "email",
+      label: "Email",
       options: {
         filter: true,
         sort: true,

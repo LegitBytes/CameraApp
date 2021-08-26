@@ -107,12 +107,12 @@ const AddCamera: React.FC<AddCameraProps> = ({
   const [loading1, setLoading1] = useState<boolean>(true);
 
   const [groupData, setGroupData] = useState<Group[]>([]);
-
+/*
   const onCopy = (value): void => {
     navigator.clipboard.writeText(value);
     handleOpen("right", "bottom", "Copied!");
   };
-
+*/
   const getGroupData = useCallback(async (): Promise<void> => {
     setLoading1(true);
     try {

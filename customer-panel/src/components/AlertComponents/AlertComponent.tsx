@@ -139,6 +139,7 @@ const AlertComponent: React.FC<AlertComponentProps> = ({ handleOpen }) => {
       }
       setLoading(false);
     } catch (err) {
+      
       handleOpen("right", "bottom", "Alerts could not be fetched!");
       setLoading(false);
     }

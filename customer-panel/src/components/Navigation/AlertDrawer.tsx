@@ -12,7 +12,7 @@ import LoadingScreen from "../../shared/LoadingScreen";
 import { FiberManualRecord } from "@material-ui/icons";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import { useHistory } from "react-router-dom";
-import { AuthContext } from "../../context/Auth"
+import { AuthContext } from "../../context/Auth";
 import { RouteContext } from "../../context/RouteContext";
 
 interface AlertDrawerProps {
@@ -26,8 +26,8 @@ interface AlertDrawerProps {
 
 const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
   // const temporaryUser = "6029f127-d062-4ad3-9622-f55bf99e7ee8";
-  const { userId } = useContext(AuthContext)
-  const { setRoute } = useContext(RouteContext)
+  const { userId, userToken } = useContext(AuthContext);
+  const { setRoute } = useContext(RouteContext);
   const history = useHistory();
   const [userAlerts, setUserAlerts] = useState<alertUser>({
     camera_details: [],
@@ -39,17 +39,23 @@ const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
 
   const [loading, setLoading] = useState<boolean>(false);
 
-  const url = process.env.REACT_APP_API_URL + "user-details/" +userId;
+  const url = process.env.REACT_APP_API_URL + "user-details/" + userId;
 
   const getCameraAlerts = useCallback(async () => {
     setLoading(true);
     try {
       const response: AxiosResponse<{ user: alertUser }> = await axios.get<{
         user: alertUser;
-      }>(url);
+      }>(url, {
+        headers: {
+          AUTHORIZATION: userToken,
+        },
+      });
+      console.log("response -> **", response);
       setUserAlerts(response.data.user);
       setLoading(false);
     } catch (err) {
+      console.log("err -> **", err);
       handleOpen("left", "bottom", "Alerts could not be fetched!");
       setLoading(false);
     }
@@ -61,7 +67,7 @@ const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
     return () => {
       setUserAlerts({
         camera_details: [],
-        cameras: [], 
+        cameras: [],
         sites: [],
         user_email: "",
         user_id: "",
@@ -80,9 +86,9 @@ const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
   };
 
   const onClick = (path: string) => {
-    history.push(path)
-    setRoute(path)
-  }
+    history.push(path);
+    setRoute(path);
+  };
 
   return (
     <>
@@ -94,7 +100,9 @@ const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
             alerts.map((alert) => (
               <ListItem
                 className={classes.listStyles}
-                onClick={() => onClick("/alerts/" + alert.fromemail + "/" + alert.timestamp)}
+                onClick={() =>
+                  onClick("/alerts/" + alert.fromemail + "/" + alert.timestamp)
+                }
                 style={{ cursor: "pointer" }}
                 key={alert.timestamp}
               >

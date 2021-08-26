@@ -14,7 +14,7 @@ interface integrators {
 export interface Camera {
   camera_id: string;
   camera_name: string;
-  ip_address: string;
+  email: string;
   smtp_user_name: string;
   smtp_password: string;
   total_request: number;
@@ -101,7 +101,7 @@ export interface Integrator {
 
 export interface FormattedCamera {
   name: string;
-  ip_address: string;
+  email: string;
   smtp_username: JSX.Element;
   smtp_password: JSX.Element;
   site: string; 
@@ -219,7 +219,7 @@ export interface xlsxSites {
 export interface xlsxCamera {
   "Camera ID": string;
   "Camera Name": string;
-  "IP Address": string;
+  "Email": string;
   "SMTP Username": string;
   "SMTP Password": string;
   Site: string;

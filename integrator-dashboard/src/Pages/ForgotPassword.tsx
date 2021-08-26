@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router-dom";
 import { Alert } from "../Shared/Interfaces";
 import { TransitionLeft, TransitionProps } from "../Shared/Slides";
 import AlertComp from "../Shared/Alert";
-import ForgotPasswordComp from "../Components/Auth/FotgotPassword";
+import ForgotPasswordComp from "../Components/Auth/ForgotPassword";
 interface ForgotPasswordProps extends RouteComponentProps {}
 const ForgotPassword: React.FC<ForgotPasswordProps> = () => {
   useEffect(() => window.scrollTo(0, 0), []);

@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import { NavLink } from "react-router-dom";
 import { paths } from "../../util/paths";
-import { IconButton, Typography } from "@material-ui/core";
-import Notification from "../../assets/Notification.svg";
+// import { IconButton, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
+// import Notification from "../../assets/Notification.svg";
 import ProfileMenu from "./ProfileMenu";
 import { RouteContext } from "../../context/RouteContext";
 interface DesktopViewProps {
@@ -11,7 +12,7 @@ interface DesktopViewProps {
 }
 
 const DesktopView: React.FC<DesktopViewProps> = ({ classes }) => {
-  const { setRoute } = useContext(RouteContext)
+  const { setRoute } = useContext(RouteContext);
   return (
     <>
       {paths.map((path) => (
@@ -26,9 +27,9 @@ const DesktopView: React.FC<DesktopViewProps> = ({ classes }) => {
         </NavLink>
       ))}
       <div className={classes.spacing} />;
-      <IconButton>
+      {/* <IconButton>
         <img src={Notification} alt="notifications" />
-      </IconButton>
+      </IconButton> */}
       <ProfileMenu />
     </>
   );

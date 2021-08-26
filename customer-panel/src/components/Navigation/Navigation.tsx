@@ -12,7 +12,7 @@ const Navigation: React.FC = () => {
   const theme: Theme = useTheme();
   const isMobile: boolean = useMediaQuery(theme.breakpoints.down(1100));
   const [open, setOpen] = React.useState(isMobile ? false : true);
-  const { userToken } = useContext(AuthContext);
+  const { userToken, userId } = useContext(AuthContext);
   useEffect(() => {
     if (isMobile) {
       setOpen(false);
@@ -24,9 +24,9 @@ const Navigation: React.FC = () => {
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
-  return ( 
+  return (
     <>
-      {!userToken ? (
+      {!userToken || !userId ? (
         <AuthRoutes />
       ) : (
         <div className={classes.root}>

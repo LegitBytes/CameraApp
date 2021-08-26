@@ -305,7 +305,7 @@ const AddUser: React.FC<AddUserProps> = ({
         {
           camera_id: "",
           camera_name: "No cameras available", //This is for visula feedback, Since we are mapping camera_name in autoComplete
-          ip_address: "",
+          email: "",
           smtp_user_name: "",
           smtp_password: "",
           total_request: 0,

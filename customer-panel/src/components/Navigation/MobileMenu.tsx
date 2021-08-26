@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import ProfileMenu from "./ProfileMenu";
 import { IconButton, Menu, MenuItem } from "@material-ui/core";
 import { MoreVert } from "@material-ui/icons";
-import Notification from "../../assets/Notification.svg";
+// import Notification from "../../assets/Notification.svg";
 import { RouteContext } from "../../context/RouteContext";
 
 interface MobileMenuProps {
@@ -70,9 +70,9 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ classes }) => {
             alignItems: "center",
           }}
         >
-          <IconButton>
+          {/* <IconButton>
             <img src={Notification} alt="notifications" />
-          </IconButton>
+          </IconButton> */}
           <ProfileMenu />
         </MenuItem>
       </Menu>

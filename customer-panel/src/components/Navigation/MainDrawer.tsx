@@ -24,9 +24,11 @@ interface MainDrawerProp {
 }
 
 const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
+  // console.log(axios.defaults.headers.common['AUTHORIZATION']);
+  
   const history = useHistory();
-  const { userId } = useContext(AuthContext);
-  const { setRoute } = useContext(RouteContext)
+  const { userId, userToken } = useContext(AuthContext);
+  const { setRoute } = useContext(RouteContext);
   const [loading, setLoading] = useState<boolean>(false);
   // const temporaryUser = "6029f127-d062-4ad3-9622-f55bf99e7ee8";
   const [customerDetails, setCustomerDetails] = useState<customer[]>([]);
@@ -44,7 +46,11 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
     setLoading(true);
     try {
       const res: AxiosResponse<{ user: user }> = await axios.get(
-        process.env.REACT_APP_API_URL + "users/" + userId
+        process.env.REACT_APP_API_URL + "users/" + userId, {
+          headers: {
+            'AUTHORIZATION': userToken
+          }
+        }
       );
       console.log("user res -> ", res.data.user);
 
@@ -249,7 +255,7 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
     smtp: string
   ) => {
     history.push(`/main/${customer}/${site}/${camera_name}@${smtp}`);
-    setRoute(`/main/${customer}/${site}/${camera_name}@${smtp}`)
+    setRoute(`/main/${customer}/${site}/${camera_name}@${smtp}`);
   };
 
   return (

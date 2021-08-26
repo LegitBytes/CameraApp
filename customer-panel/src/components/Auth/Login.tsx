@@ -93,29 +93,37 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
     try {
       const user = await Auth.signIn(formState.email, formState.password);
       console.log("user -> ", user);
-      if (user.challengeName === "NEW_PASSWORD_REQUIRED") { 
+      if (user.challengeName === "NEW_PASSWORD_REQUIRED") {
         setLoading(false);
         history.replace({
           pathname: "reset-password",
           state: {
-            email: formState.email, 
-            pass: formState.password, 
+            email: formState.email,
+            pass: formState.password,
           },
         });
       } else {
-        login(user.signInUserSession.idToken.jwtToken, user.attributes["custom:user_id"]);
-        setLoading(false);
-        history.replace("/");
+        if (
+          user.signInUserSession.accessToken.payload["cognito:groups"] &&
+          user.signInUserSession.accessToken.payload["cognito:groups"].indexOf(
+            "UserGroup"
+          ) >= 0
+        ) {
+          login(
+            user.signInUserSession.idToken.jwtToken,
+            user.attributes["custom:user_id"]
+          );
+          setLoading(false);
+          history.replace("/");
+        } else {
+          handleOpen("left", "bottom", "NOT AUTHORIZED");
+          setLoading(false);
+        }
       }
     } catch (err) {
       console.log(err);
-
       setLoading(false);
-      handleOpen(
-        "left",
-        "bottom",
-        err.message
-      );
+      handleOpen("left", "bottom", err.message);
     }
   };
 

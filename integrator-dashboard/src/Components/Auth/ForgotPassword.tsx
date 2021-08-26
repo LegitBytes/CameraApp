@@ -12,7 +12,7 @@ import { useStyles } from "./Styles";
 import AuthLogo from "../../Assets/AuthLogo.svg";
 import { Lock, LockOpen, Person, Code } from "@material-ui/icons";
 
-interface FotgotPasswordProps {
+interface ForgotPasswordProps {
   handleOpen: (
     horizontal: "left" | "center" | "right",
     vertical: "top" | "bottom",
@@ -30,7 +30,7 @@ interface Errors {
   cnfPassword: boolean;
 }
 
-const FotgotPassword: React.FC<FotgotPasswordProps> = ({ handleOpen }) => {
+const ForgotPassword: React.FC<ForgotPasswordProps> = ({ handleOpen }) => {
   const history = useHistory();
   const classes = useStyles();
   const [username, setUsername] = useState<string>("");
@@ -310,4 +310,4 @@ const FotgotPassword: React.FC<FotgotPasswordProps> = ({ handleOpen }) => {
   );
 };
 
-export default FotgotPassword;
+export default ForgotPassword;

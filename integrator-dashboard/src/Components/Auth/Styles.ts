@@ -53,6 +53,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       marginTop: 20,
       background: "#3C56A6",
       color: "#fff",
+      "&:hover": {
+        background: "#3C56A6",
+        color: "#fff",
+      },
     },
     adornmentStyle: {
       background: "#E9ECEF",

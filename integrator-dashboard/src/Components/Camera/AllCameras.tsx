@@ -118,7 +118,7 @@ const AllCameras: React.FC = () => {
     return data.map((item) => ({
       name: item.camera_name,
       change_name: item.change_name ? item.change_name : "",
-      ip_address: item.ip_address,
+      email: item.email,
       smtp_username: (
         <CopyAble text={item.smtp_user_name} handleOpen={handleOpen} />
       ),
@@ -169,7 +169,7 @@ const AllCameras: React.FC = () => {
       "Camera ID": camera.camera_id,
       "Camera Name": camera.camera_name,
       "Changed Name": camera.change_name ? camera.change_name : "",
-      "IP Address": camera.ip_address,
+      "Email": camera.email,
       "SMTP Username": camera.smtp_password,
       "SMTP Password": camera.smtp_password,
       "Number of Users": camera.user_count,
