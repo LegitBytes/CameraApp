@@ -490,7 +490,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.addCamera",
               "Runtime": "nodejs14.x",
@@ -525,7 +525,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.getCameraById",
               "Runtime": "nodejs14.x",
@@ -560,7 +560,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.getAllCameras",
               "Runtime": "nodejs14.x",
@@ -595,7 +595,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.editCamera",
               "Runtime": "nodejs14.x",
@@ -630,7 +630,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.deleteCamera",
               "Runtime": "nodejs14.x",
@@ -665,7 +665,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.sqsMessage",
               "Runtime": "nodejs14.x",
@@ -700,7 +700,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.deleteIAMPolicy",
               "Runtime": "nodejs14.x",
@@ -735,7 +735,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.editDisableCamera",
               "Runtime": "nodejs14.x",
@@ -770,7 +770,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/camera/handler.editChangeName",
               "Runtime": "nodejs14.x",
@@ -805,7 +805,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/customer/handler.addCustomer",
               "Runtime": "nodejs14.x",
@@ -840,7 +840,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/customer/handler.getCustomerById",
               "Runtime": "nodejs14.x",
@@ -875,7 +875,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/customer/handler.getAllCustomers",
               "Runtime": "nodejs14.x",
@@ -910,7 +910,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/customer/handler.editCustomer",
               "Runtime": "nodejs14.x",
@@ -945,7 +945,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/customer/handler.deleteCustomer",
               "Runtime": "nodejs14.x",
@@ -980,7 +980,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/customer/handler.editDisableCustomer",
               "Runtime": "nodejs14.x",
@@ -1015,7 +1015,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/customer/handler.editChangeName",
               "Runtime": "nodejs14.x",
@@ -1050,7 +1050,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/group/handler.addGroup",
               "Runtime": "nodejs14.x",
@@ -1085,7 +1085,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/group/handler.getGroupById",
               "Runtime": "nodejs14.x",
@@ -1120,7 +1120,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/group/handler.getAllGroups",
               "Runtime": "nodejs14.x",
@@ -1155,7 +1155,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/group/handler.editGroup",
               "Runtime": "nodejs14.x",
@@ -1190,7 +1190,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/group/handler.deleteGroup",
               "Runtime": "nodejs14.x",
@@ -1225,7 +1225,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/group/handler.editDisableGroup",
               "Runtime": "nodejs14.x",
@@ -1260,7 +1260,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/integrator/handler.addIntegrator",
               "Runtime": "nodejs14.x",
@@ -1295,7 +1295,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/integrator/handler.getIntegratorById",
               "Runtime": "nodejs14.x",
@@ -1330,7 +1330,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/integrator/handler.getAllIntegrators",
               "Runtime": "nodejs14.x",
@@ -1365,7 +1365,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/integrator/handler.editIntegrator",
               "Runtime": "nodejs14.x",
@@ -1400,7 +1400,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/integrator/handler.editDisableIntegrator",
               "Runtime": "nodejs14.x",
@@ -1435,7 +1435,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/integrator/handler.deleteIntegrator",
               "Runtime": "nodejs14.x",
@@ -1470,7 +1470,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/site/handler.addSite",
               "Runtime": "nodejs14.x",
@@ -1505,7 +1505,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/site/handler.getSiteById",
               "Runtime": "nodejs14.x",
@@ -1540,7 +1540,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/site/handler.getAllSites",
               "Runtime": "nodejs14.x",
@@ -1575,7 +1575,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/site/handler.editSite",
               "Runtime": "nodejs14.x",
@@ -1610,7 +1610,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/site/handler.deleteSite",
               "Runtime": "nodejs14.x",
@@ -1645,7 +1645,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/site/handler.editDisableSite",
               "Runtime": "nodejs14.x",
@@ -1680,7 +1680,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/site/handler.editChangeName",
               "Runtime": "nodejs14.x",
@@ -1715,7 +1715,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/user/handler.addUser",
               "Runtime": "nodejs14.x",
@@ -1750,7 +1750,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/user/handler.getUserById",
               "Runtime": "nodejs14.x",
@@ -1785,7 +1785,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/user/handler.getAllUsers",
               "Runtime": "nodejs14.x",
@@ -1820,7 +1820,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/user/handler.editUser",
               "Runtime": "nodejs14.x",
@@ -1855,7 +1855,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/user/handler.deleteUser",
               "Runtime": "nodejs14.x",
@@ -1890,7 +1890,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/user/handler.editDisableUser",
               "Runtime": "nodejs14.x",
@@ -1925,7 +1925,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/customer-dashboard/handler.getCameraDetailsById",
               "Runtime": "nodejs14.x",
@@ -1960,7 +1960,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/customer-dashboard/handler.getAllCameraDetails",
               "Runtime": "nodejs14.x",
@@ -1995,7 +1995,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/customer-dashboard/handler.getCameraDetailsByUserId",
               "Runtime": "nodejs14.x",
@@ -2030,7 +2030,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z/nathan-api.zip"
+                "S3Key": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z/nathan-api.zip"
               },
               "Handler": "functions/statistics/handler.findGroupCameraByEmail",
               "Runtime": "nodejs14.x",
@@ -2058,454 +2058,454 @@
               "GroupCameraByEmailLogGroup"
             ]
           },
-          "AddNewCameraLambdaVersion8eg8RuxrlFkH3Ej8DTW2KUz2GlvCEdjw7JQFdUnaE": {
+          "AddNewCameraLambdaVersionvI2rR2BFEYaig2UXapsTGjNqYpA7pYLJY2SdZgFnqfw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddNewCameraLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindCameraByIdLambdaVersionK88s8OlnQBxV4MF1vA33OSp8CqFFHkufzpq26La2I": {
+          "FindCameraByIdLambdaVersioncZolJLkHnNAeKYqeKzwWYwOZwnb6H1seWYSbmFLPQl4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindCameraByIdLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindAllCamerasLambdaVersionidPqcmAvobhixr6FivTNOkfVxGUDVgRcEeHNXNeqNY": {
+          "FindAllCamerasLambdaVersionXBWLRsLwZ9vsbtD6X4rKywSldkuJUCRVN63qMIE": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllCamerasLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "UpdateCameraLambdaVersionEMlrlPN2U4WOjDVjqyrfKzncl6LMoRPNeYs2eWalQ": {
+          "UpdateCameraLambdaVersion7Wmqvpvjbqb7oY7ToVDy6Hub4TOhRLybd3JCleRZjs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateCameraLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "RemoveCameraLambdaVersionBMET88mMCYKKjJOpxUAdLIrfGLTQIOfb3aDydfYwuOE": {
+          "RemoveCameraLambdaVersionh2eMe09kaHRL6vyvDO0CKxizPZPstqKkfvvKfwato": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RemoveCameraLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "ConsumeSQSMessageLambdaVersiony1jLr61Er2N2Uy7pbS7TIJPxUoQARgXhfBUFj1OIQA": {
+          "ConsumeSQSMessageLambdaVersionzQVuyDiGS1bjGXNZyeCHHLbDxnil7m75UJHahqEwyaQ": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ConsumeSQSMessageLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "RemoveIAMPolicyLambdaVersionKrRk3M931JIf1jKN4dUXIu3Xpkofxe1xSfN0b5JvuFM": {
+          "RemoveIAMPolicyLambdaVersiondOTvMJ3ADcMGuB7GMJBISWoIeslU4ZndpTga2394Vk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RemoveIAMPolicyLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "DisiableCameraLambdaVersionMk0jMPlqcpJpC9MWf23y0Zpo8BVaL0HFMKii39kI1Q": {
+          "DisiableCameraLambdaVersionSBzRrzlBHGS0QUVk11SsYvRDEp6ZSvZe992CN6vzY4o": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DisiableCameraLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "UpdateChangeNameCameraLambdaVersionVidDMXqnPRce83AQtYNpxG7n493y6OzM6dqWAq84rw": {
+          "UpdateChangeNameCameraLambdaVersionS2n5asPgtBVCHOTzXrcTcBnxvCS0ErjbTpYRJ8eYE": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateChangeNameCameraLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "AddNewCustomerLambdaVersionA80BOuI8Ui9mYdubZx2XfVfTfpVdTt2XuktK2kZs3kc": {
+          "AddNewCustomerLambdaVersionj57fYHHw8LZr5gT9xNBOmhsYGOE3Ed0mfZW9b3rnLo": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddNewCustomerLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindCustomerByIdLambdaVersionLA6PkNvoesV7iAjVoBD6CWrCf59IiKPZ3imh2QM4OS0": {
+          "FindCustomerByIdLambdaVersionslG1zDV6y820BNNCxXaAavIPW8ZmYIVEoC7vLMwjjM": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindCustomerByIdLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindAllCustomersLambdaVersiong66fW1xw3g0JzZNkBAeUNU71mDUzwsplemf3B8X8IQ": {
+          "FindAllCustomersLambdaVersiont5zpjMDipq5f71PiJlep9PKv7M6zVwsUF5Z1I1LUVio": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllCustomersLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "UpdateCustomerLambdaVersionunDVJVHoU9LhkvSS0IT1WvWuhfF8cXxdgGTx91IfuU": {
+          "UpdateCustomerLambdaVersionLVKLDw4Fdxe3Hsmk7pXyyxwJYiXKtqYKe6GDjMwDQ8": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateCustomerLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "RemoveCustomerLambdaVersionD2ASsZHGhrg5tI10109uugQ0IBpxTyEVRGmHz1UivFg": {
+          "RemoveCustomerLambdaVersion2xe0rZe7eRZ2gL5i9lm8llkCJq0xn2FNk6qmBLhnvE": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RemoveCustomerLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "DisiableCustomerLambdaVersiontTKMyMZPMX9UulTL5hqkkvKlBWRECtXIIUEK9GvXbII": {
+          "DisiableCustomerLambdaVersionDI1LoLhkoEzspMb2ldJCbOvAyOicxObHbd6RSTgpik": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DisiableCustomerLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "UpdateChangeNameCustomerLambdaVersionwbcIsDP1lnXaWNH0ZDN1fIscPWHA7prtM2AQDuKabBw": {
+          "UpdateChangeNameCustomerLambdaVersionenVlRl8o1hUmMxr3jnt1EM9yJBrnqZJpodzCZTPMk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateChangeNameCustomerLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "AddNewGroupLambdaVersion6lEqFUUU70EHLFn65wgYOVYpmMi3WaXsRz4HPctq54": {
+          "AddNewGroupLambdaVersionQDaZM1IFGiaLMMSFKYyZOAuHBgQQxoOGOXTgMPO7bw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddNewGroupLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindGroupByIdLambdaVersionyuGwnnZjDZX85ttrc0azAWuH9VmPOz78YNdklUTpIlc": {
+          "FindGroupByIdLambdaVersion4FTeL9SR7fGvBoODZVrUpizAZ4G2KNoShyooOgGqptw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindGroupByIdLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindAllGroupsLambdaVersionllr66IVk1tbwWq6FfR40GiUo7dVEb8EuFFOlOG5MfQQ": {
+          "FindAllGroupsLambdaVersiongBxphuqTYQ0GzkEfeclo4sol6HwqoEZH6jAXUErAqc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllGroupsLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "UpdateGroupLambdaVersionhsJtqaAli5TjGTdZCvEkRDCLuQAuO4Z3t1z9mEsSUtE": {
+          "UpdateGroupLambdaVersionz32zw0cMo8B7Nm3E7mYcpAnTLu15N7TXmvLgg6YSs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateGroupLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "RemoveGroupLambdaVersion0KPRhhpFiBpEwfZPfSectf1YfmaOJcKquys9dBUNF0": {
+          "RemoveGroupLambdaVersionwP25ceYOcSAK3x14hNE3wMF7uz3U5eSSuH42X5xuDZU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RemoveGroupLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "DisiableGroupLambdaVersionH5xAsAUb2jvpWRKIjEtgAXwP906CxkWsBEzlrUWm4": {
+          "DisiableGroupLambdaVersionWcqmEpKjQGEA8Bhevsaaf7tdSzRIwIZ13ItM1sfPgc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DisiableGroupLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "AddNewIntegratorLambdaVersionjSZNXCDK5nXRDAJEBU3fNGG1h9yIMoKMvPQi97RwIg": {
+          "AddNewIntegratorLambdaVersionQ95BWayJ2hBb4MJD2xtn6ynjefrX8xhoLCqtW8qbI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddNewIntegratorLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindIntegratorByIdLambdaVersionLtJ0qMjaxMxt27HSIpHONbDLJoHhVMwwg2jw8StoMA": {
+          "FindIntegratorByIdLambdaVersionvpxpgDpIOwCf2YbPo0esrvtFwiGEUOxTWRgB53rnyhg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindIntegratorByIdLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindAllIntegratorsLambdaVersiong57H1ye9YHwkzCYbdRen7vtZpCq3DnebP5eezK1Gc": {
+          "FindAllIntegratorsLambdaVersion14ngZqhwCqhcTYytjHY0geqY8cfeh3W2lOPA2SWk": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllIntegratorsLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "UpdateIntegratorLambdaVersion3Zpwfj56c6H7PokmRtU9yG4w7TiqmtNLiUJGj6naV0": {
+          "UpdateIntegratorLambdaVersion5EERfr8R2QRaatUOJ7UeTzWd2cIWDOrOMZhQW6dTgzg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateIntegratorLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "DisiableIntegratorLambdaVersionpkDzS6HtYayCnnUTPhxbviLaAQcQB71NsoWZQ5QE": {
+          "DisiableIntegratorLambdaVersionW3PZwvjaWflcXci0KVHSURCLVzSwMukVD7pU86laiDs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DisiableIntegratorLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "RemoveIntegratorLambdaVersionoAhPZZqq3AipxhSTY3SUA28QoKnGDEX9K8es5fqP0": {
+          "RemoveIntegratorLambdaVersionNMQPCwJAgebBdT72iESVnGqwfx1TqNyUiGPQbww": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RemoveIntegratorLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "AddNewSiteLambdaVersion9NG3wu2IIoTYDMwppmgTYaFVocWkerU5WipaGlRBDog": {
+          "AddNewSiteLambdaVersionhh2AnxUpt7hezu5KivBxnrR75s1bHIO0oYWz55G9dY": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddNewSiteLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindSiteByIdLambdaVersionnLCf2qDbpb1v6rPhT4HKzgav0cUftsZFaW2v9dhXvu0": {
+          "FindSiteByIdLambdaVersionW07Fm77QGWrNaR3lmo4zlMgUMt2s5fmbi7GXKudrec": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindSiteByIdLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindAllSitesLambdaVersion4hdEyWYtAwiiPCBudF5p6CTP7eTTDJHjAzzmQHj7slo": {
+          "FindAllSitesLambdaVersionCzotO4jqJDSm294XN9bL0l34JqxUGPcCgq9rgiuYg": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllSitesLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "UpdateSiteLambdaVersionfSBKiB6n823Q4mKgrL923X0Vpsuv6j58DveNSMsbCo4": {
+          "UpdateSiteLambdaVersionhlMOG3Jj8WxnGm8c0608WGnQWayBCIGbM1yk3eKfA": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateSiteLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "RemoveSiteLambdaVersionuGtT5kYh5DmJb3AKB4IwC5ecU8FMUxfojvv3yxk": {
+          "RemoveSiteLambdaVersionRkQyLCktK1sYizRkpTsCvbbfsLpwcvXXgBvIXJt40k": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RemoveSiteLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "DisiableSiteLambdaVersioniIca73Y4R0b8KaC6JpIatsWs0r3s6mATwph5AinCsnA": {
+          "DisiableSiteLambdaVersionqwLiDL8HbnrgJogdQ4rN2ireAVxHVErfigFZaz5L0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DisiableSiteLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "UpdateChangeNameSiteLambdaVersionqDTJc1ANHgt75eeaEehZxCqkJs0PuhzQ8IzNsYb2s": {
+          "UpdateChangeNameSiteLambdaVersiongK2o9RM4zvqu6EqH9Pu7N94fkxigD34OPUkXW9LYE": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateChangeNameSiteLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "AddNewUserLambdaVersionwsNSG2LYbNb7iui0lEfc9qaHyJ1BaPoKPbEVWbQYI": {
+          "AddNewUserLambdaVersionY9aTR7Nvj8pWukvkLdqoZRqA8EojCUJnlzOSh8t1lsU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "AddNewUserLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindUserByIdLambdaVersionpJykPIjularuI31tUbUMsR6pL9Z6JD5WSWx1lbzE": {
+          "FindUserByIdLambdaVersionIGFstalMfCddZy9qsMqJTypQUy5Qe9pV6xMrYu38": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindUserByIdLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindAllUsersLambdaVersionnWaLHUDm34AAGwgfWWx5Jm4Ssg5LX23KnhhnesN3yY": {
+          "FindAllUsersLambdaVersionLU6i2phmiNm5bITRHmC4AlTauVE3kNMqUKoTUtpmbs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllUsersLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "UpdateUserLambdaVersionOvZ2PiK7XNg42lQ2AuFrQH2NuCDYvC9Ln4gZSuCRW8": {
+          "UpdateUserLambdaVersionDFezdhUTkdSPU6N0WpGAirIvhTufJIQT1JjjIP3Nc0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "UpdateUserLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "RemoveUserLambdaVersionLSkkis11crfjeujNpIbzxY288RYgb5Y2wfaTccio6ZE": {
+          "RemoveUserLambdaVersionO7OauSMVvGPJCWnrDB8eOWjbbWh18gnnxF5yiH6OPs": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "RemoveUserLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "DisiableUserLambdaVersionbKkmmPGyDgEhU0lz1Zx8307vZGmlQzQnVBVeHEWQs": {
+          "DisiableUserLambdaVersionwZk2yWQ88Q8vBClkJnp0Aqqr4ECEiPQdeYRJmHR7CU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DisiableUserLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindCameraDetailsByIdLambdaVersionydBOzMk8bFpWs4AsMw6X2nJtDdDCdvBpi2aWnGwi2w": {
+          "FindCameraDetailsByIdLambdaVersionXDBiMFUfeFKylD5YUUnXt5per6jSqBslUmyX48y5Dc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindCameraDetailsByIdLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindAllCameraDetailsLambdaVersionTTn6XXv5rt4qCQDmvGeyMyEZcQSzMt7gDAfua5rHXBQ": {
+          "FindAllCameraDetailsLambdaVersion6w1whONi6t8uirPdQbArA1xdetQpSbXqbVlTNhPrXw": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindAllCameraDetailsLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "FindCameraDetailsByUserIdLambdaVersion419vq1NwX16mSphmlfy5FC1whS3bNiy4iEVunndVUQ": {
+          "FindCameraDetailsByUserIdLambdaVersionRW3oICRBj7IvqLdAYkyMWGBcX1Y3WcYcurJzivzyDc": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FindCameraDetailsByUserIdLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
-          "GroupCameraByEmailLambdaVersionT99c5w6ovGARsA7EwKOichBDM9aPmKfSbOSwPgYzws": {
+          "GroupCameraByEmailLambdaVersionlaghBJAbbuRe9QsIiUc2n0tF7yaGOulD16c1xhuz0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GroupCameraByEmailLambdaFunction"
               },
-              "CodeSha256": "4Of8487VnOsYf8WZVgEk1WiI0dIl3fYyGI9MBxI1OUg="
+              "CodeSha256": "4wMyf/lBMYHU4S3JVJK3hvNsnno9stOE7Rmwup0D61w="
             }
           },
           "ApiGatewayRestApi": {
@@ -7187,7 +7187,7 @@
               ]
             }
           },
-          "ApiGatewayDeployment1630387661602": {
+          "ApiGatewayDeployment1630393602361": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -8942,7 +8942,7 @@
           "AddNewCameraLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddNewCameraLambdaVersion8eg8RuxrlFkH3Ej8DTW2KUz2GlvCEdjw7JQFdUnaE"
+              "Ref": "AddNewCameraLambdaVersionvI2rR2BFEYaig2UXapsTGjNqYpA7pYLJY2SdZgFnqfw"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-AddNewCameraLambdaFunctionQualifiedArn"
@@ -8951,7 +8951,7 @@
           "FindCameraByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindCameraByIdLambdaVersionK88s8OlnQBxV4MF1vA33OSp8CqFFHkufzpq26La2I"
+              "Ref": "FindCameraByIdLambdaVersioncZolJLkHnNAeKYqeKzwWYwOZwnb6H1seWYSbmFLPQl4"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindCameraByIdLambdaFunctionQualifiedArn"
@@ -8960,7 +8960,7 @@
           "FindAllCamerasLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllCamerasLambdaVersionidPqcmAvobhixr6FivTNOkfVxGUDVgRcEeHNXNeqNY"
+              "Ref": "FindAllCamerasLambdaVersionXBWLRsLwZ9vsbtD6X4rKywSldkuJUCRVN63qMIE"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllCamerasLambdaFunctionQualifiedArn"
@@ -8969,7 +8969,7 @@
           "UpdateCameraLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateCameraLambdaVersionEMlrlPN2U4WOjDVjqyrfKzncl6LMoRPNeYs2eWalQ"
+              "Ref": "UpdateCameraLambdaVersion7Wmqvpvjbqb7oY7ToVDy6Hub4TOhRLybd3JCleRZjs"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateCameraLambdaFunctionQualifiedArn"
@@ -8978,7 +8978,7 @@
           "RemoveCameraLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RemoveCameraLambdaVersionBMET88mMCYKKjJOpxUAdLIrfGLTQIOfb3aDydfYwuOE"
+              "Ref": "RemoveCameraLambdaVersionh2eMe09kaHRL6vyvDO0CKxizPZPstqKkfvvKfwato"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-RemoveCameraLambdaFunctionQualifiedArn"
@@ -8987,7 +8987,7 @@
           "ConsumeSQSMessageLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ConsumeSQSMessageLambdaVersiony1jLr61Er2N2Uy7pbS7TIJPxUoQARgXhfBUFj1OIQA"
+              "Ref": "ConsumeSQSMessageLambdaVersionzQVuyDiGS1bjGXNZyeCHHLbDxnil7m75UJHahqEwyaQ"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-ConsumeSQSMessageLambdaFunctionQualifiedArn"
@@ -8996,7 +8996,7 @@
           "RemoveIAMPolicyLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RemoveIAMPolicyLambdaVersionKrRk3M931JIf1jKN4dUXIu3Xpkofxe1xSfN0b5JvuFM"
+              "Ref": "RemoveIAMPolicyLambdaVersiondOTvMJ3ADcMGuB7GMJBISWoIeslU4ZndpTga2394Vk"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-RemoveIAMPolicyLambdaFunctionQualifiedArn"
@@ -9005,7 +9005,7 @@
           "DisiableCameraLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DisiableCameraLambdaVersionMk0jMPlqcpJpC9MWf23y0Zpo8BVaL0HFMKii39kI1Q"
+              "Ref": "DisiableCameraLambdaVersionSBzRrzlBHGS0QUVk11SsYvRDEp6ZSvZe992CN6vzY4o"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-DisiableCameraLambdaFunctionQualifiedArn"
@@ -9014,7 +9014,7 @@
           "UpdateChangeNameCameraLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateChangeNameCameraLambdaVersionVidDMXqnPRce83AQtYNpxG7n493y6OzM6dqWAq84rw"
+              "Ref": "UpdateChangeNameCameraLambdaVersionS2n5asPgtBVCHOTzXrcTcBnxvCS0ErjbTpYRJ8eYE"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateChangeNameCameraLambdaFunctionQualifiedArn"
@@ -9023,7 +9023,7 @@
           "AddNewCustomerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddNewCustomerLambdaVersionA80BOuI8Ui9mYdubZx2XfVfTfpVdTt2XuktK2kZs3kc"
+              "Ref": "AddNewCustomerLambdaVersionj57fYHHw8LZr5gT9xNBOmhsYGOE3Ed0mfZW9b3rnLo"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-AddNewCustomerLambdaFunctionQualifiedArn"
@@ -9032,7 +9032,7 @@
           "FindCustomerByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindCustomerByIdLambdaVersionLA6PkNvoesV7iAjVoBD6CWrCf59IiKPZ3imh2QM4OS0"
+              "Ref": "FindCustomerByIdLambdaVersionslG1zDV6y820BNNCxXaAavIPW8ZmYIVEoC7vLMwjjM"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindCustomerByIdLambdaFunctionQualifiedArn"
@@ -9041,7 +9041,7 @@
           "FindAllCustomersLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllCustomersLambdaVersiong66fW1xw3g0JzZNkBAeUNU71mDUzwsplemf3B8X8IQ"
+              "Ref": "FindAllCustomersLambdaVersiont5zpjMDipq5f71PiJlep9PKv7M6zVwsUF5Z1I1LUVio"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllCustomersLambdaFunctionQualifiedArn"
@@ -9050,7 +9050,7 @@
           "UpdateCustomerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateCustomerLambdaVersionunDVJVHoU9LhkvSS0IT1WvWuhfF8cXxdgGTx91IfuU"
+              "Ref": "UpdateCustomerLambdaVersionLVKLDw4Fdxe3Hsmk7pXyyxwJYiXKtqYKe6GDjMwDQ8"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateCustomerLambdaFunctionQualifiedArn"
@@ -9059,7 +9059,7 @@
           "RemoveCustomerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RemoveCustomerLambdaVersionD2ASsZHGhrg5tI10109uugQ0IBpxTyEVRGmHz1UivFg"
+              "Ref": "RemoveCustomerLambdaVersion2xe0rZe7eRZ2gL5i9lm8llkCJq0xn2FNk6qmBLhnvE"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-RemoveCustomerLambdaFunctionQualifiedArn"
@@ -9068,7 +9068,7 @@
           "DisiableCustomerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DisiableCustomerLambdaVersiontTKMyMZPMX9UulTL5hqkkvKlBWRECtXIIUEK9GvXbII"
+              "Ref": "DisiableCustomerLambdaVersionDI1LoLhkoEzspMb2ldJCbOvAyOicxObHbd6RSTgpik"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-DisiableCustomerLambdaFunctionQualifiedArn"
@@ -9077,7 +9077,7 @@
           "UpdateChangeNameCustomerLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateChangeNameCustomerLambdaVersionwbcIsDP1lnXaWNH0ZDN1fIscPWHA7prtM2AQDuKabBw"
+              "Ref": "UpdateChangeNameCustomerLambdaVersionenVlRl8o1hUmMxr3jnt1EM9yJBrnqZJpodzCZTPMk"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateChangeNameCustomerLambdaFunctionQualifiedArn"
@@ -9086,7 +9086,7 @@
           "AddNewGroupLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddNewGroupLambdaVersion6lEqFUUU70EHLFn65wgYOVYpmMi3WaXsRz4HPctq54"
+              "Ref": "AddNewGroupLambdaVersionQDaZM1IFGiaLMMSFKYyZOAuHBgQQxoOGOXTgMPO7bw"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-AddNewGroupLambdaFunctionQualifiedArn"
@@ -9095,7 +9095,7 @@
           "FindGroupByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindGroupByIdLambdaVersionyuGwnnZjDZX85ttrc0azAWuH9VmPOz78YNdklUTpIlc"
+              "Ref": "FindGroupByIdLambdaVersion4FTeL9SR7fGvBoODZVrUpizAZ4G2KNoShyooOgGqptw"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindGroupByIdLambdaFunctionQualifiedArn"
@@ -9104,7 +9104,7 @@
           "FindAllGroupsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllGroupsLambdaVersionllr66IVk1tbwWq6FfR40GiUo7dVEb8EuFFOlOG5MfQQ"
+              "Ref": "FindAllGroupsLambdaVersiongBxphuqTYQ0GzkEfeclo4sol6HwqoEZH6jAXUErAqc"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllGroupsLambdaFunctionQualifiedArn"
@@ -9113,7 +9113,7 @@
           "UpdateGroupLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateGroupLambdaVersionhsJtqaAli5TjGTdZCvEkRDCLuQAuO4Z3t1z9mEsSUtE"
+              "Ref": "UpdateGroupLambdaVersionz32zw0cMo8B7Nm3E7mYcpAnTLu15N7TXmvLgg6YSs"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateGroupLambdaFunctionQualifiedArn"
@@ -9122,7 +9122,7 @@
           "RemoveGroupLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RemoveGroupLambdaVersion0KPRhhpFiBpEwfZPfSectf1YfmaOJcKquys9dBUNF0"
+              "Ref": "RemoveGroupLambdaVersionwP25ceYOcSAK3x14hNE3wMF7uz3U5eSSuH42X5xuDZU"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-RemoveGroupLambdaFunctionQualifiedArn"
@@ -9131,7 +9131,7 @@
           "DisiableGroupLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DisiableGroupLambdaVersionH5xAsAUb2jvpWRKIjEtgAXwP906CxkWsBEzlrUWm4"
+              "Ref": "DisiableGroupLambdaVersionWcqmEpKjQGEA8Bhevsaaf7tdSzRIwIZ13ItM1sfPgc"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-DisiableGroupLambdaFunctionQualifiedArn"
@@ -9140,7 +9140,7 @@
           "AddNewIntegratorLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddNewIntegratorLambdaVersionjSZNXCDK5nXRDAJEBU3fNGG1h9yIMoKMvPQi97RwIg"
+              "Ref": "AddNewIntegratorLambdaVersionQ95BWayJ2hBb4MJD2xtn6ynjefrX8xhoLCqtW8qbI"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-AddNewIntegratorLambdaFunctionQualifiedArn"
@@ -9149,7 +9149,7 @@
           "FindIntegratorByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindIntegratorByIdLambdaVersionLtJ0qMjaxMxt27HSIpHONbDLJoHhVMwwg2jw8StoMA"
+              "Ref": "FindIntegratorByIdLambdaVersionvpxpgDpIOwCf2YbPo0esrvtFwiGEUOxTWRgB53rnyhg"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindIntegratorByIdLambdaFunctionQualifiedArn"
@@ -9158,7 +9158,7 @@
           "FindAllIntegratorsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllIntegratorsLambdaVersiong57H1ye9YHwkzCYbdRen7vtZpCq3DnebP5eezK1Gc"
+              "Ref": "FindAllIntegratorsLambdaVersion14ngZqhwCqhcTYytjHY0geqY8cfeh3W2lOPA2SWk"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllIntegratorsLambdaFunctionQualifiedArn"
@@ -9167,7 +9167,7 @@
           "UpdateIntegratorLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateIntegratorLambdaVersion3Zpwfj56c6H7PokmRtU9yG4w7TiqmtNLiUJGj6naV0"
+              "Ref": "UpdateIntegratorLambdaVersion5EERfr8R2QRaatUOJ7UeTzWd2cIWDOrOMZhQW6dTgzg"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateIntegratorLambdaFunctionQualifiedArn"
@@ -9176,7 +9176,7 @@
           "DisiableIntegratorLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DisiableIntegratorLambdaVersionpkDzS6HtYayCnnUTPhxbviLaAQcQB71NsoWZQ5QE"
+              "Ref": "DisiableIntegratorLambdaVersionW3PZwvjaWflcXci0KVHSURCLVzSwMukVD7pU86laiDs"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-DisiableIntegratorLambdaFunctionQualifiedArn"
@@ -9185,7 +9185,7 @@
           "RemoveIntegratorLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RemoveIntegratorLambdaVersionoAhPZZqq3AipxhSTY3SUA28QoKnGDEX9K8es5fqP0"
+              "Ref": "RemoveIntegratorLambdaVersionNMQPCwJAgebBdT72iESVnGqwfx1TqNyUiGPQbww"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-RemoveIntegratorLambdaFunctionQualifiedArn"
@@ -9194,7 +9194,7 @@
           "AddNewSiteLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddNewSiteLambdaVersion9NG3wu2IIoTYDMwppmgTYaFVocWkerU5WipaGlRBDog"
+              "Ref": "AddNewSiteLambdaVersionhh2AnxUpt7hezu5KivBxnrR75s1bHIO0oYWz55G9dY"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-AddNewSiteLambdaFunctionQualifiedArn"
@@ -9203,7 +9203,7 @@
           "FindSiteByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindSiteByIdLambdaVersionnLCf2qDbpb1v6rPhT4HKzgav0cUftsZFaW2v9dhXvu0"
+              "Ref": "FindSiteByIdLambdaVersionW07Fm77QGWrNaR3lmo4zlMgUMt2s5fmbi7GXKudrec"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindSiteByIdLambdaFunctionQualifiedArn"
@@ -9212,7 +9212,7 @@
           "FindAllSitesLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllSitesLambdaVersion4hdEyWYtAwiiPCBudF5p6CTP7eTTDJHjAzzmQHj7slo"
+              "Ref": "FindAllSitesLambdaVersionCzotO4jqJDSm294XN9bL0l34JqxUGPcCgq9rgiuYg"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllSitesLambdaFunctionQualifiedArn"
@@ -9221,7 +9221,7 @@
           "UpdateSiteLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateSiteLambdaVersionfSBKiB6n823Q4mKgrL923X0Vpsuv6j58DveNSMsbCo4"
+              "Ref": "UpdateSiteLambdaVersionhlMOG3Jj8WxnGm8c0608WGnQWayBCIGbM1yk3eKfA"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateSiteLambdaFunctionQualifiedArn"
@@ -9230,7 +9230,7 @@
           "RemoveSiteLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RemoveSiteLambdaVersionuGtT5kYh5DmJb3AKB4IwC5ecU8FMUxfojvv3yxk"
+              "Ref": "RemoveSiteLambdaVersionRkQyLCktK1sYizRkpTsCvbbfsLpwcvXXgBvIXJt40k"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-RemoveSiteLambdaFunctionQualifiedArn"
@@ -9239,7 +9239,7 @@
           "DisiableSiteLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DisiableSiteLambdaVersioniIca73Y4R0b8KaC6JpIatsWs0r3s6mATwph5AinCsnA"
+              "Ref": "DisiableSiteLambdaVersionqwLiDL8HbnrgJogdQ4rN2ireAVxHVErfigFZaz5L0"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-DisiableSiteLambdaFunctionQualifiedArn"
@@ -9248,7 +9248,7 @@
           "UpdateChangeNameSiteLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateChangeNameSiteLambdaVersionqDTJc1ANHgt75eeaEehZxCqkJs0PuhzQ8IzNsYb2s"
+              "Ref": "UpdateChangeNameSiteLambdaVersiongK2o9RM4zvqu6EqH9Pu7N94fkxigD34OPUkXW9LYE"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateChangeNameSiteLambdaFunctionQualifiedArn"
@@ -9257,7 +9257,7 @@
           "AddNewUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "AddNewUserLambdaVersionwsNSG2LYbNb7iui0lEfc9qaHyJ1BaPoKPbEVWbQYI"
+              "Ref": "AddNewUserLambdaVersionY9aTR7Nvj8pWukvkLdqoZRqA8EojCUJnlzOSh8t1lsU"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-AddNewUserLambdaFunctionQualifiedArn"
@@ -9266,7 +9266,7 @@
           "FindUserByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindUserByIdLambdaVersionpJykPIjularuI31tUbUMsR6pL9Z6JD5WSWx1lbzE"
+              "Ref": "FindUserByIdLambdaVersionIGFstalMfCddZy9qsMqJTypQUy5Qe9pV6xMrYu38"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindUserByIdLambdaFunctionQualifiedArn"
@@ -9275,7 +9275,7 @@
           "FindAllUsersLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllUsersLambdaVersionnWaLHUDm34AAGwgfWWx5Jm4Ssg5LX23KnhhnesN3yY"
+              "Ref": "FindAllUsersLambdaVersionLU6i2phmiNm5bITRHmC4AlTauVE3kNMqUKoTUtpmbs"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllUsersLambdaFunctionQualifiedArn"
@@ -9284,7 +9284,7 @@
           "UpdateUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "UpdateUserLambdaVersionOvZ2PiK7XNg42lQ2AuFrQH2NuCDYvC9Ln4gZSuCRW8"
+              "Ref": "UpdateUserLambdaVersionDFezdhUTkdSPU6N0WpGAirIvhTufJIQT1JjjIP3Nc0"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-UpdateUserLambdaFunctionQualifiedArn"
@@ -9293,7 +9293,7 @@
           "RemoveUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "RemoveUserLambdaVersionLSkkis11crfjeujNpIbzxY288RYgb5Y2wfaTccio6ZE"
+              "Ref": "RemoveUserLambdaVersionO7OauSMVvGPJCWnrDB8eOWjbbWh18gnnxF5yiH6OPs"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-RemoveUserLambdaFunctionQualifiedArn"
@@ -9302,7 +9302,7 @@
           "DisiableUserLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DisiableUserLambdaVersionbKkmmPGyDgEhU0lz1Zx8307vZGmlQzQnVBVeHEWQs"
+              "Ref": "DisiableUserLambdaVersionwZk2yWQ88Q8vBClkJnp0Aqqr4ECEiPQdeYRJmHR7CU"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-DisiableUserLambdaFunctionQualifiedArn"
@@ -9311,7 +9311,7 @@
           "FindCameraDetailsByIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindCameraDetailsByIdLambdaVersionydBOzMk8bFpWs4AsMw6X2nJtDdDCdvBpi2aWnGwi2w"
+              "Ref": "FindCameraDetailsByIdLambdaVersionXDBiMFUfeFKylD5YUUnXt5per6jSqBslUmyX48y5Dc"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindCameraDetailsByIdLambdaFunctionQualifiedArn"
@@ -9320,7 +9320,7 @@
           "FindAllCameraDetailsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindAllCameraDetailsLambdaVersionTTn6XXv5rt4qCQDmvGeyMyEZcQSzMt7gDAfua5rHXBQ"
+              "Ref": "FindAllCameraDetailsLambdaVersion6w1whONi6t8uirPdQbArA1xdetQpSbXqbVlTNhPrXw"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindAllCameraDetailsLambdaFunctionQualifiedArn"
@@ -9329,7 +9329,7 @@
           "FindCameraDetailsByUserIdLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FindCameraDetailsByUserIdLambdaVersion419vq1NwX16mSphmlfy5FC1whS3bNiy4iEVunndVUQ"
+              "Ref": "FindCameraDetailsByUserIdLambdaVersionRW3oICRBj7IvqLdAYkyMWGBcX1Y3WcYcurJzivzyDc"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-FindCameraDetailsByUserIdLambdaFunctionQualifiedArn"
@@ -9338,7 +9338,7 @@
           "GroupCameraByEmailLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GroupCameraByEmailLambdaVersionT99c5w6ovGARsA7EwKOichBDM9aPmKfSbOSwPgYzws"
+              "Ref": "GroupCameraByEmailLambdaVersionlaghBJAbbuRe9QsIiUc2n0tF7yaGOulD16c1xhuz0"
             },
             "Export": {
               "Name": "sls-nathan-api-dev-GroupCameraByEmailLambdaFunctionQualifiedArn"
@@ -9542,7 +9542,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AddNewCameraLambdaVersion8eg8RuxrlFkH3Ej8DTW2KUz2GlvCEdjw7JQFdUnaE"
+        "versionLogicalId": "AddNewCameraLambdaVersionvI2rR2BFEYaig2UXapsTGjNqYpA7pYLJY2SdZgFnqfw"
       },
       "findCameraById": {
         "handler": "functions/camera/handler.getCameraById",
@@ -9590,7 +9590,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindCameraByIdLambdaVersionK88s8OlnQBxV4MF1vA33OSp8CqFFHkufzpq26La2I"
+        "versionLogicalId": "FindCameraByIdLambdaVersioncZolJLkHnNAeKYqeKzwWYwOZwnb6H1seWYSbmFLPQl4"
       },
       "findAllCameras": {
         "handler": "functions/camera/handler.getAllCameras",
@@ -9638,7 +9638,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllCamerasLambdaVersionidPqcmAvobhixr6FivTNOkfVxGUDVgRcEeHNXNeqNY"
+        "versionLogicalId": "FindAllCamerasLambdaVersionXBWLRsLwZ9vsbtD6X4rKywSldkuJUCRVN63qMIE"
       },
       "updateCamera": {
         "handler": "functions/camera/handler.editCamera",
@@ -9693,7 +9693,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateCameraLambdaVersionEMlrlPN2U4WOjDVjqyrfKzncl6LMoRPNeYs2eWalQ"
+        "versionLogicalId": "UpdateCameraLambdaVersion7Wmqvpvjbqb7oY7ToVDy6Hub4TOhRLybd3JCleRZjs"
       },
       "removeCamera": {
         "handler": "functions/camera/handler.deleteCamera",
@@ -9741,7 +9741,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "RemoveCameraLambdaVersionBMET88mMCYKKjJOpxUAdLIrfGLTQIOfb3aDydfYwuOE"
+        "versionLogicalId": "RemoveCameraLambdaVersionh2eMe09kaHRL6vyvDO0CKxizPZPstqKkfvvKfwato"
       },
       "consumeSQSMessage": {
         "handler": "functions/camera/handler.sqsMessage",
@@ -9758,7 +9758,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "ConsumeSQSMessageLambdaVersiony1jLr61Er2N2Uy7pbS7TIJPxUoQARgXhfBUFj1OIQA"
+        "versionLogicalId": "ConsumeSQSMessageLambdaVersionzQVuyDiGS1bjGXNZyeCHHLbDxnil7m75UJHahqEwyaQ"
       },
       "removeIAMPolicy": {
         "handler": "functions/camera/handler.deleteIAMPolicy",
@@ -9806,7 +9806,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "RemoveIAMPolicyLambdaVersionKrRk3M931JIf1jKN4dUXIu3Xpkofxe1xSfN0b5JvuFM"
+        "versionLogicalId": "RemoveIAMPolicyLambdaVersiondOTvMJ3ADcMGuB7GMJBISWoIeslU4ZndpTga2394Vk"
       },
       "disiableCamera": {
         "handler": "functions/camera/handler.editDisableCamera",
@@ -9854,7 +9854,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "DisiableCameraLambdaVersionMk0jMPlqcpJpC9MWf23y0Zpo8BVaL0HFMKii39kI1Q"
+        "versionLogicalId": "DisiableCameraLambdaVersionSBzRrzlBHGS0QUVk11SsYvRDEp6ZSvZe992CN6vzY4o"
       },
       "updateChangeNameCamera": {
         "handler": "functions/camera/handler.editChangeName",
@@ -9902,7 +9902,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateChangeNameCameraLambdaVersionVidDMXqnPRce83AQtYNpxG7n493y6OzM6dqWAq84rw"
+        "versionLogicalId": "UpdateChangeNameCameraLambdaVersionS2n5asPgtBVCHOTzXrcTcBnxvCS0ErjbTpYRJ8eYE"
       },
       "addNewCustomer": {
         "handler": "functions/customer/handler.addCustomer",
@@ -9957,7 +9957,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AddNewCustomerLambdaVersionA80BOuI8Ui9mYdubZx2XfVfTfpVdTt2XuktK2kZs3kc"
+        "versionLogicalId": "AddNewCustomerLambdaVersionj57fYHHw8LZr5gT9xNBOmhsYGOE3Ed0mfZW9b3rnLo"
       },
       "findCustomerById": {
         "handler": "functions/customer/handler.getCustomerById",
@@ -10005,7 +10005,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindCustomerByIdLambdaVersionLA6PkNvoesV7iAjVoBD6CWrCf59IiKPZ3imh2QM4OS0"
+        "versionLogicalId": "FindCustomerByIdLambdaVersionslG1zDV6y820BNNCxXaAavIPW8ZmYIVEoC7vLMwjjM"
       },
       "findAllCustomers": {
         "handler": "functions/customer/handler.getAllCustomers",
@@ -10053,7 +10053,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllCustomersLambdaVersiong66fW1xw3g0JzZNkBAeUNU71mDUzwsplemf3B8X8IQ"
+        "versionLogicalId": "FindAllCustomersLambdaVersiont5zpjMDipq5f71PiJlep9PKv7M6zVwsUF5Z1I1LUVio"
       },
       "updateCustomer": {
         "handler": "functions/customer/handler.editCustomer",
@@ -10108,7 +10108,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateCustomerLambdaVersionunDVJVHoU9LhkvSS0IT1WvWuhfF8cXxdgGTx91IfuU"
+        "versionLogicalId": "UpdateCustomerLambdaVersionLVKLDw4Fdxe3Hsmk7pXyyxwJYiXKtqYKe6GDjMwDQ8"
       },
       "removeCustomer": {
         "handler": "functions/customer/handler.deleteCustomer",
@@ -10156,7 +10156,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "RemoveCustomerLambdaVersionD2ASsZHGhrg5tI10109uugQ0IBpxTyEVRGmHz1UivFg"
+        "versionLogicalId": "RemoveCustomerLambdaVersion2xe0rZe7eRZ2gL5i9lm8llkCJq0xn2FNk6qmBLhnvE"
       },
       "disiableCustomer": {
         "handler": "functions/customer/handler.editDisableCustomer",
@@ -10204,7 +10204,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "DisiableCustomerLambdaVersiontTKMyMZPMX9UulTL5hqkkvKlBWRECtXIIUEK9GvXbII"
+        "versionLogicalId": "DisiableCustomerLambdaVersionDI1LoLhkoEzspMb2ldJCbOvAyOicxObHbd6RSTgpik"
       },
       "updateChangeNameCustomer": {
         "handler": "functions/customer/handler.editChangeName",
@@ -10252,7 +10252,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateChangeNameCustomerLambdaVersionwbcIsDP1lnXaWNH0ZDN1fIscPWHA7prtM2AQDuKabBw"
+        "versionLogicalId": "UpdateChangeNameCustomerLambdaVersionenVlRl8o1hUmMxr3jnt1EM9yJBrnqZJpodzCZTPMk"
       },
       "addNewGroup": {
         "handler": "functions/group/handler.addGroup",
@@ -10307,7 +10307,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AddNewGroupLambdaVersion6lEqFUUU70EHLFn65wgYOVYpmMi3WaXsRz4HPctq54"
+        "versionLogicalId": "AddNewGroupLambdaVersionQDaZM1IFGiaLMMSFKYyZOAuHBgQQxoOGOXTgMPO7bw"
       },
       "findGroupById": {
         "handler": "functions/group/handler.getGroupById",
@@ -10355,7 +10355,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindGroupByIdLambdaVersionyuGwnnZjDZX85ttrc0azAWuH9VmPOz78YNdklUTpIlc"
+        "versionLogicalId": "FindGroupByIdLambdaVersion4FTeL9SR7fGvBoODZVrUpizAZ4G2KNoShyooOgGqptw"
       },
       "findAllGroups": {
         "handler": "functions/group/handler.getAllGroups",
@@ -10403,7 +10403,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllGroupsLambdaVersionllr66IVk1tbwWq6FfR40GiUo7dVEb8EuFFOlOG5MfQQ"
+        "versionLogicalId": "FindAllGroupsLambdaVersiongBxphuqTYQ0GzkEfeclo4sol6HwqoEZH6jAXUErAqc"
       },
       "updateGroup": {
         "handler": "functions/group/handler.editGroup",
@@ -10458,7 +10458,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateGroupLambdaVersionhsJtqaAli5TjGTdZCvEkRDCLuQAuO4Z3t1z9mEsSUtE"
+        "versionLogicalId": "UpdateGroupLambdaVersionz32zw0cMo8B7Nm3E7mYcpAnTLu15N7TXmvLgg6YSs"
       },
       "removeGroup": {
         "handler": "functions/group/handler.deleteGroup",
@@ -10506,7 +10506,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "RemoveGroupLambdaVersion0KPRhhpFiBpEwfZPfSectf1YfmaOJcKquys9dBUNF0"
+        "versionLogicalId": "RemoveGroupLambdaVersionwP25ceYOcSAK3x14hNE3wMF7uz3U5eSSuH42X5xuDZU"
       },
       "disiableGroup": {
         "handler": "functions/group/handler.editDisableGroup",
@@ -10554,7 +10554,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "DisiableGroupLambdaVersionH5xAsAUb2jvpWRKIjEtgAXwP906CxkWsBEzlrUWm4"
+        "versionLogicalId": "DisiableGroupLambdaVersionWcqmEpKjQGEA8Bhevsaaf7tdSzRIwIZ13ItM1sfPgc"
       },
       "addNewIntegrator": {
         "handler": "functions/integrator/handler.addIntegrator",
@@ -10609,7 +10609,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AddNewIntegratorLambdaVersionjSZNXCDK5nXRDAJEBU3fNGG1h9yIMoKMvPQi97RwIg"
+        "versionLogicalId": "AddNewIntegratorLambdaVersionQ95BWayJ2hBb4MJD2xtn6ynjefrX8xhoLCqtW8qbI"
       },
       "findIntegratorById": {
         "handler": "functions/integrator/handler.getIntegratorById",
@@ -10657,7 +10657,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindIntegratorByIdLambdaVersionLtJ0qMjaxMxt27HSIpHONbDLJoHhVMwwg2jw8StoMA"
+        "versionLogicalId": "FindIntegratorByIdLambdaVersionvpxpgDpIOwCf2YbPo0esrvtFwiGEUOxTWRgB53rnyhg"
       },
       "findAllIntegrators": {
         "handler": "functions/integrator/handler.getAllIntegrators",
@@ -10705,7 +10705,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllIntegratorsLambdaVersiong57H1ye9YHwkzCYbdRen7vtZpCq3DnebP5eezK1Gc"
+        "versionLogicalId": "FindAllIntegratorsLambdaVersion14ngZqhwCqhcTYytjHY0geqY8cfeh3W2lOPA2SWk"
       },
       "updateIntegrator": {
         "handler": "functions/integrator/handler.editIntegrator",
@@ -10760,7 +10760,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateIntegratorLambdaVersion3Zpwfj56c6H7PokmRtU9yG4w7TiqmtNLiUJGj6naV0"
+        "versionLogicalId": "UpdateIntegratorLambdaVersion5EERfr8R2QRaatUOJ7UeTzWd2cIWDOrOMZhQW6dTgzg"
       },
       "disiableIntegrator": {
         "handler": "functions/integrator/handler.editDisableIntegrator",
@@ -10808,7 +10808,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "DisiableIntegratorLambdaVersionpkDzS6HtYayCnnUTPhxbviLaAQcQB71NsoWZQ5QE"
+        "versionLogicalId": "DisiableIntegratorLambdaVersionW3PZwvjaWflcXci0KVHSURCLVzSwMukVD7pU86laiDs"
       },
       "removeIntegrator": {
         "handler": "functions/integrator/handler.deleteIntegrator",
@@ -10856,7 +10856,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "RemoveIntegratorLambdaVersionoAhPZZqq3AipxhSTY3SUA28QoKnGDEX9K8es5fqP0"
+        "versionLogicalId": "RemoveIntegratorLambdaVersionNMQPCwJAgebBdT72iESVnGqwfx1TqNyUiGPQbww"
       },
       "addNewSite": {
         "handler": "functions/site/handler.addSite",
@@ -10911,7 +10911,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AddNewSiteLambdaVersion9NG3wu2IIoTYDMwppmgTYaFVocWkerU5WipaGlRBDog"
+        "versionLogicalId": "AddNewSiteLambdaVersionhh2AnxUpt7hezu5KivBxnrR75s1bHIO0oYWz55G9dY"
       },
       "findSiteById": {
         "handler": "functions/site/handler.getSiteById",
@@ -10959,7 +10959,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindSiteByIdLambdaVersionnLCf2qDbpb1v6rPhT4HKzgav0cUftsZFaW2v9dhXvu0"
+        "versionLogicalId": "FindSiteByIdLambdaVersionW07Fm77QGWrNaR3lmo4zlMgUMt2s5fmbi7GXKudrec"
       },
       "findAllSites": {
         "handler": "functions/site/handler.getAllSites",
@@ -11007,7 +11007,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllSitesLambdaVersion4hdEyWYtAwiiPCBudF5p6CTP7eTTDJHjAzzmQHj7slo"
+        "versionLogicalId": "FindAllSitesLambdaVersionCzotO4jqJDSm294XN9bL0l34JqxUGPcCgq9rgiuYg"
       },
       "updateSite": {
         "handler": "functions/site/handler.editSite",
@@ -11062,7 +11062,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateSiteLambdaVersionfSBKiB6n823Q4mKgrL923X0Vpsuv6j58DveNSMsbCo4"
+        "versionLogicalId": "UpdateSiteLambdaVersionhlMOG3Jj8WxnGm8c0608WGnQWayBCIGbM1yk3eKfA"
       },
       "removeSite": {
         "handler": "functions/site/handler.deleteSite",
@@ -11110,7 +11110,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "RemoveSiteLambdaVersionuGtT5kYh5DmJb3AKB4IwC5ecU8FMUxfojvv3yxk"
+        "versionLogicalId": "RemoveSiteLambdaVersionRkQyLCktK1sYizRkpTsCvbbfsLpwcvXXgBvIXJt40k"
       },
       "disiableSite": {
         "handler": "functions/site/handler.editDisableSite",
@@ -11158,7 +11158,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "DisiableSiteLambdaVersioniIca73Y4R0b8KaC6JpIatsWs0r3s6mATwph5AinCsnA"
+        "versionLogicalId": "DisiableSiteLambdaVersionqwLiDL8HbnrgJogdQ4rN2ireAVxHVErfigFZaz5L0"
       },
       "updateChangeNameSite": {
         "handler": "functions/site/handler.editChangeName",
@@ -11206,7 +11206,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateChangeNameSiteLambdaVersionqDTJc1ANHgt75eeaEehZxCqkJs0PuhzQ8IzNsYb2s"
+        "versionLogicalId": "UpdateChangeNameSiteLambdaVersiongK2o9RM4zvqu6EqH9Pu7N94fkxigD34OPUkXW9LYE"
       },
       "addNewUser": {
         "handler": "functions/user/handler.addUser",
@@ -11261,7 +11261,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "AddNewUserLambdaVersionwsNSG2LYbNb7iui0lEfc9qaHyJ1BaPoKPbEVWbQYI"
+        "versionLogicalId": "AddNewUserLambdaVersionY9aTR7Nvj8pWukvkLdqoZRqA8EojCUJnlzOSh8t1lsU"
       },
       "findUserById": {
         "handler": "functions/user/handler.getUserById",
@@ -11309,7 +11309,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindUserByIdLambdaVersionpJykPIjularuI31tUbUMsR6pL9Z6JD5WSWx1lbzE"
+        "versionLogicalId": "FindUserByIdLambdaVersionIGFstalMfCddZy9qsMqJTypQUy5Qe9pV6xMrYu38"
       },
       "findAllUsers": {
         "handler": "functions/user/handler.getAllUsers",
@@ -11357,7 +11357,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllUsersLambdaVersionnWaLHUDm34AAGwgfWWx5Jm4Ssg5LX23KnhhnesN3yY"
+        "versionLogicalId": "FindAllUsersLambdaVersionLU6i2phmiNm5bITRHmC4AlTauVE3kNMqUKoTUtpmbs"
       },
       "updateUser": {
         "handler": "functions/user/handler.editUser",
@@ -11412,7 +11412,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "UpdateUserLambdaVersionOvZ2PiK7XNg42lQ2AuFrQH2NuCDYvC9Ln4gZSuCRW8"
+        "versionLogicalId": "UpdateUserLambdaVersionDFezdhUTkdSPU6N0WpGAirIvhTufJIQT1JjjIP3Nc0"
       },
       "removeUser": {
         "handler": "functions/user/handler.deleteUser",
@@ -11460,7 +11460,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "RemoveUserLambdaVersionLSkkis11crfjeujNpIbzxY288RYgb5Y2wfaTccio6ZE"
+        "versionLogicalId": "RemoveUserLambdaVersionO7OauSMVvGPJCWnrDB8eOWjbbWh18gnnxF5yiH6OPs"
       },
       "disiableUser": {
         "handler": "functions/user/handler.editDisableUser",
@@ -11508,7 +11508,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "DisiableUserLambdaVersionbKkmmPGyDgEhU0lz1Zx8307vZGmlQzQnVBVeHEWQs"
+        "versionLogicalId": "DisiableUserLambdaVersionwZk2yWQ88Q8vBClkJnp0Aqqr4ECEiPQdeYRJmHR7CU"
       },
       "findCameraDetailsById": {
         "handler": "functions/customer-dashboard/handler.getCameraDetailsById",
@@ -11556,7 +11556,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindCameraDetailsByIdLambdaVersionydBOzMk8bFpWs4AsMw6X2nJtDdDCdvBpi2aWnGwi2w"
+        "versionLogicalId": "FindCameraDetailsByIdLambdaVersionXDBiMFUfeFKylD5YUUnXt5per6jSqBslUmyX48y5Dc"
       },
       "findAllCameraDetails": {
         "handler": "functions/customer-dashboard/handler.getAllCameraDetails",
@@ -11604,7 +11604,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindAllCameraDetailsLambdaVersionTTn6XXv5rt4qCQDmvGeyMyEZcQSzMt7gDAfua5rHXBQ"
+        "versionLogicalId": "FindAllCameraDetailsLambdaVersion6w1whONi6t8uirPdQbArA1xdetQpSbXqbVlTNhPrXw"
       },
       "findCameraDetailsByUserId": {
         "handler": "functions/customer-dashboard/handler.getCameraDetailsByUserId",
@@ -11648,7 +11648,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "FindCameraDetailsByUserIdLambdaVersion419vq1NwX16mSphmlfy5FC1whS3bNiy4iEVunndVUQ"
+        "versionLogicalId": "FindCameraDetailsByUserIdLambdaVersionRW3oICRBj7IvqLdAYkyMWGBcX1Y3WcYcurJzivzyDc"
       },
       "groupCameraByEmail": {
         "handler": "functions/statistics/handler.findGroupCameraByEmail",
@@ -11696,7 +11696,7 @@
         "timeout": 6,
         "runtime": "nodejs14.x",
         "vpc": {},
-        "versionLogicalId": "GroupCameraByEmailLambdaVersionT99c5w6ovGARsA7EwKOichBDM9aPmKfSbOSwPgYzws"
+        "versionLogicalId": "GroupCameraByEmailLambdaVersionlaghBJAbbuRe9QsIiUc2n0tF7yaGOulD16c1xhuz0"
       }
     },
     "resources": {
@@ -11731,7 +11731,7 @@
       },
       "package": {
         "excludeDevDependencies": true,
-        "artifactDirectoryName": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z"
+        "artifactDirectoryName": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z"
       },
       "provider": {
         "$ref": "$[\"service\"][\"provider\"]"
@@ -11746,7 +11746,7 @@
     "isDashboardMonitoringPreconfigured": false
   },
   "package": {
-    "artifactDirectoryName": "serverless/nathan-api/dev/1630387675739-2021-08-31T05:27:55.739Z",
+    "artifactDirectoryName": "serverless/nathan-api/dev/1630393617084-2021-08-31T07:06:57.084Z",
     "artifact": ""
   }
 }

@@ -110,7 +110,7 @@ const findCameraDetailsByUserId = async (event) => {
         sites: true,
       },
     });
-    const cameraEmails = user.cameras.map((camera) => camera.smtp_user_name);
+    const cameraEmails = user.cameras.map((camera) => camera.email);
 
     const camera_details = await Promise.all(
       cameraEmails.map(async (email) => await cameraDetails(email))
