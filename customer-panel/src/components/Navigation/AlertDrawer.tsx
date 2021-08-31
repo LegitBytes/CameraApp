@@ -74,10 +74,10 @@ const AlertDrawer: React.FC<AlertDrawerProps> = ({ handleOpen, classes }) => {
       });
     };
   }, [getCameraAlerts]);
-
-  const getCameraAndSite = (smtp_user_name: string) => {
+ 
+  const getCameraAndSite = (email: string) => {
     const camera = userAlerts.cameras.find(
-      (camera) => camera.smtp_user_name === smtp_user_name
+      (camera) => camera.email === email
     );
     const site = userAlerts.sites.find(
       (site) => site.site_id === camera?.site_id

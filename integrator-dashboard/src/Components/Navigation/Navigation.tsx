@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 import { useNavigationStyles } from "./Styles";
 import {
@@ -18,6 +18,8 @@ import { useTheme } from "@material-ui/core/styles";
 import MobileMenu from "./MobileMenu";
 import { AuthRoutes } from "../../Utilities/Routes/AuthRoutes";
 import { AuthContext } from "../../Context/Auth";
+import { ErrorBoundary } from "react-error-boundary";
+import Fallback from "../../Shared/Fallback";
 
 const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
   const classes: ClassNameMap<
@@ -27,48 +29,44 @@ const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
   const theme: Theme = useTheme();
   const isMobile: boolean = useMediaQuery(theme.breakpoints.down("sm"));
   const { userId, userToken } = useContext(AuthContext);
-  return (
-    // <>
-    //   <AppBar elevation={0} position="fixed" className={classes.root}>
-    //     <Toolbar>
-    //       <div className={classes.brand} onClick={() => history.push("/")}>
-    //         <img src={CompanyLogo} alt="Company Logo" />
-    //         <Typography variant="h6">Camera-app</Typography>
-    //       </div>
-    //       {isMobile ? (
-    //         <MobileMenu classes={classes} />
-    //       ) : (
-    //         <DesktopView classes={classes} />
-    //       )}
-    //     </Toolbar>
-    //   </AppBar>
-    //   <div className={classes.containerStyles}>
-    //     <Routes />
-    //   </div>{" "}
-    // </>
 
+  //Error boundary config
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const onError = (error: Error, errorInfo: { componentStack: string }) => {
+    console.log("Logging -> ", error, errorInfo);
+    setErrorMessage(error.message);
+  };
+  return (
     <>
       {!userId || !userToken ? (
         <AuthRoutes />
       ) : (
         <>
           {" "}
-          <AppBar elevation={0} position="fixed" className={classes.root}>
-            <Toolbar>
-              <div className={classes.brand} onClick={() => history.push("/")}>
-                <img src={CompanyLogo} alt="Company Logo" />
-                <Typography variant="h6">Camera-app</Typography>
-              </div>
-              {isMobile ? (
-                <MobileMenu classes={classes} />
-              ) : (
-                <DesktopView classes={classes} />
-              )}
-            </Toolbar>
-          </AppBar>
-          <div className={classes.containerStyles}>
-            <Routes />
-          </div>{" "}
+          <ErrorBoundary
+            fallback={<Fallback errorMessage={errorMessage} />}
+            onError={onError}
+          >
+            <AppBar elevation={0} position="fixed" className={classes.root}>
+              <Toolbar>
+                <div
+                  className={classes.brand}
+                  onClick={() => history.push("/")}
+                >
+                  <img src={CompanyLogo} alt="Company Logo" />
+                  <Typography variant="h6">Camera-app</Typography>
+                </div>
+                {isMobile ? (
+                  <MobileMenu classes={classes} />
+                ) : (
+                  <DesktopView classes={classes} />
+                )}
+              </Toolbar>
+            </AppBar>
+            <div className={classes.containerStyles}>
+              <Routes />
+            </div>{" "}
+          </ErrorBoundary>
         </>
       )}
     </>

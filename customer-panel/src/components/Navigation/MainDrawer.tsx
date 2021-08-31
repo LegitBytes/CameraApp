@@ -252,10 +252,10 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
     customer: string,
     site: string,
     camera_name: string,
-    smtp: string
+    email: string
   ) => {
-    history.push(`/main/${customer}/${site}/${camera_name}@${smtp}`);
-    setRoute(`/main/${customer}/${site}/${camera_name}@${smtp}`);
+    history.push(`/main/${customer}/${site}/${camera_name}-${email}`);
+    setRoute(`/main/${customer}/${site}/${camera_name}-${email}`);
   };
 
   return (
@@ -366,7 +366,7 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
                             camera.change_name
                               ? camera.change_name
                               : camera.camera_name,
-                            camera.smtp_user_name
+                            camera.email
                           )
                         }
                         labelIcon={
@@ -458,7 +458,7 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
                         lonerSiteCamera.change_name
                           ? lonerSiteCamera.change_name
                           : lonerSiteCamera.camera_name,
-                        lonerSiteCamera.smtp_user_name
+                        lonerSiteCamera.email
                       )
                     }
                     labelIcon={
@@ -513,7 +513,7 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
                     lonerCamera.change_name
                       ? lonerCamera.change_name
                       : lonerCamera.camera_name,
-                    lonerCamera.smtp_user_name
+                    lonerCamera.email
                   )
                 }
                 labelIcon={

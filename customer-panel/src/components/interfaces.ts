@@ -3,6 +3,7 @@ export interface camera {
   smtp_user_name: string;
   camera_name: string;
   change_name: null | string;
+  email: string;
 }
 export interface site {
   site_id: string;
@@ -20,8 +21,8 @@ export interface user {
   user_id: string;
   user_email: string;
   customers: customer[];
-  sites: site[],
-  cameras: camera[]
+  sites: site[];
+  cameras: camera[];
 }
 
 interface Label {
@@ -53,6 +54,7 @@ export interface alertUser {
     smtp_user_name: string;
     camera_name: string;
     site_id: string;
+    email: string;
   }>;
   sites: Array<{
     site_id: string;

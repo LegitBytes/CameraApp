@@ -61,7 +61,8 @@ const Timeline: React.FC<TimelineProps> = ({
                   : `Click to scale from ${scaleFromTo(item)}`
               }
               arrow
-              placement="bottom" 
+              placement="bottom"
+              key={item}
             >
               <div
                 style={{

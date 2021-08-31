@@ -40,7 +40,6 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
     email: "",
     password: "",
   });
-
   const [errors, setErrors] = useState<Errors>({
     email: false,
     password: false,
@@ -109,6 +108,16 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
             "UserGroup"
           ) >= 0
         ) {
+
+          if(!user.attributes["custom:user_id"]){
+            handleOpen("left", "bottom", "User ID not found!");
+            return;
+          }
+
+          // const uid = user.attributes["custom:user_id"] || user.attributes["custom:integrator_id"]
+          // console.log(uid);
+          
+
           login(
             user.signInUserSession.idToken.jwtToken,
             user.attributes["custom:user_id"]

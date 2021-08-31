@@ -25,8 +25,10 @@ const MainDetails: React.FC<MainDetailsProps> = ({ handleOpen }) => {
   const classes = useStyles();
   const params: params = useParams();
   const { camera, customer, site } = params;
-  const camera_name = camera.split("@")[0];
-  const smtp_user_name = camera.split("@")[1];
+  console.log(camera);
+
+  const camera_name = camera.split("-")[0];
+  const email = camera.split("-")[1];
   const today: number = new Date().setHours(new Date().getHours(), 0, 0, 0);
   const yesterday: number = today - 24 * 60 * 60 * 1000;
 
@@ -45,7 +47,7 @@ const MainDetails: React.FC<MainDetailsProps> = ({ handleOpen }) => {
 
   const url =
     process.env.REACT_APP_API_URL +
-    `camera-details/${smtp_user_name}/${timeDuration.from}/${timeDuration.to}`;
+    `camera-details/${email}/${timeDuration.from}/${timeDuration.to}`;
 
   const getImageUrls = (data: cameraDetails) => {
     const imgUrls: string[] = [];
@@ -59,9 +61,7 @@ const MainDetails: React.FC<MainDetailsProps> = ({ handleOpen }) => {
       setTimestamp(data.timestamp);
     }
     if (data.rekognitionData && !!data.rekognitionData.length) {
-
       data.rekognitionData.forEach((item) => {
-        
         let imgUrl = Object.keys(item)[0];
         imgUrls.push(imgUrl);
       });

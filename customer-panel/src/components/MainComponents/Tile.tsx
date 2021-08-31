@@ -19,6 +19,7 @@ interface TileProps {
   camera: string;
   site: string;
   customer: string;
+  email: string
   //   handleOpen: (
   //     horizontal: "left" | "center" | "right",
   //     vertical: "top" | "bottom",
@@ -31,6 +32,7 @@ const Tile: React.FC<TileProps> = ({
   camera,
   site,
   customer,
+  email
   //   handleOpen,
 }) => {
   const classes = useTileStyles();
@@ -44,7 +46,8 @@ const Tile: React.FC<TileProps> = ({
 
   const url =
     process.env.REACT_APP_API_URL +
-    `camera-details/${smtp_user_name}/${yesterday}/${today}`;
+    // `camera-details/${smtp_user_name}/${yesterday}/${today}`;
+    `camera-details/${email}/${yesterday}/${today}`;
 
   const getImageUrl = (data: cameraDetails) => {
     if (data === undefined) {
