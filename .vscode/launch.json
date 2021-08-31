@@ -1,0 +1,27 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Serverless offline",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/serverless/bin/serverless",
+      // "program": "serverless",
+      "runtimeArgs": [
+        "--lazy"
+      ],
+      "protocol": "inspector",
+      "args": [
+        "offline",
+      ],
+      "sourceMaps": true,
+      "runtimeExecutable": "/Users/chetangulati/.nvm/versions/node/v15.11.0/bin/node",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "pwa-node"
+    }
+  ]
+}

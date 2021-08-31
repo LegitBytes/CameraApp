@@ -69,6 +69,15 @@ const serverlessConfiguration: AWS = {
       automatic: true,
       number: 4,
     },
+    "serverless-offline-sqs": {
+      autoCreate: true,
+      apiVersion: '2012-11-05',
+      endpoint: "http://0.0.0.0:9324",
+      region: "us-east-1",
+      accessKeyId: "root",
+      secretAccessKey: "root",
+      skipCacheInvalidation: false
+    },
     webpack: {
       webpackConfig: "./webpack.config.js",
       includeModules: true,
@@ -81,6 +90,7 @@ const serverlessConfiguration: AWS = {
   plugins: [
     "serverless-offline",
     "serverless-webpack",
+    "serverless-offline-sqs",
     "serverless-prune-plugin",
   ],
   package: {
@@ -127,7 +137,7 @@ const serverlessConfiguration: AWS = {
           "iam:DeletePolicy",
           "sqs:ReceiveMessage",
           "sqs:DeleteMessage",
-          "ses:SendMessage"
+          "ses:SendRawEmail"
         ],
         Resource: "*",
       },

@@ -12,6 +12,7 @@
     "npm": ">=7.6.0"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.27.0",
     "@prisma/client": "^2.24.0",
     "@types/nodemailer": "^6.4.4",
     "@types/random-words": "^1.1.2",
@@ -43,6 +44,7 @@
     "prisma": "^2.24.0",
     "serverless": "^2.23.0",
     "serverless-offline": "^7.0.0",
+    "serverless-offline-sqs": "^5.0.0",
     "serverless-prune-plugin": "^1.5.1",
     "serverless-webpack": "^5.5.0",
     "ts-loader": "^8.0.15",
