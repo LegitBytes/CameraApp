@@ -11,6 +11,7 @@ import constants from "@libs/constants";
 import { PrismaClient } from "@prisma/client";
 import { auth } from "./auth";
 import { isAuthorized } from "@libs/authUtil";
+import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
 
@@ -25,11 +26,13 @@ const addNewIntegrator: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
 
     if (authorized) {
       try {
-        const integrator = await prisma.integrators.create({
-          data: { ...JSON.parse(event.body) },
-        });
+        const integrator_id = uuidv4();
 
-        await auth(JSON.parse(event.body).email, integrator.integrator_id);
+        await auth(JSON.parse(event.body).email, integrator_id);
+
+        const integrator = await prisma.integrators.create({
+          data: { ...JSON.parse(event.body), integrator_id },
+        });
 
         return formatJSONResponseStatusCreated({
           message: constants.INTEGRATOR_SAVE,

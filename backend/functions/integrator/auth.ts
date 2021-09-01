@@ -35,29 +35,43 @@ export const auth = async (email, integrator_id) => {
       "Integrator created with userName :: ",
       createdIntegrator.User.Username
     );
+  } catch (err) {
+    if (err.code === "UsernameExistsException") {
+      console.log("Email already exists in Integrator Pool :: ", userPool);
+      return formatJSONResponseStatusBadRequest({
+        message: "Email already exists.",
+      });
+    } else {
+      console.log(
+        "Error while adding Integrator in Integrator Pool(adminCreateUser) :: ",
+        err
+      );
+      return formatJSONResponseStatusServerError({
+        message: "Error while adding Integrator in Integrator Pool",
+        err,
+      });
+    }
+  }
 
+  try {
     await cognitoIdp
       .adminAddUserToGroup({
         GroupName: "IntegratorGroup",
         UserPoolId: userPool,
-        Username: createdIntegrator.User.Username,
+        Username: email,
       })
       .promise();
     console.log(
       `Integrator with id ${integrator_id} is added to IntegratorGroup`
     );
   } catch (err) {
-    if (err.code === "UsernameExistsException") {
-      console.log("Integrator already exists in Integrator Pool :: ", userPool);
-      return formatJSONResponseStatusBadRequest({
-        message: "Integrator already exists.",
-      });
-    } else {
-      console.log("Error while adding Integrator in Integrator Pool :: ", err);
-      return formatJSONResponseStatusServerError({
-        message: "Error while adding Integrator in Integrator Pool",
-        err,
-      });
-    }
+    console.log(
+      "Error while adding Integrator in Integrator Pool (adminAddUserToGroup) :: ",
+      err
+    );
+    return formatJSONResponseStatusServerError({
+      message: "Error while adding Integrator in Integrator Pool",
+      err,
+    });
   }
 };

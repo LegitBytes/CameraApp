@@ -30,27 +30,41 @@ export const auth = async (email, user_id) => {
   try {
     const createdUser = await cognitoIdp.adminCreateUser(params).promise();
     console.log("User created with userName :: ", createdUser.User.Username);
-
-    await cognitoIdp
-      .adminAddUserToGroup({
-        GroupName: "UserGroup",
-        UserPoolId: userPool,
-        Username: createdUser.User.Username,
-      })
-      .promise();
-    console.log(`User with id ${user_id} is added to UserGroup`);
   } catch (err) {
     if (err.code === "UsernameExistsException") {
-      console.log("User already exists in User Pool :: ", userPool);
+      console.log("Email already exists in User Pool :: ", userPool);
       return formatJSONResponseStatusBadRequest({
-        message: "User already exists.",
+        message: "Email already exists.",
       });
     } else {
-      console.log("Error while adding User in User Pool :: ", err);
+      console.log(
+        "Error while adding User in User Pool (adminCreateUser) :: ",
+        err
+      );
       return formatJSONResponseStatusServerError({
         message: "Error while adding User in User Pool",
         err,
       });
     }
+  }
+
+  try {
+    await cognitoIdp
+      .adminAddUserToGroup({
+        GroupName: "UserGroup",
+        UserPoolId: userPool,
+        Username: email,
+      })
+      .promise();
+    console.log(`User with id ${user_id} is added to UserGroup`);
+  } catch (err) {
+    console.log(
+      "Error while adding User in User Pool (adminAddUserToGroup) :: ",
+      err
+    );
+    return formatJSONResponseStatusServerError({
+      message: "Error while adding User in User Pool",
+      err,
+    });
   }
 };

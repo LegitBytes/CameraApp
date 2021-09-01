@@ -11,6 +11,7 @@ import constants from "@libs/constants";
 import { PrismaClient } from "@prisma/client";
 import { auth } from "./auth";
 import { isAuthorized } from "@libs/authUtil";
+import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
 
@@ -49,8 +50,13 @@ const addNewUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         });
       }
 
+      const user_id = uuidv4();
+
+      await auth(user_email, user_id);
+
       const user = await prisma.users.create({
         data: {
+          user_id,
           groups: {
             connect: { group_id },
           },
@@ -80,8 +86,6 @@ const addNewUser: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
           cameras: true,
         },
       });
-
-      await auth(user_email, user.user_id);
 
       return formatJSONResponseStatusCreated({
         message: constants.USER_SAVE,
