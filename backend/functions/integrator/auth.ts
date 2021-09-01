@@ -41,20 +41,26 @@ export const auth = async (email, integrator_id) => {
     }).promise()
     .then(data => {
       console.log("Added Integrator group :: ", data);
-      return formatJSONResponseStatusCreated({
-        message: "Integrator added successfully"
-      })  
+      return {
+        message: "Integrator added successfully",
+        response: true
+      }
     })
     .catch(err => {
       console.log("Unable to update group :: ", err);
+      return {
+        message: "Unable to update group",
+        response: false
+      };
     })
     
   })
   .catch(err => {
     console.log("Unable to add Email ID :: ", err);
-    return formatJSONResponseStatusBadRequest({
-      message: "Email already exists"
-    });
+    return {
+      message: "Email already exists",
+      response: false
+    };
   })
 
 

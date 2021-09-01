@@ -137,6 +137,7 @@ const serverlessConfiguration: AWS = {
           "iam:DeletePolicy",
           "sqs:ReceiveMessage",
           "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes",
           "ses:SendRawEmail"
         ],
         Resource: "*",

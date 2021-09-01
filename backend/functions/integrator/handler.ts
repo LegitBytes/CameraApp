@@ -28,7 +28,9 @@ const addNewIntegrator: ValidatedEventAPIGatewayProxyEvent<typeof schema> =
       try {
         const integrator_id = uuidv4();
 
-        await auth(JSON.parse(event.body).email, integrator_id);
+        const {response, message} =  await auth(JSON.parse(event.body).email, integrator_id)
+        
+        if(!response) return formatJSONResponseStatusBadRequest({message})
 
         const integrator = await prisma.integrators.create({
           data: { ...JSON.parse(event.body), integrator_id },
