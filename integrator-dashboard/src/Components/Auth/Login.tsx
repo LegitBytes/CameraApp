@@ -110,7 +110,7 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
         ) {
           login(
             user.signInUserSession.idToken.jwtToken,
-            user.attributes["custom:user_id"],
+            "admin",
             true
           );
         } else {
