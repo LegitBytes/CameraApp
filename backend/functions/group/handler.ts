@@ -27,7 +27,9 @@ const addNewGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       const group = await prisma.groups.create({
         data: {
           group_name,
-          integrator_id,
+          integrators: {
+            connect: { integrator_id },
+          },
         },
       });
 
@@ -239,18 +241,87 @@ const updateGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     const { group_name, integrator_id } = JSON.parse(event.body);
     const group_id = event.pathParameters.groupId;
     try {
+      const group = await prisma.groups.findUnique({
+        where: {
+          group_id,
+        },
+        select: {
+          group_id: true,
+          group_name: true,
+          change_name: true,
+          is_disabled: true,
+          createdAt: true,
+          updatedAt: true,
+          integrators: true,
+          cameras: true,
+          customers: true,
+          sites: true,
+          users: true,
+        },
+      });
+
+      const {
+        change_name,
+        is_disabled,
+        createdAt,
+        updatedAt,
+        cameras,
+        customers,
+        sites,
+        users,
+      } = group;
+
+      const camera_ids = cameras.map((camera) => camera.camera_id);
+      const customer_ids = customers.map((customer) => customer.customer_id);
+      const site_ids = sites.map((site) => site.site_id);
+      const user_ids = users.map((user) => user.user_id);
+
       await prisma.groups.delete({
         where: {
           group_id,
         },
       });
 
-      await prisma.groups.upsert({
+      await prisma.groups.create({
+        data: {
+          group_id,
+          group_name,
+          integrator_id,
+        },
+      });
+
+      await prisma.groups.update({
         where: {
           group_id,
         },
-        update: { group_name, integrator_id },
-        create: { group_id, group_name, integrator_id },
+        data: {
+          group_name,
+          integrator_id,
+          change_name,
+          is_disabled,
+          createdAt,
+          updatedAt,
+          customers: {
+            connect: customer_ids.map((ci) => {
+              return { customer_id: ci };
+            }),
+          },
+          sites: {
+            connect: site_ids.map((si) => {
+              return { site_id: si };
+            }),
+          },
+          cameras: {
+            connect: camera_ids.map((ci) => {
+              return { camera_id: ci };
+            }),
+          },
+          users: {
+            connect: user_ids.map((ui) => {
+              return { user_id: ui };
+            }),
+          },
+        },
       });
       return formatJSONResponseStatusOk({
         message: constants.GROUP_UPDATE,
