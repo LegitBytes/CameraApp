@@ -106,7 +106,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ handleOpen }) => {
         setLoading(false);
         setShowSubmitDiv(true);
       }
-    } catch (err) {
+    } catch (err: any) {
       setLoading(false);
       handleOpen("left", "bottom", err.message);
     }
@@ -123,7 +123,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ handleOpen }) => {
       setLoading(false);
       handleOpen("left", "bottom", "Password changed successfully!");
       history.replace("/login");
-    } catch (err) {
+    } catch (err: any) {
       setLoading(false);
       handleOpen("left", "bottom", err.message);
     }
@@ -147,6 +147,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ handleOpen }) => {
           >
             Smart Alert Center
           </Typography>
+          <br />
           {!showSubmitDiv ? (
             <>
               <TextField
@@ -174,6 +175,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ handleOpen }) => {
                   Invalid Email
                 </Typography>
               )}
+              <br />
               <Button
                 disableElevation
                 className={classes.btnStyles}
@@ -197,7 +199,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ handleOpen }) => {
               >
                 The code is sent to your registered email address.
               </Typography>
-
+                <br/>
               <TextField
                 name="code"
                 type="text"
@@ -218,7 +220,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ handleOpen }) => {
                   ),
                 }}
               />
-
+              <br/>
               <TextField
                 name="password"
                 type={pwdType}
@@ -255,7 +257,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ handleOpen }) => {
                   Password should be at least 8 characters long
                 </Typography>
               )}
-
+              <br/>
               <TextField
                 name="cnfPassword"
                 type={cnfPwdType}
@@ -292,6 +294,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ handleOpen }) => {
                   Password and Confirm Passwords should be the same
                 </Typography>
               )}
+              <br/>
 
               <Button
                 disableElevation

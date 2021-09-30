@@ -142,7 +142,7 @@ const MainDetails: React.FC<MainDetailsProps> = ({ handleOpen }) => {
 
   return (
     <MainDetailsView
-      camera_name={camera_name}
+      camera_name={`${camera_name} - ${email}`}
       site={site}
       customer={customer}
       classes={classes}

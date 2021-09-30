@@ -12,7 +12,7 @@ interface ButtonsProps {
   margin?: number | undefined;
   fullWidth?: boolean;
   htmlType?: "submit" | "button";
-  disabled?: boolean
+  disabled?: boolean;
 }
 
 const useButtonStyles = (
@@ -23,21 +23,37 @@ const useButtonStyles = (
       background: "#676767",
       color: "#fff",
       margin: margin ? margin : 5,
+      "&:hover": {
+        background: "#676767",
+        color: "#fff",
+      },
     },
     danger: {
-      background: "#DC3545",
+      background: "#F11D05",
       color: "#fff",
       margin: margin ? margin : 5,
+      "&:hover": {
+        background: "#F11D05",
+        color: "#fff",
+      },
     },
     primary: {
-      background: "#0079FE",
+      background: "#007BFF",
       color: "#fff",
       margin: margin ? margin : 5,
+      "&:hover": {
+        background: "#007BFF",
+        color: "#fff",
+      },
     },
     success: {
-      background: "#28A745",
+      background: "#29a329",
       color: "#fff",
       margin: margin ? margin : 5,
+      "&:hover": {
+        background: "#29a329",
+        color: "#fff",
+      },
     },
   }));
   const classes = useStyles();
@@ -54,7 +70,7 @@ const Buttons: React.FC<ButtonsProps> = ({
   fullWidth,
   htmlType,
   href,
-  disabled
+  disabled,
 }) => {
   const classes: ClassNameMap<"dark" | "danger" | "primary" | "success"> =
     useButtonStyles(margin);

@@ -125,7 +125,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ handleOpen }) => {
 
         setLoading(false);
         history.replace("/");
-      } catch (err) {
+      } catch (err: any) {
         console.log(err);
         setLoading(false);
         handleOpen("left", "bottom", err.message);
@@ -151,6 +151,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ handleOpen }) => {
           >
             Smart Alert Center
           </Typography>
+          <br />
           <TextField
             name="password"
             type={pwdType}
@@ -182,12 +183,12 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ handleOpen }) => {
               ),
             }}
           />
+          <br />
           {errors.password && (
             <Typography variant="overline" style={{ color: "#fff" }}>
               Password should be at least 8 characters long
             </Typography>
           )}
-
           <TextField
             name="cnfPassword"
             type={cnfPwdType}
@@ -219,12 +220,12 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ handleOpen }) => {
               ),
             }}
           />
+          <br />
           {errors.cnfPassword && (
             <Typography variant="overline" style={{ color: "#fff" }}>
               Password and Confirm Passwords should be the same
             </Typography>
           )}
-
           <Button
             disableElevation
             className={classes.btnStyles}

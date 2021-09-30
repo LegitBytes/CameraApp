@@ -1,6 +1,6 @@
 import { makeStyles, createStyles, Theme } from "@material-ui/core";
 /********************--Styles--*************************/
-const drawerWidth = 270;
+const drawerWidth = 300;
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -99,6 +99,14 @@ export const useStyles = makeStyles((theme: Theme) =>
       height: 30,
       borderRadius: 5,
       border: "1px solid #fff"
+    },
+    listHeaderStyles: {
+      // margin: '10px 0 10px 0',
+      padding: 5,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      borderBottom: "2px solid #fff",
     }
   })
 );

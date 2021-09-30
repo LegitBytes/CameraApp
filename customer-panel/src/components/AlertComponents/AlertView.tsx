@@ -42,7 +42,7 @@ const AlertView: React.FC<AlertViewProps> = ({
       ) : (
         <>
           <Typography variant="body2" className={classes.ts1}>
-            {dateTime}/{camera} - {site} ({alert.fromemail}){" "}
+            {dateTime} {camera.length && site.length ? `/${camera} - ${site}`: ''} ({alert.fromemail}){" "}
           </Typography>
           { checked && <Fade in={checked}>
             <div className={classes.response}>

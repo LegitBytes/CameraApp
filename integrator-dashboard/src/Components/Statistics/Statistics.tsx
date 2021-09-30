@@ -74,40 +74,34 @@ const Statistics: React.FC = () => {
         siteUrl
       );
 
-      const groupResponse: AxiosResponse<{ groups: Group[] }> = await axios.get(
-        groupUrl
-      );
-      const integratorResponse: AxiosResponse<{ integrators: Integrator[] }> =
-        await axios.get(integratorUrl);
-
-      let sites: Site[] = [];
-      let groups: Group[] = []
-      if (!isSuperAdmin) {
-        sites = response.data.sites.filter(site => site.integrators.integrator_id === userId)
-        groups = groupResponse.data.groups.filter(group => group.integrators.integrator_id === userId)
-      }else{
-        sites = response.data.sites
-        groups = groupResponse.data.groups
+      if (isSuperAdmin) {
+        const integratorResponse: AxiosResponse<{ integrators: Integrator[] }> =
+          await axios.get(integratorUrl);
+        const formattedIntegratorStats = getIntegratorStats(
+          integratorResponse.data.integrators,
+          res.data.camera_details
+        );
+        const groupResponse: AxiosResponse<{ groups: Group[] }> =
+          await axios.get(groupUrl);
+        const formattedGroupStats = getGroupStats(
+          groupResponse.data.groups,
+          res.data.camera_details
+        );
+        setIntegratorStats(formattedIntegratorStats);
+        setGroupeStats(formattedGroupStats);
       }
 
-      let formattedSiteStats = getSiteStats(
-        sites,
-        res.data.camera_details
-      );
+      let sites: Site[] = [];
+      if (!isSuperAdmin) {
+        sites = response.data.sites.filter(
+          (site) => site.integrators.integrator_id === userId
+        );
+      } else {
+        sites = response.data.sites;
+      }
 
-      let formattedGroupStats = getGroupStats(
-        groups,
-        res.data.camera_details
-      );
-
-      let formattedIntegratorStats = getIntegratorStats(
-        integratorResponse.data.integrators,
-        res.data.camera_details
-      );
-
+      let formattedSiteStats = getSiteStats(sites, res.data.camera_details);
       setSiteStats(formattedSiteStats);
-      setGroupeStats(formattedGroupStats);
-      setIntegratorStats(formattedIntegratorStats);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -122,6 +116,8 @@ const Statistics: React.FC = () => {
     return () => {
       setCameraStats([]);
       setSiteStats([]);
+      setGroupeStats([]);
+      setIntegratorStats([]);
     };
   }, [getStatistics]);
 
@@ -264,7 +260,7 @@ const Statistics: React.FC = () => {
               <Grid item xs={12} sm={12} md={6} style={{ marginBottom: 10 }}>
                 <Paper elevation={5} className={classes.paperStyles}>
                   <Bar
-                    type="bar1"
+                    // type="bar1"
                     data={integratorData}
                     options={getOptions("Integrator")}
                   />
@@ -273,7 +269,7 @@ const Statistics: React.FC = () => {
               <Grid item xs={12} sm={12} md={6} style={{ marginBottom: 10 }}>
                 <Paper elevation={5} className={classes.paperStyles}>
                   <Bar
-                    type="bar1"
+                    // type="bar1"
                     data={groupData}
                     options={getOptions("Group")}
                   />
@@ -283,13 +279,13 @@ const Statistics: React.FC = () => {
           )}
           <Grid item xs={12} sm={12} md={6}>
             <Paper elevation={5} className={classes.paperStyles}>
-              <Bar type="bar1" data={siteData} options={getOptions("Site")} />
+              <Bar data={siteData} options={getOptions("Site")} />
             </Paper>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <Paper elevation={5} className={classes.paperStyles}>
               <Bar
-                type="bar"
+                // type="bar"
                 data={cameraData}
                 options={getOptions("Camera")}
               />

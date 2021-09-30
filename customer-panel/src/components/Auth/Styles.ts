@@ -24,7 +24,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         width: "90%",
       },
       width: "30%",
-      marginTop: 20,
+      // marginTop: 20,
       background: "#fff",
       borderRadius: 5,
     },
@@ -33,7 +33,7 @@ export const useStyles = makeStyles((theme: Theme) =>
         width: "90%",
       },
       width: "30%",
-      marginTop: 20,
+      // marginTop: 20,
       background: "#3C56A6",
       color: "#fff",
       "&:hover": {
@@ -46,6 +46,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     iconStyle: {
       color: "#676767",
-    },
+    }
   })
 );

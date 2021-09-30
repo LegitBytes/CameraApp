@@ -129,7 +129,7 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
           setLoading(false);
         }
       }
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
       setLoading(false);
       handleOpen("left", "bottom", err.message);
@@ -154,6 +154,7 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
           >
             Smart Alert Center
           </Typography>
+          <br />
           <TextField
             name="email"
             type="email"
@@ -180,6 +181,7 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
               Invalid Email
             </Typography>
           )}
+          <br />
           <TextField
             name="password"
             type={pwdType}
@@ -216,6 +218,7 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
               Password should be at least 8 characters long
             </Typography>
           )}
+          <br />
           <Button
             disableElevation
             className={classes.btnStyles}
@@ -225,7 +228,7 @@ const Login: React.FC<LoginProps> = ({ handleOpen }) => {
           >
             Login
           </Button>
-
+            <br />
           <Typography
             variant="overline"
             style={{

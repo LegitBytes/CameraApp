@@ -1,5 +1,5 @@
 import React, { useReducer, createContext, Reducer } from "react";
-
+import axios from "axios";
 interface State {
   userToken: string | undefined | boolean;
   userId: string | undefined | boolean;
@@ -7,7 +7,9 @@ interface State {
 }
 interface Action {
   type: "LOGIN" | "LOGOUT";
-  payload: undefined | { userToken: string, userId: string, isSuperAdmin: boolean };
+  payload:
+    | undefined
+    | { userToken: string; userId: string; isSuperAdmin: boolean };
 }
 
 const initialState: State = {
@@ -31,7 +33,7 @@ const authReducer: Reducer<State, Action> = (state: State, action) => {
         ...state,
         userId: action.payload?.userId,
         userToken: action.payload?.userToken,
-        isSuperAdmin: action.payload?.isSuperAdmin
+        isSuperAdmin: action.payload?.isSuperAdmin,
       };
     }
     case "LOGOUT": {
@@ -39,7 +41,7 @@ const authReducer: Reducer<State, Action> = (state: State, action) => {
         ...state,
         userToken: undefined,
         userId: undefined,
-        isSuperAdmin: false
+        isSuperAdmin: false,
       };
     }
     default:
@@ -51,6 +53,7 @@ function AuthProvider(props) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   const login = (userToken: string, userId: string, isSuperAdmin: boolean) => {
+    axios.defaults.headers.common["AUTHORIZATION"] = userToken;
     dispatch({
       type: "LOGIN",
       payload: { userToken, userId, isSuperAdmin },
@@ -58,6 +61,7 @@ function AuthProvider(props) {
   };
 
   const logout = () => {
+    axios.defaults.headers.common["AUTHORIZATION"] = "";
     dispatch({
       type: "LOGOUT",
       payload: { userToken: "", userId: "", isSuperAdmin: false },

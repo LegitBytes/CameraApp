@@ -10,7 +10,7 @@ import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import { ChangeEvent } from "react";
 import ModalComp from "../../shared/ModalComp";
 import ModalChild from "./ModalChild";
-import { IconButton, Typography } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import { AuthContext } from "../../context/Auth";
 import { RouteContext } from "../../context/RouteContext";
 
@@ -398,7 +398,7 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
               </StyledTreeItem>
             ))}
             {/***************************** Loner Site Level ******************************/}
-            {!!filteredLonerSites.length && (
+            {/* {!!filteredLonerSites.length && (
               <Typography
                 variant="h6"
                 style={{ color: "#fff", marginTop: 10, marginLeft: 5 }}
@@ -406,7 +406,7 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
                 {" "}
                 Orphan Sites
               </Typography>
-            )}
+            )} */}
 
             {filteredLonerSites.map((lonerSite) => (
               <StyledTreeItem
@@ -488,7 +488,7 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
               </StyledTreeItem>
             ))}
             {/******************************** Loner cameras *********************************/}
-            {!!filteredLonerCameras.length && (
+            {/* {!!filteredLonerCameras.length && (
               <Typography
                 variant="h6"
                 style={{ color: "#fff", marginTop: 10, marginLeft: 5 }}
@@ -496,7 +496,7 @@ const MainDrawer: React.FC<MainDrawerProp> = ({ classes, handleOpen }) => {
                 {" "}
                 Orphan Cameras
               </Typography>
-            )}
+            )} */}
             {filteredLonerCameras.map((lonerCamera: camera) => (
               <StyledTreeItem
                 labelText={

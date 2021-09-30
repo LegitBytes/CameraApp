@@ -19,6 +19,7 @@ interface DrawerCompProps {
     | "ml5"
     | "mr5"
     | "inputStyles"
+    | "listHeaderStyles"
   >;
   open: boolean;
 }

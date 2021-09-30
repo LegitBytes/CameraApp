@@ -1,0 +1,117 @@
+service: integrator-dashboard-v2
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-1
+
+plugins:
+  - serverless-hooks-plugin
+  - serverless-single-page-app-plugin
+
+custom:
+  bucketName: integrator-dashboard-fe-bucket
+  s3LocalPath: build
+  hooks:
+    # before:package:createDeploymentArtifacts:
+    #   - yarn build
+    after:aws:deploy:finalize:cleanup:
+      - serverless syncToS3
+
+package:
+  exclude:
+    - node_modules/**
+    - docs/**
+    - examples/**
+    - .github/**
+    - .gitignore
+    - gulpfile.js
+    - CHANGELOG.md
+    - ISSUE_TEMPLATE.md
+    - LICENSE.md
+    - README.md
+    - package.json
+    - package-lock.json
+
+resources:
+  Resources:
+    WebApp1S3Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.bucketName}
+        AccessControl: Private
+
+    WebApp1S3BucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket:
+          Ref: WebApp1S3Bucket
+        PolicyDocument:
+          Statement:
+            - Sid: AllowCloudFrontAccess
+              Effect: Allow
+              Principal:
+                AWS:
+                  Fn::Join:
+                    - ""
+                    - - "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity "
+                      - Ref: WebApp1CloudFrontOAI
+              Action:
+                - s3:GetObject
+              Resource: arn:aws:s3:::${self:custom.bucketName}/*
+
+    WebApp1CloudFrontDistribution:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Origins:
+            - DomainName: ${self:custom.bucketName}.s3.amazonaws.com
+              Id: WebApp1
+              # CustomOriginConfig:
+              #   HTTPPort: 80
+              #   HTTPSPort: 443
+              #   OriginProtocolPolicy: https-only
+              S3OriginConfig:
+                OriginAccessIdentity:
+                  Fn::Join:
+                    - ""
+                    - - "origin-access-identity/cloudfront/"
+                      - Ref: WebApp1CloudFrontOAI
+          Enabled: "true"
+          DefaultRootObject: index.html
+          CustomErrorResponses:
+            - ErrorCode: 403
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+          DefaultCacheBehavior:
+            AllowedMethods:
+              - DELETE
+              - GET
+              - HEAD
+              - OPTIONS
+              - PATCH
+              - POST
+              - PUT
+            TargetOriginId: WebApp1
+            ForwardedValues:
+              QueryString: "false"
+              Cookies:
+                Forward: none
+            ViewerProtocolPolicy: redirect-to-https
+          ViewerCertificate:
+            CloudFrontDefaultCertificate: true
+
+    WebApp1CloudFrontOAI:
+      Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+      Properties:
+        CloudFrontOriginAccessIdentityConfig:
+          Comment: Allow only S3 access
+
+  ## In order to print out the hosted domain via `serverless info` we need to define the DomainName output for CloudFormation
+  Outputs:
+    WebApp1S3BucketOutput:
+      Value:
+        "Ref": WebApp1S3Bucket
+    WebApp1CloudFrontDistributionOutput:
+      Value:
+        "Fn::GetAtt": [WebApp1CloudFrontDistribution, DomainName]
