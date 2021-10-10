@@ -459,7 +459,7 @@
           "package.json",
           "package-lock.json"
         ],
-        "artifactDirectoryName": "serverless/customer-panel-portal/dev/1631635641219-2021-09-14T16:07:21.219Z"
+        "artifactDirectoryName": "serverless/customer-panel-portal/dev/1633778039308-2021-10-09T11:13:59.308Z"
       },
       "resources": {
         "$ref": "$[\"service\"][\"resources\"]"
@@ -469,7 +469,7 @@
     "isDashboardMonitoringPreconfigured": false
   },
   "package": {
-    "artifactDirectoryName": "serverless/customer-panel-portal/dev/1631635641219-2021-09-14T16:07:21.219Z",
+    "artifactDirectoryName": "serverless/customer-panel-portal/dev/1633778039308-2021-10-09T11:13:59.308Z",
     "artifact": ""
   }
 }

@@ -108,7 +108,7 @@ const Tile: React.FC<TileProps> = ({
             className={classes.button}
             onClick={() =>
               history.push(
-                `/main/${customer}/${site}/${camera}-${smtp_user_name}`
+                `/main/${customer}/${site}/${camera}-${email}`
               )
             }
           >

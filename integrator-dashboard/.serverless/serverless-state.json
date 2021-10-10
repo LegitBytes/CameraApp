@@ -465,7 +465,7 @@
           "package.json",
           "package-lock.json"
         ],
-        "artifactDirectoryName": "serverless/integrator-dashboard-v2/dev/1631632594137-2021-09-14T15:16:34.137Z"
+        "artifactDirectoryName": "serverless/integrator-dashboard-v2/dev/1633777172499-2021-10-09T10:59:32.499Z"
       },
       "resources": {
         "$ref": "$[\"service\"][\"resources\"]"
@@ -475,7 +475,7 @@
     "isDashboardMonitoringPreconfigured": false
   },
   "package": {
-    "artifactDirectoryName": "serverless/integrator-dashboard-v2/dev/1631632594137-2021-09-14T15:16:34.137Z",
+    "artifactDirectoryName": "serverless/integrator-dashboard-v2/dev/1633777172499-2021-10-09T10:59:32.499Z",
     "artifact": ""
   }
 }

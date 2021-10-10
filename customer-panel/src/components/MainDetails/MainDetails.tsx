@@ -29,8 +29,9 @@ const MainDetails: React.FC<MainDetailsProps> = ({ handleOpen }) => {
 
   const camera_name = camera.split("-")[0];
   const email = camera.split("-")[1];
-  const today: number = new Date().setHours(new Date().getHours(), 0, 0, 0);
-  const yesterday: number = today - 24 * 60 * 60 * 1000;
+  //Changed to accomodate next hour [Aditya]
+  const today: number = new Date().setHours(new Date().getHours()+1, 0, 0, 0);
+  const yesterday: number = today - 25 * 60 * 60 * 1000;
 
   const [timeDuration, setTimeduration] = useState<{
     from: number;
