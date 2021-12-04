@@ -54,7 +54,7 @@ const Navigation: React.FC<RouteComponentProps> = ({ history }) => {
                   onClick={() => history.push("/")}
                 >
                   <img src={CompanyLogo} alt="Company Logo" />
-                  <Typography variant="h6">Camera-app</Typography>
+                  <Typography variant="h6">Smart Alert</Typography>
                 </div>
                 {isMobile ? (
                   <MobileMenu classes={classes} />
